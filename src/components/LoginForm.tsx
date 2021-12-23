@@ -1,0 +1,67 @@
+import React, { Component, SyntheticEvent } from 'react';
+import styled from 'styled-components'
+import AnimatedLabelInput from './AnimatedLabelInput';
+
+type LoginFormProps = {
+    className?: string
+}
+
+type LoginFormState = {
+}
+
+const Form = styled.form `
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+`
+
+const TextInput = styled.div `
+    border: none;
+    border-bottom: solid 1px #E3E2E2;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+`
+
+const LoginButton = styled.button `
+    background-color: #279F70;
+    border: none;
+    border-radius: 8px;
+    padding: 18px 24px;
+    margin: 40px auto 0 0;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
+
+// TODO: Replace with Link, rather than a, once router config is set up
+// TODO: Make the whole password + forgot password link a single component
+const ForgotPasswordLink = styled.div `
+    text-align: right;
+    margin-top: -48px;
+`
+
+const LoginButtonText = styled.span `
+    margin-right: 100px;
+`
+
+class LoginForm extends Component<LoginFormProps, LoginFormState> {
+    render() {
+        return (
+            <Form className={this.props.className}>
+                <TextInput>
+                    <AnimatedLabelInput label="Email Address"/>
+                </TextInput>
+                <TextInput>
+                    <AnimatedLabelInput label="Password"/>
+                </TextInput>
+                <ForgotPasswordLink><a href="/">Forgot password?</a></ForgotPasswordLink>
+                <LoginButton><LoginButtonText>Login</LoginButtonText><span>-&gt;</span></LoginButton>
+            </Form>
+        )
+    }
+}
+
+export default LoginForm;
