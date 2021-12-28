@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components'
 import { Row, Column, HeaderGroup, useTable } from 'react-table';
 
 interface RowData {
@@ -19,6 +20,35 @@ enum Status {
     INPROGRESS,
     APPROVED,
     DENIED
+}
+
+type StatusRenderProps = {
+    color: string
+    text: string
+}
+
+type StatusRenderMappings = {[key in Status]: StatusRenderProps}
+
+const statusRenderMappings: StatusRenderMappings = {
+    [Status.PENDING]: {color: '#F5C14F', text: "Pending"},
+    [Status.INPROGRESS]: {color: '#233984', text: "In Progress"},
+    [Status.APPROVED]: {color: '#279F70', text: "Approved"},
+    [Status.DENIED]: {color: '#EC3D08', text: "Denied"}
+}
+
+const ColoredDotSpan = styled.span `
+    &:before {
+        content: '\\25cf';
+        color: ${props => props.color};
+        margin-right: 5px;
+    }
+`
+
+const StatusCell = ({ status, ...props } : {status: Status}) => {
+    const {color, text} = statusRenderMappings[status];
+    return (
+        <ColoredDotSpan { ...{color} } >{text}</ColoredDotSpan>
+    )
 }
 
 const headerData : Array<Column<RowData>> =
@@ -56,6 +86,7 @@ const headerData : Array<Column<RowData>> =
     {
         Header: 'Status',
         accessor: 'status',
+        Cell: props => <StatusCell status={props.value}/>
     },
     {
         Header: 'Approver',
