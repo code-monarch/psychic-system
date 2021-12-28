@@ -1,14 +1,7 @@
-import { Component } from 'react';
 import styled from 'styled-components'
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
 import TransactionsView from '../components/TransactionsView'
-
-type DashboardState = {
-}
-
-type DashboardProps = {
-}
 
 const Screen = styled.div `
     flex: 1;
@@ -48,22 +41,18 @@ const navigationItems = [
     {text: "Notifications"}
 ];
 
-class Dashboard extends Component<DashboardProps, DashboardState> {
-    render() {
-        return (
-            <Screen>
-                <Header avatarUrl='https://placekitten.com/32/32'/>
-                <Body>
-                    <SideNav>
-                        <NavigationList itemSpacing={20} items={navigationItems}/>
-                    </SideNav>
-                    <Content>
-                        <TransactionsView></TransactionsView>
-                    </Content>
-                </Body>
-            </Screen>
-        )
-    }
+export default function Dashboard() {
+    return (
+        <Screen>
+            <Header avatarUrl='https://placekitten.com/32/32'/>
+            <Body>
+                <SideNav>
+                    <NavigationList itemSpacing={20} items={navigationItems}/>
+                </SideNav>
+                <Content>
+                    <TransactionsView></TransactionsView>
+                </Content>
+            </Body>
+        </Screen>
+    )
 }
-
-export default Dashboard;

@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import styled from 'styled-components'
 
 type ItemProps = {
@@ -7,46 +6,39 @@ type ItemProps = {
     // TODO: Add click nav
 }
 
-type NavigationListState = {
-}
-
 type NavigationListProps = {
     className?: string
-    isRow?: boolean
+    isHorizontal?: boolean
     itemSpacing?: number
     items: Array<ItemProps>
 }
 
-const getMarginString = (isRow?: boolean, spacing?: number) : string => {
+const getMarginString = (isHorizontal?: boolean, spacing?: number) : string => {
     const marginValue = spacing ? (spacing + 'px') : 0;
-    return isRow ? ('0 ' + marginValue) : (marginValue + ' 0');
+    return isHorizontal ? ('0 ' + marginValue) : (marginValue + ' 0');
 }
 
 const Item = styled.li `
     // TODO: icon CSS
 `
 
-const List = styled.ul<{isRow?: boolean, itemSpacing?: number}> `
+const List = styled.ul<{isHorizontal?: boolean, itemSpacing?: number}> `
     padding: 0;
     margin: 0;
     list-style: none;
 
     ${props => `
         ${Item} {
-            display: ${props.isRow ? 'inline' : 'block'};
-            margin: ${getMarginString(props.isRow, props.itemSpacing)}
+            display: ${props.isHorizontal ? 'inline' : 'block'};
+            margin: ${getMarginString(props.isHorizontal, props.itemSpacing)}
         }
     `}
 `
 
-class NavigationList extends Component<NavigationListProps, NavigationListState> {
-    render() {
-        return (
-            <List className = {this.props.className} isRow = {this.props.isRow || false} itemSpacing = {this.props.itemSpacing}>
-                {this.props.items.map((item) => <Item>{item.text}</Item>)}
-            </List>
-        )
-    }
+export default function NavigationList( { className, items, isHorizontal, itemSpacing } : NavigationListProps) {
+    return (
+        <List className = {className} isHorizontal = {isHorizontal || false} itemSpacing = {itemSpacing}>
+            {items.map((item) => <Item>{item.text}</Item>)}
+        </List>
+    )
 }
-
-export default NavigationList;

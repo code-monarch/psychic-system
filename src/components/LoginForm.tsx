@@ -1,13 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
 import styled from 'styled-components'
 import AnimatedLabelInput from './AnimatedLabelInput';
-
-type LoginFormProps = {
-    className?: string
-}
-
-type LoginFormState = {
-}
 
 const Form = styled.form `
     display: flex;
@@ -47,21 +39,17 @@ const LoginButtonText = styled.span `
     margin-right: 100px;
 `
 
-class LoginForm extends Component<LoginFormProps, LoginFormState> {
-    render() {
-        return (
-            <Form className={this.props.className}>
-                <TextInput>
-                    <AnimatedLabelInput label="Email Address"/>
-                </TextInput>
-                <TextInput>
-                    <AnimatedLabelInput label="Password"/>
-                </TextInput>
-                <ForgotPasswordLink><a href="/">Forgot password?</a></ForgotPasswordLink>
-                <LoginButton><LoginButtonText>Login</LoginButtonText><span>-&gt;</span></LoginButton>
-            </Form>
-        )
-    }
+export default function LoginForm( { className } : {className?: string } ) {
+    return (
+        <Form className={className}>
+            <TextInput>
+                <AnimatedLabelInput label="Email Address"/>
+            </TextInput>
+            <TextInput>
+                <AnimatedLabelInput label="Password"/>
+            </TextInput>
+            <ForgotPasswordLink><a href="/">Forgot password?</a></ForgotPasswordLink>
+            <LoginButton><LoginButtonText>Login</LoginButtonText><span>-&gt;</span></LoginButton>
+        </Form>
+    )
 }
-
-export default LoginForm;

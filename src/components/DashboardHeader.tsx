@@ -1,14 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
 import styled from 'styled-components'
 import emtechLogo from '../assets/images/emtech-logo.svg';
-
-type DashboardHeaderState = {
-}
-
-type DashboardHeaderProps = {
-    className?: string
-    avatarUrl: string
-}
 
 const Header = styled.div `
     display: flex;
@@ -41,19 +32,15 @@ const Avatar = styled.img `
     line-height: 32px;
 `
 
-class DashboardHeader extends Component<DashboardHeaderProps, DashboardHeaderState> {
-    render() {
-        return (
-            <Header className={this.props.className}>
-                <HeaderLeft>
-                    <Logo src = {emtechLogo}/>
-                </HeaderLeft>
-                <HeaderRight>
-                    <Avatar src = {this.props.avatarUrl}/>
-                </HeaderRight>
-            </Header>
-        )
-    }
+export default function DashboardHeader( { className, avatarUrl }: { className? : string, avatarUrl: string }) {
+    return (
+        <Header className={className}>
+            <HeaderLeft>
+                <Logo src = {emtechLogo}/>
+            </HeaderLeft>
+            <HeaderRight>
+                <Avatar src = {avatarUrl}/>
+            </HeaderRight>
+        </Header>
+    )
 }
-
-export default DashboardHeader;

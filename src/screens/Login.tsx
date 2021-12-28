@@ -1,13 +1,6 @@
-import React, { Component, SyntheticEvent } from 'react';
 import styled from 'styled-components'
 import LoginForm from '../components/LoginForm';
 import loginImage from '../assets/images/login-image.svg';
-
-type LoginScreenState = {
-}
-
-type LoginScreenProps = {
-}
 
 const Screen = styled.div `
   flex: 1;
@@ -83,30 +76,26 @@ const LoginText = styled.h1 `
   font-weight: bold;
 `
 
-class Login extends Component<LoginScreenProps, LoginScreenState> {
-    render() {
-        return (
-            <Screen>
-              <LeftPane>
-                <LogoPanel>EMTECH</LogoPanel>
-                <ImageWrapper>
-                  <img src={loginImage}/>
-                  <CallToAction>
-                    Access <span className="green">Digital Cash</span><br/>
-                    Like Never Before!
-                  </CallToAction>
-                </ImageWrapper>
-              </LeftPane>
-              <RightPane>
-                <SignUpPanel>Not a Member? <a href="/">Sign Up</a></SignUpPanel>
-                <LoginWrapper>
-                  <LoginText>Login</LoginText>
-                  <LoginForm/>
-                </LoginWrapper>
-              </RightPane>
-            </Screen>
-        )
-    }
+export default function Login() {
+    return (
+        <Screen>
+          <LeftPane>
+            <LogoPanel>EMTECH</LogoPanel>
+            <ImageWrapper>
+              <img src={loginImage}/>
+              <CallToAction>
+                Access <span className="green">Digital Cash</span><br/>
+                Like Never Before!
+              </CallToAction>
+            </ImageWrapper>
+          </LeftPane>
+          <RightPane>
+            <SignUpPanel>Not a Member? <a href="/">Sign Up</a></SignUpPanel>
+            <LoginWrapper>
+              <LoginText>Login</LoginText>
+              <LoginForm/>
+            </LoginWrapper>
+          </RightPane>
+        </Screen>
+    )
 }
-
-export default Login;

@@ -1,14 +1,5 @@
-import React, { Component, SyntheticEvent } from 'react';
+import { useState } from 'react'
 import styled from 'styled-components'
-
-type InputState = {
-    value: string
-}
-
-type InputProps = {
-    className?: string
-    label: string
-}
 
 type LabelProps = {
     hasText: boolean
@@ -49,27 +40,13 @@ const InputLabel = styled.label<LabelProps> `
     `}
 `
 
-class AnimatedLabelInput extends Component<InputProps, InputState> {
-    constructor(props: InputProps) {
-        super(props);
-        this.state = {
-            value: ''
-        }
-        this.handleChange = this.handleChange.bind(this);
-    }
+export default function AnimatedLabelInput( { className, label } : {className?: string, label: string } ) {
+    const [inputValue, setValue] = useState('');
 
-    handleChange(value: string) {
-        this.setState({value: value});
-    }
-
-    render() {
-        return (
-            <InputContainer className={this.props.className}>
-                <InputText type="text" value={this.state.value} onChange={(e) => {this.handleChange(e.target.value)}}/>
-                <InputLabel hasText={Boolean(this.state.value)}>{this.props.label}</InputLabel>
-            </InputContainer>
-        )
-    }
+    return (
+        <InputContainer className={className}>
+            <InputText type="text" value={inputValue} onChange={(e) => {setValue(e.target.value)}}/>
+            <InputLabel hasText={Boolean(inputValue)}>{label}</InputLabel>
+        </InputContainer>
+    )
 }
-
-export default AnimatedLabelInput;
