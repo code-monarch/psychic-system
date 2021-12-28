@@ -29,7 +29,8 @@ const SideNav = styled.div `
 `
 
 const Content = styled.div `
-
+    flex: 1;
+    display: flex;
 `
 
 // TODO: Add icons.
