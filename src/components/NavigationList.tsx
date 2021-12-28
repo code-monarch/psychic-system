@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components'
 
 type ItemProps = {
@@ -17,7 +17,7 @@ type NavigationListProps = {
     items: Array<ItemProps>
 }
 
-const getMarginString = (isRow?: boolean, spacing?: number) => {
+const getMarginString = (isRow?: boolean, spacing?: number) : string => {
     const marginValue = spacing ? (spacing + 'px') : 0;
     return isRow ? ('0 ' + marginValue) : (marginValue + ' 0');
 }

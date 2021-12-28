@@ -1,7 +1,8 @@
-import React, { Component, SyntheticEvent } from 'react';
+import { Component } from 'react';
 import styled from 'styled-components'
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
+import TransactionsView from '../components/TransactionsView'
 
 type DashboardState = {
 }
@@ -57,6 +58,7 @@ class Dashboard extends Component<DashboardProps, DashboardState> {
                         <NavigationList itemSpacing={20} items={navigationItems}/>
                     </SideNav>
                     <Content>
+                        <TransactionsView></TransactionsView>
                     </Content>
                 </Body>
             </Screen>
