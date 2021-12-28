@@ -40,12 +40,13 @@ const InputLabel = styled.label<LabelProps> `
     `}
 `
 
-export default function AnimatedLabelInput( { className, label } : {className?: string, label: string } ) {
+export default function AnimatedLabelInput( { className, label, isPassword } : {className?: string, label: string, isPassword?: boolean } ) {
     const [inputValue, setValue] = useState('');
+    const type = isPassword ? "password" : "text";
 
     return (
         <InputContainer className={className}>
-            <InputText type="text" value={inputValue} onChange={(e) => {setValue(e.target.value)}}/>
+            <InputText type={type} value={inputValue} onChange={(e) => {setValue(e.target.value)}}/>
             <InputLabel hasText={Boolean(inputValue)}>{label}</InputLabel>
         </InputContainer>
     )

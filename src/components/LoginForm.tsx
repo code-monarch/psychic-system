@@ -46,7 +46,7 @@ export default function LoginForm( { className } : {className?: string } ) {
                 <AnimatedLabelInput label="Email Address"/>
             </TextInput>
             <TextInput>
-                <AnimatedLabelInput label="Password"/>
+                <AnimatedLabelInput label="Password" isPassword/>
             </TextInput>
             <ForgotPasswordLink><a href="/">Forgot password?</a></ForgotPasswordLink>
             <LoginButton><LoginButtonText>Login</LoginButtonText><span>-&gt;</span></LoginButton>
