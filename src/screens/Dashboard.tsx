@@ -2,6 +2,11 @@ import styled from 'styled-components'
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
 import TransactionsView from '../components/TransactionsView'
+import dashboardIcon from '../assets/images/icons/dashboard.svg'
+import requestsIcon from '../assets/images/icons/requests.svg'
+import walletsIcon from '../assets/images/icons/wallets.svg'
+import manageUsersIcon from '../assets/images/icons/manage-users.svg'
+import notificationsIcon from '../assets/images/icons/notifications.svg'
 
 const Screen = styled.div `
     flex: 1;
@@ -33,13 +38,12 @@ const Content = styled.div `
     display: flex;
 `
 
-// TODO: Add icons.
 const navigationItems = [
-    {text: "Dashboard"},
-    {text: "Requests"},
-    {text: "Wallets"},
-    {text: "Manage Users"},
-    {text: "Notifications"}
+    {text: "Dashboard", icon: dashboardIcon},
+    {text: "Requests", icon: requestsIcon},
+    {text: "Wallets", icon: walletsIcon},
+    {text: "Manage Users", icon: manageUsersIcon},
+    {text: "Notifications", icon: notificationsIcon}
 ];
 
 export default function Dashboard() {

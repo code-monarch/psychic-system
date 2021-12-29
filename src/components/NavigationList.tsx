@@ -18,8 +18,11 @@ const getMarginString = (isHorizontal?: boolean, spacing?: number) : string => {
     return isHorizontal ? ('0 ' + marginValue) : (marginValue + ' 0');
 }
 
-const Item = styled.li `
-    // TODO: icon CSS
+const Item = styled.li<{ icon?: string }> `
+    ${props => props.icon && `
+        padding-left: 2em;
+        background: transparent url(${props.icon}) no-repeat center left;
+    `}
 `
 
 const List = styled.ul<{isHorizontal?: boolean, itemSpacing?: number}> `
@@ -30,7 +33,7 @@ const List = styled.ul<{isHorizontal?: boolean, itemSpacing?: number}> `
     ${props => `
         ${Item} {
             display: ${props.isHorizontal ? 'inline' : 'block'};
-            margin: ${getMarginString(props.isHorizontal, props.itemSpacing)}
+            margin: ${getMarginString(props.isHorizontal, props.itemSpacing)};
         }
     `}
 `
@@ -38,7 +41,7 @@ const List = styled.ul<{isHorizontal?: boolean, itemSpacing?: number}> `
 export default function NavigationList( { className, items, isHorizontal, itemSpacing } : NavigationListProps) {
     return (
         <List className = {className} isHorizontal = {isHorizontal || false} itemSpacing = {itemSpacing}>
-            {items.map((item) => <Item>{item.text}</Item>)}
+            {items.map((item) => <Item icon={item.icon}>{item.text}</Item>)}
         </List>
     )
 }
