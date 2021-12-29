@@ -143,8 +143,19 @@ const rowData : Array<RowData> = [
     }
 ]
 
+const TableWrapper = styled.div `
+    display: flex;
+    flex-direction: column;
+`
+
 const StyledHeader = styled(Table.Head) `
     background-color: #F5F5F5;
+`
+
+const Controls = styled.div `
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 `
 
 function TableHeader({ className, headerGroups }: { className?: string, headerGroups: HeaderGroup<RowData>[] }) {
@@ -187,7 +198,7 @@ function TableBody({ rows, prepareRow, ...tableBodyProps }: { rows: Row<RowData>
 }
 
 // TODO: Pass data in
-export default function PaginatedTable( { className }: { className? : string }) {
+export default function DynamicTable( { className }: { className? : string }) {
     const data = React.useMemo(() => rowData, []);
     const columns = React.useMemo(() => headerData, []);
     const tableInstance = useTable( { columns, data });
@@ -201,9 +212,16 @@ export default function PaginatedTable( { className }: { className? : string }) 
     } = tableInstance;
 
     return (
-        <Table className={ className } { ...{...getTableProps()} }>
-            <TableHeader className={ className } { ...{headerGroups} }/>
-            <TableBody className={ className } { ...{ rows, prepareRow, ...getTableBodyProps() } } />
-        </Table>
+        <TableWrapper>
+            <Controls>
+                <div>Search</div>
+                <div>Filter</div>
+                <div>Export</div>
+            </Controls>
+            <Table className={ className } { ...{...getTableProps()} }>
+                <TableHeader className={ className } { ...{headerGroups} }/>
+                <TableBody className={ className } { ...{ rows, prepareRow, ...getTableBodyProps() } } />
+            </Table>
+        </TableWrapper>
     )
 }
