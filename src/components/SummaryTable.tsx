@@ -6,7 +6,7 @@ const StyledTable = styled(Table) `
 `
 
 const Cell = styled(Table.TD) `
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
     line-height: 24px;
     text-align: center;
@@ -14,7 +14,6 @@ const Cell = styled(Table.TD) `
 
 const TableHead = styled(Table.Head) `
     font-size: 14px;
-    font-weight: normal;
     color: #828282;
 `
 
@@ -22,6 +21,7 @@ const Header = styled(Table.TH) `
     border-top: 1px solid #E3E2E2;
     border-left: 1px solid #E3E2E2;
     padding: 10px 0;
+    font-weight: 600;
 
     & ${TableHead}:first-child {
         border-left: none;

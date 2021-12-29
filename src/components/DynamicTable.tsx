@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Row, Column, HeaderGroup, useTable } from 'react-table';
 import Table from './Table'
+import searchIcon from '../assets/images/icons/search.svg'
+import filterIcon from '../assets/images/icons/filter.svg'
+import exportIcon from '../assets/images/icons/export.svg'
 
 interface RowData {
     id: string
@@ -148,28 +151,61 @@ const TableWrapper = styled.div `
     flex-direction: column;
 `
 
-const StyledHeader = styled(Table.Head) `
-    background-color: #F5F5F5;
+const Header = styled.div `
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+`
+
+const Totals = styled.div `
+    font-size: 14px;
+    font-weight: 600;
+    color: #828282;
 `
 
 const Controls = styled.div `
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    text-align:right;
+`
+
+const Control = styled.img `
+    height: 24px;
+    width: 24px;
+    margin-left: 24px;
+`
+
+const StyledTable = styled(Table) `
+    border-collapse: separate;
+    border-spacing: 0 16px;
+`
+
+const StyledTableHead = styled(Table.Head) `
+    background-color: #F5F5F5;
+    font-size: 14px;
+    font-weight: 600;
+`
+
+const StyledTableHeader = styled(Table.TH) `
+    padding: 16px 0;
+`
+
+const StyledTableBody = styled(Table.Body) `
+    font-size: 14px;
+    font-weight: 600;
 `
 
 function TableHeader({ className, headerGroups }: { className?: string, headerGroups: HeaderGroup<RowData>[] }) {
     return (
-        <StyledHeader {...className}>
+        <StyledTableHead {...className}>
         {
         headerGroups.map(headerGroup => (
             <Table.TR {...headerGroup.getHeaderGroupProps()}>
                 { headerGroup.headers.map(column => (
-                <Table.TH {...column.getHeaderProps()}>{column.render('Header')}</Table.TH>
+                <StyledTableHeader {...column.getHeaderProps()}>{column.render('Header')}</StyledTableHeader>
                 ))}
             </Table.TR>
         ))}
-        </StyledHeader>
+        </StyledTableHead>
     )
 }
 
@@ -185,7 +221,7 @@ function TableRow({ row }: { row: Row<RowData> }) {
 
 function TableBody({ rows, prepareRow, ...tableBodyProps }: { rows: Row<RowData>[], prepareRow: (row: Row<RowData>) => void }) {
     return (
-    <Table.Body {...tableBodyProps}>
+    <StyledTableBody {...tableBodyProps}>
        {
        rows.map(row => {
          prepareRow(row)
@@ -193,7 +229,7 @@ function TableBody({ rows, prepareRow, ...tableBodyProps }: { rows: Row<RowData>
            <TableRow {...{ row }}/>
          )
        })}
-     </Table.Body>
+     </StyledTableBody>
     )
 }
 
@@ -213,15 +249,18 @@ export default function DynamicTable( { className }: { className? : string }) {
 
     return (
         <TableWrapper>
-            <Controls>
-                <div>Search</div>
-                <div>Filter</div>
-                <div>Export</div>
-            </Controls>
-            <Table className={ className } { ...{...getTableProps()} }>
+            <Header>
+                <Totals>2030 Total Requests</Totals>
+                <Controls>
+                    <Control src={searchIcon} alt="Search"/>
+                    <Control src={filterIcon} alt="Filter"/>
+                    <Control src={exportIcon} alt="Export"/>
+                </Controls>
+            </Header>
+            <StyledTable className={ className } { ...{...getTableProps()} }>
                 <TableHeader className={ className } { ...{headerGroups} }/>
                 <TableBody className={ className } { ...{ rows, prepareRow, ...getTableBodyProps() } } />
-            </Table>
+            </StyledTable>
         </TableWrapper>
     )
 }

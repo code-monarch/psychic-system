@@ -7,7 +7,7 @@ const View = styled.div `
     display: flex;
     flex-direction: column;
     flex: 1; // TODO: Figure out how to determine this from parent
-    margin-left: 40px;
+    margin: 0 40px;
 `
 
 const Header = styled.h2 `
@@ -21,12 +21,6 @@ const Title = styled.h5 `
     font-weight: bold;
     font-size: 14px;
     text-transform: uppercase;
-`
-
-const SubTitle = styled.div `
-    font-size: 14px;
-    font-weight: normal;
-    color: #828282;
 `
 
 const TransactionsTable = styled(DynamicTable) `
@@ -52,7 +46,6 @@ export default function TransactionsView() {
             <Title>Summary (Tokens)</Title>
             <SummaryTable headers={summaryTableHeaders}/>
             <Title>Requests Queue</Title>
-            <SubTitle>2030 Total Requests</SubTitle>
             <TransactionsTable/>
         </View>
     )
