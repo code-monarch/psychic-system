@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
 import TransactionsView from '../components/TransactionsView'
+import WalletsView from '../components/WalletsView'
 import dashboardIcon from '../assets/images/icons/dashboard.svg'
 import requestsIcon from '../assets/images/icons/requests.svg'
 import walletsIcon from '../assets/images/icons/wallets.svg'
@@ -59,7 +60,9 @@ export default function Dashboard() {
                     <NavigationList itemSpacing={20} items={navigationItems}/>
                 </SideNav>
                 <Content>
-                    <TransactionsView displayName={displayName}></TransactionsView>
+                    {/* TODO: use Router to swap between views within the dashboard
+                    <TransactionsView displayName={displayName}></TransactionsView> */}
+                    <WalletsView displayName={displayName}></WalletsView>
                 </Content>
             </Body>
         </Screen>
