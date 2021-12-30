@@ -39,7 +39,7 @@ export default function WalletsView({ displayName }: { displayName: string }) {
     return (
         <View>
             <Header>Welcome {displayName}!</Header>
-            <Title>Summary (Tokens)</Title>
+            <Title>Summary (Wallets)</Title>
             <SummaryTable config={summaryTableConfig}/>
             <Title>Requests Queue</Title>
             <WalletsTable/>
