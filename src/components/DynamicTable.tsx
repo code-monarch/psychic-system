@@ -1,150 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { CSSObject } from 'styled-components'
 import { Row, Column, HeaderGroup, useTable } from 'react-table';
 import Table from './Table'
 import searchIcon from '../assets/images/icons/search.svg'
 import filterIcon from '../assets/images/icons/filter.svg'
 import exportIcon from '../assets/images/icons/export.svg'
 
-interface RowData {
-    id: string
-    organization: string
-    requestor: string
-    openDate: Date
-    amtRequested: number
-    amtApproved?: number
-    closeDate?: Date
-    status: Status
-    approver: string
-    walletAddress: string
-}
-
-enum Status {
-    PENDING,
-    INPROGRESS,
-    APPROVED,
-    DENIED
-}
-
-type StatusRenderProps = {
-    color: string
-    text: string
-}
-
-type StatusRenderMappings = {[key in Status]: StatusRenderProps}
-
-const statusRenderMappings: StatusRenderMappings = {
-    [Status.PENDING]: {color: '#F5C14F', text: "Pending"},
-    [Status.INPROGRESS]: {color: '#233984', text: "In Progress"},
-    [Status.APPROVED]: {color: '#279F70', text: "Approved"},
-    [Status.DENIED]: {color: '#EC3D08', text: "Denied"}
-}
-
-const ColoredDotSpan = styled.span `
-    &:before {
-        content: '\\25cf';
-        color: ${props => props.color};
-        margin-right: 5px;
-    }
-`
-
-const StatusCell = ({ status, ...props } : {status: Status}) => {
-    const {color, text} = statusRenderMappings[status];
-    return (
-        <ColoredDotSpan { ...{color} } >{text}</ColoredDotSpan>
-    )
-}
-
-const formatDate = (date: Date) : string => {
-    const year = '' + date.getFullYear()
-    const month = ('' + (date.getMonth() + 1)).padStart(2, '0');
-    const day = ('' + (date.getDate())).padStart(2, '0');
-
-    return [month, day, year].join('-');
-}
-
-const headerData : Array<Column<RowData>> =
-[
-    {
-        Header: 'ID',
-        accessor: 'id',
-    },
-    {
-        Header: 'Organization',
-        accessor: 'organization',
-    },
-    {
-        Header: 'Requestor',
-        accessor: 'requestor',
-    },
-    {
-        Header: 'Open Date',
-        accessor: 'openDate',
-        Cell: props => formatDate(props.value)
-    },
-    {
-        Header: 'Amount Requested',
-        accessor: 'amtRequested',
-    },
-    {
-        Header: 'Amount Approved',
-        accessor: 'amtApproved',
-        Cell: props => props.value || '\u2014'
-    },
-    {
-        Header: 'Close Date',
-        accessor: 'closeDate',
-        Cell: props => props.value? formatDate(props.value) : '\u2014'
-    },
-    {
-        Header: 'Status',
-        accessor: 'status',
-        Cell: props => <StatusCell status={props.value}/>
-    },
-    {
-        Header: 'Approver',
-        accessor: 'approver',
-    },
-    {
-        Header: 'Wallet Address',
-        accessor: 'walletAddress',
-    }
-];
-
-const rowData : Array<RowData> = [
-    {
-        id: "12345ABCDE",
-        organization: "Ministry of Health",
-        requestor: "Dr. Osas Obasi",
-        openDate: new Date(2021, 3, 2),
-        amtRequested: 200000,
-        status: Status.PENDING,
-        approver: "Carmelle Cadet",
-        walletAddress: "0865FGHD7439"
-    },
-    {
-        id: "12345ABCDF",
-        organization: "First Bank, Plc",
-        requestor: "Mr. Femi Obasi",
-        openDate: new Date(2021, 3, 2),
-        amtRequested: 1000000,
-        status: Status.INPROGRESS,
-        approver: "Carmelle Cadet",
-        walletAddress: "0865FGHD7439"
-    },
-    {
-        id: "12345ABCDG",
-        organization: "Wema Bank, Plc",
-        requestor: "Dr. Osas Obasi",
-        openDate: new Date(2021, 2, 2),
-        amtRequested: 1000000,
-        amtApproved: 1000000,
-        closeDate: new Date(2021, 3, 2),
-        status: Status.APPROVED,
-        approver: "Carmelle Cadet",
-        walletAddress: "0865FGHD7439"
-    }
-]
+type ColumnStyle = CSSObject | ((...args: any[]) => CSSObject);
 
 const TableWrapper = styled.div `
     display: flex;
@@ -165,18 +27,13 @@ const Totals = styled.div `
 `
 
 const Controls = styled.div `
-    text-align:right;
+    text-align: end;
 `
 
 const Control = styled.img `
     height: 24px;
     width: 24px;
     margin-left: 24px;
-`
-
-const StyledTable = styled(Table) `
-    border-collapse: separate;
-    border-spacing: 0 16px;
 `
 
 const StyledTableHead = styled(Table.Head) `
@@ -194,9 +51,21 @@ const StyledTableBody = styled(Table.Body) `
     font-weight: 600;
 `
 
-function TableHeader({ className, headerGroups }: { className?: string, headerGroups: HeaderGroup<RowData>[] }) {
+const StyledCell = styled(Table.TD)<{$columnStyle?: CSSObject}> `
+    padding: 10px;
+    ${({$columnStyle: $columnStyle}) => $columnStyle}
+`
+
+const getColumnStyle = (columnId: string, columnStyle?: ColumnStyle) => {
+    if(typeof columnStyle === 'function') {
+        return columnStyle(columnId);
+    }
+    return columnStyle;
+}
+
+function TableHeader<R extends object>({ className, headerGroups }: { className?: string, headerGroups: HeaderGroup<R>[] }) {
     return (
-        <StyledTableHead {...className}>
+        <StyledTableHead className={className}>
         {
         headerGroups.map(headerGroup => (
             <Table.TR {...headerGroup.getHeaderGroupProps()}>
@@ -209,34 +78,33 @@ function TableHeader({ className, headerGroups }: { className?: string, headerGr
     )
 }
 
-function TableRow({ row }: { row: Row<RowData> }) {
+function TableRow<R extends object>({ className, row, columnStyle }: { className?: string, row: Row<R>, columnStyle?: ColumnStyle }) {
     return (
-        <Table.TR {...row.getRowProps()}>
-            {row.cells.map(cell => (
-                <Table.TD {...cell.getCellProps()}>{cell.render('Cell')}</Table.TD>
+        <Table.TR className={className} {...row.getRowProps()}>
+            {row.cells.map((cell) => (
+                <StyledCell $columnStyle={getColumnStyle(cell.column.id, columnStyle)} {...cell.getCellProps()}>{cell.render('Cell')}</StyledCell>
             ))}
         </Table.TR>
     );
 }
 
-function TableBody({ rows, prepareRow, ...tableBodyProps }: { rows: Row<RowData>[], prepareRow: (row: Row<RowData>) => void }) {
+function TableBody<R extends object>({ className, rows, prepareRow, columnStyle, ...tableBodyProps }: { className?: string, rows: Row<R>[], prepareRow: (row: Row<R>) => void, columnStyle?: ColumnStyle }) {
     return (
-    <StyledTableBody {...tableBodyProps}>
+    <StyledTableBody className={className} {...tableBodyProps}>
        {
-       rows.map(row => {
+       rows.map((row, i) => {
          prepareRow(row)
          return (
-           <TableRow {...{ row }}/>
+           <TableRow key={i} {...{ row, columnStyle: columnStyle }}/>
          )
        })}
      </StyledTableBody>
     )
 }
 
-// TODO: Pass data in
-export default function DynamicTable( { className }: { className? : string }) {
+export default function DynamicTable<R extends object>( { className, columnData, rowData, columnStyle }: { className? : string, columnData: Column<R>[], rowData: R[], columnStyle?: ColumnStyle }) {
     const data = React.useMemo(() => rowData, []);
-    const columns = React.useMemo(() => headerData, []);
+    const columns = React.useMemo(() => columnData, []);
     const tableInstance = useTable( { columns, data });
 
     const {
@@ -250,17 +118,17 @@ export default function DynamicTable( { className }: { className? : string }) {
     return (
         <TableWrapper>
             <Header>
-                <Totals>2030 Total Requests</Totals>
+                <Totals>{rows.length} Total Requests</Totals>
                 <Controls>
                     <Control src={searchIcon} alt="Search"/>
                     <Control src={filterIcon} alt="Filter"/>
                     <Control src={exportIcon} alt="Export"/>
                 </Controls>
             </Header>
-            <StyledTable className={ className } { ...{...getTableProps()} }>
+            <Table className={ className } { ...{...getTableProps()} }>
                 <TableHeader className={ className } { ...{headerGroups} }/>
-                <TableBody className={ className } { ...{ rows, prepareRow, ...getTableBodyProps() } } />
-            </StyledTable>
+                <TableBody className={ className } { ...{ rows, prepareRow, columnStyle, ...getTableBodyProps() } } />
+            </Table>
         </TableWrapper>
     )
 }

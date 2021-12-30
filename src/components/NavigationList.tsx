@@ -41,7 +41,7 @@ const List = styled.ul<{isHorizontal?: boolean, itemSpacing?: number}> `
 export default function NavigationList( { className, items, isHorizontal, itemSpacing } : NavigationListProps) {
     return (
         <List className = {className} isHorizontal = {isHorizontal || false} itemSpacing = {itemSpacing}>
-            {items.map((item) => <Item icon={item.icon}>{item.text}</Item>)}
+            {items.map((item, i) => <Item key={i} icon={item.icon}>{item.text}</Item>)}
         </List>
     )
 }

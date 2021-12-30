@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-type LabelProps = {
-    hasText: boolean
-}
-
 const InputContainer = styled.div `
     display: flex;
     flex: 1;
@@ -20,7 +16,7 @@ const InputText = styled.input `
     flex: 1;
 `
 
-const InputLabel = styled.label<LabelProps> `
+const InputLabel = styled.label<{hasText: boolean}> `
     position: absolute;
     pointer-events: none;
     transform: translate(0, 20px) scale(1);

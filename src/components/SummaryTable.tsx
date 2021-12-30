@@ -28,15 +28,18 @@ const Header = styled(Table.TH) `
     }
 `
 
+// TODO: pass data in
 export default function SummaryTable({ headers }: {headers: string[]}) {
     return (
         <StyledTable>
             <TableHead>
+                <Table.TR>
                 {
-                    headers.map(header => (
-                        <Header>{header}</Header>
+                    headers.map((header, i) => (
+                        <Header key={i}>{header}</Header>
                     ))
                 }
+                </Table.TR>
             </TableHead>
             <Table.Body>
                 <Table.TR>
