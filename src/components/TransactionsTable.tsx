@@ -154,7 +154,7 @@ const columnAlignment = (columnId: string) : CSSObject => {
     }
 }
 
-export default function RequestsTable() {
+export default function TransactionsTable() {
     return (
         <DynamicTable columnData={columnData} columnStyle={columnAlignment} rowData={rowData}/>
     )

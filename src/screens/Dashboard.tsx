@@ -9,6 +9,11 @@ import walletsIcon from '../assets/images/icons/wallets.svg'
 import manageUsersIcon from '../assets/images/icons/manage-users.svg'
 import notificationsIcon from '../assets/images/icons/notifications.svg'
 
+export interface DashboardUserInfo {
+    avatarUrl: string,
+    displayName: string
+}
+
 const Screen = styled.div `
     flex: 1;
     display: flex;
@@ -47,14 +52,10 @@ const navigationItems = [
     {text: 'Notifications', icon: notificationsIcon}
 ];
 
- // TODO: Get from user session
-const displayName = 'Olaide';
-const avatarUrl = 'https://placekitten.com/32/32';
-
-export default function Dashboard() {
+export default function Dashboard({ userInfo }: { userInfo: DashboardUserInfo }) {
     return (
         <Screen>
-            <Header avatarUrl={avatarUrl}/>
+            <Header avatarUrl={userInfo.avatarUrl}/>
             <Body>
                 <SideNav>
                     <NavigationList itemSpacing={20} items={navigationItems}/>
@@ -62,7 +63,7 @@ export default function Dashboard() {
                 <Content>
                     {/* TODO: use Router to swap between views within the dashboard
                     <TransactionsView displayName={displayName}></TransactionsView> */}
-                    <WalletsView displayName={displayName}></WalletsView>
+                    <WalletsView displayName={userInfo.displayName}></WalletsView>
                 </Content>
             </Body>
         </Screen>
