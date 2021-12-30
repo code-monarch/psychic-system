@@ -31,7 +31,7 @@ const LoginButton = styled.button `
 // TODO: Replace with Link, rather than a, once router config is set up
 // TODO: Make the whole password + forgot password link a single component
 const ForgotPasswordLink = styled.div `
-    text-align: right;
+    text-align: end;
     margin-top: -48px;
 `
 

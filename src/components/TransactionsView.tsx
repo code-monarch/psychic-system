@@ -22,24 +22,25 @@ const Title = styled.h5 `
     text-transform: uppercase;
 `
 
-const summaryTableHeaders = [
-    "Requested",
-    "Burnt",
-    "Issued",
-    "Distributed",
-    "Redeemed",
-    "Rejected",
-    "In Circulation",
-    "Recovered",
-    "Available"
+// TODO: Get values from API
+const summaryTableConfig = [
+    { header: "Requested", value: "500,000" },
+    { header: "Burnt", value: "184,987" },
+    { header: "Issued", value: "400,000" },
+    { header: "Distributed", value: "20,030" },
+    { header: "Redeemed", value: "20,000" },
+    { header: "Rejected", value: "3450" },
+    { header: "In Circulation", value: "209,930" },
+    { header: "Recovered", value: "4200" },
+    { header: "Available", value: "480,000" }
 ]
 
-export default function TransactionsView() {
+export default function TransactionsView({ displayName }: { displayName: string }) {
     return (
         <View>
-            <Header>Welcome Olaide!</Header>
+            <Header>Welcome {displayName}!</Header>
             <Title>Summary (Tokens)</Title>
-            <SummaryTable headers={summaryTableHeaders}/>
+            <SummaryTable config={summaryTableConfig}/>
             <Title>Requests Queue</Title>
             <TransactionsTable/>
         </View>

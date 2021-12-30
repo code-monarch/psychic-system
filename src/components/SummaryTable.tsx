@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import Table from './Table';
 
+export interface SummaryTableData {
+    header: string,
+    value: string
+}
+
 const StyledTable = styled(Table) `
     margin: 20px 0;
 `
@@ -28,8 +33,9 @@ const Header = styled(Table.TH) `
     }
 `
 
-// TODO: pass data in
-export default function SummaryTable({ headers }: {headers: string[]}) {
+export default function SummaryTable({ config }: { config: SummaryTableData[] }) {
+    const headers = config.map(({ header }) => header)
+    const values = config.map(({ value }) => value)
     return (
         <StyledTable>
             <TableHead>
@@ -43,15 +49,11 @@ export default function SummaryTable({ headers }: {headers: string[]}) {
             </TableHead>
             <Table.Body>
                 <Table.TR>
-                    <Cell>500,000</Cell>
-                    <Cell>184,987</Cell>
-                    <Cell>400,000</Cell>
-                    <Cell>20,030</Cell>
-                    <Cell>20,000</Cell>
-                    <Cell>3450</Cell>
-                    <Cell>209,930</Cell>
-                    <Cell>4200</Cell>
-                    <Cell>480,000</Cell>
+                {
+                    values.map((data, i) => (
+                        <Cell key={i}>{data}</Cell>
+                    ))
+                }
                 </Table.TR>
             </Table.Body>
         </StyledTable>

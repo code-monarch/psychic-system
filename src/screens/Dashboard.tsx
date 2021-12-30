@@ -39,23 +39,27 @@ const Content = styled.div `
 `
 
 const navigationItems = [
-    {text: "Dashboard", icon: dashboardIcon},
-    {text: "Requests", icon: requestsIcon},
-    {text: "Wallets", icon: walletsIcon},
-    {text: "Manage Users", icon: manageUsersIcon},
-    {text: "Notifications", icon: notificationsIcon}
+    {text: 'Dashboard', icon: dashboardIcon},
+    {text: 'Requests', icon: requestsIcon},
+    {text: 'Wallets', icon: walletsIcon},
+    {text: 'Manage Users', icon: manageUsersIcon},
+    {text: 'Notifications', icon: notificationsIcon}
 ];
+
+ // TODO: Get from user session
+const displayName = 'Olaide';
+const avatarUrl = 'https://placekitten.com/32/32';
 
 export default function Dashboard() {
     return (
         <Screen>
-            <Header avatarUrl='https://placekitten.com/32/32'/>
+            <Header avatarUrl={avatarUrl}/>
             <Body>
                 <SideNav>
                     <NavigationList itemSpacing={20} items={navigationItems}/>
                 </SideNav>
                 <Content>
-                    <TransactionsView></TransactionsView>
+                    <TransactionsView displayName={displayName}></TransactionsView>
                 </Content>
             </Body>
         </Screen>
