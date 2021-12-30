@@ -118,8 +118,9 @@ export default function DynamicTable<R extends object>( { className, columnData,
     return (
         <TableWrapper>
             <Header>
-                <Totals>{rows.length} Total Requests</Totals>
+                <Totals>{rows.length} Total Requests</Totals> {/* TODO: pass in the name of the record type (e.g. "Request"), and add pluralization */}
                 <Controls>
+                    { /* TODO: Add search and filter capability */ }
                     <Control src={searchIcon} alt="Search"/>
                     <Control src={filterIcon} alt="Filter"/>
                     <Control src={exportIcon} alt="Export"/>
@@ -129,6 +130,7 @@ export default function DynamicTable<R extends object>( { className, columnData,
                 <TableHeader className={ className } { ...{headerGroups} }/>
                 <TableBody className={ className } { ...{ rows, prepareRow, columnStyle, ...getTableBodyProps() } } />
             </Table>
+            { /* TODO: Add pagination */ }
         </TableWrapper>
     )
 }
