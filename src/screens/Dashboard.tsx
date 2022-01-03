@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
+import DashboardView from '../components/DashboardView';
 import TransactionsView from '../components/TransactionsView'
 import WalletsView from '../components/WalletsView'
 import dashboardIcon from '../assets/images/icons/dashboard.svg'
@@ -63,7 +64,7 @@ export default function Dashboard({ userInfo }: { userInfo: DashboardUserInfo })
                 <Content>
                     {/* TODO: use Router to swap between views within the dashboard
                     <TransactionsView displayName={displayName}></TransactionsView> */}
-                    <WalletsView displayName={userInfo.displayName}></WalletsView>
+                    <DashboardView displayName={userInfo.displayName}></DashboardView>
                 </Content>
             </Body>
         </Screen>
