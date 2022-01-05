@@ -12,7 +12,7 @@ const normalize = (values: number[]) => {
 
 const Column = styled.div<{value: number, normalizer: (value: number, newMin: number, newMax: number) => number}> `
     height: ${props => props.normalizer(props.value, 10, 100)}%;
-    background-color: ${props => props.value > 0 ? 'green' : 'gray' };
+    background-color: ${props => props.value > 0 ? '#279F70' : '#E2E2E2' };
 `
 
 const Chart = styled.div<{columnCount: number}> `
