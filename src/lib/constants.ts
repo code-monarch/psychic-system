@@ -30,3 +30,8 @@ const LOCAL_STORAGE_KEY_PREFIX = 'CBDC__';
 export const LOCAL_STORAGE_KEYS = {
   WALLET_LIST: `${LOCAL_STORAGE_KEY_PREFIX}WALLET_LIST`,
 };
+
+export enum USER_ROLES {
+  CENTRAL_BANK = 'central bank',
+  INTEGRATOR = 'integrator',
+}
