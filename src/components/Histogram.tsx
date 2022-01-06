@@ -1,14 +1,5 @@
 import styled from 'styled-components'
-
-const normalize = (values: number[]) => {
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    return function(val: number, newMin = 0, newMax = 1, constant = 0.5) {
-        val = Math.min(Math.max(val, min), max);
-        const normalized = (min < max) ? ((val - min) / (max - min)) : constant;
-        return normalized * (newMax - newMin) + newMin;
-    }
-}
+import { normalize } from '../lib/utils'
 
 const Column = styled.div<{value: number, normalizer: (value: number, newMin: number, newMax: number) => number}> `
     height: ${props => props.normalizer(props.value, 10, 100)}%;
