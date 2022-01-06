@@ -7,6 +7,7 @@ export const GUEST_ROUTE = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   RESET_PASSWORD: '/reset-password',
+  PAGE_NOT_FOUND: '/404',
 };
 
 /**
@@ -14,9 +15,12 @@ export const GUEST_ROUTE = {
  */
 export const MEMBER_ROUTE = {
   HOME: '/',
-  // get PAGE_NOT_FOUND(): string {
-  //   return '/404';
-  // },
+  get DASHBOARD(): string {
+    return '/dashboard';
+  },
+  get PAGE_NOT_FOUND(): string {
+    return '/404';
+  },
 };
 
 

@@ -1,21 +1,28 @@
-import './App.css';
-import Login from './screens/Login';
-import Dashboard, { DashboardUserInfo } from './screens/Dashboard';
+import { useEffect, useState } from 'react';
+import { AppAuthenticated } from './AppAuthenticated';
+import { AppUnauthenticated } from './AppUnauthenticated';
+import { useAuth } from './context/auth-context';
+import { Loading } from './components/Loading';
 
-function App() {
-// TODO: Get from user session
-const userInfo = {
-  displayName: 'Olaide',
-  avatarUrl: 'https://placekitten.com/32/32'
-}
+export const App = (): JSX.Element => {
+  const { appUser, userRole } = useAuth();
+  const [userReady, setUserReady] = useState(false);
 
-  return (
-    <div className="App">
-      {/* TODO: use Router to swap between Login screen and Dashboard screen
-      <Login/> */}
-      <Dashboard userInfo={userInfo}/>
-    </div>
-  );
-}
 
-export default App;
+  useEffect(() => {
+    // Check if user data has been loaded before rendering for smoother page load and for analytics initialization
+    if (!!userRole && !!appUser?.id) {
+      setUserReady(true);
+    }
+  }, [userRole, appUser]);
+
+  if (appUser) {
+    return userReady && userRole ? (
+        <AppAuthenticated userRole={userRole} userId={appUser?._id} />
+    ) : (
+      <Loading />
+    );
+  }
+
+  return <AppUnauthenticated />;
+};

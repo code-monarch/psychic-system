@@ -76,7 +76,7 @@ const LoginText = styled.h1 `
   font-weight: bold;
 `
 
-export default function Login() {
+export const Login = () => {
     return (
         <Screen>
           <LeftPane>
