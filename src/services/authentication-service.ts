@@ -50,6 +50,7 @@ export class AuthenticationService {
   /**
    * @description
    * Checks if there is a currently logged in user.
+   * fetch cached user token to determine if user is already logged in
    */
   static async getUser() {
     try {

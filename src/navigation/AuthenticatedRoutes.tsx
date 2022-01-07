@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Redirect, Route, RouteProps, Switch, useLocation } from 'react-router-dom';
 import { Loading } from '../components/Loading';
-import {GUEST_ROUTE, MEMBER_ROUTE, USER_ROLES} from '../lib/constants';
+import { MEMBER_ROUTE, USER_ROLES} from '../lib/constants';
 import Dashboard from "../pages/Dashboard";
 
 const mapRoute = (route: RouteProps, index: number) => <Route key={index} {...route} />;
@@ -21,15 +21,6 @@ export const AuthenticatedRoutes = ({ userId, userRole }: IProps): JSX.Element =
   useEffect(() => {
       window.scrollTo(0, 0);
   }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // check if we are calling an anautheticated route, so we can redirect to the app
-  // const isUnauthenticatedRoute = guestRoutes.some((route) => {
-  //   // all routes inlucde the home route, so do an explicit check first
-  //   if (route.path === GUEST_ROUTE.HOME && location.pathname !== GUEST_ROUTE.HOME) {
-  //     return false;
-  //   }
-  //   return location.pathname.includes(route.path as string);
-  // });
 
   if (userRole === USER_ROLES.CENTRAL_BANK) {
     return (
