@@ -9,11 +9,7 @@ import requestsIcon from '../assets/images/icons/requests.svg'
 import walletsIcon from '../assets/images/icons/wallets.svg'
 import manageUsersIcon from '../assets/images/icons/manage-users.svg'
 import notificationsIcon from '../assets/images/icons/notifications.svg'
-
-export interface DashboardUserInfo {
-    avatarUrl: string,
-    displayName: string
-}
+import {useAuth} from "../context/auth-context";
 
 const Screen = styled.div `
     flex: 1;
@@ -53,10 +49,11 @@ const navigationItems = [
     {text: 'Notifications', icon: notificationsIcon}
 ];
 
-export default function Dashboard({ userInfo }: { userInfo: DashboardUserInfo }) {
+export default function Dashboard() {
+    const { appUser, userRole } = useAuth();
     return (
         <Screen>
-            <Header avatarUrl={userInfo.avatarUrl}/>
+            <Header avatarUrl={appUser.avatarUrl}/>
             <Body>
                 <SideNav>
                     <NavigationList itemSpacing={20} items={navigationItems}/>
@@ -64,7 +61,7 @@ export default function Dashboard({ userInfo }: { userInfo: DashboardUserInfo })
                 <Content>
                     {/* TODO: use Router to swap between views within the dashboard
                     <TransactionsView displayName={displayName}></TransactionsView> */}
-                    <DashboardView displayName={userInfo.displayName}></DashboardView>
+                    <DashboardView displayName={appUser.displayName}></DashboardView>
                 </Content>
             </Body>
         </Screen>

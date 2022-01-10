@@ -4,4 +4,6 @@
  */
 export const cacheKey = {
   myUser: 'myUser',
+  currentUser: 'currentUser',
+  currentUserRole: 'currentUserRole',
 };
