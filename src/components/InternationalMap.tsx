@@ -63,32 +63,34 @@ function InternationalMap({ className, markers, width = 800 }: { className?: str
             <g className="features">
                 {world.features.map((feature: any, i: number) => {
                     const path = pathGenerator(feature);
-                    if (path) {
-                        return (<path
-                            key={ `feature-${ i }` }
-                            d={ path  }
-                            className="world-feature"
-                            fill='url(#circles)'
-                        />);
+
+                    if (!path) {
+                        return false;
                     }
 
-                    return false;
+                    return (<path
+                        key={ `feature-${ i }` }
+                        d={ path  }
+                        className="world-feature"
+                        fill='url(#circles)'
+                    />);
                 })}
             </g>
             <g className="markers">
                 {mapMarkers.map((marker, i) => {
                     const projectedMarker = projection(marker.coordinates);
-                    if (projectedMarker) {
-                        const [ x, y ] = projectedMarker;
-                        const size = markerSize(marker.value, 4, 20);
 
-                        // TODO: These are hardcoded for the demo, but we should generalize them.
-                        const up = marker.coordinates[1] > 50;
-                        const length = 50;
-                        return <MapMarker key={'marker-' + i} label={marker.name} value={marker.value} x={x} y={y} size={size} color={marker.color} length={length} up={up} />
+                    if (!projectedMarker) {
+                        return false;
                     }
 
-                    return false;
+                    const [ x, y ] = projectedMarker;
+                    const size = markerSize(marker.value, 4, 20);
+
+                    // TODO: These are hardcoded for the demo, but we should generalize them.
+                    const up = marker.coordinates[1] > 50;
+                    const length = 50;
+                    return <MapMarker key={'marker-' + i} label={marker.name} value={marker.value} x={x} y={y} size={size} color={marker.color} length={length} up={up} />
                 })}
             </g>
         </svg>
