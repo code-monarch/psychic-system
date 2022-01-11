@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Loading } from '../components/Loading';
 import { AuthProvider } from './auth-context';
 
-
 export const isDevMode = process.env.NODE_ENV === 'development';
 export const isProdMode = process.env.NODE_ENV === 'production';
 
@@ -35,19 +34,15 @@ const queryClient = new QueryClient({
   },
 });
 
-export const AppProviders: FunctionComponent = ({ children }) => {
-  return (
-      <Suspense fallback={<Loading />}>
-        <QueryClientProvider client={queryClient}>
-          <div className="container" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <Router>
-              <AuthProvider>
-                {children}
-              </AuthProvider>
-            </Router>
-          </div>
-          {isDevMode && <ReactQueryDevTools />}
-        </QueryClientProvider>
-      </Suspense>
-  );
-};
+export const AppProviders: FunctionComponent = ({ children }) => (
+  <Suspense fallback={<Loading />}>
+    <QueryClientProvider client={queryClient}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+        <Router>
+          <AuthProvider>{children}</AuthProvider>
+        </Router>
+      </div>
+      {isDevMode && <ReactQueryDevTools />}
+    </QueryClientProvider>
+  </Suspense>
+);

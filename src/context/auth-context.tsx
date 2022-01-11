@@ -3,11 +3,11 @@ import { useMutation, useQuery, UseMutationResult, QueryCache } from 'react-quer
 import { Loading } from '../components/Loading';
 import { cacheKey } from '../hooks/cacheStateKey';
 import { useGetUser } from '../hooks/useUser';
-import {AuthenticationService,IUserSigninData} from "../services/authentication-service";
-import {USER_ROLES} from "../lib/constants";
+import { AuthenticationService, IUserSigninData } from '../services/authentication-service';
+import { USER_ROLES } from '../lib/constants';
 
-//TODO: configure data interfaces when we connect to the endpoints and replace "any" with the proper interfaces
-//TODO: it's possible that we'll have to merge userProfile and app user objects. Depends on data from the backend
+// TODO: configure data interfaces when we connect to the endpoints and replace "any" with the proper interfaces
+// TODO: it's possible that we'll have to merge userProfile and app user objects. Depends on data from the backend
 
 type AuthContextProps = {
   appUser: any | null;
@@ -28,7 +28,7 @@ AuthContext.displayName = 'AuthContext';
 
 const queryCache = new QueryCache();
 
-const AuthProvider = (props:any) => {
+const AuthProvider = (props: any) => {
   const [appUser, setAppUser] = useState<any>(null);
   const [userRole, setUserRole] = useState<USER_ROLES | null>(null);
   const [userSignedIn, setUserSignedIn] = useState<boolean>(false);
@@ -46,7 +46,7 @@ const AuthProvider = (props:any) => {
     queryFn: AuthenticationService.getUser,
     onSuccess: async (user) => {
       if (user) {
-        //TODO: set user if we have any in local storage
+        // TODO: set user if we have any in local storage
         setAppUser(user);
       }
     },
@@ -87,7 +87,7 @@ const AuthProvider = (props:any) => {
     return <AuthContext.Provider value={values} {...props} />;
   }
 
-  return null
+  return null;
 };
 
 function useSignin() {
@@ -95,7 +95,6 @@ function useSignin() {
   const result = useMutation(AuthenticationService.signin, {
     onSuccess: () => {
       setUserSignedIn(true);
-
     },
   });
   return result;

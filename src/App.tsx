@@ -8,7 +8,6 @@ export const App = (): JSX.Element => {
   const { appUser, userRole } = useAuth();
   const [userReady, setUserReady] = useState(false);
 
-
   useEffect(() => {
     // Check if user data has been loaded before rendering for smoother page load and for analytics initialization
     if (!!userRole && !!appUser?.id) {
@@ -17,11 +16,7 @@ export const App = (): JSX.Element => {
   }, [userRole, appUser]);
 
   if (appUser) {
-    return userReady && userRole ? (
-        <AppAuthenticated userRole={userRole} userId={appUser?._id} />
-    ) : (
-      <Loading />
-    );
+    return userReady && userRole ? <AppAuthenticated userRole={userRole} userId={appUser?._id} /> : <Loading />;
   }
 
   return <AppUnauthenticated />;

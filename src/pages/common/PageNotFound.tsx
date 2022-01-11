@@ -6,26 +6,23 @@ import { useAuth } from '../../context/auth-context';
 
 export const PageNotFound = (): JSX.Element => {
   const { appUser } = useAuth();
-  return (
-      <Container>
-        <h4>404</h4>
-        <p>The page was not found.</p>
-        <p>Oops! We can't find the page you are looking for.</p>
 
-        {appUser ? (
-          <Link to={MEMBER_ROUTE.HOME} style={{ marginTop: 16, textDecoration: 'none' }}>
-            <button>
-              Back to home
-            </button>
-          </Link>
-        ) : (
-          <Link to={GUEST_ROUTE.LOGIN}>
-            <button>
-              Back to home
-            </button>
-          </Link>
-        )}
-      </Container>
+  return (
+    <Container>
+      <h4>404</h4>
+      <p>The page was not found.</p>
+      <p>Oops! We can't find the page you are looking for.</p>
+
+      {appUser ? (
+        <Link to={MEMBER_ROUTE.HOME} style={{ marginTop: 16, textDecoration: 'none' }}>
+          <button type="button">Back to home</button>
+        </Link>
+      ) : (
+        <Link to={GUEST_ROUTE.LOGIN}>
+          <button type="button">Back to home</button>
+        </Link>
+      )}
+    </Container>
   );
 };
 

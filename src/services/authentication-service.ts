@@ -1,11 +1,10 @@
-import {USER_ROLES} from "../lib/constants";
+import { USER_ROLES } from '../lib/constants';
 
 /**
  * @description
  * Our authentication service.
  */
 export class AuthenticationService {
-
   /**
    * @description
    * Signs the user in by setting their their user information in the browsers LocalStorage.
@@ -13,9 +12,9 @@ export class AuthenticationService {
   static async signin(data: IUserSigninData) {
     const { username: email, password } = data;
     try {
-      //call sign in endpoint
+      // call sign in endpoint
     } catch (error) {
-      //catch errors
+      // catch errors
     }
   }
 
@@ -27,10 +26,8 @@ export class AuthenticationService {
    */
   static async signout(): Promise<any> {
     try {
-     //call signout endpoint if any and clear local storage
-    } catch (error) {
-
-    }
+      // call signout endpoint if any and clear local storage
+    } catch (error) {}
   }
 
   /**
@@ -39,13 +36,12 @@ export class AuthenticationService {
    */
   static async getUserRole(): Promise<USER_ROLES> {
     try {
-      //logic to determine what role you have based on current sesssion
+      // logic to determine what role you have based on current sesssion
       return USER_ROLES.INTEGRATOR;
     } catch (error) {
       return USER_ROLES.INTEGRATOR;
     }
   }
-
 
   /**
    * @description
@@ -54,14 +50,13 @@ export class AuthenticationService {
    */
   static async getUser() {
     try {
-      return{
+      return {
         displayName: 'Olaide',
-        id:"023232owewe023232",
-        avatarUrl: 'https://placekitten.com/32/32'
-      }
-        //return user from local storage?
+        id: '023232owewe023232',
+        avatarUrl: 'https://placekitten.com/32/32',
+      };
+      // return user from local storage?
     } catch (error) {
-
       return null;
     }
   }
