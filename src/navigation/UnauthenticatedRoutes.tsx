@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Switch, Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
-import {Login} from '../pages/Login';
+import { Login } from '../pages/Login';
 import { PageNotFound } from '../pages/common/PageNotFound';
 import { GUEST_ROUTE } from '../lib/constants';
 
@@ -31,29 +31,28 @@ export const UnAuthenticatedRoutes = (): JSX.Element => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-
   return (
-      <Switch>
-        <Redirect from={GUEST_ROUTE.HOME} to={GUEST_ROUTE.LOGIN} exact />
+    <Switch>
+      <Redirect from={GUEST_ROUTE.HOME} to={GUEST_ROUTE.LOGIN} exact />
 
-        {guestRoutes.map((route, index) => (
-          <Route key={index} {...route} />
-        ))}
-        <Route
-          path="*"
-          render={(props) => (
-            <Redirect
-              to={{
-                pathname: GUEST_ROUTE.LOGIN,
-                state: {
-                  redirectTo: props.location.pathname,
-                  redirectState: {}, //add state to this object to pass it to page that we redirect to after login
-                },
-              }}
-            />
-          )}
-        />
-      </Switch>
+      {guestRoutes.map((route, index) => (
+        <Route key={index} {...route} />
+      ))}
+      <Route
+        path="*"
+        render={(props) => (
+          <Redirect
+            to={{
+              pathname: GUEST_ROUTE.LOGIN,
+              state: {
+                redirectTo: props.location.pathname,
+                redirectState: {}, // add state to this object to pass it to page that we redirect to after login
+              },
+            }}
+          />
+        )}
+      />
+    </Switch>
   );
 };
 
