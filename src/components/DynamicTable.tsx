@@ -23,7 +23,7 @@ const Header = styled.div `
 const Totals = styled.div `
     font-size: 14px;
     font-weight: 600;
-    color: #828282;
+    color: ${({ theme }) => theme.colors.primary.grey};
 `
 
 const Controls = styled.div `
@@ -37,7 +37,7 @@ const Control = styled.img `
 `
 
 const StyledTableHead = styled(Table.Head) `
-    background-color: #F5F5F5;
+    background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
     font-size: 14px;
     font-weight: 600;
 `

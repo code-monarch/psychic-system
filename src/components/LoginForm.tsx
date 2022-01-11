@@ -9,20 +9,20 @@ const Form = styled.form `
 
 const TextInput = styled.div `
     border: none;
-    border-bottom: solid 1px #E3E2E2;
+    border-bottom: solid 1px ${({ theme }) => theme.colors.secondary.grey};
     margin-top: 20px;
     display: flex;
     flex-direction: row;
 `
 
 const LoginButton = styled.button `
-    background-color: #279F70;
+    background-color: #279F70; // TODO: Add this color to theme
     border: none;
     border-radius: 8px;
     padding: 18px 24px;
     margin: 40px auto 0 0;
     font-weight: bold;
-    color: white;
+    color: ${({ theme }) => theme.colors.primary.white};
     display: flex;
     flex-direction: row;
     justify-content: space-between;

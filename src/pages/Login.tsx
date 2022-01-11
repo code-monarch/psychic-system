@@ -10,7 +10,7 @@ const Screen = styled.div`
   a {
     font-size: 13px;
     font-weight: bold;
-    color: #2e2e2e;
+    color: ${({ theme }) => theme.colors.primary.black};
   }
 `;
 
@@ -19,8 +19,8 @@ const LeftPane = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background-color: #fafafa;
-`;
+  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
+`
 
 const RightPane = styled.div`
   flex: 1;
@@ -31,13 +31,13 @@ const RightPane = styled.div`
 
 const LogoPanel = styled.div`
   margin-right: auto;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
   padding: 40px;
 `;
 
 const SignUpPanel = styled.div`
   margin-left: auto;
-  color: #828282;
+  color: ${({ theme }) => theme.colors.primary.grey};
   padding: 40px;
 `;
 
@@ -58,7 +58,7 @@ const CallToAction = styled.h2`
   text-align: center;
 
   .green {
-    color: #279f70;
+    color: #279F70; // TODO: Add this color to theme
   }
 `;
 

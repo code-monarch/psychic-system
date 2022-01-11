@@ -22,17 +22,17 @@ const InputLabel = styled.label<{hasText: boolean}> `
     transform: translate(0, 20px) scale(1);
     transform-origin: top left;
     transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    color: #999999;
+    color: #999999; // TODO: Make this part of the theme.
     font-size: 14px;
 
     ${InputContainer}:focus-within & {
         transform: translate(0, 0) scale(0.9);
-        color: #828282;
+        color: ${({ theme }) => theme.colors.primary.grey};
     }
 
     ${props => props.hasText && `
         transform: translate(0, 0) scale(0.9);
-        color: #828282;
+        color: ${props.theme.colors.primary.grey};
     `}
 `
 

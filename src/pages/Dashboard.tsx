@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import DashboardHeader from '../components/DashboardHeader';
 import NavigationList from '../components/NavigationList';
 import DashboardView from '../components/DashboardView';
-import TransactionsView from '../components/TransactionsView';
-import WalletsView from '../components/WalletsView';
 import dashboardIcon from '../assets/images/icons/dashboard.svg';
 import requestsIcon from '../assets/images/icons/requests.svg';
 import walletsIcon from '../assets/images/icons/wallets.svg';
@@ -18,7 +16,7 @@ const Screen = styled.div`
 `;
 
 const Header = styled(DashboardHeader)`
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary.lightgrey};
 `;
 
 const Body = styled.div`
@@ -28,10 +26,10 @@ const Body = styled.div`
 `;
 
 const SideNav = styled.div`
-  color: #828282;
+  color: ${({ theme }) => theme.colors.primary.grey};
   font-size: 14px;
   line-height: 24px;
-  border-right: 1px solid #f5f5f5;
+  border-right: 1px solid ${({ theme }) => theme.colors.secondary.lightgrey};
   padding: 30px 0 0 40px;
   min-width: 200px;
 `;
