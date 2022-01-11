@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import DashboardHeader from '../components/DashboardHeader';
-import NavigationList from '../components/NavigationList';
+import { NavigationList } from '../components/NavigationList';
 import DashboardView from '../components/DashboardView';
-import dashboardIcon from '../assets/images/icons/dashboard.svg';
-import requestsIcon from '../assets/images/icons/requests.svg';
-import walletsIcon from '../assets/images/icons/wallets.svg';
-import manageUsersIcon from '../assets/images/icons/manage-users.svg';
-import notificationsIcon from '../assets/images/icons/notifications.svg';
 import { useAuth } from '../context/auth-context';
+
+import { navIconsDefault as defaultIcons, navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 
 const Screen = styled.div`
   flex: 1;
@@ -40,11 +37,19 @@ const Content = styled.div`
 `;
 
 const navigationItems = [
-  { text: 'Dashboard', icon: dashboardIcon },
-  { text: 'Requests', icon: requestsIcon },
-  { text: 'Wallets', icon: walletsIcon },
-  { text: 'Manage Users', icon: manageUsersIcon },
-  { text: 'Notifications', icon: notificationsIcon },
+  { to: '/dashboard', text: 'Dashboard', icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard } },
+  { to: '/requests', text: 'Requests', icon: { default: defaultIcons.requests, active: activeIcons.requests } },
+  { to: '/wallets', text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+  {
+    to: '/manage-users',
+    text: 'Manage Users',
+    icon: { default: defaultIcons.manageUsers, active: activeIcons.manageUsers },
+  },
+  {
+    to: 'notifications',
+    text: 'Notifications',
+    icon: { default: defaultIcons.notifications, active: activeIcons.notifications },
+  },
 ];
 
 export default function Dashboard() {
@@ -54,7 +59,7 @@ export default function Dashboard() {
       <Header avatarUrl={appUser.avatarUrl} />
       <Body>
         <SideNav>
-          <NavigationList itemSpacing={20} items={navigationItems} />
+          <NavigationList itemSpacing={20} links={navigationItems} />
         </SideNav>
         <Content>
           {/* TODO: use Router to swap between views within the dashboard
