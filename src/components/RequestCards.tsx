@@ -58,11 +58,11 @@ function RequestCards() {
         <CardRow>
             <TitledCard>
                 <Title>Active Wallets (YTD)</Title>
-                <HistogramCard title="Total Wallets" value="30" histogramValues={histogramValues} rows={walletsRows}></HistogramCard>
+                <HistogramCard title="Total Wallets" value="30" histogramValues={histogramValues} rows={walletsRows}/>
             </TitledCard>
             <TitledCard>
                 <Title>Tokens</Title>
-                <HistogramCard title="Total Amount" value="$29,000" histogramValues={histogramValues} rows={tokensRows}></HistogramCard>
+                <HistogramCard title="Total Amount" value="$29,000" histogramValues={histogramValues} rows={tokensRows}/>
             </TitledCard>
         </CardRow>
     )

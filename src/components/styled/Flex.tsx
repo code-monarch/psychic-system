@@ -15,7 +15,4 @@ interface FlexInterface {
     Column: typeof Column
 }
 
-export const Flex: FlexInterface = {
-    Row: Row,
-    Column: Column
-}
+export const Flex: FlexInterface = { Row, Column }

@@ -61,11 +61,7 @@ export default function HistogramCard({ className, title, value, histogramValues
             <CardTitle>{title}</CardTitle>
             <CardHeader value={value} histogramValues={histogramValues} />
             {
-                rows.map((row, i) => {
-                    return (
-                        <StyledNameValue key={'cardrow-' + i} name={row.name} value={row.value}/>
-                    )
-                })
+                rows.map((row, i) => <StyledNameValue key={`cardrow-${i}`} name={row.name} value={row.value}/>)
             }
         </Card>
     )

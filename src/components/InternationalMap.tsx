@@ -109,7 +109,7 @@ function InternationalMap({ className, markers, width = 800 }: { className?: str
                     const length = 50;
                     return (
                         <MapMarker
-                            key={'marker-' + i}
+                            key={`mapmarker-${i}`}
                             label={marker.name}
                             value={marker.value}
                             x={x}

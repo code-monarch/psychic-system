@@ -23,7 +23,7 @@ export default function Histogram({ values }: { values: number[] }) {
     return (
         <Chart columnCount={values.length}>
             {
-                values.map((value, i) => <Column key={'column-' + i} value={value} normalizer={normalizer}/>)
+                values.map((value, i) => <Column key={`column-${i}`} value={value} normalizer={normalizer}/>)
             }
         </Chart>
     )
