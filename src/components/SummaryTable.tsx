@@ -25,19 +25,20 @@ const TableHead = styled(Table.Head) `
 const Header = styled(Table.TH) `
     border-top: 1px solid #E3E2E2;
     border-left: 1px solid #E3E2E2;
-    padding: 10px 0;
+    padding: 10px;
     font-weight: 600;
+    white-space: nowrap;
 
     & ${TableHead}:first-child {
         border-left: none;
     }
 `
 
-export default function SummaryTable({ config }: { config: SummaryTableData[] }) {
+export default function SummaryTable({ className, config }: { className?: string, config: SummaryTableData[] }) {
     const headers = config.map(({ header }) => header)
     const values = config.map(({ value }) => value)
     return (
-        <StyledTable>
+        <StyledTable className={className}>
             <TableHead>
                 <Table.TR>
                 {
