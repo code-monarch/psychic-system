@@ -15,12 +15,12 @@ const CardTitle = styled.div `
 `
 
 const Header = styled(Flex.Row) `
-    color: #4F4F4F;
+    color: ${({ theme }) => theme.colors.primary.darkgrey};
     justify-content: space-between;
     font-size: 18px;
     font-weight: 700;
     padding: 10px 0;
-    border-bottom: solid 1px #F5F5F5;
+    border-bottom: solid 1px ${({ theme }) => theme.colors.secondary.lightgrey}
     margin-bottom: 16px;
 `
 
@@ -34,12 +34,12 @@ const StyledNameValue = styled(NameValue) `
     margin: 10px 0;
 
     ${NameValue.Name} {
-        color: #828282;
+        color: ${({ theme }) => theme.colors.primary.grey};
         font-weight: 400;
     }
 
     ${NameValue.Value} {
-        color: #4F4F4F;
+        color: ${({ theme }) => theme.colors.primary.darkgrey};
         font-weight: 600;
     }
 `

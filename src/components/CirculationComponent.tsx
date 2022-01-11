@@ -9,11 +9,11 @@ const StyledNameValue = styled(NameValue) `
     line-height: 1.5em;
 
     ${NameValue.Name} {
-        color: #828282;
+        color: ${({ theme }) => theme.colors.primary.grey};
     }
 
     ${NameValue.Value} {
-        color: #2E2E2E;
+        color: ${({ theme }) => theme.colors.primary.black};
         font-weight: 600;
     }
 `
@@ -21,21 +21,25 @@ const StyledNameValue = styled(NameValue) `
 const Divider = styled.hr `
     border: 0;
     height: 1px;
-    background-color: #F5F5F5;
+    background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
     margin: 18px 0;
 `
 
 function CirculationComponent() {
+    // TODO: Add these to theme
+    const green = '#279F70';
+    const darkGreen = '#015E5F'
+
     // TODO: Replace with data from API
     const options = [
         {
             label: 'International',
-            color: '#279F70',
+            color: green,
             value: 86
         },
         {
             label: 'Domestic',
-            color: '#015E5F',
+            color: darkGreen,
             value: 14
         }
     ];

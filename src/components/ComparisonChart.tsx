@@ -31,7 +31,7 @@ const ChartOption = styled.div<{ratio: number, first?: boolean, last?: boolean}>
 `
 
 const Label = styled.div `
-    color: #828282;
+    color: ${({ theme }) => theme.colors.primary.grey};
     font-weight: 600;
     font-size: 12px;
     line-height: 150%;
@@ -44,7 +44,7 @@ const Bar = styled.div<{color: string}> `
 `
 
 const Value = styled.div `
-    color: #2E2E2E;
+    color: ${({ theme }) => theme.colors.primary.black};
     font-size: 14px;
     line-height: 150%;
     font-weight: 600;

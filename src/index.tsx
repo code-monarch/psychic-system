@@ -4,11 +4,15 @@ import './index.css';
 import {App} from './App';
 import { AppProviders } from './context';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme } from './themes';
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProviders>
-      <App />
+      <ThemeProvider theme={lightTheme}>
+        <App />
+      </ThemeProvider>
     </AppProviders>
   </React.StrictMode>,
   document.getElementById('root')

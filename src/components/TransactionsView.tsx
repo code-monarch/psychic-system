@@ -10,7 +10,7 @@ const View = styled.div `
 `
 
 const Header = styled.h2 `
-    color: #2E2E2E;
+    color: ${({ theme }) => theme.colors.primary.black};
     font-weight: bold;
     font-size: 28px;
 `

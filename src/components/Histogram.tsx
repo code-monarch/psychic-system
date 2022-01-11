@@ -3,7 +3,7 @@ import { normalize } from '../lib/utils'
 
 const Column = styled.div<{value: number, normalizer: (value: number, newMin: number, newMax: number) => number}> `
     height: ${props => props.normalizer(props.value, 10, 100)}%;
-    background-color: ${props => props.value > 0 ? '#279F70' : '#E2E2E2' };
+    background-color: ${props => props.value > 0 ? '#279F70' /* TODO: Add this color to theme */ : props.theme.colors.secondary.grey };
 `
 
 const Chart = styled.div<{columnCount: number}> `

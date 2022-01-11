@@ -19,12 +19,12 @@ const Cell = styled(Table.TD) `
 
 const TableHead = styled(Table.Head) `
     font-size: 14px;
-    color: #828282;
+    color: ${({ theme }) => theme.colors.primary.grey};
 `
 
 const Header = styled(Table.TH) `
-    border-top: 1px solid #E3E2E2;
-    border-left: 1px solid #E3E2E2;
+    border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+    border-left: 1px solid ${({ theme }) => theme.colors.secondary.grey};
     padding: 10px;
     font-weight: 600;
     white-space: nowrap;
