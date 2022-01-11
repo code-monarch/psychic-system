@@ -64,7 +64,7 @@ export default function ComparisonChart({ options }: { options: Option[] }) {
             {options.map((option, i, { length }) => {
                 const ratio = option.value / total;
                 return (
-                    <ChartOption key={'chartoption-' + i} first={(i === 0)} last={i + 1 === length} ratio={ ratio }>
+                    <ChartOption key={`chartoption-${i}`} first={(i === 0)} last={i + 1 === length} ratio={ ratio }>
                         <Label>{option.label}</Label>
                         <Bar color={option.color}/>
                         <Value>{ Math.round(ratio * 100) /* TODO: Improve this to ensure it equals 100 */ } %</Value>
