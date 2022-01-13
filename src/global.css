@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'ProximaNova';
+  font-display: swap;
+  src: local('ProximaNova'),
+    url('./assets/fonts/ProximaNova-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ProximaNovaBold';
+  font-display: swap;
+  src: local('ProximaNovaBold'),
+  url('./assets/fonts/ProximaNova-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ProximaNovaThin';
+  font-display: swap;
+  src: local('ProximaNovaThin'),
+  url('./assets/fonts/ProximaNova-Thin.otf') format('opentype');
+  font-weight:auto;
+  font-style: normal;
+}
+
+
+* {
+  font-family: 'ProximaNova', sans-serif;
+}
+
+body {
+  /* Fall back font stack. Use default fonts from Operating System first. When the fonts are downloaded later, these will be replaced. */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
