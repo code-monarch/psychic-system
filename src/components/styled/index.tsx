@@ -1,2 +1,2 @@
-export * from './Flex'
-export * from './Base'
+export * from './Flex';
+export * from './Base';

@@ -20,7 +20,7 @@ const LeftPane = styled.div`
   flex-direction: column;
   align-items: flex-end;
   background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
-`
+`;
 
 const RightPane = styled.div`
   flex: 1;
@@ -58,7 +58,7 @@ const CallToAction = styled.h2`
   text-align: center;
 
   .green {
-    color: #279F70; // TODO: Add this color to theme
+    color: #279f70; // TODO: Add this color to theme
   }
 `;
 
