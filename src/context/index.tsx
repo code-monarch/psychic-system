@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Loading } from '../components/Loading';
 import { AuthProvider } from './auth-context';
+import '../global.css';
 
 export const isDevMode = process.env.NODE_ENV === 'development';
 export const isProdMode = process.env.NODE_ENV === 'production';
