@@ -43,13 +43,6 @@ export enum USER_ROLES {
   INTEGRATOR = 'integrator',
 }
 
-enum QUERY_PARAM_OPTIONS {
-  SUMMARY = 'summary',
-  RATES = 'rates',
-  TOKENS = 'tokens',
-  DEPARTMENTS = 'departments',
-}
-
 export const dasbhboardTabItems: { title: string; route: string }[] = [
   {
     title: 'Summary',
