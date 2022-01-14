@@ -3,7 +3,6 @@ import { UserService } from '../services/user-service';
 
 import { cacheKey } from './cacheStateKey';
 
-
 export const useGetUser = () => {
   const result = useQuery({
     queryKey: cacheKey.myUser,

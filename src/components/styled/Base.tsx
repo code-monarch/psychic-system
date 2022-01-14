@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const Title = styled.h3 `
-    font-size: 14px;
-    font-weight: 600;
-    margin: 16px auto;
-`
+const Title = styled.h3`
+  font-size: 14px;
+  font-weight: 600;
+  margin: 16px auto;
+`;
 
-export { Title }
+export { Title };

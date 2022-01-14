@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const NeutralLink = styled.div`
   cursor: pointer;
   text-decoration: underline;

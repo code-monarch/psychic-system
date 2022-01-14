@@ -1,22 +1,50 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledTable = styled.table`
   border-spacing: 0;
 `;
 
-export default function Table({ className, children, ...props }: { className? : string, children: React.ReactNode }) {
-    return <StyledTable className={ className } { ...props }>{ children }</StyledTable>;
+export default function Table({ className, children, ...props }: { className?: string; children: React.ReactNode }) {
+  return (
+    <StyledTable className={className} {...props}>
+      {children}
+    </StyledTable>
+  );
 }
 
-Table.Head = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <thead className={ className } { ...props }>{ children }</thead>;
+Table.Head = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <thead className={className} {...props}>
+    {children}
+  </thead>
+);
 
-Table.Body = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <tbody className={ className } { ...props }>{ children }</tbody>;
+Table.Body = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <tbody className={className} {...props}>
+    {children}
+  </tbody>
+);
 
-Table.Foot = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <tfoot className={ className } { ...props }>{ children }</tfoot>;
+Table.Foot = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <tfoot className={className} {...props}>
+    {children}
+  </tfoot>
+);
 
-Table.TH = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <th className={ className } { ...props }>{ children }</th>;
+Table.TH = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <th className={className} {...props}>
+    {children}
+  </th>
+);
 
-Table.TR = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <tr className={ className } { ...props }>{ children }</tr>;
+Table.TR = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <tr className={className} {...props}>
+    {children}
+  </tr>
+);
 
-Table.TD = ({ className, children, ...props }: { className? : string, children: React.ReactNode }) => <td className={ className } { ...props }>{ children }</td>;
+Table.TD = ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => (
+  <td className={className} {...props}>
+    {children}
+  </td>
+);

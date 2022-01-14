@@ -1,4 +1,4 @@
-import { secureMainApi, } from '../lib/apis';
+import { secureMainApi } from '../lib/apis';
 
 /**
  * @description
@@ -31,6 +31,4 @@ export class UserService {
       return null;
     }
   }
-
 }
-
