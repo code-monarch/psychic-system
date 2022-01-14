@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Redirect, Route, RouteProps, Switch, useLocation } from 'react-router-dom';
 import { Loading } from '../components/Loading';
-import { MEMBER_ROUTE, USER_ROLES} from '../lib/constants';
-import Dashboard from "../pages/Dashboard";
+import { MEMBER_ROUTE, USER_ROLES } from '../lib/constants';
+import Layout from '../pages/Layout';
 
 const mapRoute = (route: RouteProps, index: number) => <Route key={index} {...route} />;
 
@@ -17,25 +17,24 @@ interface IProps {
 export const AuthenticatedRoutes = ({ userId, userRole }: IProps): JSX.Element => {
   const location = useLocation<Record<string, unknown>>();
 
-
   useEffect(() => {
-      window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (userRole === USER_ROLES.CENTRAL_BANK) {
     return (
-        <Switch>
-          {centralBankRoutes.map(mapRoute)}
-          {commonRoutes.map(mapRoute)}
-        </Switch>
+      <Switch>
+        {centralBankRoutes.map(mapRoute)}
+        {commonRoutes.map(mapRoute)}
+      </Switch>
     );
   }
   if (userRole === USER_ROLES.INTEGRATOR) {
     return (
-        <Switch>
-          {integratorRoutes.map(mapRoute)}
-          {commonRoutes.map(mapRoute)}
-        </Switch>
+      <Switch>
+        {integratorRoutes.map(mapRoute)}
+        {commonRoutes.map(mapRoute)}
+      </Switch>
     );
   }
 
@@ -45,31 +44,17 @@ export const AuthenticatedRoutes = ({ userId, userRole }: IProps): JSX.Element =
 
 const centralBankRoutes: RouteProps[] = [
   {
-    path: MEMBER_ROUTE.DASHBOARD,
-    exact: true,
-    render: () =>  <Dashboard />
-  },
-  {
     path: MEMBER_ROUTE.HOME,
-    exact: true,
-    render: () =>  <Redirect to={{ pathname: MEMBER_ROUTE.DASHBOARD }} />
+    render: () => <Layout />,
   },
 ];
 
 const integratorRoutes: RouteProps[] = [
   {
-    path: MEMBER_ROUTE.DASHBOARD,
-    exact: true,
-    render: () =>  <Dashboard />
-  },
-  {
     path: MEMBER_ROUTE.HOME,
-    exact: true,
-    render: () =>  <Redirect to={{ pathname: MEMBER_ROUTE.DASHBOARD }} />
+    render: () => <Layout />,
   },
 ];
-
-
 
 const commonRoutes: RouteProps[] = [
   {

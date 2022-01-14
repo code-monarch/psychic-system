@@ -1,24 +1,32 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, ForwardedRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useGetQueryParams } from '../hooks/useQueryParams';
+import { dasbhboardTabItems } from '../lib/constants';
 
 const Container = styled.div`
   display: flex;
 `;
 
 // This component allows for text within to change from normal to bold without changing overall layout
-const BoldItemContent = ({
-  className,
-  text,
-  onClick,
-}: {
-  className?: string;
-  text: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-}) => (
-  <div className={className} onClick={onClick}>
-    <span>{text}</span>
-    <span aria-hidden="true">{text}</span>
-  </div>
+const BoldItemContent = forwardRef(
+  (
+    {
+      className,
+      text,
+      onClick,
+    }: {
+      className?: string;
+      text: string;
+      onClick?: React.MouseEventHandler<HTMLDivElement>;
+    },
+    ref: ForwardedRef<HTMLDivElement>,
+  ) => (
+    <div className={className} onClick={onClick} ref={ref}>
+      <span>{text}</span>
+      <span aria-hidden="true">{text}</span>
+    </div>
+  ),
 );
 
 const BoldItem = styled(BoldItemContent)`
@@ -65,35 +73,52 @@ const TabsList = styled.div<{ indicatorOffset: number }>`
   }
 `;
 
-export default function Tabs({
+interface IQueryParams {
+  tab?: string;
+}
+export const Tabs = ({
   className,
-  items,
   onTabSelected,
 }: {
   className?: string;
-  items: string[];
   onTabSelected: (tabIndex: number) => void;
-}) {
+}) => {
   const [selectedTab, setSelectedTab] = useState({ index: 0, offset: 0 });
+  const tabElementRefs = useRef<Array<HTMLDivElement>>([]);
+  const queryParams: IQueryParams = useGetQueryParams();
+  const history = useHistory();
 
-  const handleClick = ({ index, offset }: { index: number; offset: number }) => {
-    setSelectedTab({ index, offset });
-    onTabSelected(index);
+  const handleClick = (index: number) => {
+    history.push(`/dashboard?tab=${dasbhboardTabItems[index].route}`);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (queryParams?.tab) {
+        const tabIndex = dasbhboardTabItems.findIndex((param) => param.route === queryParams?.tab);
+        if (selectedTab.index !== tabIndex) {
+          const offset = tabElementRefs?.current?.[tabIndex]?.offsetLeft;
+          setSelectedTab({ index: tabIndex, offset });
+          onTabSelected(tabIndex);
+        }
+      }
+    }, 50); // adding a timeout here because the refs are only available to be read sometime after the page loads
+  }, [queryParams?.tab]);
 
   return (
     <Container className={className}>
       <TabsList indicatorOffset={selectedTab.offset}>
-        {items.map((item, i) => (
+        {dasbhboardTabItems.map((item, i) => (
           <Tab
+            ref={(el) => (tabElementRefs.current[i] = el)}
             key={`tab-${i}`}
-            text={item}
+            text={item.title}
             selected={i === selectedTab.index}
-            onClick={(e) => handleClick({ index: i, offset: e.currentTarget.offsetLeft })}
+            onClick={(e) => handleClick(i)}
           />
         ))}
         <SelectedIndicator aria-hidden="true" />
       </TabsList>
     </Container>
   );
-}
+};
