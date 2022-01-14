@@ -1,4 +1,3 @@
-
 /**
  * Object containing the routes that only a logged out user can visit.
  */
@@ -18,12 +17,16 @@ export const MEMBER_ROUTE = {
   get DASHBOARD(): string {
     return '/dashboard';
   },
+  get REQUESTS(): string {
+    return '/requests';
+  },
+  get WALLETS(): string {
+    return '/wallets';
+  },
   get PAGE_NOT_FOUND(): string {
     return '/404';
   },
 };
-
-
 
 /**
  * Prefix used to more easily find & identify values we set in our browser's LocalStorage for our app.
@@ -39,3 +42,22 @@ export enum USER_ROLES {
   CENTRAL_BANK = 'central bank',
   INTEGRATOR = 'integrator',
 }
+
+export const dasbhboardTabItems: { title: string; route: string }[] = [
+  {
+    title: 'Summary',
+    route: 'summary',
+  },
+  {
+    title: 'Live Exchange Rates',
+    route: 'rates',
+  },
+  {
+    title: 'Local Tokens in Circulation',
+    route: 'tokens',
+  },
+  {
+    title: 'Departments',
+    route: 'departments',
+  },
+];

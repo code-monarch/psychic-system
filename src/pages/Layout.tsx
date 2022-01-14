@@ -1,10 +1,14 @@
 import styled from 'styled-components';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import DashboardHeader from '../components/DashboardHeader';
 import { NavigationList } from '../components/NavigationList';
-import DashboardView from '../components/DashboardView';
+import { DashboardView } from './DashboardView';
 import { useAuth } from '../context/auth-context';
 
 import { navIconsDefault as defaultIcons, navIconsActive as activeIcons } from '../assets/images/icons/navigation';
+import { MEMBER_ROUTE } from '../lib/constants';
+import { Requests } from './Requests';
+import { Wallets } from './Wallets';
 
 const Screen = styled.div`
   flex: 1;
@@ -52,7 +56,7 @@ const navigationItems = [
   },
 ];
 
-export default function Dashboard() {
+export default function Layout() {
   const { appUser, userRole } = useAuth();
   return (
     <Screen>
@@ -62,9 +66,20 @@ export default function Dashboard() {
           <NavigationList itemSpacing={20} links={navigationItems} />
         </SideNav>
         <Content>
-          {/* TODO: use Router to swap between views within the dashboard
-                    <TransactionsView displayName={displayName}></TransactionsView> */}
-          <DashboardView displayName={appUser.displayName} />
+          <Switch>
+            <Route path={MEMBER_ROUTE.DASHBOARD} exact>
+              <DashboardView displayName={appUser.displayName} />
+            </Route>
+            <Route path={MEMBER_ROUTE.REQUESTS} exact>
+              <Requests />
+            </Route>
+            <Route path={MEMBER_ROUTE.WALLETS} exact>
+              <Wallets />
+            </Route>
+            <Route path="*" exact={false}>
+              <Redirect to={{ pathname: MEMBER_ROUTE.DASHBOARD }} />
+            </Route>
+          </Switch>
         </Content>
       </Body>
     </Screen>
