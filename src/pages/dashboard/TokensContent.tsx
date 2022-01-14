@@ -12,8 +12,8 @@ const Header = styled.h2`
   font-size: 28px;
 `;
 
-export const DashboardSummary = () => (
+export const TokensContent = (): JSX.Element => (
   <Wrapper>
-    <Header>Summary</Header>
+    <Header>Tokens</Header>
   </Wrapper>
 );

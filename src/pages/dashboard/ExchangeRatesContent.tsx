@@ -12,7 +12,7 @@ const Header = styled.h2`
   font-size: 28px;
 `;
 
-export const DashboardExchangeRates = () => (
+export const ExchangeRatesContent = (): JSX.Element => (
   <Wrapper>
     <Header>Exchange Rates</Header>
   </Wrapper>
