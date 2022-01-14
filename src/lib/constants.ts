@@ -29,24 +29,6 @@ export const MEMBER_ROUTE = {
 };
 
 /**
- * Object containing the routes for the dashboard tabs.
- */
-export const DASHBOARD_ROUTES = {
-  get DASHBOARD_SUMMARY(): string {
-    return '/dashboard/summary';
-  },
-  get EXCHANGE_RATES(): string {
-    return '/dashboard/rates';
-  },
-  get LOCAL_TOKENS(): string {
-    return '/dashboard/tokens';
-  },
-  get DEPARTMENTS(): string {
-    return '/dashboard/departments';
-  },
-};
-
-/**
  * Prefix used to more easily find & identify values we set in our browser's LocalStorage for our app.
  * @example
  * `${LOCAL_STORAGE_KEY_PREFIX}something_about_the_page_or_feature``
