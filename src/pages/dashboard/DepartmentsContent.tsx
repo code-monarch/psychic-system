@@ -12,7 +12,7 @@ const Header = styled.h2`
   font-size: 28px;
 `;
 
-export const DashboardDepartments = () => (
+export const DepartmentsContent = (): JSX.Element => (
   <Wrapper>
     <Header>Departments</Header>
   </Wrapper>
