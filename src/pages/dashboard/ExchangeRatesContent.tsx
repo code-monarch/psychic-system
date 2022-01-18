@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Cell, Column } from 'react-table';
-import { InternationalMap } from '../../components/InternationalMap';
+import { Coordinates, InternationalMap } from '../../components/InternationalMap';
 import { CurrencyCode, CURRENCY_NAMES } from '../../lib/constants';
 import { BasicTable } from '../../components/BasicTable';
 import { Flex } from '../../components/styled';
@@ -35,13 +35,13 @@ const exchangeRates = {
 };
 
 type CurrencyCoordinates = {
-  [K in CurrencyCode]?: [number, number];
+  [K in CurrencyCode]?: Coordinates;
 };
 
 // TODO: Get this from... ?
 const coordinates: CurrencyCoordinates = {
   EUR: [4.469936, 50.503887],
-  USD: [-95.712891, 37.09024],
+  USD: [-115.712891, 37.09024],
   CAD: [-106.346771, 56.130366],
   DOP: [-70.162651, 18.735693],
 };
@@ -70,6 +70,13 @@ export const ExchangeRatesContent = ({
 }): JSX.Element => {
   const theme = useTheme();
 
+  const decimalFormatter = new Intl.NumberFormat(locale, { style: 'decimal', minimumFractionDigits: 2 });
+  const percentFormatter = new Intl.NumberFormat(locale, {
+    style: 'percent',
+    signDisplay: 'always',
+    minimumFractionDigits: 2,
+  });
+
   const mapColors = [
     theme.colors.primary.green,
     theme.colors.secondary.yellow,
@@ -83,6 +90,7 @@ export const ExchangeRatesContent = ({
     color: mapColors[i % mapColors.length],
     coordinates: coordinates[curr],
     value: exchangeRates[curr],
+    formatter: decimalFormatter.format,
   }));
 
   const tableColumns: Column<RowData>[] = [
@@ -93,15 +101,12 @@ export const ExchangeRatesContent = ({
     {
       Header: `Amount (${CurrencyCode[localCurrency]})`,
       accessor: 'amount',
-      Cell: (cell) => new Intl.NumberFormat(locale, { style: 'decimal', minimumFractionDigits: 2 }).format(cell.value),
+      Cell: (cell) => decimalFormatter.format(cell.value),
     },
     {
       Header: 'Change (24h)',
       accessor: 'change',
-      Cell: (cell) =>
-        new Intl.NumberFormat(locale, { style: 'percent', signDisplay: 'always', minimumFractionDigits: 2 }).format(
-          cell.value,
-        ),
+      Cell: (cell) => percentFormatter.format(cell.value),
     },
     {
       Header: 'Chart (24h)',
@@ -114,9 +119,8 @@ export const ExchangeRatesContent = ({
     },
   ];
 
-  // TODO: Get data from API
   const tableRows: RowData[] = exchangeCurrencies.map((curr) => {
-    const chartValues = makeTimeValues();
+    const chartValues = makeTimeValues(); // TODO: Get data from API
     const firstValue = chartValues[0].value;
     const lastValue = chartValues[chartValues.length - 1].value;
     return {

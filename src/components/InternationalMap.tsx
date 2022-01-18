@@ -1,37 +1,54 @@
-import { FeatureCollection } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 import { geoPath } from 'd3-geo';
 import { geoMiller } from 'd3-geo-projection';
-import styled, { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 import landJson from '../assets/geo/world.geo.json';
 import { normalize } from '../lib/utils';
 
+export type Coordinates = [number, number];
+
+export interface Marker {
+  name: string;
+  color: string;
+  coordinates: Coordinates;
+  value: number;
+  size?: 'dynamic' | number;
+  formatter?: (value: number) => string;
+}
+
+interface MapMarkerColors {
+  marker: string;
+  markerFill: string;
+  label: string;
+  value: string;
+}
+
 interface MapMarkerProps {
   label: string;
-  value: number;
+  value: string;
   x: number;
   y: number;
   size: number;
-  color: string;
+  colors: MapMarkerColors;
   length: number;
-  theme: any; // Define this type
   up?: boolean;
 }
 
-const MapMarker = ({ label, value, x, y, size, color, length, theme, up = false }: MapMarkerProps) => {
+const MapMarker = ({ label, value, x, y, size, colors, length, up = false }: MapMarkerProps) => {
   const lineStart = up ? y - size : y + size;
   const lineEnd = up ? lineStart - length : lineStart + length;
   const textX = x + 8;
   const textY = up ? lineEnd + 15 : lineEnd - 15;
   return (
     <g>
-      <circle cx={x} cy={y} r={size} fill={theme.colors.primary.white} stroke={color} />
-      <circle cx={x} cy={y} r={2} fill={color} />
-      <line x1={x} y1={lineStart} x2={x} y2={lineEnd} stroke={color} />
+      <circle cx={x} cy={y} r={size} fill={colors.markerFill} stroke={colors.marker} />
+      <circle cx={x} cy={y} r={2} fill={colors.marker} />
+      <line x1={x} y1={lineStart} x2={x} y2={lineEnd} stroke={colors.marker} />
       <text x={textX} y={textY}>
-        <tspan style={{ fontSize: '10px', fill: theme.colors.primary.grey, fontWeight: 400 }} x={textX}>
+        <tspan style={{ fontSize: '10px', fill: colors.label, fontWeight: 400 }} x={textX}>
           {label}
         </tspan>
-        <tspan style={{ fontSize: '12px', fill: theme.colors.primary.black, fontWeight: 600 }} x={textX} dy={14}>
+        <tspan style={{ fontSize: '12px', fill: colors.value, fontWeight: 600 }} x={textX} dy={14}>
           {value}
         </tspan>
       </text>
@@ -39,34 +56,27 @@ const MapMarker = ({ label, value, x, y, size, color, length, theme, up = false 
   );
 };
 
-export interface Marker {
-  name: string;
-  color: string;
-  coordinates: [number, number];
-  value: number;
-}
+const defaultValueFormatter = (value: number) => `${value}`;
 
-function InternationalMap({
+export const InternationalMap = ({
   className,
-  markers,
+  markers = [],
   width = 800,
 }: {
   className?: string;
   markers?: Marker[];
   width?: number;
-}) {
+}): JSX.Element => {
   const theme = useTheme();
 
   const backgroundGrey = '#CCCCCC'; // TODO: Replace this with an appropriate theme color
-
-  const mapMarkers = markers || [];
 
   const world = landJson as FeatureCollection;
 
   const projection = geoMiller().rotate([-10, 0]).fitWidth(width, world);
   const pathGenerator = geoPath().projection(projection);
   const [projectedWidth, projectedHeight] = pathGenerator.bounds(world)[1];
-  const markerSize = normalize(mapMarkers.map((point) => point.value));
+  const getMarkerSize = normalize(markers.map((point) => point.value));
 
   return (
     <svg className={className} width={width} viewBox={`0 0 ${projectedWidth} ${projectedHeight}`}>
@@ -76,18 +86,13 @@ function InternationalMap({
         </pattern>
       </defs>
       <g className="features">
-        {world.features.map((feature: any, i: number) => {
+        {world.features.map((feature: Feature, i: number) => {
           const path = pathGenerator(feature);
-
-          if (!path) {
-            return false;
-          }
-
-          return <path key={`feature-${i}`} d={path} className="world-feature" fill="url(#circles)" />;
+          return path && <path key={`feature-${i}`} d={path} className="world-feature" fill="url(#circles)" />;
         })}
       </g>
       <g className="markers">
-        {mapMarkers.map((marker, i) => {
+        {markers.map((marker, i) => {
           const projectedMarker = projection(marker.coordinates);
 
           if (!projectedMarker) {
@@ -95,7 +100,24 @@ function InternationalMap({
           }
 
           const [x, y] = projectedMarker;
-          const size = markerSize(marker.value, 4, 20);
+
+          let size: number;
+          if (marker.size === 'dynamic') {
+            size = getMarkerSize(marker.value, 4, 20);
+          } else if (marker.size > 0) {
+            size = marker.size;
+          } else {
+            size = 4;
+          }
+
+          const formatValue = marker.formatter || defaultValueFormatter;
+
+          const colors = {
+            marker: marker.color,
+            markerFill: theme.colors.primary.white,
+            label: theme.colors.primary.grey,
+            value: theme.colors.primary.black,
+          };
 
           // TODO: These are hardcoded for the demo, but we should generalize them.
           const up = marker.coordinates[1] > 50;
@@ -104,13 +126,12 @@ function InternationalMap({
             <MapMarker
               key={`mapmarker-${i}`}
               label={marker.name}
-              value={marker.value}
+              value={formatValue(marker.value)}
               x={x}
               y={y}
               size={size}
-              color={marker.color}
+              colors={colors}
               length={length}
-              theme={theme}
               up={up}
             />
           );
@@ -118,6 +139,4 @@ function InternationalMap({
       </g>
     </svg>
   );
-}
-
-export { InternationalMap };
+};
