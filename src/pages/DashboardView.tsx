@@ -33,7 +33,7 @@ const SideView = styled.div`
   margin-left: 60px;
 `;
 
-const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.DOP, CurrencyCode.CAD];
+const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
 
 export const DashboardView = ({ displayName }: { displayName: string }): JSX.Element => {
   const tabViews = [

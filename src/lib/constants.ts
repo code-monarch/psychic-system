@@ -576,8 +576,8 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_informal_plural: 'Pounds',
   },
   HTG: {
-    name_formal: 'Gourde',
-    name_formal_plural: 'Gourdes',
+    name_formal: 'Haitian Gourde',
+    name_formal_plural: 'Haitian Gourdes',
     name_informal: 'Gourde',
     name_informal_plural: 'Gourdes',
   },
