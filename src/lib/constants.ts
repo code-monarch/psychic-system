@@ -23,6 +23,9 @@ export const MEMBER_ROUTE = {
   get WALLETS(): string {
     return '/wallets';
   },
+  get TRANSACTIONS(): string {
+    return '/transactions';
+  },
   get PAGE_NOT_FOUND(): string {
     return '/404';
   },

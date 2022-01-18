@@ -6,25 +6,16 @@ import { BasicTable } from '../../components/BasicTable';
 import { Flex } from '../../components/styled';
 import { TimeChangeLineChart, TimeValue } from '../../components/TimeChangeLineChart';
 
-const Wrapper = styled(Flex.Column)`
-  margin: 0 40px;
-`;
-
-const StyledBasicTable = styled(BasicTable)`
-  margin-top: 75px;
-`;
-
-const ChartWrapper = styled.div`
-  width: 150px;
-  margin: 0 auto;
-`;
-
-interface RowData {
+interface ExchangeRatesRow {
   name: string;
   amount: number;
   change: number;
   chart: TimeValue[];
 }
+
+type CurrencyCoordinates = {
+  [K in CurrencyCode]?: Coordinates;
+};
 
 // TODO: Get this from an API
 const exchangeRates = {
@@ -32,10 +23,6 @@ const exchangeRates = {
   USD: 101.62,
   CAD: 80.9,
   DOP: 1.75,
-};
-
-type CurrencyCoordinates = {
-  [K in CurrencyCode]?: Coordinates;
 };
 
 // TODO: Get this from... ?
@@ -58,6 +45,41 @@ const makeTimeValues = (count = 24): TimeValue[] => {
   }
   return values;
 };
+
+const ExchangeRatesTable = ({
+  className,
+  columnData,
+  rowData,
+  getColumnProps,
+  getCellProps,
+}: {
+  className?: string;
+  columnData: Column<ExchangeRatesRow>[];
+  rowData: ExchangeRatesRow[];
+  getColumnProps?: (col: Column<ExchangeRatesRow>) => object;
+  getCellProps?: (cell: Cell<ExchangeRatesRow>) => object;
+}): JSX.Element => (
+  <BasicTable<ExchangeRatesRow>
+    className={className}
+    columnData={columnData}
+    rowData={rowData}
+    getColumnProps={getColumnProps}
+    getCellProps={getCellProps}
+  />
+);
+
+const Wrapper = styled(Flex.Column)`
+  margin: 0 40px;
+`;
+
+const ChartWrapper = styled.div`
+  width: 150px;
+  margin: 0 auto;
+`;
+
+const StyledExchangeRatesTable = styled(ExchangeRatesTable)`
+  margin-top: 75px;
+`;
 
 export const ExchangeRatesContent = ({
   locale = 'en-US',
@@ -93,7 +115,7 @@ export const ExchangeRatesContent = ({
     formatter: decimalFormatter.format,
   }));
 
-  const tableColumns: Column<RowData>[] = [
+  const tableColumns: Column<ExchangeRatesRow>[] = [
     {
       Header: CURRENCY_NAMES[localCurrency].name_formal,
       accessor: 'name',
@@ -111,7 +133,7 @@ export const ExchangeRatesContent = ({
     {
       Header: 'Chart (24h)',
       accessor: 'chart',
-      Cell: ({ row, value }: Cell<RowData>) => (
+      Cell: ({ row, value }: Cell<ExchangeRatesRow>) => (
         <ChartWrapper>
           <TimeChangeLineChart chartId={`tableChart-${row.index}`} data={value} />
         </ChartWrapper>
@@ -119,7 +141,7 @@ export const ExchangeRatesContent = ({
     },
   ];
 
-  const tableRows: RowData[] = exchangeCurrencies.map((curr) => {
+  const tableRows: ExchangeRatesRow[] = exchangeCurrencies.map((curr) => {
     const chartValues = makeTimeValues(); // TODO: Get data from API
     const firstValue = chartValues[0].value;
     const lastValue = chartValues[chartValues.length - 1].value;
@@ -131,7 +153,7 @@ export const ExchangeRatesContent = ({
     };
   });
 
-  const columnPropGetter = (col: Column) => {
+  const columnPropGetter = (col: Column<ExchangeRatesRow>) => {
     const { id } = col;
     return {
       style: {
@@ -141,7 +163,7 @@ export const ExchangeRatesContent = ({
     };
   };
 
-  const cellPropGetter = (cell: Cell<RowData>) => {
+  const cellPropGetter = (cell: Cell<ExchangeRatesRow>) => {
     const columnId = cell.column.id;
     const { value } = cell;
 
@@ -164,7 +186,7 @@ export const ExchangeRatesContent = ({
   return (
     <Wrapper>
       <InternationalMap width={650} markers={mapMarkers} />
-      <StyledBasicTable
+      <StyledExchangeRatesTable
         columnData={tableColumns}
         rowData={tableRows}
         getColumnProps={columnPropGetter}
