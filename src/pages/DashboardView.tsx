@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { CurrencyCode } from 'src/lib/constants';
 import { Tabs } from '../components/Tabs';
 import { Flex } from '../components/styled';
 import { DepartmentsContent, ExchangeRatesContent, SummaryContent, SummarySidePanel, TokensContent } from './dashboard';
@@ -32,8 +33,15 @@ const SideView = styled.div`
   margin-left: 60px;
 `;
 
+const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
+
 export const DashboardView = ({ displayName }: { displayName: string }): JSX.Element => {
-  const tabViews = [<SummaryContent />, <ExchangeRatesContent />, <TokensContent />, <DepartmentsContent />];
+  const tabViews = [
+    <SummaryContent />,
+    <ExchangeRatesContent localCurrency={CurrencyCode.HTG} exchangeCurrencies={exchangeCurrencies} />,
+    <TokensContent />,
+    <DepartmentsContent />,
+  ];
   const sideViews = [<SummarySidePanel />];
   const [selectedTabView, setSelectedTabView] = useState(tabViews[0]);
 
