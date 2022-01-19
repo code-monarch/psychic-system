@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Title } from './styled';
-import SummaryTable from './SummaryTable';
+import { SummaryTable } from './SummaryTable';
 
 const StyledSummaryTable = styled(SummaryTable)`
   width: 100%;
 `;
 
-function PopulationTable() {
+export const PopulationTable = (): JSX.Element => {
   // TODO: Get config data from API
   const config = [
     {
@@ -30,5 +30,3 @@ function PopulationTable() {
     </div>
   );
 }
-
-export { PopulationTable };

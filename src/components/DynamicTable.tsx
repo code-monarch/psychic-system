@@ -1,12 +1,10 @@
 import React from 'react';
-import styled, { CSSObject } from 'styled-components';
-import { Row, Column, HeaderGroup, useTable } from 'react-table';
+import styled from 'styled-components';
+import { Cell, Row, Column, HeaderGroup, useTable, usePagination } from 'react-table';
 import Table from './Table';
 import searchIcon from '../assets/images/icons/search.svg';
 import filterIcon from '../assets/images/icons/filter.svg';
 import exportIcon from '../assets/images/icons/export.svg';
-
-type ColumnStyle = CSSObject | ((...args: any[]) => CSSObject);
 
 const TableWrapper = styled.div`
   display: flex;
@@ -51,17 +49,15 @@ const StyledTableBody = styled(Table.Body)`
   font-weight: 600;
 `;
 
-const StyledCell = styled(Table.TD)<{ $columnStyle?: CSSObject }>`
+const StyledCell = styled(Table.TD)`
   padding: 10px;
-  ${({ $columnStyle }) => $columnStyle}
 `;
 
-const getColumnStyle = (columnId: string, columnStyle?: ColumnStyle) => {
-  if (typeof columnStyle === 'function') {
-    return columnStyle(columnId);
-  }
-  return columnStyle;
-};
+const Pagination = styled.div`
+  text-align: end;
+`;
+
+const defaultPropGetter = () => ({});
 
 function TableHeader<R extends object>({
   className,
@@ -86,16 +82,18 @@ function TableHeader<R extends object>({
 function TableRow<R extends object>({
   className,
   row,
-  columnStyle,
+  getColumnProps,
+  getCellProps,
 }: {
   className?: string;
   row: Row<R>;
-  columnStyle?: ColumnStyle;
+  getColumnProps: (col: Column<R>) => object;
+  getCellProps: (cell: Cell<R>) => object;
 }) {
   return (
     <Table.TR className={className} {...row.getRowProps()}>
       {row.cells.map((cell) => (
-        <StyledCell $columnStyle={getColumnStyle(cell.column.id, columnStyle)} {...cell.getCellProps()}>
+        <StyledCell {...cell.getCellProps([getColumnProps(cell.column), getCellProps(cell)])}>
           {cell.render('Cell')}
         </StyledCell>
       ))}
@@ -105,47 +103,97 @@ function TableRow<R extends object>({
 
 function TableBody<R extends object>({
   className,
-  rows,
+  page,
   prepareRow,
-  columnStyle,
+  getColumnProps,
+  getCellProps,
   ...tableBodyProps
 }: {
   className?: string;
-  rows: Row<R>[];
+  page: Row<R>[];
   prepareRow: (row: Row<R>) => void;
-  columnStyle?: ColumnStyle;
+  getColumnProps: (col: Column<R>) => object;
+  getCellProps: (cell: Cell<R>) => object;
 }) {
   return (
     <StyledTableBody className={className} {...tableBodyProps}>
-      {rows.map((row, i) => {
+      {page.map((row, i) => {
         prepareRow(row);
-        return <TableRow key={i} {...{ row, columnStyle }} />;
+        return <TableRow key={i} {...{ row, getColumnProps, getCellProps }} />;
       })}
     </StyledTableBody>
   );
 }
 
-export default function DynamicTable<R extends object>({
+function EventedButton({
   className,
-  columnData,
-  rowData,
-  columnStyle,
+  text,
+  callback,
+  disabled,
 }: {
   className?: string;
-  columnData: Column<R>[];
-  rowData: R[];
-  columnStyle?: ColumnStyle;
-}) {
-  const data = React.useMemo(() => rowData, []);
-  const columns = React.useMemo(() => columnData, []);
-  const tableInstance = useTable({ columns, data });
+  text: string;
+  callback: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+}): JSX.Element {
+  function handleClick(e) {
+    e.preventDefault();
+    if (!disabled) {
+      callback(e);
+    }
+  }
+  return (
+    <button aria-disabled={disabled} className={className} type="button" onClick={handleClick}>
+      {text}
+    </button>
+  );
+}
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+const TextButton = styled(EventedButton)`
+  background: none;
+  border: none;
+  padding: 0 4px;
+  font-family: 'ProximaNova', sans-serif;
+  font-weight: 600;
+  color: ${({ theme, disabled }) => (disabled ? theme.colors.secondary.grey : theme.colors.primary.grey)};
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const DynamicTable = <R extends object>({
+  className,
+  columnConfig,
+  rowData,
+  getColumnProps = defaultPropGetter,
+  getCellProps = defaultPropGetter,
+}: {
+  className?: string;
+  columnConfig: Column<R>[];
+  rowData: R[];
+  getColumnProps?: (col: Column<R>) => object;
+  getCellProps?: (cell: Cell<R>) => object;
+}): JSX.Element => {
+  const data = React.useMemo(() => rowData, []);
+  const columns = React.useMemo(() => columnConfig, []);
+  const tableInstance = useTable<R>({ columns, data }, usePagination);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    rows,
+    page,
+    canPreviousPage,
+    canNextPage,
+    nextPage,
+    previousPage,
+  } = tableInstance;
 
   return (
     <TableWrapper>
       <Header>
-        <Totals>{rows.length} Total Requests</Totals>{' '}
+        <Totals>{rows.length} Total Requests</Totals>
         {/* TODO: pass in the name of the record type (e.g. "Request"), and add pluralization */}
         <Controls>
           {/* TODO: Add search and filter capability */}
@@ -156,9 +204,16 @@ export default function DynamicTable<R extends object>({
       </Header>
       <Table className={className} {...{ ...getTableProps() }}>
         <TableHeader className={className} {...{ headerGroups }} />
-        <TableBody className={className} {...{ rows, prepareRow, columnStyle, ...getTableBodyProps() }} />
+        <TableBody
+          className={className}
+          {...{ page, prepareRow, getColumnProps, getCellProps, ...getTableBodyProps() }}
+        />
       </Table>
-      {/* TODO: Add pagination */}
+      <Pagination>
+        <TextButton text="<" callback={() => previousPage()} disabled={!canPreviousPage} />
+        {/* TODO: Implement more complex pagination */}
+        <TextButton text=">" callback={() => nextPage()} disabled={!canNextPage} />
+      </Pagination>
     </TableWrapper>
   );
-}
+};

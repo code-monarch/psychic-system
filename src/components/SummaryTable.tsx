@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Table from './Table';
 
-export interface SummaryTableData {
+export interface SummaryTableConfig {
   header: string;
   value: string;
 }
@@ -17,24 +17,30 @@ const Cell = styled(Table.TD)`
   text-align: center;
 `;
 
-const TableHead = styled(Table.Head)`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.primary.grey};
-`;
-
 const Header = styled(Table.TH)`
   border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
   border-left: 1px solid ${({ theme }) => theme.colors.secondary.grey};
   padding: 10px;
   font-weight: 600;
   white-space: nowrap;
+`;
 
-  & ${TableHead}:first-child {
+const TableHead = styled(Table.Head)`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.primary.grey};
+
+  & ${Header}:first-child {
     border-left: none;
   }
 `;
 
-export default function SummaryTable({ className, config }: { className?: string; config: SummaryTableData[] }) {
+export const SummaryTable = ({
+  className,
+  config,
+}: {
+  className?: string;
+  config: SummaryTableConfig[];
+}): JSX.Element => {
   const headers = config.map(({ header }) => header);
   const values = config.map(({ value }) => value);
   return (
@@ -55,4 +61,4 @@ export default function SummaryTable({ className, config }: { className?: string
       </Table.Body>
     </StyledTable>
   );
-}
+};

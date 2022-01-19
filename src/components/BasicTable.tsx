@@ -53,7 +53,7 @@ function TableRow<R extends object>({
 }: {
   className?: string;
   row: Row<R>;
-  getColumnProps: (col: Column) => object;
+  getColumnProps: (col: Column<R>) => object;
   getCellProps: (cell: Cell<R>) => object;
 }) {
   return (
@@ -78,7 +78,7 @@ function TableBody<R extends object>({
   className?: string;
   rows: Row<R>[];
   prepareRow: (row: Row<R>) => void;
-  getColumnProps: (col: Column) => object;
+  getColumnProps: (col: Column<R>) => object;
   getCellProps: (cell: Cell<R>) => object;
 }) {
   return (
@@ -101,7 +101,7 @@ export const BasicTable = <R extends object>({
   className?: string;
   columnData: Column<R>[];
   rowData: R[];
-  getColumnProps?: (col: Column) => object;
+  getColumnProps?: (col: Column<R>) => object;
   getCellProps?: (cell: Cell<R>) => object;
 }): JSX.Element => {
   const data = React.useMemo(() => rowData, []);

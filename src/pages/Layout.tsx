@@ -9,6 +9,7 @@ import { navIconsDefault as defaultIcons, navIconsActive as activeIcons } from '
 import { MEMBER_ROUTE } from '../lib/constants';
 import { Requests } from './Requests';
 import { Wallets } from './Wallets';
+import { Transactions } from './TransactionsPage';
 
 const Screen = styled.div`
   flex: 1;
@@ -44,6 +45,7 @@ const navigationItems = [
   { to: '/dashboard', text: 'Dashboard', icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard } },
   { to: '/requests', text: 'Requests', icon: { default: defaultIcons.requests, active: activeIcons.requests } },
   { to: '/wallets', text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+  { to: '/transactions', text: 'Transactions', icon: { default: defaultIcons.requests, active: activeIcons.requests } }, // TODO: Add Transactions icon
   {
     to: '/manage-users',
     text: 'Manage Users',
@@ -75,6 +77,9 @@ export default function Layout() {
             </Route>
             <Route path={MEMBER_ROUTE.WALLETS} exact>
               <Wallets />
+            </Route>
+            <Route path={MEMBER_ROUTE.TRANSACTIONS} exact>
+              <Transactions displayName={appUser.displayName} />
             </Route>
             <Route path="*" exact={false}>
               <Redirect to={{ pathname: MEMBER_ROUTE.DASHBOARD }} />
