@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import DashboardHeader from '../components/DashboardHeader';
+import { DashboardHeader } from '../components/DashboardHeader';
 import { NavigationList } from '../components/NavigationList';
 import { DashboardView } from './DashboardView';
 import { useAuth } from '../context/auth-context';
@@ -12,9 +12,8 @@ import { Wallets } from './Wallets';
 import { Transactions } from './TransactionsPage';
 
 const Screen = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  max-width: 1440px;
+  margin: auto;
 `;
 
 const Header = styled(DashboardHeader)`
@@ -22,9 +21,10 @@ const Header = styled(DashboardHeader)`
 `;
 
 const Body = styled.div`
-  flex: 1;
   display: flex;
-  flex-direction: row;
+  padding-top: 80px;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const SideNav = styled.div`
@@ -37,8 +37,7 @@ const SideNav = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 1;
-  display: flex;
+  overflow-y: scroll;
 `;
 
 const navigationItems = [
@@ -58,7 +57,7 @@ const navigationItems = [
   },
 ];
 
-export default function Layout() {
+export default function Layout(): JSX.Element {
   const { appUser, userRole } = useAuth();
   return (
     <Screen>

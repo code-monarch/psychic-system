@@ -27,7 +27,7 @@ declare module 'styled-components' {
 export const lightTheme: DefaultTheme = {
   colors: {
     primary: {
-      green: '#279F70',
+      green: '#4AB0A6',
       black: '#2E2E2E',
       darkgrey: '#4F4F4F',
       grey: '#828282',

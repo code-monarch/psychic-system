@@ -69,7 +69,7 @@ const ExchangeRatesTable = ({
 );
 
 const Wrapper = styled(Flex.Column)`
-  margin: 0 40px;
+  margin: 0px;
 `;
 
 const ChartWrapper = styled.div`
