@@ -39,6 +39,7 @@ export const MEMBER_ROUTE = {
 const LOCAL_STORAGE_KEY_PREFIX = 'CBDC__';
 export const LOCAL_STORAGE_KEYS = {
   WALLET_LIST: `${LOCAL_STORAGE_KEY_PREFIX}WALLET_LIST`,
+  USER_DATA: `${LOCAL_STORAGE_KEY_PREFIX}USER_DATA`,
 };
 
 export enum USER_ROLES {
@@ -1286,3 +1287,5 @@ export const statusRenderMappings: StatusRenderMappings = {
   [Status.APPROVED]: { color: '#279F70', text: 'Approved' },
   [Status.DENIED]: { color: '#EC3D08', text: 'Denied' },
 };
+
+export const isValidEmailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import LoginForm from '../components/LoginForm';
+import { LoginForm } from '../components/LoginForm';
 import loginImage from '../assets/images/login-image.svg';
 
 const Screen = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
-
+  min-height: 100vh;
   a {
     font-size: 13px;
     font-weight: bold;
@@ -15,15 +15,15 @@ const Screen = styled.div`
 `;
 
 const LeftPane = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  width: 50%;
   background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
 `;
 
 const RightPane = styled.div`
-  flex: 1;
+  width: 50%;
   display: flex;
   align-items: flex-start;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, forwardRef, ForwardedRef, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 const InputContainer = styled.div`
@@ -37,29 +37,23 @@ const InputLabel = styled.label<{ hasText: boolean }>`
         color: ${props.theme.colors.primary.grey};
     `}
 `;
-
-export default function AnimatedLabelInput({
-  className,
-  label,
-  isPassword,
-}: {
+interface IAnimatedLabelInputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label: string;
   isPassword?: boolean;
-}) {
-  const [inputValue, setValue] = useState('');
-  const type = isPassword ? 'password' : 'text';
-
-  return (
-    <InputContainer className={className}>
-      <InputText
-        type={type}
-        value={inputValue}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-      <InputLabel hasText={Boolean(inputValue)}>{label}</InputLabel>
-    </InputContainer>
-  );
+  name?: string;
 }
+
+export const AnimatedLabelInput = forwardRef(
+  ({ className, label, isPassword, name }: IAnimatedLabelInputProps, ref: ForwardedRef<HTMLInputElement>) => {
+    const [inputValue, setValue] = useState('');
+    const type = isPassword ? 'password' : 'text';
+    // removed controlled input because react-hook-form uses refs to control/grab the value
+    return (
+      <InputContainer className={className}>
+        <InputText type={type} ref={ref} name={name} />
+        <InputLabel hasText={Boolean(inputValue)}>{label}</InputLabel>
+      </InputContainer>
+    );
+  },
+);

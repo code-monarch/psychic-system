@@ -1,56 +1,46 @@
-import { useContext, createContext, useState } from 'react';
+import { useContext, createContext, useState, useEffect } from 'react';
 import { useMutation, useQuery, UseMutationResult, QueryCache } from 'react-query';
-import { Loading } from '../components/Loading';
+import { useLocalStorage } from 'react-use';
 import { cacheKey } from '../hooks/cacheStateKey';
-import { useGetUser } from '../hooks/useUser';
 import { AuthenticationService, IUserSigninData } from '../services/authentication-service';
-import { USER_ROLES } from '../lib/constants';
+import { LOCAL_STORAGE_KEYS, USER_ROLES } from '../lib/constants';
 
-// TODO: configure data interfaces when we connect to the endpoints and replace "any" with the proper interfaces
-// TODO: it's possible that we'll have to merge userProfile and app user objects. Depends on data from the backend
+export interface AppUser {
+  family_name: string;
+  given_name: string;
+  avatarUrl: string;
+  email: string;
+}
 
 type AuthContextProps = {
-  appUser: any | null;
+  appUser: Partial<AppUser> | null;
   userRole: USER_ROLES | null;
-  setAppUser: React.Dispatch<React.SetStateAction<any>>;
+  setAppUser: React.Dispatch<React.SetStateAction<Partial<AppUser>>>;
   setUserRole: React.Dispatch<React.SetStateAction<USER_ROLES | null>>;
   useSignin: () => UseMutationResult<any, unknown, IUserSigninData, unknown>;
   useSignout: () => UseMutationResult<void, unknown, void, unknown>;
   useGetUserRole: () => UseMutationResult<USER_ROLES, unknown, void, unknown>;
-  userProfile: any;
-  userProfileRefetch: () => void;
   setUserSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setUserSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
 const AuthContext = createContext<Partial<AuthContextProps>>({});
 AuthContext.displayName = 'AuthContext';
 
 const queryCache = new QueryCache();
 
 const AuthProvider = (props: any) => {
-  const [appUser, setAppUser] = useState<any>(null);
+  const [appUser, setAppUser] = useState<Partial<AppUser>>(null);
   const [userRole, setUserRole] = useState<USER_ROLES | null>(null);
   const [userSignedIn, setUserSignedIn] = useState<boolean>(false);
   const [userSignedUp, setUserSignedUp] = useState<boolean>(false);
-  const { data: userProfile, refetch: userProfileRefetch } = useGetUser();
+  const [userData] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
+  // const { data: userProfile, refetch: userProfileRefetch } = useGetUser();
 
-  const {
-    data: any,
-    isLoading,
-    isIdle,
-    isError,
-    isSuccess,
-  } = useQuery({
-    queryKey: [cacheKey.currentUser],
-    queryFn: AuthenticationService.getUser,
-    onSuccess: async (user) => {
-      if (user) {
-        // TODO: set user if we have any in local storage
-        setAppUser(user);
-      }
-    },
-  });
+  useEffect(() => {
+    if (userData) {
+      setAppUser(userData);
+    }
+  }, [userData]);
 
   const { data } = useQuery({
     queryKey: [cacheKey.currentUserRole],
@@ -62,32 +52,18 @@ const AuthProvider = (props: any) => {
     },
   });
 
-  if (isLoading || isIdle) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    console.log(`[AuthProvider] -- isError`);
-  }
-
-  if (isSuccess) {
-    const values: AuthContextProps = {
-      appUser,
-      userRole,
-      setAppUser,
-      setUserRole,
-      useSignin,
-      useSignout,
-      useGetUserRole,
-      userProfile,
-      userProfileRefetch,
-      setUserSignedIn,
-      setUserSignedUp,
-    };
-    return <AuthContext.Provider value={values} {...props} />;
-  }
-
-  return null;
+  const values: AuthContextProps = {
+    appUser,
+    userRole,
+    setAppUser,
+    setUserRole,
+    useSignin,
+    useSignout,
+    useGetUserRole,
+    setUserSignedIn,
+    setUserSignedUp,
+  };
+  return <AuthContext.Provider value={values} {...props} />;
 };
 
 function useSignin() {

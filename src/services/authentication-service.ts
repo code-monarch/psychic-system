@@ -1,20 +1,50 @@
 import { USER_ROLES } from '../lib/constants';
+import { mainApi } from '../lib/apis';
 
 /**
  * @description
  * Our authentication service.
  */
+interface SignInResponse {
+  responseCode: string;
+  responseStatus: string;
+  responseMessage: string;
+  responsePayload: {
+    token: string;
+    expiresAt: string;
+  };
+}
 export class AuthenticationService {
   /**
    * @description
    * Signs the user in by setting their their user information in the browsers LocalStorage.
    */
-  static async signin(data: IUserSigninData) {
-    const { username: email, password } = data;
+
+  static async signin(data: IUserSigninData): Promise<SignInResponse> {
+    const { email, password } = data;
     try {
-      // call sign in endpoint
+      const data = await mainApi
+        .post(
+          `/signIn`,
+          {
+            username: email,
+            password,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((res) => res?.data)
+        .catch((err) => {
+          console.error('Error logging in: ', err.response.data);
+          throw Error(err.response);
+        });
+      return data;
     } catch (error) {
-      // catch errors
+      console.log(error);
+      throw Error(error);
     }
   }
 
@@ -42,27 +72,9 @@ export class AuthenticationService {
       return USER_ROLES.INTEGRATOR;
     }
   }
-
-  /**
-   * @description
-   * Checks if there is a currently logged in user.
-   * fetch cached user token to determine if user is already logged in
-   */
-  static async getUser() {
-    try {
-      return {
-        displayName: 'Olaide',
-        id: '023232owewe023232',
-        avatarUrl: 'https://placekitten.com/32/32',
-      };
-      // return user from local storage?
-    } catch (error) {
-      return null;
-    }
-  }
 }
 
 export interface IUserSigninData {
-  username: string;
+  email: string;
   password: string;
 }
