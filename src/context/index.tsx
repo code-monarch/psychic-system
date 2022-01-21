@@ -38,7 +38,7 @@ const queryClient = new QueryClient({
 export const AppProviders: FunctionComponent = ({ children }) => (
   <Suspense fallback={<Loading />}>
     <QueryClientProvider client={queryClient}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <div>
         <Router>
           <AuthProvider>{children}</AuthProvider>
         </Router>

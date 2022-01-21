@@ -35,9 +35,10 @@ const Control = styled.img`
 `;
 
 const StyledTableHead = styled(Table.Head)`
-  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
+  background-color: ${({ theme }) => theme.colors.primary.lightgrey};
   font-size: 14px;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.primary.darkgrey};
 `;
 
 const StyledTableHeader = styled(Table.TH)`
@@ -47,6 +48,7 @@ const StyledTableHeader = styled(Table.TH)`
 const StyledTableBody = styled(Table.Body)`
   font-size: 14px;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.primary.darkgrey};
 `;
 
 const StyledCell = styled(Table.TD)`

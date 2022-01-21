@@ -17,10 +17,10 @@
 }
 
 @font-face {
-  font-family: 'ProximaNovaThin';
+  font-family: 'ProximaNovaExtraBold';
   font-display: swap;
-  src: local('ProximaNovaThin'),
-  url('./assets/fonts/ProximaNova-Thin.otf') format('opentype');
+  src: local('ProximaNovaExtraBold'),
+  url('./assets/fonts/ProximaNova-Extrabold.otf') format('opentype');
   font-weight:auto;
   font-style: normal;
 }

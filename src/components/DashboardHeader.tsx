@@ -2,9 +2,18 @@ import styled from 'styled-components';
 import emtechLogo from '../assets/images/emtech-logo.svg';
 
 const Header = styled.div`
+  position: fixed;
+  right: 0;
+  left: 0;
+  background-color: ${({ theme }) => theme.colors.primary.lightgrey};
+`;
+
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 24px 40px;
+  margin: auto;
+  max-width: 1440px;
   > div {
     flex: 1;
     display: flex;
@@ -32,15 +41,15 @@ const Avatar = styled.img`
   line-height: 32px;
 `;
 
-export default function DashboardHeader({ className, avatarUrl }: { className?: string; avatarUrl: string }) {
-  return (
-    <Header className={className}>
+export const DashboardHeader = ({ className, avatarUrl }: { className?: string; avatarUrl: string }) => (
+  <Header className={className}>
+    <Container>
       <HeaderLeft>
         <Logo src={emtechLogo} />
       </HeaderLeft>
       <HeaderRight>
         <Avatar src={avatarUrl} />
       </HeaderRight>
-    </Header>
-  );
-}
+    </Container>
+  </Header>
+);
