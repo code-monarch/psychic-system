@@ -39,6 +39,7 @@ export const MEMBER_ROUTE = {
 const LOCAL_STORAGE_KEY_PREFIX = 'CBDC__';
 export const LOCAL_STORAGE_KEYS = {
   WALLET_LIST: `${LOCAL_STORAGE_KEY_PREFIX}WALLET_LIST`,
+  USER_DATA: `${LOCAL_STORAGE_KEY_PREFIX}USER_DATA`,
 };
 
 export enum USER_ROLES {
@@ -1269,3 +1270,22 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_informal_plural: 'Zlotych',
   },
 };
+
+//
+type StatusRenderMappings = { [key in Status]: { color: string; text: string } };
+
+export enum Status {
+  PENDING,
+  INPROGRESS,
+  APPROVED,
+  DENIED,
+}
+
+export const statusRenderMappings: StatusRenderMappings = {
+  [Status.PENDING]: { color: '#F5C14F', text: 'Pending' },
+  [Status.INPROGRESS]: { color: '#233984', text: 'In Progress' },
+  [Status.APPROVED]: { color: '#279F70', text: 'Approved' },
+  [Status.DENIED]: { color: '#EC3D08', text: 'Denied' },
+};
+
+export const isValidEmailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

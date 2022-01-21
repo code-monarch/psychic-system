@@ -8,7 +8,7 @@ import { useAuth } from '../context/auth-context';
 import { navIconsDefault as defaultIcons, navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 import { MEMBER_ROUTE } from '../lib/constants';
 import { Requests } from './Requests';
-import { Wallets } from './Wallets';
+import { Wallets } from './wallet/Wallets';
 import { Transactions } from './TransactionsPage';
 
 const Screen = styled.div`
@@ -69,16 +69,16 @@ export default function Layout(): JSX.Element {
         <Content>
           <Switch>
             <Route path={MEMBER_ROUTE.DASHBOARD} exact>
-              <DashboardView displayName={appUser.displayName} />
+              <DashboardView displayName={appUser.given_name} />
             </Route>
             <Route path={MEMBER_ROUTE.REQUESTS} exact>
               <Requests />
             </Route>
             <Route path={MEMBER_ROUTE.WALLETS} exact>
-              <Wallets />
+              <Wallets displayName={appUser.given_name} />
             </Route>
             <Route path={MEMBER_ROUTE.TRANSACTIONS} exact>
-              <Transactions displayName={appUser.displayName} />
+              <Transactions displayName={appUser.given_name} />
             </Route>
             <Route path="*" exact={false}>
               <Redirect to={{ pathname: MEMBER_ROUTE.DASHBOARD }} />

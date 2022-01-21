@@ -30,7 +30,7 @@ const queryClient = new QueryClient({
         so that we can handle them on the FE appropriately.
       */
       // useErrorBoundary: true,
-      refetchOnWindowFocus: false, // Why? https://github.com/bookclub-com/bookclub/pull/484#discussion_r541450113
+      refetchOnWindowFocus: false,
     },
   },
 });
