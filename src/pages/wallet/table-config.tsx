@@ -3,7 +3,7 @@ import { Cell, Column } from 'react-table';
 import { Status, statusRenderMappings } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
 
-export interface TransactionRow {
+export interface WalletRow {
   id: string;
   organization: string;
   requestor: string;
@@ -29,7 +29,7 @@ const StyledStatus = ({ status }: { status: Status }): JSX.Element => {
   return <ColoredDotSpan {...{ color }}>{text}</ColoredDotSpan>;
 };
 
-export const columnConfig: Column<TransactionRow>[] = [
+export const columnConfig: Column<WalletRow>[] = [
   {
     Header: 'ID',
     accessor: 'id',
@@ -64,7 +64,7 @@ export const columnConfig: Column<TransactionRow>[] = [
   {
     Header: 'Status',
     accessor: 'status',
-    Cell: ({ value }: Cell<TransactionRow>) => <StyledStatus status={value} />,
+    Cell: ({ value }: Cell<WalletRow>) => <StyledStatus status={value} />,
   },
   {
     Header: 'Approver',

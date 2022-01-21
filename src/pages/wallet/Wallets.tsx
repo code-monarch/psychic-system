@@ -1,34 +1,27 @@
 import styled from 'styled-components';
 import { Column } from 'react-table';
-import { SummaryTable } from '../../components/SummaryTable';
-import { Flex, Title } from '../../components/styled';
 import { DynamicTable } from '../../components/DynamicTable';
-import { TransactionRow, columnConfig } from './table-config';
+import { Title } from '../../components/styled';
+import { columnConfig, WalletRow } from './table-config';
 import { Status } from '../../lib/constants';
 import { createMultipleTableRowData } from '../../lib/utils';
 
-const Wrapper = styled(Flex.Column)``;
+interface IWalletProps {
+  displayName: string;
+}
 
-const StyledTitle = styled(Title)`
-  margin: 16px 0;
-  text-transform: uppercase;
+const Wrapper = styled.div`
+  margin: 0 80px;
 `;
 
-// TODO: Get values from API
-const summaryTableConfig = [
-  { header: 'Requested', value: '500,000' },
-  { header: 'Burnt', value: '184,987' },
-  { header: 'Issued', value: '400,000' },
-  { header: 'Distributed', value: '20,030' },
-  { header: 'Redeemed', value: '20,000' },
-  { header: 'Rejected', value: '3450' },
-  { header: 'In Circulation', value: '209,930' },
-  { header: 'Recovered', value: '4200' },
-  { header: 'Available', value: '480,000' },
-];
+const Header = styled.h2`
+  color: ${({ theme }) => theme.colors.primary.black};
+  font-weight: bold;
+  font-size: 28px;
+`;
 
 // TODO: Get data from API
-const rowData: TransactionRow[] = [
+const rowData: WalletRow[] = [
   {
     id: '12345ABCDE',
     organization: 'Ministry of Health',
@@ -63,7 +56,7 @@ const rowData: TransactionRow[] = [
   },
 ];
 
-const columnPropGetter = (col: Column<TransactionRow>) => {
+const columnPropGetter = (col: Column<WalletRow>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
@@ -82,15 +75,22 @@ const columnPropGetter = (col: Column<TransactionRow>) => {
   };
 };
 
-export const TransactionsContent = (): JSX.Element => (
-  <Wrapper>
-    <StyledTitle>Summary (Transactions)</StyledTitle>
-    <SummaryTable config={summaryTableConfig} />
-    <StyledTitle>Requests Queue</StyledTitle>
-    <DynamicTable<TransactionRow>
-      columnConfig={columnConfig}
-      rowData={createMultipleTableRowData(rowData, 20)}
-      getColumnProps={columnPropGetter}
-    />
-  </Wrapper>
-);
+export const Wallets = (props: IWalletProps): JSX.Element => {
+  const { displayName } = props;
+  return (
+    <Wrapper>
+      <Header>Welcome {displayName}!</Header>
+      <StyledTitle>Wallet Requests Queue</StyledTitle>
+      <DynamicTable<WalletRow>
+        columnConfig={columnConfig}
+        rowData={createMultipleTableRowData(rowData, 20)}
+        getColumnProps={columnPropGetter}
+      />
+    </Wrapper>
+  );
+};
+
+const StyledTitle = styled(Title)`
+  margin: 16px 0;
+  text-transform: uppercase;
+`;
