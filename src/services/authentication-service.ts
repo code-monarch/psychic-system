@@ -27,7 +27,7 @@ export class AuthenticationService {
         .post(
           `/signIn`,
           {
-            username: email,
+            email,
             password,
           },
           {
