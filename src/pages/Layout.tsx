@@ -24,7 +24,6 @@ const Body = styled.div`
   display: flex;
   padding-top: 80px;
   height: 100vh;
-  overflow: hidden;
 `;
 
 const SideNav = styled.div`
@@ -37,7 +36,7 @@ const SideNav = styled.div`
 `;
 
 const Content = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const navigationItems = [
