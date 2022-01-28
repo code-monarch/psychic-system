@@ -8,6 +8,7 @@ import { LOCAL_STORAGE_KEYS, USER_ROLES } from '../lib/constants';
 export interface AppUser {
   family_name: string;
   given_name: string;
+  preferred_username: string;
   avatarUrl: string;
   email: string;
 }
