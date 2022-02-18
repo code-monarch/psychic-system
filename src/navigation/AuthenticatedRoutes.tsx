@@ -3,6 +3,7 @@ import { Redirect, Route, RouteProps, Switch, useLocation } from 'react-router-d
 import { Loading } from '../components/Loading';
 import { MEMBER_ROUTE, USER_ROLES } from '../lib/constants';
 import Layout from '../pages/Layout';
+import { DashboardLandingPage } from '../pages/DashboardLandingPage';
 
 const mapRoute = (route: RouteProps, index: number) => <Route key={index} {...route} />;
 
@@ -24,6 +25,7 @@ export const AuthenticatedRoutes = ({ userId, userRole }: IProps): JSX.Element =
   if (userRole === USER_ROLES.CENTRAL_BANK) {
     return (
       <Switch>
+        <Route path={MEMBER_ROUTE.GET_STARTED} render={() => <DashboardLandingPage />} />
         {centralBankRoutes.map(mapRoute)}
         {commonRoutes.map(mapRoute)}
       </Switch>
@@ -32,6 +34,7 @@ export const AuthenticatedRoutes = ({ userId, userRole }: IProps): JSX.Element =
   if (userRole === USER_ROLES.INTEGRATOR) {
     return (
       <Switch>
+        <Route path={MEMBER_ROUTE.GET_STARTED} render={() => <DashboardLandingPage />} />
         {integratorRoutes.map(mapRoute)}
         {commonRoutes.map(mapRoute)}
       </Switch>

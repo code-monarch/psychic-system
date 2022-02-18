@@ -17,6 +17,9 @@ export const MEMBER_ROUTE = {
   get DASHBOARD(): string {
     return '/dashboard';
   },
+  get GET_STARTED(): string {
+    return '/get-started';
+  },
   get REQUESTS(): string {
     return '/requests';
   },
