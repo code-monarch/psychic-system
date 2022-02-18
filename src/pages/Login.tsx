@@ -1,12 +1,12 @@
 import styled from 'styled-components';
+import { Grid, Container } from '@mantine/core';
 import { LoginForm } from '../components/LoginForm';
-import loginImage from '../assets/images/login-image.svg';
+import loginImage from '../assets/images/emtech_connection_image.svg';
+import { Logo } from '../components/Logo';
 
-const Screen = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
+const Screen = styled(Container)`
   min-height: 100vh;
+  padding: 0;
   a {
     font-size: 13px;
     font-weight: bold;
@@ -14,35 +14,35 @@ const Screen = styled.div`
   }
 `;
 
-const LeftPane = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 50%;
-  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
+const LoginContainer = styled(Grid)`
+  min-height: 100vh;
+  margin-top: -80px;
 `;
 
-const RightPane = styled.div`
-  width: 50%;
+const LeftPane = styled(Grid.Col)`
+  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
+  justify-content: center;
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+`;
+
+const RightPane = styled(Grid.Col)`
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `;
 
 const LogoPanel = styled.div`
   margin-right: auto;
-  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
-  padding: 40px;
-`;
-
-const SignUpPanel = styled.div`
-  margin-left: auto;
-  color: ${({ theme }) => theme.colors.primary.grey};
-  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  width: 100%;
+  height: 80px;
+  align-items: center;
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,11 +53,12 @@ const ImageWrapper = styled.div`
 `;
 
 const CallToAction = styled.h2`
-  font-size: 36px;
-  font-weight: bold;
+  font-size: 28px;
+  font-family: 'ProximaNovaBold', sans-serif;
   text-align: center;
 
   .green {
+    font-family: 'ProximaNovaBold', sans-serif;
     color: #279f70; // TODO: Add this color to theme
   }
 `;
@@ -67,36 +68,42 @@ const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 160px;
-  width: 400px;
+  max-width: 400px;
 `;
 
 const LoginText = styled.h1`
   font-size: 36px;
-  font-weight: bold;
+  margin: 0;
+  margin-bottom: 36px;
+  font-family: 'ProximaNovaExtraBold', sans-serif;
+`;
+
+const LoginPageImage = styled.img`
+  max-width: 350px;
 `;
 
 export const Login = () => (
-  <Screen>
-    <LeftPane>
-      <LogoPanel>EMTECH</LogoPanel>
-      <ImageWrapper>
-        <img src={loginImage} alt="Login" />
-        <CallToAction>
-          Access <span className="green">Digital Cash</span>
-          <br />
-          Like Never Before!
-        </CallToAction>
-      </ImageWrapper>
-    </LeftPane>
-    <RightPane>
-      <SignUpPanel>
-        Not a Member? <a href="/">Sign Up</a>
-      </SignUpPanel>
-      <LoginWrapper>
-        <LoginText>Login</LoginText>
-        <LoginForm />
-      </LoginWrapper>
-    </RightPane>
+  <Screen fluid>
+    <LogoPanel>
+      <Logo imageWidth={100} />
+    </LogoPanel>
+    <LoginContainer>
+      <LeftPane sm={12} md={6}>
+        <ImageWrapper>
+          <LoginPageImage src={loginImage} alt="Login" />
+          <CallToAction>
+            <span className="green">Digital Cash</span>
+            <br />
+            Like Never Before!
+          </CallToAction>
+        </ImageWrapper>
+      </LeftPane>
+      <RightPane md={6} sm={12}>
+        <LoginWrapper>
+          <LoginText>Login</LoginText>
+          <LoginForm />
+        </LoginWrapper>
+      </RightPane>
+    </LoginContainer>
   </Screen>
 );

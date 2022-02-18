@@ -2,17 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { ThemeProvider } from 'styled-components';
+import { MantineProvider } from '@mantine/core';
 import { App } from './App';
 import { AppProviders } from './context';
 import reportWebVitals from './reportWebVitals';
-import { lightTheme } from './themes';
+import { lightTheme, mantineThemeOverrides } from './themes';
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProviders>
-      <ThemeProvider theme={lightTheme}>
-        <App />
-      </ThemeProvider>
+      <MantineProvider theme={mantineThemeOverrides}>
+        <ThemeProvider theme={lightTheme}>
+          <App />
+        </ThemeProvider>
+      </MantineProvider>
     </AppProviders>
   </React.StrictMode>,
   document.getElementById('root'),

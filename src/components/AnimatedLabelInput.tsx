@@ -42,17 +42,21 @@ interface IAnimatedLabelInputProps extends InputHTMLAttributes<HTMLInputElement>
   label: string;
   isPassword?: boolean;
   name?: string;
+  isLabelAnimated?: boolean;
 }
 
 export const AnimatedLabelInput = forwardRef(
-  ({ className, label, isPassword, name }: IAnimatedLabelInputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  (
+    { className, label, isPassword, name, isLabelAnimated = true }: IAnimatedLabelInputProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
     const [inputValue, setValue] = useState('');
     const type = isPassword ? 'password' : 'text';
     // removed controlled input because react-hook-form uses refs to control/grab the value
     return (
       <InputContainer className={className}>
         <InputText type={type} ref={ref} name={name} />
-        <InputLabel hasText={Boolean(inputValue)}>{label}</InputLabel>
+        <InputLabel hasText={isLabelAnimated ? Boolean(inputValue) : true}>{label}</InputLabel>
       </InputContainer>
     );
   },

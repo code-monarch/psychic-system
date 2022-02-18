@@ -6,6 +6,7 @@ import { useLocalStorage } from 'react-use';
 import { AnimatedLabelInput } from './AnimatedLabelInput';
 import { AppUser, useAuth } from '../context/auth-context';
 import { isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE } from '../lib/constants';
+import { PrimaryButton } from './Buttons';
 
 const Form = styled.form`
   display: flex;
@@ -14,7 +15,8 @@ const Form = styled.form`
 `;
 
 export const ErrorText = styled.p`
-  font-size: 15px;
+  font-size: 14px;
+  font-family: 'ProximaNovaBold', sans-serif;
   color: ${({ theme }) => theme.colors.secondary.red};
 `;
 
@@ -26,29 +28,8 @@ const TextInput = styled.div`
   flex-direction: row;
 `;
 
-const LoginButton = styled.button`
-  background-color: #279f70; // TODO: Add this color to theme
-  border: none;
-  border-radius: 8px;
-  padding: 18px 24px;
+const ButtonContainer = styled.div`
   margin: 40px auto 0 0;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary.white};
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-`;
-
-// TODO: Replace with Link, rather than a, once router config is set up
-// TODO: Make the whole password + forgot password link a single component
-const ForgotPasswordLink = styled.div`
-  text-align: end;
-  margin-top: -48px;
-`;
-
-const LoginButtonText = styled.span`
-  margin-right: 100px;
 `;
 
 interface IFormData {
@@ -83,7 +64,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
           getUserRole(null, {
             onSuccess: async (userRole) => {
               saveToLocalStorage(decodedUser);
-              history.push(MEMBER_ROUTE.HOME);
+              history.push(MEMBER_ROUTE.GET_STARTED);
               setUserRole(userRole);
               // userRefetch();
             },
@@ -101,6 +82,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
           label="Email Address"
           name="email"
           type="email"
+          isLabelAnimated={false}
           ref={register({
             required: 'Email is required',
             pattern: {
@@ -114,6 +96,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
       <TextInput>
         <AnimatedLabelInput
           label="Password"
+          isLabelAnimated={false}
           isPassword
           name="password"
           type="password"
@@ -132,13 +115,10 @@ export const LoginForm = ({ className }: { className?: string }) => {
       </TextInput>
       {errors?.password?.message && <ErrorText>{errors.password.message}</ErrorText>}
       {hasSigninError && <ErrorText>{(signinError as any)?.message} </ErrorText>}
-      <ForgotPasswordLink>
-        <a href="/">Forgot password?</a>
-      </ForgotPasswordLink>
-      <LoginButton type="submit" style={disabled ? { opacity: 0.6 } : {}} disabled={disabled}>
-        <LoginButtonText>{signinRequestInProgress ? 'Signing you in ...' : 'Login'}</LoginButtonText>
-        <span>-&gt;</span>
-      </LoginButton>
+
+      <ButtonContainer>
+        <PrimaryButton title="Login" disabled={disabled} loading={signinRequestInProgress} />
+      </ButtonContainer>
     </Form>
   );
 };

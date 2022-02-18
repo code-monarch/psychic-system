@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'styled-components';
+import { MantineThemeOverride } from '@mantine/core';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -44,4 +45,22 @@ export const lightTheme: DefaultTheme = {
       darkgreen: '#015E5F',
     },
   },
+};
+
+export const mantineThemeOverrides: MantineThemeOverride = {
+  colors: {
+    green: [
+      '#DAE1E0',
+      '#C2D0CF',
+      '#ABC3C1',
+      '#94B9B5',
+      '#7CB2AD',
+      '#63B0A8',
+      '#4AB0A6',
+      '#4C958E',
+      '#4B807B',
+      '#486E6A',
+    ],
+  },
+  primaryColor: 'green',
 };
