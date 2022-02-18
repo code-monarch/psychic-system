@@ -22,30 +22,27 @@ export class AuthenticationService {
 
   static async signin(data: IUserSigninData): Promise<SignInResponse> {
     const { email, password } = data;
-    try {
-      const data = await mainApi
-        .post(
-          `/signIn`,
-          {
-            email,
-            password,
+    const response = await mainApi
+      .post(
+        `/signIn`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then((res) => res?.data)
-        .catch((err) => {
-          console.error('Error logging in: ', err.response.data);
-          throw Error(err.response);
-        });
-      return data;
-    } catch (error) {
-      console.log(error);
-      throw Error(error);
-    }
+        },
+      )
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        console.error(err.response);
+        console.error(err);
+        throw Error(err.response);
+      });
+    return response;
   }
 
   /**
