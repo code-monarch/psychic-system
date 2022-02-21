@@ -57,7 +57,7 @@ stages:
             condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
             displayName: Purge CDN Endpoint
             inputs:
-              azureSubscription: 'Microsoft Azure Sponsorship(c83f83a4-f7a1-4cb7-bab9-36e3b66c26ad)'
+              azureSubscription: 'Microsoft-Azure-Sponsorship'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: 'az cdn endpoint purge --debug -n etdapsadapaz  --profile-name et-cdn-dap-dev-az-eastus-001 --content-paths "/*" --resource-group dap-rg --no-wait --subscription c83f83a4-f7a1-4cb7-bab9-36e3b66c26ad'
