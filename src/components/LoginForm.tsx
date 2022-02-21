@@ -113,6 +113,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
           })}
         />
       </TextInput>
+
       {errors?.password?.message && <ErrorText>{errors.password.message}</ErrorText>}
       {hasSigninError && <ErrorText>{(signinError as any)?.message} </ErrorText>}
 
