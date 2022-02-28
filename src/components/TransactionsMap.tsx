@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection } from 'geojson';
-import { geoPath, geoContains, geoNaturalEarth1 } from 'd3-geo';
+import { geoContains, geoNaturalEarth1, geoPath } from 'd3-geo';
 import styled, { useTheme } from 'styled-components';
 import nationalJson from '../assets/geo/haiti.geo.json';
 import { Flex } from './styled';

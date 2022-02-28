@@ -3,7 +3,7 @@ import { Column } from 'react-table';
 import { SummaryTable } from '../../components/tables/SummaryTable';
 import { Flex, Title } from '../../components/styled';
 import { DynamicTable } from '../../components/tables/DynamicTable';
-import { TransactionRow, columnConfig } from './table-config';
+import { columnConfig, TransactionRow } from './table-config';
 import { Status } from '../../lib/constants';
 import { createMultipleTableRowData } from '../../lib/utils';
 

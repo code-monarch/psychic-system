@@ -1,7 +1,7 @@
 import styled, { useTheme } from 'styled-components';
 import { Cell, Column } from 'react-table';
 import { Coordinates, InternationalMap } from '../../components/charts/InternationalMap';
-import { CurrencyCode, CURRENCY_NAMES } from '../../lib/constants';
+import { CURRENCY_NAMES, CurrencyCode } from '../../lib/constants';
 import { BasicTable } from '../../components/tables/BasicTable';
 import { Flex } from '../../components/styled';
 import { TimeChangeLineChart, TimeValue } from '../../components/charts/TimeChangeLineChart';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Row, Column, HeaderGroup, useTable, Cell } from 'react-table';
+import { Cell, Column, HeaderGroup, Row, useTable } from 'react-table';
 import Table from './Table';
 
 const StyledTableHead = styled(Table.Head)`

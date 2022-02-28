@@ -29,9 +29,14 @@ const Button = styled.button`
 const TransparentButton = styled(Button)`
   background-color: transparent;
   font-size: 14px;
+  justify-content: center;
   font-family: 'ProximaNovaBold';
   color: ${({ theme }) => theme.colors.primary.black};
   border: 1px solid ${({ theme }) => theme.colors.secondary.grey}; ;
+`;
+
+const Button2 = styled(Button)`
+  justify-content: center;
 `;
 
 const ButtonText = styled.span``;
@@ -48,6 +53,18 @@ export const PrimaryButton = ({ title, disabled, loading, onClick, style }: IBut
     <ButtonText>{title}</ButtonText>
     {loading ? <Loader size={20} color="#fff" /> : <img src={white_arrow} alt="white-arrow" />}
   </Button>
+);
+
+export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
+  <Button2
+    style={style}
+    disabled={disabled}
+    onClick={() => {
+      onClick?.();
+    }}
+  >
+    <ButtonText>{title}</ButtonText>
+  </Button2>
 );
 
 export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (

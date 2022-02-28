@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, ForwardedRef, InputHTMLAttributes } from 'react';
+import React, { ForwardedRef, forwardRef, InputHTMLAttributes, useState } from 'react';
 import styled from 'styled-components';
 
 const InputContainer = styled.div`

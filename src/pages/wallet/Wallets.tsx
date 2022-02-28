@@ -1,7 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
 import { Grid, Menu, Modal } from '@mantine/core';
-import { ChevronDownIcon } from '@modulz/radix-icons';
 import { useState } from 'react';
 import { DynamicTable } from '../../components/tables/DynamicTable';
 import { Heading, ParagraphBold, Title } from '../../components/styled';
@@ -13,6 +12,8 @@ import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
 import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
 import distribution_request from '../../assets/images/icons/distribution_request.svg';
+import { ManualDistributionForm } from '../../components/ManualDistributionForm';
+import { SuccessModal } from '../../components/SuccessModal';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -90,6 +91,9 @@ const columnPropGetter = (col: Column<WalletRow>) => {
 
 export const Wallets = (props): JSX.Element => {
   const [modalOpened, setModalOpened] = useState<boolean>(false);
+  const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
   return (
@@ -134,7 +138,13 @@ export const Wallets = (props): JSX.Element => {
         }}
       >
         <DistributionModal>
-          <DistributionOption style={{ marginRight: 16 }}>
+          <DistributionOption
+            style={{ marginRight: 16 }}
+            onClick={() => {
+              setFormModalOpened(true);
+              setModalOpened(false);
+            }}
+          >
             <img src={manual_distribution} alt="manual_distribution" />
             <OptionsText> Manual Distribution</OptionsText>
           </DistributionOption>
@@ -144,6 +154,13 @@ export const Wallets = (props): JSX.Element => {
           </DistributionOption>
         </DistributionModal>
       </Modal>
+
+      <ManualDistributionForm
+        isVisible={formModalOpened}
+        setIsVisible={setFormModalOpened}
+        callback={() => setShowSuccessModal(true)}
+      />
+      <SuccessModal isVisible={showSuccessModal} setIsVisible={setShowSuccessModal} />
     </Wrapper>
   );
 };

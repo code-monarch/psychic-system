@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ChevronDownIcon, ArrowUpIcon, ArrowDownIcon } from '@modulz/radix-icons';
+import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from '@modulz/radix-icons';
 import { Menu } from '@mantine/core';
 import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';

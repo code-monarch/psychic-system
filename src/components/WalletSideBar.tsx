@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Divider, Space } from '@mantine/core';
-import { Heading, Paragraph, ParagraphBold, Title } from './styled';
+import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
 
 const Wrapper = styled.div`

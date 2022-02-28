@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { CartesianGrid, XAxis, YAxis, Tooltip, Legend, Area, ResponsiveContainer, Line, ComposedChart } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { NameValue } from '../NameValue';
 
 const StyledLegend = styled.ul`

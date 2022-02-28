@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { Pie, PieChart, Cell, Label, Legend } from 'recharts';
+import { Cell, Label, Legend, Pie, PieChart } from 'recharts';
 import { NameValue } from '../NameValue';
 
 const StyledLegend = styled.ul`

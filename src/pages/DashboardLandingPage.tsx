@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid, Container } from '@mantine/core';
+import { Container, Grid } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { PrimaryButton } from '../components/Buttons';
