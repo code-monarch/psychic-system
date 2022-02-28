@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { normalize } from '../lib/utils';
+import { normalize } from '../../lib/utils';
 
 const Column = styled.div<{ value: number; normalizer: (value: number, newMin: number, newMax: number) => number }>`
   height: ${(props) => props.normalizer(props.value, 10, 100)}%;

@@ -58,7 +58,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
       },
       {
         onSuccess: async (userDataToken) => {
-          const decodedUser = jwt_decode(userDataToken.responsePayload.token) as AppUser;
+          const decodedUser = jwt_decode(userDataToken.token) as AppUser;
 
           setAppUser(decodedUser);
           getUserRole(null, {

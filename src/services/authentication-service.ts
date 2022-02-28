@@ -53,6 +53,7 @@ export class AuthenticationService {
    */
   static async signout(): Promise<any> {
     try {
+      return true;
       // call signout endpoint if any and clear local storage
     } catch (error) {}
   }

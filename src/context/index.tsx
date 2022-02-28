@@ -43,7 +43,7 @@ export const AppProviders: FunctionComponent = ({ children }) => (
           <AuthProvider>{children}</AuthProvider>
         </Router>
       </div>
-      {isDevMode && <ReactQueryDevTools />}
+      {/* {isDevMode && <ReactQueryDevTools />} */}
     </QueryClientProvider>
   </Suspense>
 );

@@ -1,77 +1,63 @@
 import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
-import { Status, statusRenderMappings } from '../../lib/constants';
+import { TransactionType, transactionTypeRenderMappings } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
 
 export interface WalletRow {
   id: string;
-  organization: string;
-  requestor: string;
-  openDate: Date;
-  amtRequested: number;
-  amtApproved?: number;
-  closeDate?: Date;
-  status: Status;
-  approver: string;
-  walletAddress: string;
+  transaction_type: string;
+  wallet_type: string;
+  entity: string;
+  transaction_time: Date;
+  type: TransactionType;
+  amount?: number;
 }
 
-const ColoredDotSpan = styled.span`
-  &:before {
-    content: '\\25cf';
-    color: ${({ color }) => color};
-    margin-right: 5px;
-  }
+const ColoredSpan = styled.span`
+  color: ${({ color }) => color};
 `;
 
-const StyledStatus = ({ status }: { status: Status }): JSX.Element => {
-  const { color, text } = statusRenderMappings[status];
-  return <ColoredDotSpan {...{ color }}>{text}</ColoredDotSpan>;
+const StyledStatus = ({ status }: { status: TransactionType }): JSX.Element => {
+  const { color, text } = transactionTypeRenderMappings[status];
+  return <ColoredSpan {...{ color }}>{text}</ColoredSpan>;
 };
 
 export const columnConfig: Column<WalletRow>[] = [
   {
-    Header: 'ID',
+    Header: 'Transaction ID',
     accessor: 'id',
   },
   {
-    Header: 'Organization',
-    accessor: 'organization',
+    Header: 'Transaction Type',
+    accessor: 'transaction_type',
   },
   {
-    Header: 'Requestor',
-    accessor: 'requestor',
+    Header: 'Wallet Type',
+    accessor: 'wallet_type',
   },
   {
-    Header: 'Open Date',
-    accessor: 'openDate',
+    Header: 'Entity',
+    accessor: 'entity',
+  },
+  {
+    Header: 'Transaction Time',
+    accessor: 'transaction_time',
     Cell: (props) => formatDate(props.value),
   },
+
   {
-    Header: 'Amount Requested',
-    accessor: 'amtRequested',
-  },
-  {
-    Header: 'Amount Approved',
-    accessor: 'amtApproved',
-    Cell: (props) => props.value || '\u2014',
-  },
-  {
-    Header: 'Close Date',
-    accessor: 'closeDate',
-    Cell: (props) => (props.value ? formatDate(props.value) : '\u2014'),
-  },
-  {
-    Header: 'Status',
-    accessor: 'status',
+    Header: 'Type',
+    accessor: 'type',
     Cell: ({ value }: Cell<WalletRow>) => <StyledStatus status={value} />,
   },
+
   {
-    Header: 'Approver',
-    accessor: 'approver',
+    Header: 'Amount',
+    accessor: 'amount',
+    Cell: (props) => props.value || '\u2014',
   },
-  {
-    Header: 'Wallet Address',
-    accessor: 'walletAddress',
-  },
+  // {
+  //   Header: '',
+  //   Cell: ({ value }: Cell<WalletRow>) => <div>View</div>,
+  // },
 ];

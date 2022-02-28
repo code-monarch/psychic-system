@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex, Title } from './styled';
+import { Flex, Title } from '../styled';
 import HistogramCard from './HistogramCard';
 
 const CardRow = styled(Flex.Row)`

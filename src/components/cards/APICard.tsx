@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Flex } from './styled';
+import { Flex } from '../styled';
 
 interface CardInfo {
   title: string;

@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Grid, Container } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import loginImage from '../assets/images/emtech_connection_image.svg';
-import profileIcon from '../assets/images/icons/profile.svg';
-import { Logo } from '../components/Logo';
 import { PrimaryButton } from '../components/Buttons';
 import { MEMBER_ROUTE } from '../lib/constants';
 
@@ -63,15 +61,12 @@ const GetStartedDescription = styled.p`
   font-size: 14px;
   line-height: 24px;
   margin: 0;
+  margin-bottom: 32px;
   color: ${({ theme }) => theme.colors.primary.grey};
 `;
 
 const LoginPageImage = styled.img`
   max-width: 350px;
-`;
-
-const AvatarImage = styled.img`
-  max-width: 40px;
 `;
 
 const ButtonContainer = styled.div`
@@ -82,10 +77,6 @@ export const DashboardLandingPage = () => {
   const history = useHistory();
   return (
     <Screen fluid>
-      <LogoPanel>
-        <Logo imageWidth={100} />
-        <AvatarImage src={profileIcon} alt="Profile" />
-      </LogoPanel>
       <PageContainer>
         <InnerWrapper>
           <ImageWrapper>

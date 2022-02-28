@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Cell, Row, Column, HeaderGroup, useTable, usePagination } from 'react-table';
 import Table from './Table';
-import searchIcon from '../assets/images/icons/search.svg';
-import filterIcon from '../assets/images/icons/filter.svg';
-import exportIcon from '../assets/images/icons/export.svg';
+import searchIcon from '../../assets/images/icons/search.svg';
+import filterIcon from '../../assets/images/icons/filter.svg';
+import exportIcon from '../../assets/images/icons/export.svg';
 
 const TableWrapper = styled.div`
   display: flex;
@@ -42,7 +42,12 @@ const StyledTableHead = styled(Table.Head)`
 `;
 
 const StyledTableHeader = styled(Table.TH)`
-  padding: 16px 0;
+  padding: 16px 10px;
+  text-align: start;
+
+  &:last-child {
+    text-align: end;
+  }
 `;
 
 const StyledTableBody = styled(Table.Body)`
@@ -166,10 +171,12 @@ export const DynamicTable = <R extends object>({
   className,
   columnConfig,
   rowData,
+  hideFilters = false,
   getColumnProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
 }: {
   className?: string;
+  hideFilters?: boolean;
   columnConfig: Column<R>[];
   rowData: R[];
   getColumnProps?: (col: Column<R>) => object;
@@ -197,12 +204,14 @@ export const DynamicTable = <R extends object>({
       <Header>
         <Totals>{rows.length} Total Requests</Totals>
         {/* TODO: pass in the name of the record type (e.g. "Request"), and add pluralization */}
-        <Controls>
-          {/* TODO: Add search and filter capability */}
-          <Control src={searchIcon} alt="Search" />
-          <Control src={filterIcon} alt="Filter" />
-          <Control src={exportIcon} alt="Export" />
-        </Controls>
+        {!hideFilters && (
+          <Controls>
+            {/* TODO: Add search and filter capability */}
+            <Control src={searchIcon} alt="Search" />
+            <Control src={filterIcon} alt="Filter" />
+            <Control src={exportIcon} alt="Export" />
+          </Controls>
+        )}
       </Header>
       <Table className={className} {...{ ...getTableProps() }}>
         <TableHeader className={className} {...{ headerGroups }} />

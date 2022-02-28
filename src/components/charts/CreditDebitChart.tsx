@@ -1,9 +1,9 @@
 import styled, { useTheme } from 'styled-components';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from 'recharts';
-import { Flex } from './styled';
-import credit from '../assets/images/icons/credit.svg';
-import debit from '../assets/images/icons/debit.svg';
-import { LabeledValueWithIcon } from './LabeledValueWithIcon';
+import { Flex } from '../styled';
+import credit from '../../assets/images/icons/credit.svg';
+import debit from '../../assets/images/icons/debit.svg';
+import { LabeledValueWithIcon } from '../LabeledValueWithIcon';
 
 interface ChartData {
   month: string;

@@ -1,58 +1,72 @@
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
-import { DynamicTable } from '../../components/DynamicTable';
-import { Title } from '../../components/styled';
-import { columnConfig, WalletRow } from './table-config';
-import { Status } from '../../lib/constants';
-import { createMultipleTableRowData } from '../../lib/utils';
+import { Grid, Menu, Modal } from '@mantine/core';
+import { ChevronDownIcon } from '@modulz/radix-icons';
+import { useState } from 'react';
+import { DynamicTable } from '../../components/tables/DynamicTable';
+import { Heading, ParagraphBold, Title } from '../../components/styled';
 
-interface IWalletProps {
-  displayName: string;
-}
+import { columnConfig, WalletRow } from './table-config';
+import { TransactionType } from '../../lib/constants';
+import { WalletBalanceChart } from '../../components/charts/WalletBalanceChart';
+import { SecondaryButton } from '../../components/Buttons';
+import { WalletInfo } from '../../components/WalletSideBar';
+import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
+import distribution_request from '../../assets/images/icons/distribution_request.svg';
 
 const Wrapper = styled.div`
-  margin: 0 80px;
+  padding: 0 64px;
 `;
 
-const Header = styled.h2`
-  color: ${({ theme }) => theme.colors.primary.black};
-  font-weight: bold;
-  font-size: 28px;
+const Header = styled.div`
+  margin-top: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+const RightSideBar = styled(Grid.Col)`
+  background: rgba(251, 251, 251, 0.8);
 `;
 
 // TODO: Get data from API
+
 const rowData: WalletRow[] = [
   {
     id: '12345ABCDE',
-    organization: 'Ministry of Health',
-    requestor: 'Dr. Osas Obasi',
-    openDate: new Date(2021, 3, 2),
-    amtRequested: 200000,
-    status: Status.PENDING,
-    approver: 'Carmelle Cadet',
-    walletAddress: '0865FGHD7439',
+    transaction_type: 'Distribution',
+    wallet_type: 'Distribution',
+    entity: 'HaitiPay',
+    transaction_time: new Date(2021, 3, 2),
+    type: TransactionType.CREDIT,
+    amount: 1000000,
   },
   {
     id: '12345ABCDF',
-    organization: 'First Bank, Plc',
-    requestor: 'Mr. Femi Obasi',
-    openDate: new Date(2021, 3, 2),
-    amtRequested: 1000000,
-    status: Status.INPROGRESS,
-    approver: 'Carmelle Cadet',
-    walletAddress: '0865FGHD7439',
+    transaction_type: 'Distribution',
+    wallet_type: 'Distribution',
+    entity: 'CB',
+    transaction_time: new Date(2021, 3, 2),
+    type: TransactionType.DEBIT,
+    amount: 1000000,
   },
   {
     id: '12345ABCDG',
-    organization: 'Wema Bank, Plc',
-    requestor: 'Dr. Osas Obasi',
-    openDate: new Date(2021, 2, 2),
-    amtRequested: 1000000,
-    amtApproved: 1000000,
-    closeDate: new Date(2021, 3, 2),
-    status: Status.APPROVED,
-    approver: 'Carmelle Cadet',
-    walletAddress: '0865FGHD7439',
+    transaction_type: 'Distribution',
+    wallet_type: 'Distribution',
+    entity: 'HaitiPay',
+    transaction_time: new Date(2021, 2, 2),
+    type: TransactionType.CREDIT,
+    amount: 1000000,
+  },
+  {
+    id: '12345ABCDG',
+    transaction_type: 'Distribution',
+    wallet_type: 'Distribution',
+    entity: 'CB',
+    transaction_time: new Date(2021, 2, 2),
+    type: TransactionType.DEBIT,
+    amount: 1000000,
   },
 ];
 
@@ -60,8 +74,7 @@ const columnPropGetter = (col: Column<WalletRow>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
-    case 'amtRequested':
-    case 'amtApproved':
+    case 'amount':
       textAlign = 'end';
       break;
     default:
@@ -75,22 +88,92 @@ const columnPropGetter = (col: Column<WalletRow>) => {
   };
 };
 
-export const Wallets = (props: IWalletProps): JSX.Element => {
-  const { displayName } = props;
+export const Wallets = (props): JSX.Element => {
+  const [modalOpened, setModalOpened] = useState<boolean>(false);
+  const theme: any = useTheme();
+  const { grey } = theme.colors.primary;
   return (
     <Wrapper>
-      <Header>Welcome {displayName}!</Header>
-      <StyledTitle>Wallet Requests Queue</StyledTitle>
-      <DynamicTable<WalletRow>
-        columnConfig={columnConfig}
-        rowData={createMultipleTableRowData(rowData, 20)}
-        getColumnProps={columnPropGetter}
-      />
+      <Grid grow gutter={64}>
+        <Grid.Col md={12} lg={8}>
+          <Header>
+            <Heading>Wallets Overview</Heading>
+            <SecondaryButton title="Distribute BTKB" style={{ width: 152 }} onClick={() => setModalOpened(true)} />
+          </Header>
+          <WalletBalanceChart />
+          <RecentTransactionsArea>
+            <Title>MOST Recent INTERNAL transactions</Title>
+            <DynamicTable<WalletRow>
+              columnConfig={columnConfig}
+              rowData={rowData}
+              getColumnProps={columnPropGetter}
+              hideFilters
+            />
+          </RecentTransactionsArea>
+        </Grid.Col>
+        <RightSideBar md={12} lg={4}>
+          <Header>
+            <Heading>Wallets</Heading>
+            <Menu>
+              <Menu.Item>Option 1</Menu.Item>
+            </Menu>
+          </Header>
+          <WalletInfo />
+        </RightSideBar>
+      </Grid>
+
+      <Modal
+        opened={modalOpened}
+        centered
+        onClose={() => setModalOpened(false)}
+        hideCloseButton
+        styles={{
+          modal: {
+            backgroundColor: 'transparent',
+          },
+        }}
+      >
+        <DistributionModal>
+          <DistributionOption style={{ marginRight: 16 }}>
+            <img src={manual_distribution} alt="manual_distribution" />
+            <OptionsText> Manual Distribution</OptionsText>
+          </DistributionOption>
+          <DistributionOption>
+            <img src={distribution_request} alt="manual_distribution" style={{ mixBlendMode: 'luminosity' }} />
+            <OptionsText style={{ color: grey }}>Distribution From Request</OptionsText>
+          </DistributionOption>
+        </DistributionModal>
+      </Modal>
     </Wrapper>
   );
 };
 
-const StyledTitle = styled(Title)`
-  margin: 16px 0;
-  text-transform: uppercase;
+const DistributionModal = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const RecentTransactionsArea = styled.div`
+  margin-top: 50px;
+`;
+
+const DistributionOption = styled.div`
+  background: #ffffff;
+  border-radius: 8px;
+  min-width: 240px;
+  height: 240px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 32px;
+  padding-top: 24px;
+  cursor: pointer;
+`;
+
+const OptionsText = styled(ParagraphBold)`
+  font-size: 14px;
+  font-family: 'ProximaNovaExtraBold', sans-serif;
+  margin-top: 28px;
 `;

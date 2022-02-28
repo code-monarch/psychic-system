@@ -29,7 +29,7 @@ export const lightTheme: DefaultTheme = {
   colors: {
     primary: {
       green: '#4AB0A6',
-      black: '#2E2E2E',
+      black: '#1A242D',
       darkgrey: '#4F4F4F',
       grey: '#828282',
       lightgrey: '#FAFAFA',
@@ -61,6 +61,7 @@ export const mantineThemeOverrides: MantineThemeOverride = {
       '#4B807B',
       '#486E6A',
     ],
+    red: ['#E2D3CF', '#D6BBB3', '#D0A395', '#CF8B76', '#D47153', '#E1562C', '#EC3D08', '#C0421C', '#9E4328', '#83422E'],
   },
   primaryColor: 'green',
 };
