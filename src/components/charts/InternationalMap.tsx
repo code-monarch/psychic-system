@@ -2,8 +2,8 @@ import { Feature, FeatureCollection } from 'geojson';
 import { geoPath } from 'd3-geo';
 import { geoMiller } from 'd3-geo-projection';
 import { useTheme } from 'styled-components';
-import landJson from '../assets/geo/world.geo.json';
-import { normalize } from '../lib/utils';
+import landJson from '../../assets/geo/world.geo.json';
+import { normalize } from '../../lib/utils';
 
 export type Coordinates = [number, number];
 

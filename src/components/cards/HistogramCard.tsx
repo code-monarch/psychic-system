@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Histogram from './Histogram';
-import { Flex } from './styled';
-import { NameValue } from './NameValue';
+import Histogram from '../charts/Histogram';
+import { Flex } from '../styled';
+import { NameValue } from '../NameValue';
 
 const Card = styled.div`
   background-color: rgba(250, 250, 250, 0.8);

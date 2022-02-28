@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Pie, PieChart, Cell, Label, Legend } from 'recharts';
-import { NameValue } from './NameValue';
+import { NameValue } from '../NameValue';
 
 const StyledLegend = styled.ul`
   flex: 1;

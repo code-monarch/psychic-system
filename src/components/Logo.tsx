@@ -4,6 +4,7 @@ import logo from '../assets/images/emtech_logo.png';
 
 interface ILogo {
   imageHeight?: number;
+  leftAlign?: boolean;
   imageWidth?: number;
 }
 
@@ -24,8 +25,8 @@ const LogoImage = styled.img`
   height: auto;
 `;
 
-export const Logo = ({ imageHeight, imageWidth = 100 }: ILogo): JSX.Element => (
-  <Card>
+export const Logo = ({ imageHeight, imageWidth = 100, leftAlign = false }: ILogo): JSX.Element => (
+  <Card style={{ alignItems: leftAlign ? 'flex-start' : 'center' }}>
     <LogoImage src={logo} width={imageWidth} alt="Emtech logo" />
     <LogoSubtitle>DIGITAL ASSET PLATFORM</LogoSubtitle>
   </Card>

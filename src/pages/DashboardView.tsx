@@ -6,7 +6,7 @@ import { Flex } from '../components/styled';
 import { DepartmentsContent, ExchangeRatesContent, SummaryContent, SummarySidePanel, TokensContent } from './dashboard';
 
 const Wrapper = styled.div`
-  margin: 0 80px;
+  margin: 0 64px;
 `;
 
 const ContentView = styled.div``;

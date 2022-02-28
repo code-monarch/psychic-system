@@ -22,6 +22,7 @@ const getMarginString = (isHorizontal?: boolean, spacing?: number): string => {
 const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
   padding: 0;
   margin: 0;
+  margin-top: 50px;
   list-style: none;
 
   ${(props) => `

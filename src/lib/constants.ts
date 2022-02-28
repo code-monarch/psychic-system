@@ -1276,6 +1276,7 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
 
 //
 type StatusRenderMappings = { [key in Status]: { color: string; text: string } };
+type TransactionTypeRenderMappings = { [key in TransactionType]: { color: string; text: string } };
 
 export enum Status {
   PENDING,
@@ -1284,6 +1285,15 @@ export enum Status {
   DENIED,
 }
 
+export enum TransactionType {
+  DEBIT,
+  CREDIT,
+}
+
+export const transactionTypeRenderMappings: TransactionTypeRenderMappings = {
+  [TransactionType.DEBIT]: { color: '#EC3D08', text: 'Debit' },
+  [TransactionType.CREDIT]: { color: '#4AB0A6', text: 'Credit' },
+};
 export const statusRenderMappings: StatusRenderMappings = {
   [Status.PENDING]: { color: '#F5C14F', text: 'Pending' },
   [Status.INPROGRESS]: { color: '#233984', text: 'In Progress' },

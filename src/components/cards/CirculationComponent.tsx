@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ComparisonChart from './ComparisonChart';
-import { Title } from './styled';
-import { NameValue } from './NameValue';
+import ComparisonChart from '../charts/ComparisonChart';
+import { Title } from '../styled';
+import { NameValue } from '../NameValue';
 
 const StyledNameValue = styled(NameValue)`
   margin: 8px 0;

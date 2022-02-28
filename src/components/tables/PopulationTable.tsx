@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Title } from './styled';
+import { Title } from '../styled';
 import { SummaryTable } from './SummaryTable';
 
 const StyledSummaryTable = styled(SummaryTable)`
@@ -29,4 +29,4 @@ export const PopulationTable = (): JSX.Element => {
       <StyledSummaryTable config={config} />
     </div>
   );
-}
+};

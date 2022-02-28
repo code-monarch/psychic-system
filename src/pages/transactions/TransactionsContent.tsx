@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Column } from 'react-table';
-import { SummaryTable } from '../../components/SummaryTable';
+import { SummaryTable } from '../../components/tables/SummaryTable';
 import { Flex, Title } from '../../components/styled';
-import { DynamicTable } from '../../components/DynamicTable';
+import { DynamicTable } from '../../components/tables/DynamicTable';
 import { TransactionRow, columnConfig } from './table-config';
 import { Status } from '../../lib/constants';
 import { createMultipleTableRowData } from '../../lib/utils';

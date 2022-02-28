@@ -1,6 +1,6 @@
-import { InternationalMap } from 'src/components/InternationalMap';
+import { InternationalMap } from 'src/components/charts/InternationalMap';
 import styled from 'styled-components';
-import { RequestCards } from '../../components/RequestCards';
+import { RequestCards } from '../../components/cards/RequestCards';
 
 const Wrapper = styled.div``;
 

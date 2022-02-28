@@ -1,10 +1,11 @@
 import { Loader } from '@mantine/core';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import white_arrow from '../assets/images/icons/white_arrow.svg';
 
 interface IButton {
   title: string;
   disabled?: boolean;
+  style?: CSSProperties;
   loading?: boolean;
   onClick?: () => void;
 }
@@ -25,11 +26,20 @@ const Button = styled.button`
   padding: 0 24px;
 `;
 
+const TransparentButton = styled(Button)`
+  background-color: transparent;
+  font-size: 14px;
+  font-family: 'ProximaNovaBold';
+  color: ${({ theme }) => theme.colors.primary.black};
+  border: 1px solid ${({ theme }) => theme.colors.secondary.grey}; ;
+`;
+
 const ButtonText = styled.span``;
 
-export const PrimaryButton = ({ title, disabled, loading, onClick }: IButton): JSX.Element => (
+export const PrimaryButton = ({ title, disabled, loading, onClick, style }: IButton): JSX.Element => (
   <Button
     type="submit"
+    style={style}
     disabled={disabled}
     onClick={() => {
       onClick?.();
@@ -38,4 +48,17 @@ export const PrimaryButton = ({ title, disabled, loading, onClick }: IButton): J
     <ButtonText>{title}</ButtonText>
     {loading ? <Loader size={20} color="#fff" /> : <img src={white_arrow} alt="white-arrow" />}
   </Button>
+);
+
+export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
+  <TransparentButton
+    type="submit"
+    style={style}
+    disabled={disabled}
+    onClick={() => {
+      onClick?.();
+    }}
+  >
+    <ButtonText>{title}</ButtonText>
+  </TransparentButton>
 );
