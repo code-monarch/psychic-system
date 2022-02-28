@@ -1,4 +1,4 @@
-import { ResponsiveContainer, AreaChart, Area, YAxis } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, YAxis } from 'recharts';
 import { useTheme } from 'styled-components';
 
 export interface TimeValue {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MEMBER_ROUTE, GUEST_ROUTE } from '../../lib/constants';
+import { GUEST_ROUTE, MEMBER_ROUTE } from '../../lib/constants';
 import { useAuth } from '../../context/auth-context';
 
 export const PageNotFound = (): JSX.Element => {

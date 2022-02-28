@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { AppShell, Navbar, useMantineTheme, Menu } from '@mantine/core';
+import { AppShell, Menu, Navbar, useMantineTheme } from '@mantine/core';
 import { useState } from 'react';
 import { NavigationList } from '../components/NavigationList';
 import { DashboardView } from './DashboardView';
 import { useAuth } from '../context/auth-context';
 
-import { navIconsDefault as defaultIcons, navIconsActive as activeIcons } from '../assets/images/icons/navigation';
+import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 import { MEMBER_ROUTE } from '../lib/constants';
 import { Requests } from './Requests';
 import { Wallets } from './wallet/Wallets';

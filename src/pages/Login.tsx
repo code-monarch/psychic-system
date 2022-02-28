@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid, Container } from '@mantine/core';
+import { Container, Grid } from '@mantine/core';
 import { LoginForm } from '../components/LoginForm';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { Logo } from '../components/Logo';

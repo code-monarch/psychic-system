@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Cell, Row, Column, HeaderGroup, useTable, usePagination } from 'react-table';
+import { Cell, Column, HeaderGroup, Row, usePagination, useTable } from 'react-table';
 import Table from './Table';
 import searchIcon from '../../assets/images/icons/search.svg';
 import filterIcon from '../../assets/images/icons/filter.svg';
