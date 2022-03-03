@@ -26,6 +26,9 @@ export const MEMBER_ROUTE = {
   get WALLETS(): string {
     return '/wallets';
   },
+  get CURRENCY_MANAGEMENT(): string {
+    return '/manage/currency';
+  },
   get TRANSACTIONS(): string {
     return '/transactions';
   },

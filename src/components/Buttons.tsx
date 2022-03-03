@@ -37,6 +37,8 @@ const TransparentButton = styled(Button)`
 
 const Button2 = styled(Button)`
   justify-content: center;
+  font-size: 14px;
+  font-family: 'ProximaNovaBold';
 `;
 
 const ButtonText = styled.span``;
