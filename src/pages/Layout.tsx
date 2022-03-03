@@ -14,6 +14,7 @@ import { Transactions } from './TransactionsPage';
 import { Logo } from '../components/Logo';
 import { UserAvatar } from '../components/Avatar';
 import { DashboardLandingPage } from './DashboardLandingPage';
+import { CurrencyManagement } from './CurrencyManagement';
 
 const SideNav = styled.div`
   color: ${({ theme }) => theme.colors.primary.grey};
@@ -36,20 +37,41 @@ const UserName = styled.p`
 `;
 
 const navigationItems = [
-  { to: '/get-started', text: 'Home', icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard } },
-  { to: '/dashboard', text: 'Dashboard', icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard } },
-  { to: '/requests', text: 'Requests', icon: { default: defaultIcons.requests, active: activeIcons.requests } },
-  { to: '/wallets', text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
-  { to: '/transactions', text: 'Transactions', icon: { default: defaultIcons.requests, active: activeIcons.requests } }, // TODO: Add Transactions icon
   {
-    to: '/manage-users',
-    text: 'Manage Users',
-    icon: { default: defaultIcons.manageUsers, active: activeIcons.manageUsers },
+    to: MEMBER_ROUTE.GET_STARTED,
+    text: 'Home',
+    icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
   },
   {
-    to: 'notifications',
-    text: 'Notifications',
-    icon: { default: defaultIcons.notifications, active: activeIcons.notifications },
+    to: MEMBER_ROUTE.DASHBOARD,
+    text: 'Dashboard',
+    icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
+  },
+  { to: MEMBER_ROUTE.WALLETS, text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+  {
+    to: MEMBER_ROUTE.TRANSACTIONS,
+    text: 'Transactions',
+    icon: { default: defaultIcons.transactions, active: activeIcons.transactions },
+  },
+  {
+    to: MEMBER_ROUTE.REQUESTS,
+    text: 'Requests',
+    icon: { default: defaultIcons.requests, active: activeIcons.requests },
+  },
+  {
+    to: '/manage',
+    text: 'Manage',
+    icon: { default: defaultIcons.manage, active: activeIcons.manage },
+    subNavigationItems: [
+      {
+        to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
+        text: 'Currency Management',
+      },
+      {
+        to: '/manage-users',
+        text: 'Users',
+      },
+    ],
   },
 ];
 
@@ -115,6 +137,9 @@ export default function Layout(): JSX.Element {
           </Route>
           <Route path={MEMBER_ROUTE.TRANSACTIONS} exact>
             <Transactions displayName={appUser.given_name} />
+          </Route>
+          <Route path={MEMBER_ROUTE.CURRENCY_MANAGEMENT} exact>
+            <CurrencyManagement />
           </Route>
           <Route path="*" exact={false}>
             <Redirect to={{ pathname: MEMBER_ROUTE.GET_STARTED }} />
