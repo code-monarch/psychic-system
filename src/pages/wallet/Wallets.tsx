@@ -160,7 +160,13 @@ export const Wallets = (props): JSX.Element => {
         setIsVisible={setFormModalOpened}
         callback={() => setShowSuccessModal(true)}
       />
-      <SuccessModal isVisible={showSuccessModal} setIsVisible={setShowSuccessModal} />
+      <SuccessModal
+        isVisible={showSuccessModal}
+        title="Distribution successful!"
+        message={'You have successfully distributed\n'}
+        amount={30000}
+        setIsVisible={setShowSuccessModal}
+      />
     </Wrapper>
   );
 };
