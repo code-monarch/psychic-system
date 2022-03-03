@@ -39,13 +39,21 @@ const ModalDescription = styled.p`
   }
 `;
 
-export const SuccessModal = ({ isVisible, setIsVisible }) => (
+interface ISuccessModalProps {
+  isVisible: boolean;
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  title?: string;
+  message?: string;
+  amount?: number;
+}
+export const SuccessModal = ({ isVisible, setIsVisible, title, message, amount }: ISuccessModalProps) => (
   <Modal size="400px" opened={isVisible} centered onClose={() => setIsVisible(false)}>
     <ModalWrapper>
       <SuccessImage src={distribution_success_image} alt="Manual Distribution Image" />
-      <ModalHeader>Distribution successful!</ModalHeader>
+      <ModalHeader>{title}</ModalHeader>
       <ModalDescription>
-        You have successfully distributed <span>30,000 BTKB</span>
+        {message}
+        <span>{amount} BTKB</span>
       </ModalDescription>
       <PrimaryButtonWithoutIcon title="Go to Wallets" onClick={() => setIsVisible(false)} />
     </ModalWrapper>

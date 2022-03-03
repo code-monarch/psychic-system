@@ -19,6 +19,7 @@ import { SuccessModal } from '../components/SuccessModal';
 import { DistributionModal } from '../components/ManualDistributionModal';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
+import { MintCoinsForm } from '../components/MintCoinsForm';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -41,6 +42,7 @@ const RightSideBar = styled(Grid.Col)``;
 export const CurrencyManagement = (): JSX.Element => {
   const [distributeModalOpened, setDistributModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
+  const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
   const theme: any = useTheme();
@@ -75,7 +77,9 @@ export const CurrencyManagement = (): JSX.Element => {
                     <Title>Mint Coins</Title>
                     <SmallerCardDescription>Mint and issue coins to the Master Wallet.</SmallerCardDescription>
                   </div>
-                  <div className="button">Mint</div>
+                  <div className="button" onClick={() => setMintFormModalOpened(true)}>
+                    Mint
+                  </div>
                 </MintOption>
                 <BurnOption>
                   <div>
@@ -126,7 +130,19 @@ export const CurrencyManagement = (): JSX.Element => {
         setIsVisible={setFormModalOpened}
         callback={() => setShowSuccessModal(true)}
       />
-      <SuccessModal isVisible={showSuccessModal} setIsVisible={setShowSuccessModal} />
+
+      <MintCoinsForm
+        isVisible={minFormModalOpened}
+        setIsVisible={setMintFormModalOpened}
+        callback={() => setShowSuccessModal(true)}
+      />
+      <SuccessModal
+        isVisible={showSuccessModal}
+        title="Minting Successful!"
+        message={'You have successfully minted\n'}
+        amount={30000}
+        setIsVisible={setShowSuccessModal}
+      />
     </Wrapper>
   );
 };
