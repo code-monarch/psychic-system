@@ -114,7 +114,6 @@ export const ReAreaChart = <T extends object>({
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <Tooltip />
           <Area type="linear" dataKey="Current" stroke={green} strokeWidth={3} fillOpacity={1} fill="url(#colorUv)" />
-          <Line type="monotone" dataKey="Previous" stroke="#BFBFBF" strokeWidth={2} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

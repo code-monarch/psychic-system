@@ -1,19 +1,13 @@
-import styled, { useTheme, css } from 'styled-components';
-import { Column } from 'react-table';
-import { Grid, Menu, Modal } from '@mantine/core';
+import styled, { css, useTheme } from 'styled-components';
+import { Grid, Menu } from '@mantine/core';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@modulz/radix-icons';
 import { Heading, Paragraph, ParagraphBold, Title } from '../components/styled';
-
-import { WalletBalanceChart } from '../components/charts/WalletBalanceChart';
-import { SecondaryButton } from '../components/Buttons';
-import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
+import { navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 import distributeSvg from '../assets/images/icons/distribute.svg';
-import { WalletInfo } from '../components/WalletSideBar';
 import mint from '../assets/images/icons/mint.svg';
 import mintWhite from '../assets/images/icons/mint-white.svg';
-import burn from '../assets/images/icons/burn.svg';
-import burnWhite from '../assets/images/icons/burn-white.svg';
+import burnDisabled from '../assets/images/icons/burn-disabled.svg';
 import { ManualDistributionForm } from '../components/ManualDistributionForm';
 import { SuccessModal } from '../components/SuccessModal';
 import { DistributionModal } from '../components/ManualDistributionModal';
@@ -81,7 +75,7 @@ export const CurrencyManagement = (): JSX.Element => {
                     Mint
                   </div>
                 </MintOption>
-                <BurnOption>
+                <BurnOption className="disabled">
                   <div>
                     <Title>Burn Coins</Title>
                     <SmallerCardDescription>
@@ -109,10 +103,10 @@ export const CurrencyManagement = (): JSX.Element => {
             </Menu>
           </RightBarHeader>
           <div style={{ marginTop: 24 }}>
-            <CurrencySummaryCard />
-            <CurrencySummaryCard />
-            <CurrencySummaryCard />
-            <CurrencySummaryCard />
+            <CurrencySummaryCard title="Total Minted" amount="13,42713" />
+            <CurrencySummaryCard title="Total Transferred" amount="30" />
+            <CurrencySummaryCard title="Total Distributed" amount="10" />
+            <CurrencySummaryCard title="Total Burned" amount="59" />
           </div>
         </RightSideBar>
       </Grid>
@@ -175,7 +169,7 @@ const baseBoxStyles = css`
   div.button {
     ${baseButtonStyles}
   }
-  &:hover {
+  &:not(.disabled):hover {
     background-color: ${({ theme }) => theme.colors.primary.green};
     div.button {
       background-color: ${({ theme }) => theme.colors.primary.white};
@@ -184,6 +178,11 @@ const baseBoxStyles = css`
     h3 {
       color: ${({ theme }) => theme.colors.primary.white};
     }
+  }
+  &.disabled p,
+  &.disabled .button,
+  &.disabled h3 {
+    color: ${({ theme }) => theme.colors.secondary.grey};
   }
 `;
 
@@ -208,10 +207,7 @@ const MintOption = styled.div`
 const BurnOption = styled.div`
   ${baseBoxStyles}
   flex:1;
-  background-image: url(${burn});
-  &:hover {
-    background-image: url(${burnWhite});
-  }
+  background-image: url(${burnDisabled});
 `;
 
 const CardTitle = styled(Title)`

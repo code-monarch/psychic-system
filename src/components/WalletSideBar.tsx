@@ -87,25 +87,25 @@ export const WalletInfo = () => {
 
       <AssetsSection>
         <Title>Assets in Circulation</Title>
-        <WalletField style={{ marginTop: 5, marginBottom: 28 }}>
-          <Label>Total Amount</Label>
-          <WalletValue style={{ fontSize: 18 }}>147,079.00</WalletValue>
-        </WalletField>
+        {/* <WalletField style={{ marginTop: 5, marginBottom: 28 }}> */}
+        {/*  <Label>Total Amount</Label> */}
+        {/*  <WalletValue style={{ fontSize: 18 }}>147,079.00</WalletValue> */}
+        {/* </WalletField> */}
 
-        <WalletCard>
-          <AssetCardLeftSection>
-            <AssetIcon>R</AssetIcon>
-            <div>
-              <AssetLabel>Reserve</AssetLabel>
-              <AssetValue>BTKB</AssetValue>
-            </div>
-          </AssetCardLeftSection>
-          <div>
-            <AssetLabel>30,926.03</AssetLabel>
-            <AssetValue>$6,000 USD</AssetValue>
-          </div>
-        </WalletCard>
-
+        {/* <WalletCard> */}
+        {/*  <AssetCardLeftSection> */}
+        {/*    <AssetIcon>R</AssetIcon> */}
+        {/*    <div> */}
+        {/*      <AssetLabel>Reserve</AssetLabel> */}
+        {/*      <AssetValue>BTKB</AssetValue> */}
+        {/*    </div> */}
+        {/*  </AssetCardLeftSection> */}
+        {/*  <div> */}
+        {/*    <AssetLabel>30,926.03</AssetLabel> */}
+        {/*    <AssetValue>$6,000 USD</AssetValue> */}
+        {/*  </div> */}
+        {/* </WalletCard> */}
+        <Space h={24} />
         <WalletCard>
           <AssetCardLeftSection>
             <AssetIcon>D</AssetIcon>
@@ -115,8 +115,8 @@ export const WalletInfo = () => {
             </div>
           </AssetCardLeftSection>
           <div>
-            <AssetLabel>116,152.97</AssetLabel>
-            <AssetValue>$25,000 USD</AssetValue>
+            <AssetLabel style={{ textAlign: 'right' }}>116,152.97</AssetLabel>
+            <AssetValue style={{ textAlign: 'right' }}>$25,000 USD</AssetValue>
           </div>
         </WalletCard>
 
@@ -130,13 +130,13 @@ export const WalletInfo = () => {
           <AssetCardLeftSection>
             <AssetIcon>M</AssetIcon>
             <div>
-              <AssetLabel>Master</AssetLabel>
+              <AssetLabel>Master Reserve</AssetLabel>
               <AssetValue>BTKB</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <AssetLabel>428,404.00</AssetLabel>
-            <AssetValue>USD 300</AssetValue>
+            <AssetLabel style={{ textAlign: 'right' }}>428,404.00</AssetLabel>
+            <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue>
           </div>
         </WalletCard>
       </AssetsSection>

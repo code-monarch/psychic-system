@@ -40,7 +40,7 @@ const navigationItems = [
   {
     to: MEMBER_ROUTE.GET_STARTED,
     text: 'Home',
-    icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
+    icon: { default: defaultIcons.home, active: activeIcons.home },
   },
   {
     to: MEMBER_ROUTE.DASHBOARD,
