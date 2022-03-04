@@ -151,22 +151,24 @@ export const WalletBalanceChart = (): JSX.Element => (
           }
         >
           <Menu.Item>All Wallets</Menu.Item>
+          <Menu.Item>Distribution Wallet</Menu.Item>
+          <Menu.Item>Master Wallet</Menu.Item>
         </Menu>
         <WalletSection style={{ marginBottom: 12 }}>
           <CreditLabel>Credit</CreditLabel>
-          <ParagraphBold>$2.34B</ParagraphBold>
-          <div style={{ display: 'flex' }}>
-            <CreditPercentage>+5.4%</CreditPercentage>
-            <ArrowUpIcon color="#4AB0A6" />
-          </div>
+          <ParagraphBold>2.34B BTKB</ParagraphBold>
+          {/* <div style={{ display: 'flex' }}> */}
+          {/*  <CreditPercentage>+5.4%</CreditPercentage> */}
+          {/*  <ArrowUpIcon color="#4AB0A6" /> */}
+          {/* </div> */}
         </WalletSection>
         <WalletSection>
           <DebitLabel>Debit</DebitLabel>
-          <ParagraphBold>$500M</ParagraphBold>
-          <div style={{ display: 'flex' }}>
-            <DebitPercentage>-2.5%</DebitPercentage>
-            <ArrowDownIcon color="#EC3D08" />
-          </div>
+          <ParagraphBold>500M BTKB</ParagraphBold>
+          {/* <div style={{ display: 'flex' }}> */}
+          {/*  <DebitPercentage>-2.5%</DebitPercentage> */}
+          {/*  <ArrowDownIcon color="#EC3D08" /> */}
+          {/* </div> */}
         </WalletSection>
       </RightSection>
     </TopSection>
@@ -174,12 +176,17 @@ export const WalletBalanceChart = (): JSX.Element => (
     <Menu
       control={
         <WalletsDropdown style={{ marginBottom: 0 }}>
-          <ParagraphBold>This Year</ParagraphBold>
+          <ParagraphBold>Last 1 Week</ParagraphBold>
           <ChevronDownIcon />
         </WalletsDropdown>
       }
     >
-      <Menu.Item>This Year</Menu.Item>
+      <Menu.Item>Last 1 Week</Menu.Item>
+      <Menu.Item>Last 2 Weeks</Menu.Item>
+      <Menu.Item>Last 1 Month</Menu.Item>
+      <Menu.Item>Last 3 Months</Menu.Item>
+      <Menu.Item>Last 6 Months</Menu.Item>
+      <Menu.Item>Last 9 Months</Menu.Item>
     </Menu>
     <ReAreaChart data={chartData} />
   </Wrapper>

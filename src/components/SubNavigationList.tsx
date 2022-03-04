@@ -22,6 +22,7 @@ const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `;
 const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
   padding: 0;
