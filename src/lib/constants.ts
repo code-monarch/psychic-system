@@ -1,3 +1,6 @@
+import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types';
+import { CSSObject } from '@mantine/core';
+
 /**
  * Object containing the routes that only a logged out user can visit.
  */
@@ -46,6 +49,7 @@ const LOCAL_STORAGE_KEY_PREFIX = 'CBDC__';
 export const LOCAL_STORAGE_KEYS = {
   WALLET_LIST: `${LOCAL_STORAGE_KEY_PREFIX}WALLET_LIST`,
   USER_DATA: `${LOCAL_STORAGE_KEY_PREFIX}USER_DATA`,
+  TOKEN: `${LOCAL_STORAGE_KEY_PREFIX}TOKEN`,
 };
 
 export enum USER_ROLES {
@@ -1305,3 +1309,25 @@ export const statusRenderMappings: StatusRenderMappings = {
 };
 
 export const isValidEmailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+export const selectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
+  input: {
+    border: 'none',
+    borderBottom: `1px solid #E3E2E2`,
+    borderRadius: 0,
+    paddingLeft: 0,
+    fontSize: 16,
+    fontWeight: 600,
+    fontFamily: "'ProximaNova', sans-serif;",
+    color: '#1A242D',
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: "'ProximaNova', sans-serif;",
+    color: '#828282',
+  },
+  rightSection: { pointerEvents: 'none' },
+  root: {
+    marginBottom: 10,
+  },
+};

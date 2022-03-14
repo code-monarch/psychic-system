@@ -1,8 +1,98 @@
 import styled, { useTheme } from 'styled-components';
-import { Divider, Space } from '@mantine/core';
+import { Divider, Space, Skeleton } from '@mantine/core';
+import { useState } from 'react';
 import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
+import { useGetUserWallets, useGetWalletTokenDetails } from '../hooks/useWallets';
+import { WalletTransferModal } from './modals/WalletTransferModal';
 
+export const WalletInfo = () => {
+  const theme: any = useTheme();
+  const { grey } = theme.colors.secondary;
+  const { data: walletTokenDetails, isLoading: isLoadingWalletTokenDetails, refetch } = useGetWalletTokenDetails();
+  const { data, isLoading: isLoadingUserWallets } = useGetUserWallets();
+  const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
+
+  const wallets = data?.wallets || [];
+
+  const nonCirculatingSupply = walletTokenDetails?.totalSupply - walletTokenDetails?.circulatingSupply;
+  const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
+  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  return (
+    <Wrapper>
+      <SupplyWallets>
+        <WalletField>
+          <Label>Total Supply</Label>
+          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
+          {!isLoadingWalletTokenDetails && <WalletValue>{walletTokenDetails?.totalSupply}</WalletValue>}
+        </WalletField>
+        <WalletField>
+          <Label>Circulating Supply</Label>
+          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
+          {!isLoadingWalletTokenDetails && <WalletValue>{walletTokenDetails?.circulatingSupply}</WalletValue>}
+        </WalletField>
+        <WalletField>
+          <Label>Total Not in Circulation</Label>
+          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
+          {!isLoadingWalletTokenDetails && (
+            <WalletValue>{nonCirculatingSupply ? nonCirculatingSupply.toFixed(2) : '0'}</WalletValue>
+          )}
+        </WalletField>
+      </SupplyWallets>
+
+      <AssetsSection>
+        <Title>Assets in Circulation</Title>
+        <Space h={24} />
+        <WalletCard>
+          <AssetCardLeftSection>
+            <AssetIcon>M</AssetIcon>
+            <div>
+              <AssetLabel>Distribution</AssetLabel>
+              <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
+            </div>
+          </AssetCardLeftSection>
+          <div>
+            <Skeleton visible={isLoadingUserWallets} width={100}>
+              <AssetLabel style={{ textAlign: 'right' }}>{distributionWallet?.balances?.[0]?.balance || 0}</AssetLabel>
+            </Skeleton>
+            {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
+          </div>
+        </WalletCard>
+
+        <Divider style={{ marginTop: 32, color: grey }} />
+      </AssetsSection>
+
+      <AssetsSection>
+        <Title>assets not in circulation</Title>
+        <Space h={24} />
+        <WalletCard>
+          <AssetCardLeftSection>
+            <AssetIcon>M</AssetIcon>
+            <div>
+              <AssetLabel>Master Reserve</AssetLabel>
+              <AssetValue>{masterReserveWallet?.balances?.[0]?.symbol}</AssetValue>
+            </div>
+          </AssetCardLeftSection>
+          <div>
+            <Skeleton visible={isLoadingUserWallets} width={100}>
+              <AssetLabel style={{ textAlign: 'right' }}>{masterReserveWallet?.balances?.[0]?.balance || 0}</AssetLabel>
+            </Skeleton>
+            {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
+          </div>
+        </WalletCard>
+      </AssetsSection>
+
+      <ButtonContainer onClick={() => setShowWalletTransferModal(true)}>
+        <PrimaryButton title="Wallet Transfer" style={{ width: '100%' }} />
+      </ButtonContainer>
+      <WalletTransferModal isVisible={showWalletTransferModal} setIsVisible={setShowWalletTransferModal} />
+    </Wrapper>
+  );
+};
+
+const ButtonContainer = styled.div`
+  margin: 150px auto 0 0;
+`;
 const Wrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
   margin-top: 16px;
@@ -64,90 +154,4 @@ const AssetIcon = styled.div`
   line-height: 32px;
   font-family: 'ProximaNovaBold', sans-serif;
   margin-right: 16px;
-`;
-export const WalletInfo = () => {
-  const theme: any = useTheme();
-  const { grey } = theme.colors.secondary;
-  return (
-    <Wrapper>
-      <SupplyWallets>
-        <WalletField>
-          <Label>Total Supply</Label>
-          <WalletValue>575,483.00</WalletValue>
-        </WalletField>
-        <WalletField>
-          <Label>Circulating Supply</Label>
-          <WalletValue>147,079.00</WalletValue>
-        </WalletField>
-        <WalletField>
-          <Label>Total Supply</Label>
-          <WalletValue>575,483.00</WalletValue>
-        </WalletField>
-      </SupplyWallets>
-
-      <AssetsSection>
-        <Title>Assets in Circulation</Title>
-        {/* <WalletField style={{ marginTop: 5, marginBottom: 28 }}> */}
-        {/*  <Label>Total Amount</Label> */}
-        {/*  <WalletValue style={{ fontSize: 18 }}>147,079.00</WalletValue> */}
-        {/* </WalletField> */}
-
-        {/* <WalletCard> */}
-        {/*  <AssetCardLeftSection> */}
-        {/*    <AssetIcon>R</AssetIcon> */}
-        {/*    <div> */}
-        {/*      <AssetLabel>Reserve</AssetLabel> */}
-        {/*      <AssetValue>BTKB</AssetValue> */}
-        {/*    </div> */}
-        {/*  </AssetCardLeftSection> */}
-        {/*  <div> */}
-        {/*    <AssetLabel>30,926.03</AssetLabel> */}
-        {/*    <AssetValue>$6,000 USD</AssetValue> */}
-        {/*  </div> */}
-        {/* </WalletCard> */}
-        <Space h={24} />
-        <WalletCard>
-          <AssetCardLeftSection>
-            <AssetIcon>D</AssetIcon>
-            <div>
-              <AssetLabel>Distribution</AssetLabel>
-              <AssetValue>BTKB</AssetValue>
-            </div>
-          </AssetCardLeftSection>
-          <div>
-            <AssetLabel style={{ textAlign: 'right' }}>116,152.97</AssetLabel>
-            <AssetValue style={{ textAlign: 'right' }}>$25,000 USD</AssetValue>
-          </div>
-        </WalletCard>
-
-        <Divider style={{ marginTop: 32, color: grey }} />
-      </AssetsSection>
-
-      <AssetsSection>
-        <Title>assets not in circulation</Title>
-        <Space h={24} />
-        <WalletCard>
-          <AssetCardLeftSection>
-            <AssetIcon>M</AssetIcon>
-            <div>
-              <AssetLabel>Master Reserve</AssetLabel>
-              <AssetValue>BTKB</AssetValue>
-            </div>
-          </AssetCardLeftSection>
-          <div>
-            <AssetLabel style={{ textAlign: 'right' }}>428,404.00</AssetLabel>
-            <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue>
-          </div>
-        </WalletCard>
-      </AssetsSection>
-
-      <ButtonContainer>
-        <PrimaryButton title="Wallet Transfer" style={{ width: '100%' }} />
-      </ButtonContainer>
-    </Wrapper>
-  );
-};
-
-const ButtonContainer = styled.div`
-  margin: 150px auto 0 0;
 `;

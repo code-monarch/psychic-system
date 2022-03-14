@@ -1,8 +1,8 @@
 import styled, { useTheme } from 'styled-components';
 import { Modal } from '@mantine/core';
-import manual_distribution from '../assets/images/icons/manual_distribution.svg';
-import distribution_request from '../assets/images/icons/distribution_request.svg';
-import { ParagraphBold } from './styled';
+import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
+import distribution_request from '../../assets/images/icons/distribution_request.svg';
+import { ParagraphBold } from '../styled';
 
 export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCallback }) => {
   const theme: any = useTheme();

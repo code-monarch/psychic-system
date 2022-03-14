@@ -12,9 +12,10 @@ import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
 import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
 import distribution_request from '../../assets/images/icons/distribution_request.svg';
-import { ManualDistributionForm } from '../../components/ManualDistributionForm';
-import { SuccessModal } from '../../components/SuccessModal';
-import { DistributionModal } from '../../components/ManualDistributionModal';
+import { ManualDistributionForm } from '../../components/modals/ManualDistributionForm';
+import { SuccessModal } from '../../components/modals/SuccessModal';
+import { DistributionModal } from '../../components/modals/ManualDistributionModal';
+import { useGetWalletTokenDetails } from '../../hooks/useWallets';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -138,13 +139,6 @@ export const Wallets = (props): JSX.Element => {
         isVisible={formModalOpened}
         setIsVisible={setFormModalOpened}
         callback={() => setShowSuccessModal(true)}
-      />
-      <SuccessModal
-        isVisible={showSuccessModal}
-        title="Distribution successful!"
-        message={'You have successfully distributed\n'}
-        amount={30000}
-        setIsVisible={setShowSuccessModal}
       />
     </Wrapper>
   );

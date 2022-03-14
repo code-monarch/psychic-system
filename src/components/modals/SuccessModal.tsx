@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Modal } from '@mantine/core';
-import distribution_success_image from '../assets/images/distribution_success.svg';
-import { PrimaryButtonWithoutIcon } from './Buttons';
+import distribution_success_image from '../../assets/images/distribution_success.svg';
+import { PrimaryButtonWithoutIcon } from '../Buttons';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -41,13 +41,14 @@ const ModalDescription = styled.p`
 
 interface ISuccessModalProps {
   isVisible: boolean;
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
   title?: string;
   message?: string;
+  buttonText?: string;
   amount?: number;
 }
-export const SuccessModal = ({ isVisible, setIsVisible, title, message, amount }: ISuccessModalProps) => (
-  <Modal size="400px" opened={isVisible} centered onClose={() => setIsVisible(false)}>
+export const SuccessModal = ({ isVisible, onClose, title, message, amount,buttonText }: ISuccessModalProps) => (
+  <Modal size="400px" opened={isVisible} centered closeOnClickOutside={false} closeOnEscape={false} onClose={onClose}>
     <ModalWrapper>
       <SuccessImage src={distribution_success_image} alt="Manual Distribution Image" />
       <ModalHeader>{title}</ModalHeader>
@@ -55,7 +56,7 @@ export const SuccessModal = ({ isVisible, setIsVisible, title, message, amount }
         {message}
         <span>{amount} BTKB</span>
       </ModalDescription>
-      <PrimaryButtonWithoutIcon title="Go to Wallets" onClick={() => setIsVisible(false)} />
+      <PrimaryButtonWithoutIcon title={buttonText || "Go to Wallets"} onClick={onClose} />
     </ModalWrapper>
   </Modal>
 );

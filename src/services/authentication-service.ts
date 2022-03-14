@@ -38,8 +38,6 @@ export class AuthenticationService {
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
-        console.error(err.response);
-        console.error(err);
         throw Error(err.response);
       });
     return response;

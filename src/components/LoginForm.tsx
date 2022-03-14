@@ -41,6 +41,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
   const { useSignin, setUserRole, useGetUserRole, setAppUser } = useAuth();
   const { mutate: getUserRole } = useGetUserRole();
   const [value, saveToLocalStorage] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
+  const [userToken, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
   const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
   const {
@@ -64,6 +65,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
           getUserRole(null, {
             onSuccess: async (userRole) => {
               saveToLocalStorage(decodedUser);
+              saveTokenToLocalStorage(userDataToken.token);
               history.push(MEMBER_ROUTE.GET_STARTED);
               setUserRole(userRole);
               // userRefetch();

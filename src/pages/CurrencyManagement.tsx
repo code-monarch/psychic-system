@@ -8,12 +8,13 @@ import distributeSvg from '../assets/images/icons/distribute.svg';
 import mint from '../assets/images/icons/mint.svg';
 import mintWhite from '../assets/images/icons/mint-white.svg';
 import burnDisabled from '../assets/images/icons/burn-disabled.svg';
-import { ManualDistributionForm } from '../components/ManualDistributionForm';
-import { SuccessModal } from '../components/SuccessModal';
-import { DistributionModal } from '../components/ManualDistributionModal';
+import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
+import { SuccessModal } from '../components/modals/SuccessModal';
+import { DistributionModal } from '../components/modals/ManualDistributionModal';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
-import { MintCoinsForm } from '../components/MintCoinsForm';
+import { MintCoinsForm } from '../components/modals/MintCoinsForm';
+import { useGetTokenSummary, useGetWalletTokenDetails } from '../hooks/useWallets';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -37,8 +38,10 @@ export const CurrencyManagement = (): JSX.Element => {
   const [distributeModalOpened, setDistributModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
-  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+  const { data: walletTokenDetails } = useGetWalletTokenDetails();
+  const { data: tokenSummary } = useGetTokenSummary(walletTokenDetails?.tokenId);
 
+  console.log(tokenSummary);
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
   return (
@@ -103,10 +106,10 @@ export const CurrencyManagement = (): JSX.Element => {
             </Menu>
           </RightBarHeader>
           <div style={{ marginTop: 24 }}>
-            <CurrencySummaryCard title="Total Minted" amount="13,42713" />
-            <CurrencySummaryCard title="Total Transferred" amount="30" />
-            <CurrencySummaryCard title="Total Distributed" amount="10" />
-            <CurrencySummaryCard title="Total Burned" amount="59" />
+            <CurrencySummaryCard title="Total Minted" amount={tokenSummary?.totalMinted} />
+            <CurrencySummaryCard title="Total Transferred" amount={tokenSummary?.totalTransferred} />
+            <CurrencySummaryCard title="Total Distributed" amount={tokenSummary?.totalDistributed} />
+            <CurrencySummaryCard title="Total Burned" amount={0} />
           </div>
         </RightSideBar>
       </Grid>
@@ -119,24 +122,9 @@ export const CurrencyManagement = (): JSX.Element => {
         }}
       />
 
-      <ManualDistributionForm
-        isVisible={formModalOpened}
-        setIsVisible={setFormModalOpened}
-        callback={() => setShowSuccessModal(true)}
-      />
+      <ManualDistributionForm isVisible={formModalOpened} setIsVisible={setFormModalOpened} />
 
-      <MintCoinsForm
-        isVisible={minFormModalOpened}
-        setIsVisible={setMintFormModalOpened}
-        callback={() => setShowSuccessModal(true)}
-      />
-      <SuccessModal
-        isVisible={showSuccessModal}
-        title="Minting Successful!"
-        message={'You have successfully minted\n'}
-        amount={30000}
-        setIsVisible={setShowSuccessModal}
-      />
+      <MintCoinsForm isVisible={minFormModalOpened} setIsVisible={setMintFormModalOpened} />
     </Wrapper>
   );
 };
