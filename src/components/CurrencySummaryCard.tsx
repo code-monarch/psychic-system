@@ -31,7 +31,7 @@ const HistogramContainer = styled.div`
 
 interface ICurrencySummaryCardProps {
   title: string;
-  amount: string;
+  amount?: number;
 }
 const histogramValues = [0, 0, 4, 7, 0, 1, 5];
 
@@ -42,7 +42,7 @@ export const CurrencySummaryCard = ({ title, amount }: ICurrencySummaryCardProps
     <Wrapper>
       <LeftSection>
         <CardTitle>{title}</CardTitle>
-        <CardAmount>{amount}</CardAmount>
+        <CardAmount>{amount || 0}</CardAmount>
       </LeftSection>
       <HistogramContainer>
         <Histogram values={histogramValues} />
