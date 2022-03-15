@@ -1,6 +1,7 @@
 import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
 import { Grid, Menu, LoadingOverlay } from '@mantine/core';
+import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
 import { DynamicTable } from '../../components/tables/DynamicTable';
 import { Heading, Title } from '../../components/styled';
@@ -51,6 +52,7 @@ export const Wallets = (props): JSX.Element => {
   const [modalOpened, setModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+  useDocumentTitle('DAP: Wallets');
 
   const { data } = useGetUserWallets();
   const wallets = data?.wallets || [];

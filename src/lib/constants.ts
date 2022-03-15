@@ -59,20 +59,12 @@ export enum USER_ROLES {
 
 export const dasbhboardTabItems: { title: string; route: string }[] = [
   {
-    title: 'Summary',
-    route: 'summary',
+    title: 'INTERNATIONAL',
+    route: 'international',
   },
   {
-    title: 'Live Exchange Rates',
-    route: 'rates',
-  },
-  {
-    title: 'Local Tokens in Circulation',
-    route: 'tokens',
-  },
-  {
-    title: 'Departments',
-    route: 'departments',
+    title: 'LOCAL',
+    route: 'local',
   },
 ];
 

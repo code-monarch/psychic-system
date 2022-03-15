@@ -32,6 +32,7 @@ const BoldItemContent = forwardRef(
 const BoldItem = styled(BoldItemContent)`
   display: inline-flex;
   flex-direction: column;
+  font-size: 13px;
 
   span ~ span {
     height: 0;
@@ -45,6 +46,12 @@ const BoldItem = styled(BoldItemContent)`
 
 const Tab = styled(BoldItem)<{ selected: boolean }>`
   font-weight: ${(props) => (props.selected ? '700' : '400')};
+  color: ${({ theme }) => theme.colors.secondary.blue};
+  color: ${({ selected }) => (selected ? '#4AB0A6' : '#828282')};
+
+  & span {
+    font-family: ${({ selected }) => (selected ? 'ProximaNovaExtraBold' : 'ProximaNova')};
+  }
 `;
 
 const SelectedIndicator = styled.hr`

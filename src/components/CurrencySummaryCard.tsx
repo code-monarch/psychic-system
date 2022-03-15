@@ -4,7 +4,7 @@ import { Paragraph, ParagraphBold } from './styled';
 import Histogram from './charts/Histogram';
 
 const Wrapper = styled.div`
-  height: 112px;
+  height: 92px;
   width: 100%;
   background: ${({ theme }) => theme.colors.primary.lightgrey};
   border-radius: 8px;
@@ -35,7 +35,7 @@ const HistogramContainer = styled.div`
 
 interface ICurrencySummaryCardProps {
   title: string;
-  amount?: number;
+  amount?: string;
   disabled?: boolean;
 }
 const histogramValues = [0, 0, 4, 7, 0, 1, 5];

@@ -75,7 +75,7 @@ const navigationItems = [
   },
 ];
 
-export default function Layout(): JSX.Element {
+export const Layout = (): JSX.Element => {
   const { appUser, userRole, useSignout } = useAuth();
   const [isNavOpened, setIsNavOpened] = useState(false);
   const theme = useMantineTheme();
@@ -148,4 +148,4 @@ export default function Layout(): JSX.Element {
       </div>
     </AppShell>
   );
-}
+};
