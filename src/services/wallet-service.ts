@@ -57,6 +57,23 @@ interface Wallet {
   ];
 }
 
+export interface Transaction {
+  tokenId: string;
+  tokenName: string;
+  sourceWalletId: string;
+  sourceWalletCategory: string;
+  destinationWalletId: string;
+  destinationWalletCategory: string;
+  transactionType: string;
+  entity: string;
+  transactionHash: string;
+  amount: number;
+  credit: boolean;
+  debit: boolean;
+  createdAt: string;
+  timestamp: number;
+}
+
 interface UserWalletsResponse {
   userId: string;
   wallets: Wallet[];
@@ -105,6 +122,22 @@ export class WalletService {
   static async getAllUserWallets(): Promise<UserWalletsResponse> {
     const response = await secureMainApi
       .get(`/wallet/all`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
+   * Get list of wallet transactions
+   */
+
+  static async getTransactionHistory(walletId): Promise<Transaction[]> {
+    const response = await secureMainApi
+      .get(`/transactionHistory/${walletId}`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);

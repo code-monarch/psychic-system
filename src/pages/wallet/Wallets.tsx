@@ -1,21 +1,18 @@
 import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
-import { Grid, Menu, Modal } from '@mantine/core';
+import { Grid, Menu, LoadingOverlay } from '@mantine/core';
 import { useState } from 'react';
 import { DynamicTable } from '../../components/tables/DynamicTable';
-import { Heading, ParagraphBold, Title } from '../../components/styled';
+import { Heading, Title } from '../../components/styled';
 
-import { columnConfig, WalletRow } from './table-config';
-import { TransactionType } from '../../lib/constants';
+import { columnConfig } from './table-config';
 import { WalletBalanceChart } from '../../components/charts/WalletBalanceChart';
 import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
-import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
-import distribution_request from '../../assets/images/icons/distribution_request.svg';
 import { ManualDistributionForm } from '../../components/modals/ManualDistributionForm';
-import { SuccessModal } from '../../components/modals/SuccessModal';
 import { DistributionModal } from '../../components/modals/ManualDistributionModal';
-import { useGetWalletTokenDetails } from '../../hooks/useWallets';
+import { useGetTransactionHistory, useGetUserWallets } from '../../hooks/useWallets';
+import { Transaction } from '../../services/wallet-service';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -32,48 +29,7 @@ const RightSideBar = styled(Grid.Col)`
   background: rgba(251, 251, 251, 0.8);
 `;
 
-// TODO: Get data from API
-
-const rowData: WalletRow[] = [
-  {
-    id: '12345ABCDE',
-    transaction_type: 'Distribution',
-    wallet_type: 'Distribution',
-    entity: 'HaitiPay',
-    transaction_time: new Date(2021, 3, 2),
-    type: TransactionType.CREDIT,
-    amount: 1000000,
-  },
-  {
-    id: '12345ABCDF',
-    transaction_type: 'Distribution',
-    wallet_type: 'Distribution',
-    entity: 'CB',
-    transaction_time: new Date(2021, 3, 2),
-    type: TransactionType.DEBIT,
-    amount: 1000000,
-  },
-  {
-    id: '12345ABCDG',
-    transaction_type: 'Distribution',
-    wallet_type: 'Distribution',
-    entity: 'HaitiPay',
-    transaction_time: new Date(2021, 2, 2),
-    type: TransactionType.CREDIT,
-    amount: 1000000,
-  },
-  {
-    id: '12345ABCDG',
-    transaction_type: 'Distribution',
-    wallet_type: 'Distribution',
-    entity: 'CB',
-    transaction_time: new Date(2021, 2, 2),
-    type: TransactionType.DEBIT,
-    amount: 1000000,
-  },
-];
-
-const columnPropGetter = (col: Column<WalletRow>) => {
+const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
@@ -96,22 +52,32 @@ export const Wallets = (props): JSX.Element => {
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
+  const { data } = useGetUserWallets();
+  const wallets = data?.wallets || [];
+
+  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+
+  const { data: transactionHistory = [], isLoading: isLoadingTransactions } = useGetTransactionHistory(
+    distributionWallet?.walletId,
+  );
+
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
   return (
     <Wrapper>
-      <Grid grow gutter={64}>
-        <Grid.Col md={12} lg={8}>
+      <Grid gutter={64}>
+        <Grid.Col grow md={12} lg={8}>
           <Header>
             <Heading>Wallets Overview</Heading>
             <SecondaryButton title="Distribute BTKB" style={{ width: 152 }} onClick={() => setModalOpened(true)} />
           </Header>
           <WalletBalanceChart />
           <RecentTransactionsArea>
+            <LoadingOverlay visible={isLoadingTransactions} />
             <Title>MOST Recent INTERNAL transactions</Title>
-            <DynamicTable<WalletRow>
+            <DynamicTable<Transaction>
               columnConfig={columnConfig}
-              rowData={rowData}
+              rowData={transactionHistory.slice(0, 6)}
               getColumnProps={columnPropGetter}
               hideFilters
             />
@@ -146,4 +112,5 @@ export const Wallets = (props): JSX.Element => {
 
 const RecentTransactionsArea = styled.div`
   margin-top: 50px;
+  position: relative;
 `;

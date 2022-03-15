@@ -109,7 +109,7 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard title="Total Minted" amount={tokenSummary?.totalMinted} />
             <CurrencySummaryCard title="Total Transferred" amount={tokenSummary?.totalTransferred} />
             <CurrencySummaryCard title="Total Distributed" amount={tokenSummary?.totalDistributed} />
-            <CurrencySummaryCard title="Total Burned" amount={0} />
+            <CurrencySummaryCard title="Total Burned" amount={0} disabled />
           </div>
         </RightSideBar>
       </Grid>

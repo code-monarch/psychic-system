@@ -90,6 +90,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
           queryClient.invalidateQueries(cacheKey.walletTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
           queryClient.invalidateQueries(cacheKey.userWallets);
+          queryClient.invalidateQueries(cacheKey.transactionHistory);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // callback?.();

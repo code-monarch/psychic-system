@@ -71,7 +71,6 @@ export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IB
 
 export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
   <TransparentButton
-    type="submit"
     style={style}
     disabled={disabled}
     onClick={() => {

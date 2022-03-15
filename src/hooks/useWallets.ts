@@ -15,6 +15,16 @@ export const useGetTokenSummary = (tokenId) => {
   const result = useQuery({
     queryKey: cacheKey.tokenReportSummary,
     queryFn: () => WalletService.getTokenReportSummary(tokenId),
+    enabled: Boolean(tokenId),
+  });
+  return result;
+};
+
+export const useGetTransactionHistory = (walletId) => {
+  const result = useQuery({
+    queryKey: cacheKey.transactionHistory,
+    queryFn: () => WalletService.getTransactionHistory(walletId),
+    enabled: Boolean(walletId),
   });
   return result;
 };

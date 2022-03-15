@@ -1,19 +1,13 @@
-import styled, { useTheme } from 'styled-components';
-import { Container, CSSObject, Grid, Modal, Select, Space } from '@mantine/core';
-import { ChevronDownIcon, ArrowRightIcon } from '@modulz/radix-icons';
-import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types';
-import { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import styled from 'styled-components';
+import { Container, Modal, Select, Space } from '@mantine/core';
+import { ChevronDownIcon } from '@modulz/radix-icons';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { ParagraphBold, Title } from '../styled';
-import { isValidEmailRegex, selectStyles } from '../../lib/constants';
+import { Title } from '../styled';
+import { selectStyles } from '../../lib/constants';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import {
-  useGetInstitutionWallets,
-  useGetUserWallets,
-  useGetWalletTokenDetails,
-  useTransferTokens,
-} from '../../hooks/useWallets';
+import { useGetUserWallets, useGetWalletTokenDetails, useTransferTokens } from '../../hooks/useWallets';
 import { ErrorText } from '../LoginForm';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
@@ -35,7 +29,6 @@ interface IFormData {
 
 export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprops) => {
   const { mutate: transferTokens, isLoading } = useTransferTokens();
-  const { data: institutionWallets = [] } = useGetInstitutionWallets();
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | undefined>();
@@ -59,9 +52,6 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
 
   const wallets = data?.wallets || [];
-
-  const theme = useTheme();
-  const { green } = theme.colors.primary;
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -95,6 +85,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
           queryClient.invalidateQueries(cacheKey.walletTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
           queryClient.invalidateQueries(cacheKey.userWallets);
+          queryClient.invalidateQueries(cacheKey.transactionHistory);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // callback?.();

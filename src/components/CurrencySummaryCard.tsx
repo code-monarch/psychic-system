@@ -21,6 +21,10 @@ const LeftSection = styled.div`
   justify-content: space-between;
   flex: 1;
   height: 100%;
+
+  &.disabled p {
+    color: ${({ theme }) => theme.colors.secondary.grey};
+  }
 `;
 
 const HistogramContainer = styled.div`
@@ -32,15 +36,16 @@ const HistogramContainer = styled.div`
 interface ICurrencySummaryCardProps {
   title: string;
   amount?: number;
+  disabled?: boolean;
 }
 const histogramValues = [0, 0, 4, 7, 0, 1, 5];
 
-export const CurrencySummaryCard = ({ title, amount }: ICurrencySummaryCardProps): JSX.Element => {
+export const CurrencySummaryCard = ({ title, amount, disabled }: ICurrencySummaryCardProps): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
   return (
     <Wrapper>
-      <LeftSection>
+      <LeftSection className={disabled ? 'disabled' : ''}>
         <CardTitle>{title}</CardTitle>
         <CardAmount>{amount || 0}</CardAmount>
       </LeftSection>

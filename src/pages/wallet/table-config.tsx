@@ -2,38 +2,29 @@ import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
 import { TransactionType, transactionTypeRenderMappings } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
-
-export interface WalletRow {
-  id: string;
-  transaction_type: string;
-  wallet_type: string;
-  entity: string;
-  transaction_time: Date;
-  type: TransactionType;
-  amount?: number;
-}
+import { Transaction } from '../../services/wallet-service';
 
 const ColoredSpan = styled.span`
   color: ${({ color }) => color};
 `;
 
-const StyledStatus = ({ status }: { status: TransactionType }): JSX.Element => {
-  const { color, text } = transactionTypeRenderMappings[status];
+const StyledStatus = ({ status: creditStatus }: { status: TransactionType }): JSX.Element => {
+  const { color, text } = transactionTypeRenderMappings[creditStatus ? TransactionType.CREDIT : TransactionType.DEBIT];
   return <ColoredSpan {...{ color }}>{text}</ColoredSpan>;
 };
 
-export const columnConfig: Column<WalletRow>[] = [
+export const columnConfig: Column<Transaction>[] = [
   {
     Header: 'Transaction ID',
-    accessor: 'id',
+    accessor: 'transactionHash',
   },
   {
     Header: 'Transaction Type',
-    accessor: 'transaction_type',
+    accessor: 'transactionType',
   },
   {
     Header: 'Wallet Type',
-    accessor: 'wallet_type',
+    accessor: 'destinationWalletCategory',
   },
   {
     Header: 'Entity',
@@ -41,14 +32,14 @@ export const columnConfig: Column<WalletRow>[] = [
   },
   {
     Header: 'Transaction Time',
-    accessor: 'transaction_time',
-    Cell: (props) => formatDate(props.value),
+    accessor: 'createdAt',
+    Cell: (props) => formatDate(new Date(props.value)),
   },
 
   {
     Header: 'Type',
-    accessor: 'type',
-    Cell: ({ value }: Cell<WalletRow>) => <StyledStatus status={value} />,
+    accessor: 'credit',
+    Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} />,
   },
 
   {
