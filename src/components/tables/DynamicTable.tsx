@@ -58,6 +58,10 @@ const StyledTableBody = styled(Table.Body)`
 
 const StyledCell = styled(Table.TD)`
   padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 `;
 
 const Pagination = styled.div`
@@ -182,7 +186,7 @@ export const DynamicTable = <R extends object>({
   getColumnProps?: (col: Column<R>) => object;
   getCellProps?: (cell: Cell<R>) => object;
 }): JSX.Element => {
-  const data = React.useMemo(() => rowData, []);
+  const data = rowData;
   const columns = React.useMemo(() => columnConfig, []);
   const tableInstance = useTable<R>({ columns, data }, usePagination);
 
@@ -213,13 +217,16 @@ export const DynamicTable = <R extends object>({
           </Controls>
         )}
       </Header>
-      <Table className={className} {...{ ...getTableProps() }}>
-        <TableHeader className={className} {...{ headerGroups }} />
-        <TableBody
-          className={className}
-          {...{ page, prepareRow, getColumnProps, getCellProps, ...getTableBodyProps() }}
-        />
-      </Table>
+      <TableContainer>
+        <Table className={className} {...{ ...getTableProps() }}>
+          <TableHeader className={className} {...{ headerGroups }} />
+          <TableBody
+            className={className}
+            {...{ page, prepareRow, getColumnProps, getCellProps, ...getTableBodyProps() }}
+          />
+        </Table>
+      </TableContainer>
+
       <Pagination>
         <TextButton text="<" callback={() => previousPage()} disabled={!canPreviousPage} />
         {/* TODO: Implement more complex pagination */}
@@ -228,3 +235,10 @@ export const DynamicTable = <R extends object>({
     </TableWrapper>
   );
 };
+
+const TableContainer = styled.div`
+  display: inline-block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+`;

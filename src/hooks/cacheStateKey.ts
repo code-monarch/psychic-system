@@ -7,6 +7,7 @@ export const cacheKey = {
   currentUser: 'currentUser',
   walletTokenDetails: 'walletTokenDetails',
   tokenReportSummary: 'tokenReportSummary',
+  transactionHistory: 'transactionHistory',
   userWallets: 'userWallets',
   institutionWallets: 'institutionWallets',
   currentUserRole: 'currentUserRole',
