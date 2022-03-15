@@ -109,7 +109,7 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
 
                 <ButtonArea>
                   <PrimaryButton title="Mint" loading={isLoading} />
-                  <SecondaryButton title="Close" style={{ width: 152 }} />
+                  <SecondaryButton title="Close" style={{ width: 152 }} onClick={() => setIsVisible(false)} />
                 </ButtonArea>
               </FormWrapper>
             </form>

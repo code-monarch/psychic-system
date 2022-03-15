@@ -175,7 +175,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
 
                 <ButtonArea>
                   <PrimaryButton title="Distribute" loading={isLoading} />
-                  <SecondaryButton title="Close" style={{ width: 152 }} />
+                  <SecondaryButton title="Close" style={{ width: 152 }} onClick={() => setIsVisible(false)} />
                 </ButtonArea>
               </FormWrapper>
             </form>
