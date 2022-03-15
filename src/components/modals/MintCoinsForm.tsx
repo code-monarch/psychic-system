@@ -33,7 +33,7 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const queryClient = useQueryClient();
 
   const { data } = useGetUserWallets();
-  const { data: walletTokenDetails, isLoading: isLoadingWalletTokenDetails, refetch } = useGetWalletTokenDetails();
+  const { data: walletTokenDetails } = useGetWalletTokenDetails();
 
   const wallets = data?.wallets || [];
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
