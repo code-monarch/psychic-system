@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Container, Grid } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
+import { useDocumentTitle } from '@mantine/hooks';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { PrimaryButton } from '../components/Buttons';
 import { MEMBER_ROUTE } from '../lib/constants';
@@ -75,6 +76,7 @@ const ButtonContainer = styled.div`
 
 export const DashboardLandingPage = () => {
   const history = useHistory();
+  useDocumentTitle('DAP: Home');
   return (
     <Screen fluid>
       <PageContainer>

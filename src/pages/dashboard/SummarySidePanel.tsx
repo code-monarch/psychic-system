@@ -57,6 +57,6 @@ export const SummarySidePanel = (): JSX.Element => (
   <View>
     <PopulationTable />
     <CirculationComponent />
-    <TransactionsMap transactions={transactions} />
+    {/* <TransactionsMap transactions={transactions} /> */}
   </View>
 );

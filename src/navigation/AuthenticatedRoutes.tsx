@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Redirect, Route, RouteProps, Switch, useLocation } from 'react-router-dom';
 import { Loading } from '../components/Loading';
 import { MEMBER_ROUTE, USER_ROLES } from '../lib/constants';
-import Layout from '../pages/Layout';
+import { Layout } from '../pages/Layout';
 
 const mapRoute = (route: RouteProps, index: number) => <Route key={index} {...route} />;
 

@@ -1,7 +1,8 @@
-import styled, { css, useTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Grid, Menu } from '@mantine/core';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@modulz/radix-icons';
+import { useDocumentTitle } from '@mantine/hooks';
 import { Heading, Paragraph, ParagraphBold, Title } from '../components/styled';
 import { navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 import distributeSvg from '../assets/images/icons/distribute.svg';
@@ -9,7 +10,6 @@ import mint from '../assets/images/icons/mint.svg';
 import mintWhite from '../assets/images/icons/mint-white.svg';
 import burnDisabled from '../assets/images/icons/burn-disabled.svg';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
-import { SuccessModal } from '../components/modals/SuccessModal';
 import { DistributionModal } from '../components/modals/ManualDistributionModal';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
@@ -40,10 +40,8 @@ export const CurrencyManagement = (): JSX.Element => {
   const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
   const { data: tokenSummary } = useGetTokenSummary(walletTokenDetails?.tokenId);
+  useDocumentTitle('DAP: Currency Management');
 
-  console.log(tokenSummary);
-  const theme: any = useTheme();
-  const { grey } = theme.colors.primary;
   return (
     <Wrapper>
       <CurrenyManagementSetupAlert />
@@ -106,10 +104,10 @@ export const CurrencyManagement = (): JSX.Element => {
             </Menu>
           </RightBarHeader>
           <div style={{ marginTop: 24 }}>
-            <CurrencySummaryCard title="Total Minted" amount={tokenSummary?.totalMinted} />
-            <CurrencySummaryCard title="Total Transferred" amount={tokenSummary?.totalTransferred} />
-            <CurrencySummaryCard title="Total Distributed" amount={tokenSummary?.totalDistributed} />
-            <CurrencySummaryCard title="Total Burned" amount={0} disabled />
+            <CurrencySummaryCard title="Total Minted" amount={`${tokenSummary?.totalMinted || 0}`} />
+            <CurrencySummaryCard title="Total Transferred" amount={`${tokenSummary?.totalTransferred || 0}`} />
+            <CurrencySummaryCard title="Total Distributed" amount={`${tokenSummary?.totalDistributed || 0}`} />
+            <CurrencySummaryCard title="Total Burned" amount="0" disabled />
           </div>
         </RightSideBar>
       </Grid>
