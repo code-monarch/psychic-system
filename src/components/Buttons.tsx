@@ -26,7 +26,16 @@ const Button = styled.button`
   padding: 0 24px;
 `;
 
-const TransparentButton = styled(Button)`
+const TransparentButton = styled.div`
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  width: 200px;
+  height: 40px;
+  align-items: center;
+  padding: 0 24px;
   background-color: transparent;
   font-size: 14px;
   justify-content: center;
@@ -72,8 +81,9 @@ export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IB
 export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
   <TransparentButton
     style={style}
-    disabled={disabled}
-    onClick={() => {
+    // disabled={disabled}
+    onClick={(e) => {
+      e?.preventDefault();
       onClick?.();
     }}
   >

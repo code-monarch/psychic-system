@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import { Container, Grid } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import { useDocumentTitle } from '@mantine/hooks';
+import { useState } from 'react';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { PrimaryButton } from '../components/Buttons';
 import { MEMBER_ROUTE } from '../lib/constants';
+import { WalletTransferModal } from '../components/modals/WalletTransferModal';
+import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
 
 const Screen = styled(Container)`
   min-height: 100vh;
@@ -76,6 +79,9 @@ const ButtonContainer = styled.div`
 
 export const DashboardLandingPage = () => {
   const history = useHistory();
+  const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
+  const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
+
   useDocumentTitle('DAP: Home');
   return (
     <Screen fluid>
@@ -99,14 +105,26 @@ export const DashboardLandingPage = () => {
               />
             </ButtonContainer>
             <ButtonContainer>
-              <PrimaryButton title="Transfer" />
+              <PrimaryButton
+                title="Transfer"
+                onClick={() => {
+                  setShowWalletTransferModal(true);
+                }}
+              />
             </ButtonContainer>
             <ButtonContainer>
-              <PrimaryButton title="Distribute BTKB" />
+              <PrimaryButton
+                title="Distribute BTKB"
+                onClick={() => {
+                  setFormModalOpened(true);
+                }}
+              />
             </ButtonContainer>
           </GetStartedWrapper>
         </InnerWrapper>
       </PageContainer>
+      <WalletTransferModal isVisible={showWalletTransferModal} setIsVisible={setShowWalletTransferModal} />
+      <ManualDistributionForm isVisible={formModalOpened} setIsVisible={setFormModalOpened} />
     </Screen>
   );
 };

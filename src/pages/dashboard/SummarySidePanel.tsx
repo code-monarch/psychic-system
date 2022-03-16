@@ -55,8 +55,14 @@ const transactions = [
 
 export const SummarySidePanel = (): JSX.Element => (
   <View>
-    <PopulationTable />
+    <PopulationTableContainer>
+      <PopulationTable />
+    </PopulationTableContainer>
     <CirculationComponent />
     {/* <TransactionsMap transactions={transactions} /> */}
   </View>
 );
+
+const PopulationTableContainer = styled.div`
+  margin-bottom: 80px;
+`;
