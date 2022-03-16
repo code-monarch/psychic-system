@@ -47,7 +47,7 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const mint = (data: IFormData) => {
     mintTokens(
       {
-        amount: Number(data.amount),
+        amount: Number(data.amount) * 10000,
         tokenOwnerMasterWalletId: masterReserveWallet.walletId,
         tokenId: walletTokenDetails.tokenId,
       },
