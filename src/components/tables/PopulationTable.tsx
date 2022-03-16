@@ -10,11 +10,11 @@ export const PopulationTable = (): JSX.Element => {
   // TODO: Get config data from API
   const config = [
     {
-      header: 'Total Population',
+      header: 'Total',
       value: '12M',
     },
     {
-      header: 'Total Active Wallets',
+      header: 'Active Wallets',
       value: '4M',
     },
     {

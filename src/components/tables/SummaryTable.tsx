@@ -11,8 +11,8 @@ const StyledTable = styled(Table)`
 `;
 
 const Cell = styled(Table.TD)`
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 14px;
   line-height: 24px;
   text-align: center;
 `;
@@ -26,7 +26,7 @@ const Header = styled(Table.TH)`
 `;
 
 const TableHead = styled(Table.Head)`
-  font-size: 14px;
+  font-size: 12px;
   color: ${({ theme }) => theme.colors.primary.grey};
 
   & ${Header}:first-child {
