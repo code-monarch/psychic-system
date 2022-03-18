@@ -43,7 +43,7 @@ function NavigationList({ className, links, isHorizontal, itemSpacing }: Navigat
     <List className={className} isHorizontal={isHorizontal || false} itemSpacing={itemSpacing}>
       {links.map((item, i) => {
         if (item.subNavigationItems) {
-          return <SubNavigationList link={item} />;
+          return <SubNavigationList link={item} key={i} />;
         }
         return (
           <li key={`listitem-${i}`}>

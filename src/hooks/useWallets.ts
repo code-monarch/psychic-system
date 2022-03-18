@@ -1,4 +1,5 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 import { WalletService } from '../services/wallet-service';
 
 import { cacheKey } from './cacheStateKey';
@@ -51,6 +52,19 @@ export const useMintTokens = () => {
 };
 
 export const useTransferTokens = () => {
-  const result = useMutation(WalletService.transferTokens);
+  const queryClient = useQueryClient();
+  const result = useMutation(WalletService.transferTokens, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(cacheKey.walletTokenDetails);
+      queryClient.invalidateQueries(cacheKey.tokenReportSummary);
+      queryClient.invalidateQueries(cacheKey.userWallets);
+      queryClient.invalidateQueries(cacheKey.transactionHistory);
+    },
+    onError: (error: any) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+      }
+    },
+  });
   return result;
 };

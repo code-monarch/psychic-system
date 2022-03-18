@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { ThemeProvider } from 'styled-components';
 import { MantineProvider } from '@mantine/core';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';
 import { AppProviders } from './context';
 import reportWebVitals from './reportWebVitals';
@@ -14,6 +16,16 @@ ReactDOM.render(
       <MantineProvider theme={mantineThemeOverrides}>
         <ThemeProvider theme={lightTheme}>
           <App />
+          <ToastContainer
+            autoClose={4000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover={false}
+          />
         </ThemeProvider>
       </MantineProvider>
     </AppProviders>

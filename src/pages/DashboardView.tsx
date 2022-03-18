@@ -59,7 +59,7 @@ const ContentView = styled.div`
   margin-top: 24px;
 `;
 
-const Header = styled.h2`
+const Header = styled.div`
   color: #2e2e2e;
   font-weight: bold;
   font-size: 28px;
