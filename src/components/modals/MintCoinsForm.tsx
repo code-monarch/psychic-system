@@ -1,17 +1,14 @@
 import styled from 'styled-components';
 import { Container, CSSObject, Grid, Modal, Select, Space } from '@mantine/core';
-import { ChevronDownIcon } from '@modulz/radix-icons';
 import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { Title } from '../styled';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
 import { useGetUserWallets, useGetWalletTokenDetails, useMintTokens } from '../../hooks/useWallets';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
-import { isValidEmailRegex } from '../../lib/constants';
 import { ErrorText } from '../LoginForm';
 import { SuccessModal } from './SuccessModal';
 import { cacheKey } from '../../hooks/cacheStateKey';

@@ -20,6 +20,7 @@ import { SuccessModal } from './SuccessModal';
 import { WalletTransferModal } from './WalletTransferModal';
 import { selectStyles } from '../../lib/constants';
 import { cacheKey } from '../../hooks/cacheStateKey';
+import { formatAmount } from '../../lib/utils';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -118,7 +119,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                     value={distributionWallet?.walletId}
                     styles={selectStyles}
                     data={[distributionWallet]?.map((item) => ({
-                      label: `${item?.walletType} Wallet`,
+                      label: `${item?.walletType} - ${formatAmount(Number(item?.balances?.[0]?.balance))} BTKB`,
                       value: item?.walletId,
                     }))}
                   />
@@ -146,7 +147,9 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                         rightSection={<ChevronDownIcon />}
                         styles={selectStyles}
                         data={institutionWallets.map((wallet) => ({
-                          label: wallet.userId,
+                          label: `${wallet?.userId} - ${
+                            wallet?.balances?.[0]?.balance ? formatAmount(Number(wallet?.balances?.[0]?.balance)) : 0
+                          } BTKB`,
                           value: wallet.walletId,
                           ...wallet,
                         }))}

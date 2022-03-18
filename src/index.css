@@ -23,3 +23,7 @@ td, th {
   white-space: normal; /* Only needed when it's set differntly somewhere else */
   word-wrap: break-word;
 }
+.Toastify__toast-body > div:last-child {
+  font-size: 14px;
+  font-weight: 600;
+}

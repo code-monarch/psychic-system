@@ -191,25 +191,16 @@ export class WalletService {
   static async transferTokens(data: TransferTokensRequest): Promise<MintTokenResponse> {
     const { tokenId, destinationWalletId, sourceWalletId, transactionType, amount, longitude, latitude } = data;
 
-    try {
-      const response = await secureMainApi
-        .post(`/transfer/`, {
-          tokenId,
-          destinationWalletId,
-          sourceWalletId,
-          transactionType,
-          amount,
-          longitude,
-          latitude,
-        })
-        .then((res) => res?.data)
-        .catch((err) => {
-          // console.error('Error logging in: ', err.response.data);
-          throw Error(err.response);
-        });
-      return response;
-    } catch (e) {
-      throw Error(e);
-    }
+    const response = await secureMainApi.post(`/transfer/`, {
+      tokenId,
+      destinationWalletId,
+      sourceWalletId,
+      transactionType,
+      amount,
+      longitude,
+      latitude,
+    });
+
+    return response.data;
   }
 }

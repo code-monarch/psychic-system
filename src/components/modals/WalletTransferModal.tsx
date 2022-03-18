@@ -4,6 +4,7 @@ import { ChevronDownIcon } from '@modulz/radix-icons';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 import { Title } from '../styled';
 import { selectStyles } from '../../lib/constants';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
@@ -14,6 +15,7 @@ import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import switchIcon from '../../assets/images/switch_icon.svg';
 import { cacheKey } from '../../hooks/cacheStateKey';
+import { formatAmount } from '../../lib/utils';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,7 +44,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     },
   });
   const watchFields = watch(['destinationWalletId', 'sourceWalletId']);
-  const queryClient = useQueryClient();
+  const notify = () => toast('Wow so easy!');
 
   useEffect(() => {
     trigger('destinationWalletId');
@@ -82,10 +84,6 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(cacheKey.walletTokenDetails);
-          queryClient.invalidateQueries(cacheKey.tokenReportSummary);
-          queryClient.invalidateQueries(cacheKey.userWallets);
-          queryClient.invalidateQueries(cacheKey.transactionHistory);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // callback?.();
@@ -124,9 +122,8 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets.map((wallet) => ({
-                        label: `${wallet?.walletType} - ${wallet.balances?.[0]?.balance} BTKB`,
+                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
                         value: wallet?.walletId,
-                        ...wallet,
                       }))}
                     />
                   )}
@@ -161,9 +158,8 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets.map((wallet) => ({
-                        label: `${wallet?.walletType} - ${wallet.balances?.[0]?.balance} BTKB`,
+                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
                         value: wallet?.walletId,
-                        ...wallet,
                       }))}
                     />
                   )}
