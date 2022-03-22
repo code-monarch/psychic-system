@@ -1,9 +1,8 @@
 import styled, { css } from 'styled-components';
-import { Grid, Menu } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import { useState } from 'react';
-import { ChevronDownIcon } from '@modulz/radix-icons';
 import { useDocumentTitle } from '@mantine/hooks';
-import { Heading, Paragraph, ParagraphBold, Title } from '../components/styled';
+import { Heading, Paragraph, Title } from '../components/styled';
 import { navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 import distributeSvg from '../assets/images/icons/distribute.svg';
 import mint from '../assets/images/icons/mint.svg';
@@ -44,7 +43,8 @@ export const CurrencyManagement = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <CurrenyManagementSetupAlert />
+      {/* <CurrenyManagementSetupAlert /> */}
+
       <Grid grow gutter={64}>
         <Grid.Col md={12} lg={8}>
           <Header>
@@ -92,16 +92,6 @@ export const CurrencyManagement = (): JSX.Element => {
         <RightSideBar md={12} lg={4}>
           <RightBarHeader>
             <Title>Summary</Title>
-            <Menu
-              control={
-                <WalletsDropdown style={{ marginBottom: 0 }}>
-                  <ParagraphBold>This Year</ParagraphBold>
-                  <ChevronDownIcon />
-                </WalletsDropdown>
-              }
-            >
-              <Menu.Item>This Year</Menu.Item>
-            </Menu>
           </RightBarHeader>
           <div style={{ marginTop: 24 }}>
             <CurrencySummaryCard title="Total Minted" amount={`${tokenSummary?.totalMinted || 0}`} />

@@ -46,6 +46,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
     coordinates: coordinates[curr],
     value: transactions[curr],
   }));
+
   return (
     <Wrapper>
       <TransactionCards>
@@ -55,14 +56,14 @@ export const InternationalDashboardSummary = (): JSX.Element => {
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="Internal Transactions" amount={formatAmount(28000)} />
+          <CurrencySummaryCard title="Internal Transactions" amount="28000" />
         </div>
         <div
           style={{
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="External Transactions" amount={formatAmount(1345898)} />
+          <CurrencySummaryCard title="External Transactions" amount="1345898" />
         </div>
       </TransactionCards>
       <div>

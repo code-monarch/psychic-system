@@ -136,7 +136,7 @@ export const Layout = (): JSX.Element => {
             <Wallets displayName={appUser.given_name} />
           </Route>
           <Route path={MEMBER_ROUTE.TRANSACTIONS} exact>
-            <Transactions displayName={appUser.given_name} />
+            <Transactions />
           </Route>
           <Route path={MEMBER_ROUTE.CURRENCY_MANAGEMENT} exact>
             <CurrencyManagement />

@@ -2,16 +2,21 @@ import styled, { useTheme } from 'styled-components';
 import { Transition } from '@mantine/core';
 import { useState } from 'react';
 import { Cross1Icon } from '@modulz/radix-icons';
+import { useHistory } from 'react-router-dom';
 import { Flex, Paragraph, Title } from './styled';
 import { PrimaryButtonWithoutIcon } from './Buttons';
 import robotImg from '../assets/images/robot.png';
+import { MEMBER_ROUTE } from '../lib/constants';
 
 export const CurrenyManagementSetupAlert = () => {
   const theme: any = useTheme();
+  const history = useHistory();
   const { grey } = theme.colors.primary;
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
-  const getStartedhandler = () => {};
+  const getStartedhandler = () => {
+    history.push(MEMBER_ROUTE.CURRENCY_MANAGEMENT);
+  };
   // if (!isVisible) return null;
   return (
     <Transition mounted={isVisible} transition="fade" duration={400} timingFunction="ease">
@@ -21,10 +26,13 @@ export const CurrenyManagementSetupAlert = () => {
             <Cross1Icon />
           </CloseIconWrapper>
           <div>
-            <CardTitle>Currency Management Set Up</CardTitle>
-            <CardDescription>Manage currency by minting or burning and distributing tokens.</CardDescription>
+            <CardTitle>Currency Management</CardTitle>
+            <CardDescription>
+              Mint and transfer tokens (also called coins) internally for circulation. Burn tokens to reduce the number
+              of coins in use. Distribute{' '}
+            </CardDescription>
           </div>
-          <PrimaryButtonWithoutIcon title="Get Started" onClick={getStartedhandler} />
+          <PrimaryButtonWithoutIcon title="Manage" onClick={getStartedhandler} />
         </Container>
       )}
     </Transition>
@@ -48,6 +56,7 @@ const CardDescription = styled(Paragraph)`
   color: ${({ theme }) => theme.colors.primary.darkgrey};
   font-size: 14px;
   line-height: 21px;
+  max-width: 520px;
 `;
 
 const Container = styled.div`

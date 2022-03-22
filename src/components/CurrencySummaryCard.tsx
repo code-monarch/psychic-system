@@ -1,7 +1,7 @@
 import styled, { useTheme } from 'styled-components';
-import profileIcon from '../assets/images/icons/profile.svg';
 import { Paragraph, ParagraphBold } from './styled';
 import Histogram from './charts/Histogram';
+import { formatAmount } from '../lib/utils';
 
 const Wrapper = styled.div`
   height: 92px;
@@ -47,7 +47,7 @@ export const CurrencySummaryCard = ({ title, amount, disabled }: ICurrencySummar
     <Wrapper>
       <LeftSection className={disabled ? 'disabled' : ''}>
         <CardTitle>{title}</CardTitle>
-        <CardAmount>{amount || 0}</CardAmount>
+        <CardAmount>{amount ? formatAmount(Number(amount)) : 0}</CardAmount>
       </LeftSection>
       <HistogramContainer>
         <Histogram values={histogramValues} />

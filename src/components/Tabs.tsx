@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { ForwardedRef, forwardRef, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGetQueryParams } from '../hooks/useQueryParams';
-import { dasbhboardTabItems } from '../lib/constants';
 
 const Container = styled.div`
   display: flex;
@@ -86,9 +85,14 @@ interface IQueryParams {
 export const Tabs = ({
   className,
   onTabSelected,
+  tabItems,
+
+  currentRoute = 'dashboard',
 }: {
   className?: string;
+  currentRoute?: string;
   onTabSelected: (tabIndex: number) => void;
+  tabItems: { title: string; route: string }[];
 }) => {
   const [selectedTab, setSelectedTab] = useState({ index: 0, offset: 0 });
   const tabElementRefs = useRef<Array<HTMLDivElement>>([]);
@@ -96,13 +100,13 @@ export const Tabs = ({
   const history = useHistory();
 
   const handleClick = (index: number) => {
-    history.push(`/dashboard?tab=${dasbhboardTabItems[index].route}`);
+    history.push(`/${currentRoute}?tab=${tabItems[index].route}`);
   };
 
   useEffect(() => {
     setTimeout(() => {
       if (queryParams?.tab) {
-        const tabIndex = dasbhboardTabItems.findIndex((param) => param.route === queryParams?.tab);
+        const tabIndex = tabItems.findIndex((param) => param.route === queryParams?.tab);
         if (selectedTab.index !== tabIndex) {
           const offset = tabElementRefs?.current?.[tabIndex]?.offsetLeft;
           setSelectedTab({ index: tabIndex, offset });
@@ -115,7 +119,7 @@ export const Tabs = ({
   return (
     <Container className={className}>
       <TabsList indicatorOffset={selectedTab.offset}>
-        {dasbhboardTabItems.map((item, i) => (
+        {tabItems.map((item, i) => (
           <Tab
             ref={(el) => (tabElementRefs.current[i] = el)}
             key={`tab-${i}`}

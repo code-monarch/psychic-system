@@ -104,7 +104,7 @@ export class WalletService {
 
   static async getTokenReportSummary(tokenId): Promise<TokenReportSummary> {
     const response = await secureMainApi
-      .get(`/tokenReport/${tokenId}/CURRENT_YEAR`)
+      .get(`/tokenReport/${tokenId}`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
