@@ -6,6 +6,7 @@ import { Tabs } from '../components/Tabs';
 import { Flex, Heading } from '../components/styled';
 import { DepartmentsContent, InternationalDashboardSummary, SummarySidePanel, TokensContent } from './dashboard';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
+import { dasbhboardTabItems } from '../lib/constants';
 
 // const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
 
@@ -35,7 +36,7 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
           </Header>
           <CurrenyManagementSetupAlert />
           <ContentView>
-            <StyledTabs onTabSelected={handleTabSelected} />
+            <StyledTabs onTabSelected={handleTabSelected} tabItems={dasbhboardTabItems} currentRoute="dashboard" />
             <TabView>{selectedTabView}</TabView>
           </ContentView>
         </Grid.Col>
@@ -63,6 +64,8 @@ const Header = styled.div`
   color: #2e2e2e;
   font-weight: bold;
   font-size: 28px;
+  margin-top: 40px;
+  margin-bottom: 24px;
 `;
 
 const StyledTabs = styled(Tabs)`

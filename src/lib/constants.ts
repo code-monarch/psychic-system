@@ -68,6 +68,17 @@ export const dasbhboardTabItems: { title: string; route: string }[] = [
   },
 ];
 
+export const transactionsTabItems: { title: string; route: string }[] = [
+  {
+    title: 'INTERNAL',
+    route: 'internal',
+  },
+  {
+    title: 'EXTERNAL',
+    route: 'external',
+  },
+];
+
 // ISO 4217 currency codes
 export enum CurrencyCode {
   AED = 'AED',
