@@ -11,4 +11,7 @@ export const cacheKey = {
   userWallets: 'userWallets',
   institutionWallets: 'institutionWallets',
   currentUserRole: 'currentUserRole',
+  internalHistory: 'internalHistory',
+  externalHistory: 'externalHistory',
+  transactionSummary: 'transactionSummary',
 };

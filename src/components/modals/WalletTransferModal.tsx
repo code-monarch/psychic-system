@@ -44,16 +44,13 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     },
   });
   const watchFields = watch(['destinationWalletId', 'sourceWalletId']);
-  const notify = () => toast('Wow so easy!');
 
   useEffect(() => {
     trigger('destinationWalletId');
   }, [trigger, watchFields?.sourceWalletId]);
 
-  const { data } = useGetUserWallets();
+  const { data: wallets = [] } = useGetUserWallets();
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
-
-  const wallets = data?.wallets || [];
 
   const getLocation = () => {
     if (navigator.geolocation) {

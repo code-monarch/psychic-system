@@ -11,10 +11,10 @@ export const WalletInfo = () => {
   const theme: any = useTheme();
   const { grey } = theme.colors.secondary;
   const { data: walletTokenDetails, isLoading: isLoadingWalletTokenDetails, refetch } = useGetWalletTokenDetails();
-  const { data, isLoading: isLoadingUserWallets } = useGetUserWallets();
+  const { data: wallets = [], isLoading: isLoadingUserWallets } = useGetUserWallets();
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
 
-  const wallets = data?.wallets || [];
+  // const wallets = data?.wallets || [];
 
   const nonCirculatingSupply = walletTokenDetails?.totalSupply - walletTokenDetails?.circulatingSupply;
   const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');

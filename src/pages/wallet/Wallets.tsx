@@ -54,8 +54,7 @@ export const Wallets = (props): JSX.Element => {
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   useDocumentTitle('DAP: Wallets');
 
-  const { data } = useGetUserWallets();
-  const wallets = data?.wallets || [];
+  const { data: wallets = [] } = useGetUserWallets();
 
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
@@ -74,16 +73,18 @@ export const Wallets = (props): JSX.Element => {
             <SecondaryButton title="Distribute BTKB" style={{ width: 152 }} onClick={() => setModalOpened(true)} />
           </Header>
           <WalletBalanceChart />
-          <RecentTransactionsArea>
-            <LoadingOverlay visible={isLoadingTransactions} />
-            <Title>MOST Recent INTERNAL transactions</Title>
-            <DynamicTable<Transaction>
-              columnConfig={columnConfig}
-              rowData={transactionHistory.slice(0, 6)}
-              getColumnProps={columnPropGetter}
-              hideFilters
-            />
-          </RecentTransactionsArea>
+          {Boolean(transactionHistory?.length) && (
+            <RecentTransactionsArea>
+              <LoadingOverlay visible={isLoadingTransactions} />
+              <Title>MOST Recent INTERNAL transactions</Title>
+              <DynamicTable<Transaction>
+                columnConfig={columnConfig}
+                rowData={transactionHistory.slice(0, 6)}
+                getColumnProps={columnPropGetter}
+                hideFilters
+              />
+            </RecentTransactionsArea>
+          )}
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <Header>

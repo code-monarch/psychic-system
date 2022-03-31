@@ -50,10 +50,9 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     },
   });
 
-  const { data } = useGetUserWallets();
+  const { data: wallets = [] } = useGetUserWallets();
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
 
-  const wallets = data?.wallets || [];
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
   const theme = useTheme();
@@ -78,7 +77,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   const transfer = (data: IFormData) => {
     transferTokens(
       {
-        amount: Number(data.amount) * 10000,
+        amount: Number(data.amount),
         latitude: String(currentLocation[1]),
         longitude: String(currentLocation[0]),
         transactionType: 'Institution',
