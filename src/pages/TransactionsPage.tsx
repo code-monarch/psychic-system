@@ -34,7 +34,7 @@ export const Transactions = (): JSX.Element => {
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="Total Amount" amount={formatAmount(transactionSummary.totalAmount)} />
+          <CurrencySummaryCard title="Total Amount" amount={formatAmount(transactionSummary?.totalAmount)} />
         </div>
         <div
           style={{
@@ -44,7 +44,7 @@ export const Transactions = (): JSX.Element => {
         >
           <CurrencySummaryCard
             title="Internal Transactions"
-            amount={formatAmount(transactionSummary.totalInternalTransactionAmount)}
+            amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
         <div
@@ -54,7 +54,7 @@ export const Transactions = (): JSX.Element => {
         >
           <CurrencySummaryCard
             title="External Transactions"
-            amount={formatAmount(transactionSummary.totalExternalTransactionAmount)}
+            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
       </TransactionCards>
