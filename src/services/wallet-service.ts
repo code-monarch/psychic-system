@@ -74,9 +74,10 @@ export interface Transaction {
   timestamp: number;
 }
 
-interface UserWalletsResponse {
-  userId: string;
-  wallets: Wallet[];
+interface TransactionSummaryReportResponse {
+  totalAmount: number;
+  totalInternalTransactionAmount: number;
+  totalExternalTransactionAmount: number;
 }
 
 export class WalletService {
@@ -88,7 +89,7 @@ export class WalletService {
 
   static async getWalletTokenDetails(): Promise<WalletTokenDetailsResponse> {
     const response = await secureMainApi
-      .get(`/token/details`)
+      .get(`/token/cb/getTokenDetails`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -104,7 +105,7 @@ export class WalletService {
 
   static async getTokenReportSummary(tokenId): Promise<TokenReportSummary> {
     const response = await secureMainApi
-      .get(`/tokenReport/${tokenId}`)
+      .get(`/cb/tokenReport/${tokenId}`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -119,9 +120,9 @@ export class WalletService {
 
    */
 
-  static async getAllUserWallets(): Promise<UserWalletsResponse> {
+  static async getAllUserWallets(): Promise<Wallet[]> {
     const response = await secureMainApi
-      .get(`/wallet/all`)
+      .get(`/wallet/cb/getCBWallets`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -148,12 +149,57 @@ export class WalletService {
 
   /**
    * @description
-   * Get list of wallets for the central banks institutions.
+   * Get internal transactions
    */
+  static async getInternalTransactionHistory(): Promise<Transaction[]> {
+    const response = await secureMainApi
+      .get(`/cb/getTransactionHistory/Internal`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
+   * Get external transactions
+   */
+  static async getExternalTransactionHistory(): Promise<Transaction[]> {
+    const response = await secureMainApi
+      .get(`/cb/getTransactionHistory/External`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description GET
+   * Get transaction summary report
+   */
+  static async getTransactionSummary(): Promise<TransactionSummaryReportResponse> {
+    const response = await secureMainApi
+      .get(`/cb/getTransactionSummaryReport`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
+   * Get list of wallets for the central banks institutions.
+   */ GET;
 
   static async getAllInstitutionWallets(): Promise<Wallet[]> {
     const response = await secureMainApi
-      .get(`/wallet/institution`)
+      .get(`/wallet/cb/getAllIntegratorWallets`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -170,7 +216,7 @@ export class WalletService {
   static async mintTokens(data: MintTokenRequest): Promise<MintTokenResponse> {
     const { tokenId, tokenOwnerMasterWalletId, amount } = data;
     const response = await secureMainApi
-      .post(`/token/mint`, {
+      .post(`/token/cb/mintToken`, {
         tokenId,
         tokenOwnerMasterWalletId,
         amount,
@@ -191,7 +237,7 @@ export class WalletService {
   static async transferTokens(data: TransferTokensRequest): Promise<MintTokenResponse> {
     const { tokenId, destinationWalletId, sourceWalletId, transactionType, amount, longitude, latitude } = data;
 
-    const response = await secureMainApi.post(`/transfer/`, {
+    const response = await secureMainApi.post(`/transfer`, {
       tokenId,
       destinationWalletId,
       sourceWalletId,

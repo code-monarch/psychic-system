@@ -30,6 +30,30 @@ export const useGetTransactionHistory = (walletId) => {
   return result;
 };
 
+export const useGetInternalTransactionHistory = () => {
+  const result = useQuery({
+    queryKey: cacheKey.internalHistory,
+    queryFn: () => WalletService.getInternalTransactionHistory(),
+  });
+  return result;
+};
+
+export const useGetTransactionSummary = () => {
+  const result = useQuery({
+    queryKey: cacheKey.transactionSummary,
+    queryFn: () => WalletService.getTransactionSummary(),
+  });
+  return result;
+};
+
+export const useGetExternalTransactionHistory = () => {
+  const result = useQuery({
+    queryKey: cacheKey.externalHistory,
+    queryFn: () => WalletService.getExternalTransactionHistory(),
+  });
+  return result;
+};
+
 export const useGetUserWallets = () => {
   const result = useQuery({
     queryKey: cacheKey.userWallets,

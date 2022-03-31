@@ -4,17 +4,14 @@ import { Column } from 'react-table';
 import { DynamicTable } from '../../components/tables/DynamicTable';
 import { Transaction } from '../../services/wallet-service';
 import { columnConfig } from '../wallet/table-config';
-import { useGetExternalTransactionHistory, useGetUserWallets } from '../../hooks/useWallets';
+import { useGetInternalTransactionHistory } from '../../hooks/useWallets';
 
 const Wrapper = styled.div`
   margin-top: 24px;
 `;
 
-export const ExternalTransactionsTable = (): JSX.Element => {
-  const { data: wallets = [] } = useGetUserWallets();
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
-
-  const { data: transactionHistory = [], isLoading: isLoadingTransactions } = useGetExternalTransactionHistory();
+export const InternalTransactionsTable = (): JSX.Element => {
+  const { data: transactionHistory = [], isLoading: isLoadingTransactions } = useGetInternalTransactionHistory();
 
   return (
     <Wrapper>

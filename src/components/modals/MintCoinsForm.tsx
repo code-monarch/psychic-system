@@ -29,10 +29,9 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const [amount, setAmount] = useState<number>(0);
   const queryClient = useQueryClient();
 
-  const { data } = useGetUserWallets();
+  const { data: wallets = [] } = useGetUserWallets();
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
 
-  const wallets = data?.wallets || [];
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
 
   const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
@@ -44,7 +43,7 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const mint = (data: IFormData) => {
     mintTokens(
       {
-        amount: Number(data.amount) * 10000,
+        amount: Number(data.amount),
         tokenOwnerMasterWalletId: masterReserveWallet.walletId,
         tokenId: walletTokenDetails.tokenId,
       },

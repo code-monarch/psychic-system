@@ -6,16 +6,21 @@ import { Heading } from '../components/styled';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { transactionsTabItems } from '../lib/constants';
 import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTable';
+import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
+import { useGetInternalTransactionHistory, useGetTransactionSummary } from '../hooks/useWallets';
+import { formatAmount } from '../lib/utils';
 
 export const Transactions = (): JSX.Element => {
   useDocumentTitle('DAP: Transactions');
 
-  const tabViews = [<ExternalTransactionsTable />, <ExternalTransactionsTable />];
+  const tabViews = [<InternalTransactionsTable />, <ExternalTransactionsTable />];
   const [selectedTabView, setSelectedTabView] = useState(tabViews[0]);
 
   const handleTabSelected = (tabIndex: number) => {
     setSelectedTabView(tabViews[tabIndex]);
   };
+
+  const { data: transactionSummary, isLoading: isLoadingSummary } = useGetTransactionSummary();
 
   return (
     <Wrapper>
@@ -29,7 +34,7 @@ export const Transactions = (): JSX.Element => {
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="Total Amount" amount="29000" />
+          <CurrencySummaryCard title="Total Amount" amount={formatAmount(transactionSummary.totalAmount)} />
         </div>
         <div
           style={{
@@ -37,14 +42,20 @@ export const Transactions = (): JSX.Element => {
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="Internal Transactions" amount="28000" />
+          <CurrencySummaryCard
+            title="Internal Transactions"
+            amount={formatAmount(transactionSummary.totalInternalTransactionAmount)}
+          />
         </div>
         <div
           style={{
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="External Transactions" amount="1345898" />
+          <CurrencySummaryCard
+            title="External Transactions"
+            amount={formatAmount(transactionSummary.totalExternalTransactionAmount)}
+          />
         </div>
       </TransactionCards>
       <ContentView>
