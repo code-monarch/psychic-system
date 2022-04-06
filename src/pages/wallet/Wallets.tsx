@@ -14,6 +14,7 @@ import { ManualDistributionForm } from '../../components/modals/ManualDistributi
 import { DistributionModal } from '../../components/modals/ManualDistributionModal';
 import { useGetTransactionHistory, useGetUserWallets } from '../../hooks/useWallets';
 import { Transaction } from '../../services/wallet-service';
+import { TransactionsTable } from '../../components/tables/PaginatedTable';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -55,12 +56,23 @@ export const Wallets = (props): JSX.Element => {
   useDocumentTitle('DAP: Wallets');
 
   const { data: wallets = [] } = useGetUserWallets();
+  const [page, setPage] = useState(0);
 
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
-  const { data: transactionHistory = [], isLoading: isLoadingTransactions } = useGetTransactionHistory(
-    distributionWallet?.walletId,
-  );
+  const [queryPageIndex, setQueryPageIndex] = useState(0);
+  const [queryPageSize, setQueryPageSize] = useState(5);
+
+  const {
+    data = [] as any,
+    isLoading: isLoadingTransactions,
+    isError,
+    error,
+    isFetching,
+    isPreviousData,
+  } = useGetTransactionHistory(distributionWallet?.walletId, queryPageIndex, queryPageSize);
+
+  const transactions = data?.transactions || [];
 
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
@@ -73,18 +85,23 @@ export const Wallets = (props): JSX.Element => {
             <SecondaryButton title="Distribute BTKB" style={{ width: 152 }} onClick={() => setModalOpened(true)} />
           </Header>
           <WalletBalanceChart />
-          {Boolean(transactionHistory?.length) && (
-            <RecentTransactionsArea>
-              <LoadingOverlay visible={isLoadingTransactions} />
-              <Title>MOST Recent INTERNAL transactions</Title>
-              <DynamicTable<Transaction>
-                columnConfig={columnConfig}
-                rowData={transactionHistory.slice(0, 6)}
-                getColumnProps={columnPropGetter}
-                hideFilters
-              />
-            </RecentTransactionsArea>
-          )}
+          <RecentTransactionsArea>
+            <Title>MOST Recent INTERNAL transactions</Title>
+            <TransactionsTable<Transaction>
+              columnConfig={columnConfig}
+              loading={isLoadingTransactions || isFetching}
+              totalPages={data?.totalPages}
+              rowData={transactions}
+              getColumnProps={columnPropGetter}
+              hideFilters
+              queryPageIndex={queryPageIndex}
+              queryPageSize={queryPageSize}
+              setQueryPageIndex={setQueryPageIndex}
+              setQueryPageSize={setQueryPageSize}
+              totalItems={data?.totalItems}
+              isPreviousData={isPreviousData}
+            />
+          </RecentTransactionsArea>
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <Header>
@@ -115,5 +132,4 @@ export const Wallets = (props): JSX.Element => {
 
 const RecentTransactionsArea = styled.div`
   margin-top: 50px;
-  position: relative;
 `;
