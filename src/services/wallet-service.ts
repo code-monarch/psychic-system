@@ -136,9 +136,15 @@ export class WalletService {
    * Get list of wallet transactions
    */
 
-  static async getTransactionHistory(walletId): Promise<Transaction[]> {
+  static async getTransactionHistory(walletId, page, pageSize): Promise<Transaction[]> {
     const response = await secureMainApi
-      .get(`/transactionHistory/${walletId}`)
+      .get(`/transactionHistory`, {
+        params: {
+          walletId,
+          pageNo: page,
+          pageSize,
+        },
+      })
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -149,26 +155,17 @@ export class WalletService {
 
   /**
    * @description
-   * Get internal transactions
+   * Get all transactions history
    */
-  static async getInternalTransactionHistory(): Promise<Transaction[]> {
+  static async getAllCBTransactionHistory(transactionType, page, pageSize): Promise<Transaction[]> {
     const response = await secureMainApi
-      .get(`/cb/getTransactionHistory/Internal`)
-      .then((res) => res?.data)
-      .catch((err) => {
-        // console.error('Error logging in: ', err.response.data);
-        // throw Error(err.response);
-      });
-    return response;
-  }
-
-  /**
-   * @description
-   * Get external transactions
-   */
-  static async getExternalTransactionHistory(): Promise<Transaction[]> {
-    const response = await secureMainApi
-      .get(`/cb/getTransactionHistory/External`)
+      .get(`/cb/getTransactionHistory`, {
+        params: {
+          transactionType,
+          pageNo: page,
+          pageSize,
+        },
+      })
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);

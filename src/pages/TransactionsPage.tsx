@@ -7,7 +7,7 @@ import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { transactionsTabItems } from '../lib/constants';
 import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTable';
 import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
-import { useGetInternalTransactionHistory, useGetTransactionSummary } from '../hooks/useWallets';
+import { useGetTransactionSummary } from '../hooks/useWallets';
 import { formatAmount } from '../lib/utils';
 
 export const Transactions = (): JSX.Element => {

@@ -21,19 +21,21 @@ export const useGetTokenSummary = (tokenId) => {
   return result;
 };
 
-export const useGetTransactionHistory = (walletId) => {
+export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6) => {
   const result = useQuery({
-    queryKey: cacheKey.transactionHistory,
-    queryFn: () => WalletService.getTransactionHistory(walletId),
+    queryKey: [cacheKey.transactionHistory, page],
+    queryFn: () => WalletService.getTransactionHistory(walletId, page, pageSize),
     enabled: Boolean(walletId),
+    keepPreviousData: true,
   });
   return result;
 };
 
-export const useGetInternalTransactionHistory = () => {
+export const useGetCBTransactionHistory = (transactionType, page = 0, pageSize = 10) => {
   const result = useQuery({
-    queryKey: cacheKey.internalHistory,
-    queryFn: () => WalletService.getInternalTransactionHistory(),
+    queryKey: [cacheKey.cbTransactionsHistory, transactionType, page, pageSize],
+    queryFn: () => WalletService.getAllCBTransactionHistory(transactionType, page, pageSize),
+    keepPreviousData: true,
   });
   return result;
 };
@@ -42,14 +44,6 @@ export const useGetTransactionSummary = () => {
   const result = useQuery({
     queryKey: cacheKey.transactionSummary,
     queryFn: () => WalletService.getTransactionSummary(),
-  });
-  return result;
-};
-
-export const useGetExternalTransactionHistory = () => {
-  const result = useQuery({
-    queryKey: cacheKey.externalHistory,
-    queryFn: () => WalletService.getExternalTransactionHistory(),
   });
   return result;
 };
