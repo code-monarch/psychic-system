@@ -4,6 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { QueryCache } from 'react-query';
 import { MAIN_API, SECURE_MAIN_API } from './apiConstants';
 import { LOCAL_STORAGE_KEYS } from './constants';
+import i18next from '../i18n';
 
 const COMMON_HEADERS = {
   'Content-Type': 'application/json',
@@ -27,6 +28,7 @@ const getSecureHeaders = async (config) => {
   }
   return config;
 };
+
 export const mainApi = axios.create({
   baseURL: MAIN_API,
 });
@@ -37,7 +39,13 @@ export const secureMainApi = axios.create({
 
 secureMainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const configWithHeaders = await getSecureHeaders(config);
+  configWithHeaders.headers.common['Accept-Language'] = i18next.resolvedLanguage;
   return configWithHeaders;
+});
+
+mainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
+  config.headers.common['Accept-Language'] = i18next.resolvedLanguage;
+  return config;
 });
 
 secureMainApi.interceptors.response.use(
