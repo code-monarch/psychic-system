@@ -29,7 +29,7 @@ const transactions = {
 
 const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
 
-export const InternationalDashboardSummary = (): JSX.Element => {
+export const LocalDashboardSummary = (): JSX.Element => {
   const { ref, width, height } = useElementSize();
   const theme = useTheme();
 

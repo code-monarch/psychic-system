@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "Home": "Maison",
+    "Dashboard": "Dashboard",
+    "Transactions": "Transactions",
+    "Requests": "Requests",
+    "Manage": "Manage",
+    "Currency Management": "Currency Management"
+  }
+}

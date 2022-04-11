@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { ThemeProvider } from 'styled-components';
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, LoadingOverlay } from '@mantine/core';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';
@@ -10,12 +10,16 @@ import { AppProviders } from './context';
 import reportWebVitals from './reportWebVitals';
 import { lightTheme, mantineThemeOverrides } from './themes';
 
+import './i18n';
+
 ReactDOM.render(
   <React.StrictMode>
     <AppProviders>
       <MantineProvider theme={mantineThemeOverrides}>
         <ThemeProvider theme={lightTheme}>
-          <App />
+          <Suspense fallback={<LoadingOverlay visible />}>
+            <App />
+          </Suspense>
           <ToastContainer
             autoClose={4000}
             hideProgressBar
