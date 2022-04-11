@@ -23,8 +23,12 @@ export const columnConfig: Column<Transaction>[] = [
     accessor: 'transactionType',
   },
   {
-    Header: 'Wallet Type',
+    Header: 'Destination Wallet Category',
     accessor: 'destinationWalletCategory',
+  },
+  {
+    Header: 'Source Wallet Category',
+    accessor: 'sourceWalletCategory',
   },
   {
     Header: 'Entity',

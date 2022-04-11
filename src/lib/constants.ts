@@ -1,5 +1,6 @@
 import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types';
 import { CSSObject } from '@mantine/core';
+import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 
 /**
  * Object containing the routes that only a logged out user can visit.
@@ -1334,3 +1335,42 @@ export const selectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
     marginBottom: 10,
   },
 };
+
+export const navigationItems = [
+  {
+    to: MEMBER_ROUTE.GET_STARTED,
+    text: 'Home',
+    icon: { default: defaultIcons.home, active: activeIcons.home },
+  },
+  {
+    to: MEMBER_ROUTE.DASHBOARD,
+    text: 'Dashboard',
+    icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
+  },
+  { to: MEMBER_ROUTE.WALLETS, text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+  {
+    to: MEMBER_ROUTE.TRANSACTIONS,
+    text: 'Transactions',
+    icon: { default: defaultIcons.transactions, active: activeIcons.transactions },
+  },
+  {
+    to: MEMBER_ROUTE.REQUESTS,
+    text: 'Requests',
+    icon: { default: defaultIcons.requests, active: activeIcons.requests },
+  },
+  {
+    to: '/manage',
+    text: 'Manage',
+    icon: { default: defaultIcons.manage, active: activeIcons.manage },
+    subNavigationItems: [
+      {
+        to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
+        text: 'Currency Management',
+      },
+      {
+        to: '/manage-users',
+        text: 'Users',
+      },
+    ],
+  },
+];

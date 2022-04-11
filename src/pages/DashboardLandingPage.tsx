@@ -3,6 +3,7 @@ import { Container, Grid } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { PrimaryButton } from '../components/Buttons';
 import { MEMBER_ROUTE } from '../lib/constants';
@@ -79,10 +80,11 @@ const ButtonContainer = styled.div`
 
 export const DashboardLandingPage = () => {
   const history = useHistory();
+  const { t } = useTranslation();
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
 
-  useDocumentTitle('DAP: Home');
+  useDocumentTitle(`DAP: ${t('navigation.Home')}`);
   return (
     <Screen fluid>
       <PageContainer>
@@ -91,14 +93,11 @@ export const DashboardLandingPage = () => {
             <LoginPageImage src={loginImage} alt="Login" />
           </ImageWrapper>
           <GetStartedWrapper>
-            <GetStartedText>Get Started</GetStartedText>
-            <GetStartedDescription>
-              Manage digital assets internally and digital wallets for Financial Institutions. Use this platform to view
-              CBDC ledger balances, transactions, distribute currency and monitor activity.
-            </GetStartedDescription>
+            <GetStartedText>{t('home.title')}</GetStartedText>
+            <GetStartedDescription>{t('home.description')}</GetStartedDescription>
             <ButtonContainer>
               <PrimaryButton
-                title="Dashboard"
+                title={t('navigation.Dashboard')}
                 onClick={() => {
                   history.push(MEMBER_ROUTE.DASHBOARD);
                 }}
@@ -106,7 +105,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
-                title="Transfer"
+                title={t('Transfer')}
                 onClick={() => {
                   setShowWalletTransferModal(true);
                 }}
@@ -114,7 +113,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
-                title="Distribute BTKB"
+                title={`${t('Distribute')} BTKB`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}

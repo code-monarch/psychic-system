@@ -1,4 +1,7 @@
+import { TFunction } from 'react-i18next';
 import { TransactionRow } from '../pages/transactions/table-config';
+import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
+import { MEMBER_ROUTE } from './constants';
 
 /**
  * Returns a scaling function which will normalize a value within the given values array to between newMax (default 0) and newMin (default 1)
@@ -54,3 +57,57 @@ export const formatAmount = (amount: number): string => {
   if (!amount) return '0';
   return formatter.format(amount);
 };
+
+export const getNavigationItems = (t: TFunction) => {
+  const navigationItems = [
+    {
+      to: MEMBER_ROUTE.GET_STARTED,
+      text: t('navigation.Home'),
+      icon: { default: defaultIcons.home, active: activeIcons.home },
+    },
+    {
+      to: MEMBER_ROUTE.DASHBOARD,
+      text: t('navigation.Dashboard'),
+      icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
+    },
+    { to: MEMBER_ROUTE.WALLETS, text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+    {
+      to: MEMBER_ROUTE.TRANSACTIONS,
+      text: t('navigation.Transactions'),
+      icon: { default: defaultIcons.transactions, active: activeIcons.transactions },
+    },
+    {
+      to: MEMBER_ROUTE.REQUESTS,
+      text: t('navigation.Requests'),
+      icon: { default: defaultIcons.requests, active: activeIcons.requests },
+    },
+    {
+      to: '/manage',
+      text: t('navigation.Manage'),
+      icon: { default: defaultIcons.manage, active: activeIcons.manage },
+      subNavigationItems: [
+        {
+          to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
+          text: t('navigation.Currency Management'),
+        },
+        {
+          to: '/manage-users',
+          text: 'Users',
+        },
+      ],
+    },
+  ];
+
+  return navigationItems;
+};
+
+export const getNavigationTabs = (t: TFunction): { title: string; route: string }[] => [
+  {
+    title: t('International'),
+    route: 'international',
+  },
+  {
+    title: t('Local'),
+    route: 'local',
+  },
+];

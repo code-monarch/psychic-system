@@ -2,20 +2,30 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Grid } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { Tabs } from '../components/Tabs';
 import { Flex, Heading } from '../components/styled';
-import { DepartmentsContent, InternationalDashboardSummary, SummarySidePanel, TokensContent } from './dashboard';
+import {
+  DepartmentsContent,
+  InternationalDashboardSummary,
+  SummarySidePanel,
+  TokensContent,
+  LocalDashboardSummary,
+} from './dashboard';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { dasbhboardTabItems } from '../lib/constants';
+import { getNavigationTabs } from '../lib/utils';
 
 // const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
 
 export const DashboardView = ({ displayName }: { displayName: string }): JSX.Element => {
-  useDocumentTitle('DAP: Dashboard');
+  const { t } = useTranslation();
+
+  useDocumentTitle(`DAP: ${t('navigation.Dashboard')}`);
 
   const tabViews = [
     <InternationalDashboardSummary />,
-    <InternationalDashboardSummary />,
+    <LocalDashboardSummary />,
     // <ExchangeRatesContent localCurrency={CurrencyCode.HTG} exchangeCurrencies={exchangeCurrencies} />,
     <TokensContent />,
     <DepartmentsContent />,
@@ -32,11 +42,13 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
       <Grid gutter={64}>
         <Grid.Col grow md={12} lg={8}>
           <Header>
-            <Heading>Welcome {displayName}!</Heading>
+            <Heading>
+              {t('Welcome')} {displayName}!
+            </Heading>
           </Header>
           <CurrenyManagementSetupAlert />
           <ContentView>
-            <StyledTabs onTabSelected={handleTabSelected} tabItems={dasbhboardTabItems} currentRoute="dashboard" />
+            <StyledTabs onTabSelected={handleTabSelected} tabItems={getNavigationTabs(t)} currentRoute="dashboard" />
             <TabView>{selectedTabView}</TabView>
           </ContentView>
         </Grid.Col>

@@ -29,7 +29,7 @@ const transactions = {
 
 const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
 
-export const InternationalDashboardSummary = (): JSX.Element => {
+export const LocalDashboardSummary = (): JSX.Element => {
   const { ref, width, height } = useElementSize();
   const theme = useTheme();
 
@@ -60,7 +60,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="Internal Transaction Amount (BTKB)"
+            title="Internal Transactions"
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -70,7 +70,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="External Transaction Amount (BTKB)"
+            title="External Transactions"
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
