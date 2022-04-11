@@ -8,19 +8,17 @@ const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.primary.lightgrey};
   border-radius: 8px;
-  margin-bottom: 16px;
-  padding: 24px;
+  padding: 0 24px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
 `;
 
-const LeftSection = styled.div`
+const BottomSection = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  flex: 1;
-  height: 100%;
+  margin-top: 10px;
 
   &.disabled p {
     color: ${({ theme }) => theme.colors.secondary.grey};
@@ -45,13 +43,13 @@ export const CurrencySummaryCard = ({ title, amount, disabled }: ICurrencySummar
   const { grey } = theme.colors.primary;
   return (
     <Wrapper>
-      <LeftSection className={disabled ? 'disabled' : ''}>
-        <CardTitle>{title}</CardTitle>
+      <CardTitle>{title}</CardTitle>
+      <BottomSection>
         <CardAmount>{amount ? formatAmount(Number(amount)) : 0}</CardAmount>
-      </LeftSection>
-      <HistogramContainer>
-        <Histogram values={histogramValues} />
-      </HistogramContainer>
+        <HistogramContainer>
+          <Histogram values={histogramValues} />
+        </HistogramContainer>
+      </BottomSection>
     </Wrapper>
   );
 };

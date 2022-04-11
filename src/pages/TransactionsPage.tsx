@@ -43,7 +43,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="Internal Transactions"
+            title="Internal Transaction Amount (BTKB)"
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -53,7 +53,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="External Transactions"
+            title="External Transaction Amount (BTKB)"
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
