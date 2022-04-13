@@ -71,7 +71,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
   const transfer = (data: IFormData) => {
     transferTokens(
       {
-        amount: Number(data.amount) * 10000,
+        amount: Number(data.amount),
         latitude: String(currentLocation[1]),
         longitude: String(currentLocation[0]),
         transactionType: 'Distribution',
