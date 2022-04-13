@@ -2,6 +2,7 @@ import { TFunction } from 'react-i18next';
 import { TransactionRow } from '../pages/transactions/table-config';
 import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 import { MEMBER_ROUTE } from './constants';
+import i18next from '../i18next/config';
 
 /**
  * Returns a scaling function which will normalize a value within the given values array to between newMax (default 0) and newMin (default 1)
@@ -62,33 +63,33 @@ export const getNavigationItems = (t: TFunction) => {
   const navigationItems = [
     {
       to: MEMBER_ROUTE.GET_STARTED,
-      text: t('navigation.Home'),
+      text: t('navigation.home'),
       icon: { default: defaultIcons.home, active: activeIcons.home },
     },
     {
       to: MEMBER_ROUTE.DASHBOARD,
-      text: t('navigation.Dashboard'),
+      text: t('navigation.dashboard'),
       icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
     },
     { to: MEMBER_ROUTE.WALLETS, text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
     {
       to: MEMBER_ROUTE.TRANSACTIONS,
-      text: t('navigation.Transactions'),
+      text: t('navigation.transactions'),
       icon: { default: defaultIcons.transactions, active: activeIcons.transactions },
     },
     {
       to: MEMBER_ROUTE.REQUESTS,
-      text: t('navigation.Requests'),
+      text: t('navigation.requests'),
       icon: { default: defaultIcons.requests, active: activeIcons.requests },
     },
     {
       to: '/manage',
-      text: t('navigation.Manage'),
+      text: t('navigation.manage'),
       icon: { default: defaultIcons.manage, active: activeIcons.manage },
       subNavigationItems: [
         {
           to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
-          text: t('navigation.Currency Management'),
+          text: t('navigation.currency.management'),
         },
         {
           to: '/manage-users',
@@ -103,11 +104,22 @@ export const getNavigationItems = (t: TFunction) => {
 
 export const getNavigationTabs = (t: TFunction): { title: string; route: string }[] => [
   {
-    title: t('International'),
+    title: t('international.tab.title'),
     route: 'international',
   },
   {
-    title: t('Local'),
+    title: t('local.tab.title'),
     route: 'local',
+  },
+];
+
+export const getTransactionTabs = (t: TFunction): { title: string; route: string }[] => [
+  {
+    title: t('internal.tab.title'),
+    route: 'internal',
+  },
+  {
+    title: t('external.tab.title'),
+    route: 'external',
   },
 ];

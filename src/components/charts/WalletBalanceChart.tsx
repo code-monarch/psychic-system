@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from '@modulz/radix-icons';
 import { Menu } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
 
@@ -134,60 +135,57 @@ const chartData = [
   },
 ];
 
-export const WalletBalanceChart = (): JSX.Element => (
-  <Wrapper>
-    <TopSection>
-      <LeftSection>
-        <Title>Balance (BTKB)</Title>
-        <Amount>575,483.00</Amount>
-      </LeftSection>
-      <RightSection>
-        <Menu
-          control={
-            <WalletsDropdown>
-              <ParagraphBold>All Wallets</ParagraphBold>
-              <ChevronDownIcon />
-            </WalletsDropdown>
-          }
-        >
-          <Menu.Item>All Wallets</Menu.Item>
-          <Menu.Item>Distribution Wallet</Menu.Item>
-          <Menu.Item>Master Wallet</Menu.Item>
-        </Menu>
-        <WalletSection style={{ marginBottom: 12 }}>
-          <CreditLabel>Credit</CreditLabel>
-          <ParagraphBold>2.34B BTKB</ParagraphBold>
-          {/* <div style={{ display: 'flex' }}> */}
-          {/*  <CreditPercentage>+5.4%</CreditPercentage> */}
-          {/*  <ArrowUpIcon color="#4AB0A6" /> */}
-          {/* </div> */}
-        </WalletSection>
-        <WalletSection>
-          <DebitLabel>Debit</DebitLabel>
-          <ParagraphBold>500M BTKB</ParagraphBold>
-          {/* <div style={{ display: 'flex' }}> */}
-          {/*  <DebitPercentage>-2.5%</DebitPercentage> */}
-          {/*  <ArrowDownIcon color="#EC3D08" /> */}
-          {/* </div> */}
-        </WalletSection>
-      </RightSection>
-    </TopSection>
+export const WalletBalanceChart = (): JSX.Element => {
+  const { t } = useTranslation();
 
-    <Menu
-      control={
-        <WalletsDropdown style={{ marginBottom: 0 }}>
-          <ParagraphBold>Last 1 Week</ParagraphBold>
-          <ChevronDownIcon />
-        </WalletsDropdown>
-      }
-    >
-      <Menu.Item>Last 1 Week</Menu.Item>
-      <Menu.Item>Last 2 Weeks</Menu.Item>
-      <Menu.Item>Last 1 Month</Menu.Item>
-      <Menu.Item>Last 3 Months</Menu.Item>
-      <Menu.Item>Last 6 Months</Menu.Item>
-      <Menu.Item>Last 9 Months</Menu.Item>
-    </Menu>
-    <ReAreaChart data={chartData} />
-  </Wrapper>
-);
+  return (
+    <Wrapper>
+      <TopSection>
+        <LeftSection>
+          <Title>{t('wallets.balance')} (BTKB)</Title>
+          <Amount>575,483.00</Amount>
+        </LeftSection>
+        <RightSection>
+          <Menu
+            control={
+              <WalletsDropdown>
+                <ParagraphBold>{t('wallet.all')}</ParagraphBold>
+                <ChevronDownIcon />
+              </WalletsDropdown>
+            }
+          >
+            <Menu.Item>{t('wallet.all')}</Menu.Item>
+          </Menu>
+          <WalletSection style={{ marginBottom: 12 }}>
+            <CreditLabel>{t('credit')}</CreditLabel>
+            <ParagraphBold>2.34B BTKB</ParagraphBold>
+            {/* <div style={{ display: 'flex' }}> */}
+            {/*  <CreditPercentage>+5.4%</CreditPercentage> */}
+            {/*  <ArrowUpIcon color="#4AB0A6" /> */}
+            {/* </div> */}
+          </WalletSection>
+          <WalletSection>
+            <DebitLabel>{t('debit')}</DebitLabel>
+            <ParagraphBold>500M BTKB</ParagraphBold>
+            {/* <div style={{ display: 'flex' }}> */}
+            {/*  <DebitPercentage>-2.5%</DebitPercentage> */}
+            {/*  <ArrowDownIcon color="#EC3D08" /> */}
+            {/* </div> */}
+          </WalletSection>
+        </RightSection>
+      </TopSection>
+
+      <Menu
+        control={
+          <WalletsDropdown style={{ marginBottom: 0 }}>
+            <ParagraphBold>{t('duration.one.week')}</ParagraphBold>
+            <ChevronDownIcon />
+          </WalletsDropdown>
+        }
+      >
+        <Menu.Item>{t('duration.one.week')}</Menu.Item>
+      </Menu>
+      <ReAreaChart data={chartData} />
+    </Wrapper>
+  );
+};

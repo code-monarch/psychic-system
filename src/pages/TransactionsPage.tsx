@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useDocumentTitle } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { Tabs } from '../components/Tabs';
 import { Heading } from '../components/styled';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
@@ -8,10 +9,11 @@ import { transactionsTabItems } from '../lib/constants';
 import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTable';
 import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
 import { useGetTransactionSummary } from '../hooks/useWallets';
-import { formatAmount } from '../lib/utils';
+import { formatAmount, getTransactionTabs } from '../lib/utils';
 
 export const Transactions = (): JSX.Element => {
-  useDocumentTitle('DAP: Transactions');
+  const { t } = useTranslation();
+  useDocumentTitle(`DAP: ${t('navigation.transactions')}`);
 
   const tabViews = [<InternalTransactionsTable />, <ExternalTransactionsTable />];
   const [selectedTabView, setSelectedTabView] = useState(tabViews[0]);
@@ -25,7 +27,7 @@ export const Transactions = (): JSX.Element => {
   return (
     <Wrapper>
       <Header>
-        <Heading>Transactions</Heading>
+        <Heading>{t('navigation.transactions')}</Heading>
       </Header>
       <TransactionCards>
         <div
@@ -43,7 +45,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="Internal Transaction Amount (BTKB)"
+            title={`${t('internal.transaction.amount')} (BTKB)`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -53,13 +55,13 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="External Transaction Amount (BTKB)"
+            title={`${t('external.transaction.amount')} (BTKB)`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
       </TransactionCards>
       <ContentView>
-        <StyledTabs onTabSelected={handleTabSelected} tabItems={transactionsTabItems} currentRoute="transactions" />
+        <StyledTabs onTabSelected={handleTabSelected} tabItems={getTransactionTabs(t)} currentRoute="transactions" />
         <TabView>{selectedTabView}</TabView>
       </ContentView>
     </Wrapper>

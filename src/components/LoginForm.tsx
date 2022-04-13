@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { useLocalStorage } from 'react-use';
+import { useTranslation } from 'react-i18next';
 import { AnimatedLabelInput } from './AnimatedLabelInput';
 import { AppUser, useAuth } from '../context/auth-context';
 import { isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE } from '../lib/constants';
@@ -39,6 +40,7 @@ interface IFormData {
 
 export const LoginForm = ({ className }: { className?: string }) => {
   const { useSignin, setUserRole, useGetUserRole, setAppUser } = useAuth();
+  const { t } = useTranslation();
   const { mutate: getUserRole } = useGetUserRole();
   const [value, saveToLocalStorage] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
   const [userToken, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
@@ -81,15 +83,15 @@ export const LoginForm = ({ className }: { className?: string }) => {
     <Form className={className} onSubmit={handleSubmit(handleFormSubmit)}>
       <TextInput>
         <AnimatedLabelInput
-          label="Email Address"
+          label={t('login.email')}
           name="email"
           type="email"
           isLabelAnimated={false}
           ref={register({
-            required: 'Email is required',
+            required: t('login.email.required'),
             pattern: {
               value: isValidEmailRegex,
-              message: 'This appears to be an invalid email address.',
+              message: t('login.email.invalid'),
             },
           })}
         />
@@ -97,20 +99,16 @@ export const LoginForm = ({ className }: { className?: string }) => {
       {errors?.email?.message && <ErrorText>{errors.email.message}</ErrorText>}
       <TextInput>
         <AnimatedLabelInput
-          label="Password"
+          label={t('login.password')}
           isLabelAnimated={false}
           isPassword
           name="password"
           type="password"
           ref={register({
-            required: 'Password is required',
+            required: t('login.password.required'),
             minLength: {
               value: 6,
-              message: 'Password length cannot be less than 6 characters',
-            },
-            maxLength: {
-              value: 64,
-              message: 'Name must be less than 64 characters',
+              message: t('login.password.minLength'),
             },
           })}
         />
@@ -120,7 +118,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
       {hasSigninError && <ErrorText>{(signinError as any)?.message} </ErrorText>}
 
       <ButtonContainer>
-        <PrimaryButton title="Login" disabled={disabled} loading={signinRequestInProgress} />
+        <PrimaryButton title={t('login.title')} disabled={disabled} loading={signinRequestInProgress} />
       </ButtonContainer>
     </Form>
   );

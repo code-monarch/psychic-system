@@ -2,6 +2,7 @@ import styled, { useTheme } from 'styled-components';
 import { ArrowRightIcon } from '@modulz/radix-icons';
 import { Space } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
@@ -40,15 +41,17 @@ export const CirculationComponent = () => {
   const { green } = theme.colors.primary;
   const { darkgreen, blue } = theme.colors.secondary;
 
+  const { t } = useTranslation();
+
   // TODO: Replace with data from API
   const options = [
     {
-      label: 'Local',
+      label: t('local.tab.title'),
       color: green,
       value: 86,
     },
     {
-      label: 'International',
+      label: t('international.tab.title'),
       color: darkgreen,
       value: 14,
     },
@@ -56,7 +59,7 @@ export const CirculationComponent = () => {
   return (
     <div>
       <TokensHeaderWrapper>
-        <Title>Tokens in Circulation</Title>
+        <Title>{t('tokens.circulation.description')}</Title>
         <Title>
           {walletTokenDetails?.circulatingSupply ? formatAmount(walletTokenDetails?.circulatingSupply) : '0'}
         </Title>
@@ -70,13 +73,13 @@ export const CirculationComponent = () => {
             history.push(MEMBER_ROUTE.TRANSACTIONS);
           }}
         >
-          All Transactions
+          {t('all.transactions.title')}
         </LinkText>
         <ArrowRightIcon fontWeight={600} color={green} />
       </DashboardLink>
 
       <Section style={{ marginBottom: 30, marginTop: 30 }}>
-        <Title>TOTAL ASSETS</Title>
+        <Title>{t('total.assets')}</Title>
         <CardsWrapper>
           <AssetCard name="HTG & BTKB" value="431.2B" color={blue} symbol="B" />
           <AssetCard name="USD & USDC Balance" value="$4.34B" color={green} symbol="$" />
@@ -84,17 +87,17 @@ export const CirculationComponent = () => {
       </Section>
 
       <Section>
-        <Title>DIGITAL ASSETS</Title>
-        <StyledNameValue name="Total Bitkob" value="200.1B (BTKB)" />
-        <StyledNameValue name="Total USDC Reserves" value="1.97B (USDC)" />
+        <Title>{t('digital.assets')}</Title>
+        <StyledNameValue name={`${t('total')} Bitkob`} value="200.1B (BTKB)" />
+        <StyledNameValue name={`${t('total')} USDC Reserves`} value="1.97B (USDC)" />
       </Section>
 
       <Divider aria-hidden="true" />
 
       <Section>
         <Title>Fiat</Title>
-        <StyledNameValue name="Total Gourdes (HTG)" value="G231.2B" />
-        <StyledNameValue name="Total USD Reserves" value="$2.37B" />
+        <StyledNameValue name={`${t('total')} Gourdes (HTG)`} value="G231.2B" />
+        <StyledNameValue name={`${t('total')} USD Reserves`} value="$2.37B" />
       </Section>
 
       <DashboardLink>
@@ -103,7 +106,7 @@ export const CirculationComponent = () => {
             history.push(MEMBER_ROUTE.WALLETS);
           }}
         >
-          Wallets
+          {t('wallets.title')}
         </LinkText>
         <ArrowRightIcon fontWeight={600} color={green} />
       </DashboardLink>

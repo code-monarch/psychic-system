@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container, Grid } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { LoginForm } from '../components/LoginForm';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { Logo } from '../components/Logo';
@@ -82,28 +83,32 @@ const LoginPageImage = styled.img`
   max-width: 350px;
 `;
 
-export const Login = () => (
-  <Screen fluid>
-    <LogoPanel>
-      <Logo imageWidth={100} />
-    </LogoPanel>
-    <LoginContainer>
-      <LeftPane sm={12} md={6}>
-        <ImageWrapper>
-          <LoginPageImage src={loginImage} alt="Login" />
-          <CallToAction>
-            <span className="green">Digital Cash</span>
-            <br />
-            Like Never Before!
-          </CallToAction>
-        </ImageWrapper>
-      </LeftPane>
-      <RightPane md={6} sm={12}>
-        <LoginWrapper>
-          <LoginText>Login</LoginText>
-          <LoginForm />
-        </LoginWrapper>
-      </RightPane>
-    </LoginContainer>
-  </Screen>
-);
+export const Login = () => {
+  const { t } = useTranslation();
+
+  return (
+    <Screen fluid>
+      <LogoPanel>
+        <Logo imageWidth={100} />
+      </LogoPanel>
+      <LoginContainer>
+        <LeftPane sm={12} md={6}>
+          <ImageWrapper>
+            <LoginPageImage src={loginImage} alt={t('login.title')} />
+            <CallToAction>
+              <span className="green">{t('digital.cash')}</span>
+              <br />
+              {t('like.never.before')}
+            </CallToAction>
+          </ImageWrapper>
+        </LeftPane>
+        <RightPane md={6} sm={12}>
+          <LoginWrapper>
+            <LoginText>{t('login.title')}</LoginText>
+            <LoginForm />
+          </LoginWrapper>
+        </RightPane>
+      </LoginContainer>
+    </Screen>
+  );
+};

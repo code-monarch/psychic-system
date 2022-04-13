@@ -1,6 +1,7 @@
 import styled, { useTheme } from 'styled-components';
 import { Divider, Space, Skeleton } from '@mantine/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
 import { useGetUserWallets, useGetWalletTokenDetails } from '../hooks/useWallets';
@@ -9,6 +10,7 @@ import { formatAmount } from '../lib/utils';
 
 export const WalletInfo = () => {
   const theme: any = useTheme();
+  const { t } = useTranslation();
   const { grey } = theme.colors.secondary;
   const { data: walletTokenDetails, isLoading: isLoadingWalletTokenDetails, refetch } = useGetWalletTokenDetails();
   const { data: wallets = [], isLoading: isLoadingUserWallets } = useGetUserWallets();
@@ -23,19 +25,19 @@ export const WalletInfo = () => {
     <Wrapper>
       <SupplyWallets>
         <WalletField>
-          <Label>Total Supply</Label>
+          <Label>{t('total.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && <WalletValue>{formatAmount(walletTokenDetails?.totalSupply)}</WalletValue>}
         </WalletField>
         <WalletField>
-          <Label>Circulating Supply</Label>
+          <Label>{t('circulating.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>{formatAmount(walletTokenDetails?.circulatingSupply)}</WalletValue>
           )}
         </WalletField>
         <WalletField>
-          <Label>Total Not in Circulation</Label>
+          <Label>{t('total.not.circulation.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>{nonCirculatingSupply ? formatAmount(nonCirculatingSupply) : '0'}</WalletValue>
@@ -44,13 +46,13 @@ export const WalletInfo = () => {
       </SupplyWallets>
 
       <AssetsSection>
-        <Title>Assets in Circulation</Title>
+        <Title>{t('assets.circulation.description')}</Title>
         <Space h={24} />
         <WalletCard>
           <AssetCardLeftSection>
             <AssetIcon>M</AssetIcon>
             <div>
-              <AssetLabel>Distribution</AssetLabel>
+              <AssetLabel>{t('distribution.title')}</AssetLabel>
               <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
@@ -68,13 +70,13 @@ export const WalletInfo = () => {
       </AssetsSection>
 
       <AssetsSection>
-        <Title>assets not in circulation</Title>
+        <Title>{t('assets.not.circulation.description')}</Title>
         <Space h={24} />
         <WalletCard>
           <AssetCardLeftSection>
             <AssetIcon>M</AssetIcon>
             <div>
-              <AssetLabel>Master Reserve</AssetLabel>
+              <AssetLabel>{t('master.wallet.title')}</AssetLabel>
               <AssetValue>{masterReserveWallet?.balances?.[0]?.symbol}</AssetValue>
             </div>
           </AssetCardLeftSection>
@@ -90,7 +92,7 @@ export const WalletInfo = () => {
       </AssetsSection>
 
       <ButtonContainer onClick={() => setShowWalletTransferModal(true)}>
-        <PrimaryButton title="Wallet Transfer" style={{ width: '100%' }} />
+        <PrimaryButton title={t('wallets.transfer.title')} style={{ width: '100%' }} />
       </ButtonContainer>
       <WalletTransferModal isVisible={showWalletTransferModal} setIsVisible={setShowWalletTransferModal} />
     </Wrapper>

@@ -84,7 +84,7 @@ export const DashboardLandingPage = () => {
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
 
-  useDocumentTitle(`DAP: ${t('navigation.Home')}`);
+  useDocumentTitle(`DAP: ${t('navigation.home')}`);
   return (
     <Screen fluid>
       <PageContainer>
@@ -97,7 +97,7 @@ export const DashboardLandingPage = () => {
             <GetStartedDescription>{t('home.description')}</GetStartedDescription>
             <ButtonContainer>
               <PrimaryButton
-                title={t('navigation.Dashboard')}
+                title={t('navigation.dashboard')}
                 onClick={() => {
                   history.push(MEMBER_ROUTE.DASHBOARD);
                 }}
@@ -105,7 +105,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
-                title={t('Transfer')}
+                title={t('transfer.title')}
                 onClick={() => {
                   setShowWalletTransferModal(true);
                 }}
@@ -113,7 +113,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
-                title={`${t('Distribute')} BTKB`}
+                title={`${t('distribute.title')} BTKB`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}

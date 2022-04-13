@@ -3,6 +3,7 @@ import { Column } from 'react-table';
 import { Grid, Menu, LoadingOverlay } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DynamicTable } from '../../components/tables/DynamicTable';
 import { Heading, Title } from '../../components/styled';
 
@@ -53,7 +54,9 @@ export const Wallets = (props): JSX.Element => {
   const [modalOpened, setModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
-  useDocumentTitle('DAP: Wallets');
+  const { t } = useTranslation();
+
+  useDocumentTitle(`DAP: ${t('wallets.title')}`);
 
   const { data: wallets = [] } = useGetUserWallets();
   const [page, setPage] = useState(0);
@@ -81,12 +84,16 @@ export const Wallets = (props): JSX.Element => {
       <Grid gutter={64}>
         <Grid.Col grow md={12} lg={8}>
           <Header>
-            <Heading>Wallets Overview</Heading>
-            <SecondaryButton title="Distribute BTKB" style={{ width: 152 }} onClick={() => setModalOpened(true)} />
+            <Heading>{t('wallets.overview')}</Heading>
+            <SecondaryButton
+              title={`${t('distribute.title')} BTKB`}
+              style={{ width: 152 }}
+              onClick={() => setModalOpened(true)}
+            />
           </Header>
           <WalletBalanceChart />
           <RecentTransactionsArea>
-            <Title>MOST Recent INTERNAL transactions</Title>
+            <Title>{t('recent.internal.transactions.description')}</Title>
             <TransactionsTable<Transaction>
               columnConfig={columnConfig}
               loading={isLoadingTransactions || isFetching}
@@ -105,7 +112,7 @@ export const Wallets = (props): JSX.Element => {
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <Header>
-            <Heading>Wallets</Heading>
+            <Heading>{t('wallets.title')}</Heading>
             <Menu>
               <Menu.Item>Option 1</Menu.Item>
             </Menu>

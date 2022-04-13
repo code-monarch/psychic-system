@@ -1,6 +1,7 @@
 import { InternationalMap } from 'src/components/charts/InternationalMap';
 import styled, { useTheme } from 'styled-components';
 import { useElementSize } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { RequestCards } from '../../components/cards/RequestCards';
 import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
 import { formatAmount } from '../../lib/utils';
@@ -32,6 +33,7 @@ const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, 
 export const InternationalDashboardSummary = (): JSX.Element => {
   const { ref, width, height } = useElementSize();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const mapColors = [
     theme.colors.primary.green,
@@ -60,7 +62,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="Internal Transaction Amount (BTKB)"
+            title={`${t('internal.transaction.amount')} (BTKB)`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -70,7 +72,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title="External Transaction Amount (BTKB)"
+            title={`${t('external.transaction.amount')} (BTKB)`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>

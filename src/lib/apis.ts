@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { QueryCache } from 'react-query';
 import { MAIN_API, SECURE_MAIN_API } from './apiConstants';
 import { LOCAL_STORAGE_KEYS } from './constants';
-import i18next from '../i18n';
+import i18next from '../i18next/config';
 
 const COMMON_HEADERS = {
   'Content-Type': 'application/json',

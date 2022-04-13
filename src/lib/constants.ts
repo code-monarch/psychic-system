@@ -1,6 +1,7 @@
 import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types';
 import { CSSObject } from '@mantine/core';
 import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
+import i18next from '../i18next/config';
 
 /**
  * Object containing the routes that only a logged out user can visit.
@@ -71,11 +72,11 @@ export const dasbhboardTabItems: { title: string; route: string }[] = [
 
 export const transactionsTabItems: { title: string; route: string }[] = [
   {
-    title: 'INTERNAL',
+    title: i18next.t('internal.tab.title'),
     route: 'internal',
   },
   {
-    title: 'EXTERNAL',
+    title: i18next.t('external.tab.title'),
     route: 'external',
   },
 ];
