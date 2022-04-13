@@ -3,6 +3,7 @@ import { Cell, Column } from 'react-table';
 import { TransactionType, transactionTypeRenderMappings } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
+import i18next from '../../i18next/config';
 
 const ColoredSpan = styled.span`
   color: ${({ color }) => color};
@@ -15,11 +16,11 @@ const StyledStatus = ({ status: creditStatus }: { status: TransactionType }): JS
 
 export const columnConfig: Column<Transaction>[] = [
   {
-    Header: 'Transaction ID',
+    Header: i18next.t('transaction.Id'),
     accessor: 'transactionHash',
   },
   {
-    Header: 'Transaction Type',
+    Header: i18next.t('transaction.type'),
     accessor: 'transactionType',
   },
   {
@@ -31,23 +32,23 @@ export const columnConfig: Column<Transaction>[] = [
     accessor: 'sourceWalletCategory',
   },
   {
-    Header: 'Entity',
+    Header: i18next.t('entity'),
     accessor: 'entity',
   },
   {
-    Header: 'Transaction Time',
+    Header: i18next.t('transaction.time'),
     accessor: 'createdAt',
     Cell: (props) => formatDate(new Date(props.value)),
   },
 
   {
-    Header: 'Type',
+    Header: i18next.t('type'),
     accessor: 'credit',
     Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} />,
   },
 
   {
-    Header: 'Amount',
+    Header: i18next.t('amount'),
     accessor: 'amount',
     Cell: (props) => props.value || '\u2014',
   },

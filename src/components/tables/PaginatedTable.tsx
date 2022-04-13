@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Cell, Column, HeaderGroup, Row, usePagination, useTable } from 'react-table';
 import { LoadingOverlay } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import Table from './Table';
 import searchIcon from '../../assets/images/icons/search.svg';
 import filterIcon from '../../assets/images/icons/filter.svg';
@@ -251,11 +252,14 @@ export const TransactionsTable = <R extends object>({
     setQueryPageIndex: setPageIndex,
   } = tableInstance;
 
+  const { t } = useTranslation();
   return (
     <TableWrapper>
       <LoadingOverlay visible={loading} />
       <Header>
-        <Totals>{totalItems || 0} Total Transactions</Totals>
+        <Totals>
+          {totalItems || 0} {t('total.transactions.title')}
+        </Totals>
         {!hideFilters && (
           <Controls>
             {/* TODO: Add search and filter capability */}

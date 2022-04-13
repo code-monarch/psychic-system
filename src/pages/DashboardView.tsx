@@ -13,7 +13,6 @@ import {
   LocalDashboardSummary,
 } from './dashboard';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
-import { dasbhboardTabItems } from '../lib/constants';
 import { getNavigationTabs } from '../lib/utils';
 
 // const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
@@ -21,7 +20,7 @@ import { getNavigationTabs } from '../lib/utils';
 export const DashboardView = ({ displayName }: { displayName: string }): JSX.Element => {
   const { t } = useTranslation();
 
-  useDocumentTitle(`DAP: ${t('navigation.Dashboard')}`);
+  useDocumentTitle(`DAP: ${t('navigation.dashboard')}`);
 
   const tabViews = [
     <InternationalDashboardSummary />,
@@ -43,7 +42,7 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
         <Grid.Col grow md={12} lg={8}>
           <Header>
             <Heading>
-              {t('Welcome')} {displayName}!
+              {t('welcome.title')} {displayName}!
             </Heading>
           </Header>
           <CurrenyManagementSetupAlert />

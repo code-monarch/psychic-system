@@ -10,7 +10,7 @@ import { AppProviders } from './context';
 import reportWebVitals from './reportWebVitals';
 import { lightTheme, mantineThemeOverrides } from './themes';
 
-import './i18n';
+import './i18next/config';
 
 ReactDOM.render(
   <React.StrictMode>

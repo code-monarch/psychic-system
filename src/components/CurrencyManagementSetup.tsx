@@ -3,6 +3,7 @@ import { Transition } from '@mantine/core';
 import { useState } from 'react';
 import { Cross1Icon } from '@modulz/radix-icons';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Flex, Paragraph, Title } from './styled';
 import { PrimaryButtonWithoutIcon } from './Buttons';
 import robotImg from '../assets/images/robot.png';
@@ -12,6 +13,7 @@ export const CurrenyManagementSetupAlert = () => {
   const theme: any = useTheme();
   const history = useHistory();
   const { grey } = theme.colors.primary;
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const getStartedhandler = () => {
@@ -26,13 +28,10 @@ export const CurrenyManagementSetupAlert = () => {
             <Cross1Icon />
           </CloseIconWrapper>
           <div>
-            <CardTitle>Currency Management</CardTitle>
-            <CardDescription>
-              Mint and transfer tokens (also called coins) internally for circulation. Burn tokens to reduce the number
-              of coins in use. Distribute{' '}
-            </CardDescription>
+            <CardTitle>{t('navigation.currency.management')}</CardTitle>
+            <CardDescription>{t('mint.transfer.tokens.description')}</CardDescription>
           </div>
-          <PrimaryButtonWithoutIcon title="Manage" onClick={getStartedhandler} />
+          <PrimaryButtonWithoutIcon title={t('navigation.manage')} onClick={getStartedhandler} />
         </Container>
       )}
     </Transition>
