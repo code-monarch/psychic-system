@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { LoadingOverlay } from '@mantine/core';
 import { Column } from 'react-table';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Transaction } from '../../services/wallet-service';
-import { columnConfig } from '../wallet/table-config';
+import { getTransactionsTableColumnConfig } from '../wallet/table-config';
 import { useGetCBTransactionHistory } from '../../hooks/useWallets';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 
@@ -25,12 +26,13 @@ export const ExternalTransactionsTable = (): JSX.Element => {
   } = useGetCBTransactionHistory('External', queryPageIndex, queryPageSize);
 
   const transactions = data?.transactions || [];
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
       <TransactionsArea>
         <TransactionsTable<Transaction>
-          columnConfig={columnConfig}
+          columnConfig={getTransactionsTableColumnConfig(t)}
           loading={isLoadingTransactions || isFetching}
           totalPages={data?.totalPages}
           rowData={transactions}

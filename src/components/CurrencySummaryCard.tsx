@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 16px;
 `;
 
 const BottomSection = styled.div`
@@ -19,10 +20,6 @@ const BottomSection = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
-
-  &.disabled p {
-    color: ${({ theme }) => theme.colors.secondary.grey};
-  }
 `;
 
 const HistogramContainer = styled.div`
@@ -35,20 +32,28 @@ interface ICurrencySummaryCardProps {
   title: string;
   amount?: string;
   disabled?: boolean;
+  hideHistogram?: boolean;
 }
 const histogramValues = [0, 0, 4, 7, 0, 1, 5];
 
-export const CurrencySummaryCard = ({ title, amount, disabled }: ICurrencySummaryCardProps): JSX.Element => {
+export const CurrencySummaryCard = ({
+  title,
+  amount,
+  disabled,
+  hideHistogram = false,
+}: ICurrencySummaryCardProps): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
   return (
     <Wrapper>
-      <CardTitle>{title}</CardTitle>
+      <CardTitle className={disabled ? 'disabled' : ''}>{title}</CardTitle>
       <BottomSection>
-        <CardAmount>{amount ? formatAmount(Number(amount)) : 0}</CardAmount>
-        <HistogramContainer>
-          <Histogram values={histogramValues} />
-        </HistogramContainer>
+        <CardAmount className={disabled ? 'disabled' : ''}>{amount ? formatAmount(Number(amount)) : 0}</CardAmount>
+        {!hideHistogram && (
+          <HistogramContainer>
+            <Histogram values={histogramValues} />
+          </HistogramContainer>
+        )}
       </BottomSection>
     </Wrapper>
   );
@@ -56,10 +61,18 @@ export const CurrencySummaryCard = ({ title, amount, disabled }: ICurrencySummar
 
 const CardTitle = styled(ParagraphBold)`
   color: ${({ theme }) => theme.colors.primary.grey};
+
+  &.disabled {
+    color: ${({ theme }) => theme.colors.secondary.grey};
+  }
 `;
 
 const CardAmount = styled(Paragraph)`
   color: ${({ theme }) => theme.colors.primary.black};
   font-size: 24px;
   font-family: 'ProximaNovaExtraBold', sans-serif;
+
+  &.disabled {
+    color: ${({ theme }) => theme.colors.secondary.grey};
+  }
 `;

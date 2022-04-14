@@ -221,7 +221,8 @@ export const TransactionsTable = <R extends object>({
       [state, queryPageIndex, queryPageSize],
     );
 
-  const columns = React.useMemo(() => columnConfig, []);
+  // const columns = React.useMemo(() => columnConfig, []);
+  const columns = columnConfig;
 
   const tableInstance = useTable<R>(
     {

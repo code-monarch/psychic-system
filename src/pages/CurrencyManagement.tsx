@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Grid } from '@mantine/core';
 import { useState } from 'react';
 import { useDocumentTitle } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { Heading, Paragraph, Title } from '../components/styled';
 import { navIconsActive as activeIcons } from '../assets/images/icons/navigation';
 import distributeSvg from '../assets/images/icons/distribute.svg';
@@ -39,7 +40,8 @@ export const CurrencyManagement = (): JSX.Element => {
   const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
   const { data: tokenSummary } = useGetTokenSummary(walletTokenDetails?.tokenId);
-  useDocumentTitle('DAP: Currency Management');
+  const { t } = useTranslation();
+  useDocumentTitle(`DAP: ${t('navigation.currency.management')}`);
 
   return (
     <Wrapper>
@@ -48,20 +50,18 @@ export const CurrencyManagement = (): JSX.Element => {
       <Grid grow gutter={64}>
         <Grid.Col md={12} lg={8}>
           <Header>
-            <Heading>Currency Management</Heading>
-            <Title>Actions</Title>
+            <Heading>{t('navigation.currency.management')}</Heading>
+            <Title>{t('actions.title')}</Title>
           </Header>
           <Grid style={{ marginTop: 16, height: 500 }}>
             <Grid.Col md={6} lg={7} sm={12}>
               <DistributeOption>
                 <div>
-                  <CardTitle>Distribute</CardTitle>
-                  <CardDescription>
-                    Distribute or send funding to government institustions, financial institutions and citizens.
-                  </CardDescription>
+                  <CardTitle>{t('distribute.title')}</CardTitle>
+                  <CardDescription>{t('distribute.description')}</CardDescription>
                 </div>
                 <div className="button" onClick={() => setDistributModalOpened(true)}>
-                  Distribute
+                  {t('distribute.title')}
                 </div>
               </DistributeOption>
             </Grid.Col>
@@ -69,21 +69,19 @@ export const CurrencyManagement = (): JSX.Element => {
               <div style={{ display: 'flex', flexDirection: 'column', height: 500 }}>
                 <MintOption>
                   <div>
-                    <Title>Mint Coins</Title>
-                    <SmallerCardDescription>Mint and issue coins to the Master Wallet.</SmallerCardDescription>
+                    <Title>{t('mint.coins')}</Title>
+                    <SmallerCardDescription>{t('mint.issue')}</SmallerCardDescription>
                   </div>
                   <div className="button" onClick={() => setMintFormModalOpened(true)}>
-                    Mint
+                    {t('mint.title')}
                   </div>
                 </MintOption>
                 <BurnOption className="disabled">
                   <div>
-                    <Title>Burn Coins</Title>
-                    <SmallerCardDescription>
-                      Burn coins to remove currency in cirulcation; this reduces the number of coins in use.
-                    </SmallerCardDescription>
+                    <Title>{t('burn.coins')}</Title>
+                    <SmallerCardDescription>{t('burn.description')}</SmallerCardDescription>
                   </div>
-                  <div className="button">Burn</div>
+                  <div className="button">{t('burn.title')}</div>
                 </BurnOption>
               </div>
             </Grid.Col>
@@ -91,13 +89,25 @@ export const CurrencyManagement = (): JSX.Element => {
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <RightBarHeader>
-            <Title>Summary</Title>
+            <Title>{t('summary')}</Title>
           </RightBarHeader>
           <div style={{ marginTop: 24 }}>
-            <CurrencySummaryCard title="Total Minted" amount={`${tokenSummary?.totalMinted || 0}`} />
-            <CurrencySummaryCard title="Total Transferred" amount={`${tokenSummary?.totalTransferred || 0}`} />
-            <CurrencySummaryCard title="Total Distributed" amount={`${tokenSummary?.totalDistributed || 0}`} />
-            <CurrencySummaryCard title="Total Burned" amount="0" disabled />
+            <CurrencySummaryCard
+              hideHistogram
+              title={t('currency.minted')}
+              amount={`${tokenSummary?.totalMinted || 0}`}
+            />
+            <CurrencySummaryCard
+              hideHistogram
+              title={t('currency.transferred')}
+              amount={`${tokenSummary?.totalTransferred || 0}`}
+            />
+            <CurrencySummaryCard
+              hideHistogram
+              title={t('currency.total.distributed')}
+              amount={`${tokenSummary?.totalDistributed || 0}`}
+            />
+            <CurrencySummaryCard hideHistogram title={t('currency.total.burned')} amount="0" disabled />
           </div>
         </RightSideBar>
       </Grid>

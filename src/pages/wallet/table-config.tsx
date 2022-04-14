@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
+import { TFunction } from 'react-i18next';
 import { TransactionType, transactionTypeRenderMappings } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
@@ -14,25 +15,25 @@ const StyledStatus = ({ status: creditStatus }: { status: TransactionType }): JS
   return <ColoredSpan {...{ color }}>{text}</ColoredSpan>;
 };
 
-export const columnConfig: Column<Transaction>[] = [
+export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transaction>[] => [
   {
-    Header: i18next.t('transaction.Id'),
+    Header: t('transaction.Id'),
     accessor: 'transactionHash',
   },
   {
-    Header: i18next.t('transaction.type'),
+    Header: t('transaction.type'),
     accessor: 'transactionType',
   },
   {
-    Header: 'Destination Wallet Category',
+    Header: t('transaction.wallet.destination'),
     accessor: 'destinationWalletCategory',
   },
   {
-    Header: 'Source Wallet Category',
+    Header: t('transaction.wallet.source'),
     accessor: 'sourceWalletCategory',
   },
   {
-    Header: i18next.t('entity'),
+    Header: t('entity'),
     accessor: 'entity',
   },
   {
@@ -52,8 +53,4 @@ export const columnConfig: Column<Transaction>[] = [
     accessor: 'amount',
     Cell: (props) => props.value || '\u2014',
   },
-  // {
-  //   Header: '',
-  //   Cell: ({ value }: Cell<WalletRow>) => <div>View</div>,
-  // },
 ];
