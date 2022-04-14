@@ -4,6 +4,7 @@ import { ChevronDownIcon, ArrowRightIcon } from '@modulz/radix-icons';
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { ParagraphBold, Title } from '../styled';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
@@ -41,6 +42,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   const [amount, setAmount] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | undefined>();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { register, errors, handleSubmit, control } = useForm({
     mode: 'all',
@@ -109,11 +111,11 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
             </ImageWrapper>
             <form onSubmit={handleSubmit(transfer)}>
               <FormWrapper>
-                <FormHeader>Manual Distribution</FormHeader>
-                <Title>FROM</Title>
+                <FormHeader>{t('distribution.manual.title')}</FormHeader>
+                <Title>{t('transfer.from')}</Title>
                 <FormSection>
                   <Select
-                    label="Choose Source"
+                    label={t('choose.wallet.source')}
                     rightSection={null}
                     value={distributionWallet?.walletId}
                     styles={selectStyles}
@@ -125,21 +127,21 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                 </FormSection>
                 <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                   <WalletTransferText onClick={() => setShowWalletTransferModal(true)}>
-                    Wallet Transfer
+                    {t('wallets.transfer.title')}
                   </WalletTransferText>
                   <ArrowRightIcon fontWeight={600} color={green} />
                 </div>
                 <Space h={48} />
-                <Title>TO</Title>
+                <Title>{t('transfer.to')}</Title>
                 <FormSection>
                   <Controller
                     name="destinationWalletId"
                     control={control}
                     defaultValue=""
-                    rules={{ required: 'Please select an institution' }}
+                    rules={{ required: t('transfer.institution.required') }}
                     render={({ ref, onChange, value }) => (
                       <Select
-                        label="Institution Name"
+                        label={t('institution.name.label')}
                         ref={ref}
                         onChange={onChange}
                         value={value}
@@ -158,15 +160,15 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                   {errors?.destinationWalletId?.message && <ErrorText>{errors.destinationWalletId.message}</ErrorText>}
                   <TextInput>
                     <AnimatedLabelInput
-                      label="Amount"
+                      label={t('amount')}
                       name="amount"
                       type="number"
                       isLabelAnimated={false}
                       ref={register({
-                        required: 'Amount is required',
+                        required: t('transfer.amount.required'),
                         pattern: {
                           value: /^[0-9]*$/,
-                          message: 'This appears to be an invalid amount.',
+                          message: t('transfer.amount.invalid'),
                         },
                       })}
                     />
@@ -176,8 +178,12 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                 </FormSection>
 
                 <ButtonArea>
-                  <PrimaryButton title="Distribute" loading={isLoading} />
-                  <SecondaryButton title="Close" style={{ width: 152 }} onClick={() => setIsVisible(false)} />
+                  <PrimaryButton title={t('distribute.title')} loading={isLoading} />
+                  <SecondaryButton
+                    title={t('close.button.label')}
+                    style={{ width: 152 }}
+                    onClick={() => setIsVisible(false)}
+                  />
                 </ButtonArea>
               </FormWrapper>
             </form>
@@ -186,9 +192,10 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
       </Screen>
       <SuccessModal
         isVisible={showSuccessModal}
-        title="Distribution successful!"
-        message={'You have successfully distributed\n'}
+        title={t('distribution.success.title')}
+        message={`${t('distribution.success.description')}\n`}
         amount={amount}
+        buttonText={t('close.button.label')}
         onClose={() => {
           setIsVisible(false);
           setShowSuccessModal(false);

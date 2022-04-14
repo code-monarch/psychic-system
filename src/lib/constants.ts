@@ -260,6 +260,7 @@ type CurrencyName = {
   name_formal_plural: string;
   name_informal: string;
   name_informal_plural: string;
+  country?: string;
 };
 
 // ISO 4217 currency names
@@ -413,6 +414,7 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_formal_plural: 'Canadian Dollars',
     name_informal: 'Dollar',
     name_informal_plural: 'Dollars',
+    country: 'Canada',
   },
   KYD: {
     name_formal: 'Cayman Islands Dollar',
@@ -527,6 +529,7 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_formal_plural: 'Dominican Pesos',
     name_informal: 'Dominican Peso',
     name_informal_plural: 'Dominican Pesos',
+    country: 'Dominican Republic',
   },
   VND: {
     name_formal: 'Dong',
@@ -563,6 +566,7 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_formal_plural: 'Euro',
     name_informal: 'Euro',
     name_informal_plural: 'Euro',
+    country: 'UK',
   },
   FKP: {
     name_formal: 'Falkland Islands Pound',
@@ -1217,6 +1221,7 @@ export const CURRENCY_NAMES: Record<CurrencyCode, CurrencyName> = {
     name_formal_plural: 'Dollars',
     name_informal: 'Dollar',
     name_informal_plural: 'Dollars',
+    country: 'USA',
   },
   UZS: {
     name_formal: 'Uzbekistan Sum',
