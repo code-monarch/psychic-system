@@ -44,7 +44,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
   ];
 
   const mapMarkers = exchangeCurrencies.map((curr, i) => ({
-    name: CURRENCY_NAMES[curr].name_formal,
+    name: CURRENCY_NAMES[curr].country,
     color: mapColors[i % mapColors.length],
     coordinates: coordinates[curr],
     value: transactions[curr],

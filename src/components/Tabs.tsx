@@ -47,6 +47,7 @@ const Tab = styled(BoldItem)<{ selected: boolean }>`
   font-weight: ${(props) => (props.selected ? '700' : '400')};
   color: ${({ theme }) => theme.colors.secondary.blue};
   color: ${({ selected }) => (selected ? '#4AB0A6' : '#828282')};
+  text-transform: uppercase;
 
   & span {
     font-family: ${({ selected }) => (selected ? 'ProximaNovaExtraBold' : 'ProximaNova')};

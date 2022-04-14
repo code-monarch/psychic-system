@@ -5,6 +5,7 @@ import nationalJson from '../assets/geo/haiti.geo.json';
 import { Flex } from './styled';
 import { NameValue } from './NameValue';
 import { normalize } from '../lib/utils';
+import { MapMarker } from './charts/InternationalMap';
 
 interface Transaction {
   value: number;
@@ -35,6 +36,8 @@ const LegendNameValue = styled(NameValue)`
     color: ${(props) => props.theme.colors.primary.black};
   }
 `;
+
+const defaultValueFormatter = (value: number) => `${value}`;
 
 const TransactionsMap = ({
   className,
@@ -75,9 +78,10 @@ const TransactionsMap = ({
   }));
   const markerSizer = normalize(mapMarkers.map((m) => m.total));
 
+  const mapWidth = width * 0.7;
   return (
     <Flex.Row>
-      <svg className={className} width={width} viewBox={`0 0 ${projectedWidth} ${projectedHeight}`}>
+      <svg className={className} width={mapWidth} viewBox={`0 0 ${projectedWidth} ${projectedHeight}`}>
         <defs>
           <pattern id="circles" x="1" y="1" width="4" height="4" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="1" style={{ fill: backgroundGrey }} />
@@ -107,7 +111,37 @@ const TransactionsMap = ({
             const [x, y] = projectedMarker;
             const size = markerSizer(marker.total, 0, width * 0.05);
 
-            return <circle key={`marker-${i}`} cx={x} cy={y} r={size} fill={marker.color} />;
+            const formatValue = defaultValueFormatter;
+
+            // return <circle key={`marker-${i}`} cx={x} cy={y} r={size} fill={marker.color} />;
+
+            const colors = {
+              marker: marker.color,
+              markerFill: theme.colors.primary.white,
+              label: theme.colors.primary.grey,
+              value: theme.colors.primary.black,
+            };
+
+            const length = 50;
+
+            const up = marker.latitude > 50;
+
+            return (
+              <MapMarker
+                key={`mapmarker-${i}`}
+                label={marker.name}
+                value={formatValue(marker.total)}
+                x={x}
+                y={y}
+                size={size}
+                colors={colors}
+                length={length}
+                labelSize={16}
+                valueSize={20}
+                labelMargin={18}
+                up={up}
+              />
+            );
           })}
         </g>
       </svg>
@@ -121,7 +155,7 @@ const TransactionsMap = ({
 
           return (
             <LegendItem key={`legenditem-${i}`} color={color}>
-              <LegendNameValue name={name} value={`${total}`} />
+              <LegendNameValue name={name} value="" />
             </LegendItem>
           );
         })}

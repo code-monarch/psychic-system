@@ -4,6 +4,7 @@ import { BaseSelectStylesNames } from '@mantine/core/lib/components/Select/types
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
 import { useGetUserWallets, useGetWalletTokenDetails, useMintTokens } from '../../hooks/useWallets';
@@ -28,6 +29,7 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { data: wallets = [] } = useGetUserWallets();
   const { data: walletTokenDetails } = useGetWalletTokenDetails();
@@ -70,10 +72,10 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
             </ImageWrapper>
             <form onSubmit={handleSubmit(mint)}>
               <FormWrapper>
-                <FormHeader>Mint Coins</FormHeader>
+                <FormHeader>{t('mint.coins')}</FormHeader>
                 <FormSection>
                   <Select
-                    label="Choose Destination"
+                    label={t('choose.wallet.destination')}
                     rightSection={null}
                     value={masterReserveWallet?.walletId}
                     styles={selectStyles}
@@ -86,15 +88,15 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
                 <FormSection>
                   <TextInput>
                     <AnimatedLabelInput
-                      label="Amount"
+                      label={t('amount')}
                       name="amount"
                       type="number"
                       isLabelAnimated={false}
                       ref={register({
-                        required: 'Amount is required',
+                        required: t('transfer.amount.required'),
                         pattern: {
                           value: /^[0-9]*$/,
-                          message: 'This appears to be an invalid amount.',
+                          message: t('transfer.amount.invalid'),
                         },
                       })}
                     />
@@ -104,8 +106,12 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
                 <Space h={24} />
 
                 <ButtonArea>
-                  <PrimaryButton title="Mint" loading={isLoading} />
-                  <SecondaryButton title="Close" style={{ width: 152 }} onClick={() => setIsVisible(false)} />
+                  <PrimaryButton title={t('mint.title')} loading={isLoading} />
+                  <SecondaryButton
+                    title={t('close.button.label')}
+                    style={{ width: 152 }}
+                    onClick={() => setIsVisible(false)}
+                  />
                 </ButtonArea>
               </FormWrapper>
             </form>
@@ -114,9 +120,10 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
       </Screen>
       <SuccessModal
         isVisible={showSuccessModal}
-        title="Minting Successful!"
-        message={'You have successfully minted\n'}
+        title={t('minting.success.title')}
+        message={`${t('minting.success.description')}\n`}
         amount={amount}
+        buttonText={t('close.button.label')}
         onClose={() => {
           setIsVisible(false);
           setShowSuccessModal(false);

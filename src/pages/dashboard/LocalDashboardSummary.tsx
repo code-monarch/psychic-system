@@ -1,94 +1,74 @@
-import { InternationalMap } from 'src/components/charts/InternationalMap';
 import styled, { useTheme } from 'styled-components';
 import { useElementSize } from '@mantine/hooks';
-import { RequestCards } from '../../components/cards/RequestCards';
-import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
-import { formatAmount } from '../../lib/utils';
-import { CURRENCY_NAMES, CurrencyCode } from '../../lib/constants';
-import { useGetTransactionSummary } from '../../hooks/useWallets';
+import { useTranslation } from 'react-i18next';
+import { TransactionsMap } from '../../components/TransactionsMap';
+import { Title } from '../../components/styled';
 
 const Wrapper = styled.div`
   margin-top: 24px;
 `;
 
-// TODO: Get this from... ?
-const coordinates = {
-  EUR: [4.469936, 50.503887],
-  USD: [-115.712891, 37.09024],
-  CAD: [-106.346771, 56.130366],
-  DOP: [-70.162651, 18.735693],
-};
-
 // TODO: Get this from an API
-const transactions = {
-  EUR: 87,
-  USD: 39022,
-  CAD: 24000,
-  DOP: 12045,
-};
-
-const exchangeCurrencies: CurrencyCode[] = [CurrencyCode.USD, CurrencyCode.EUR, CurrencyCode.CAD, CurrencyCode.DOP];
+const transactions = [
+  {
+    longitude: -73.414569,
+    latitude: 18.41448,
+    value: 2100,
+  },
+  {
+    longitude: -72.194979,
+    latitude: 18.545518,
+    value: 200,
+  },
+  {
+    longitude: -72.263644,
+    latitude: 18.68087,
+    value: 550,
+  },
+  {
+    longitude: -74.298861,
+    latitude: 18.490826,
+    value: 12,
+  },
+  {
+    longitude: -72.172933,
+    latitude: 18.662523,
+    value: 1900,
+  },
+  {
+    longitude: -71.954535,
+    latitude: 19.450522,
+    value: 900,
+  },
+  {
+    longitude: -73.160688,
+    latitude: 19.825479,
+    value: 400,
+  },
+  {
+    longitude: -73.330703,
+    latitude: 19.682977,
+    value: 700,
+  },
+];
 
 export const LocalDashboardSummary = (): JSX.Element => {
   const { ref, width, height } = useElementSize();
+  const { t } = useTranslation();
+
   const theme = useTheme();
-
-  const mapColors = [
-    theme.colors.primary.green,
-    theme.colors.secondary.yellow,
-    theme.colors.primary.black,
-    theme.colors.secondary.red,
-    theme.colors.secondary.blue,
-  ];
-
-  const mapMarkers = exchangeCurrencies.map((curr, i) => ({
-    name: CURRENCY_NAMES[curr].name_formal,
-    color: mapColors[i % mapColors.length],
-    coordinates: coordinates[curr],
-    value: transactions[curr],
-  }));
-
-  const { data: transactionSummary, isLoading: isLoadingSummary } = useGetTransactionSummary();
 
   return (
     <Wrapper>
-      <TransactionCards>
-        <div
-          style={{
-            marginRight: 20,
-            flex: 1,
-          }}
-        >
-          <CurrencySummaryCard
-            title="Internal Transactions"
-            amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
-          />
-        </div>
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
-          <CurrencySummaryCard
-            title="External Transactions"
-            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
-          />
-        </div>
-      </TransactionCards>
+      <Title>{t('local.tab.description')}</Title>
       <div>
         <MapWrapper ref={ref}>
-          <InternationalMap width={width} markers={mapMarkers} />
+          <TransactionsMap width={width} transactions={transactions} />
         </MapWrapper>
       </div>
     </Wrapper>
   );
 };
-
-const TransactionCards = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 50px;
-`;
 
 const MapWrapper = styled.div`
   width: 90%;

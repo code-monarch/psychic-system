@@ -32,9 +32,24 @@ interface MapMarkerProps {
   colors: MapMarkerColors;
   length: number;
   up?: boolean;
+  labelSize?: number;
+  valueSize?: number;
+  labelMargin?: number;
 }
 
-const MapMarker = ({ label, value, x, y, size, colors, length, up = false }: MapMarkerProps) => {
+export const MapMarker = ({
+  label,
+  value,
+  x,
+  y,
+  size,
+  colors,
+  length,
+  up = false,
+  labelSize = 10,
+  valueSize = 12,
+  labelMargin = 14,
+}: MapMarkerProps) => {
   const lineStart = up ? y - size : y + size;
   const lineEnd = up ? lineStart - length : lineStart + length;
   const textX = x + 8;
@@ -45,10 +60,10 @@ const MapMarker = ({ label, value, x, y, size, colors, length, up = false }: Map
       <circle cx={x} cy={y} r={2} fill={colors.marker} />
       <line x1={x} y1={lineStart} x2={x} y2={lineEnd} stroke={colors.marker} />
       <text x={textX} y={textY}>
-        <tspan style={{ fontSize: '10px', fill: colors.label, fontWeight: 400 }} x={textX}>
+        <tspan style={{ fontSize: labelSize, fill: colors.label, fontWeight: 400 }} x={textX}>
           {label}
         </tspan>
-        <tspan style={{ fontSize: '12px', fill: colors.value, fontWeight: 600 }} x={textX} dy={14}>
+        <tspan style={{ fontSize: valueSize, fill: colors.value, fontWeight: 600 }} x={textX} dy={labelMargin}>
           {value}
         </tspan>
       </text>

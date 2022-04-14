@@ -1,5 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Modal } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import manual_distribution from '../../assets/images/icons/manual_distribution.svg';
 import distribution_request from '../../assets/images/icons/distribution_request.svg';
 import { ParagraphBold } from '../styled';
@@ -7,6 +8,8 @@ import { ParagraphBold } from '../styled';
 export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCallback }) => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
+  const { t } = useTranslation();
+
   return (
     <Modal
       opened={isVisible}
@@ -28,11 +31,11 @@ export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCal
           }}
         >
           <img src={manual_distribution} alt="manual_distribution" />
-          <OptionsText>Manual Distribution</OptionsText>
+          <OptionsText>{t('distribution.manual.title')}</OptionsText>
         </DistributionOption>
         <DistributionOption>
           <img src={distribution_request} alt="manual_distribution" style={{ mixBlendMode: 'luminosity' }} />
-          <OptionsText style={{ color: grey }}>Distribution From Request</OptionsText>
+          <OptionsText style={{ color: grey }}>{t('distribution.request.title')}</OptionsText>
         </DistributionOption>
       </DistributionModalWrapper>
     </Modal>

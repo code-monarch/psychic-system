@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import { Title } from '../styled';
 import { selectStyles } from '../../lib/constants';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
@@ -34,6 +35,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | undefined>();
+  const { t } = useTranslation();
   const { register, errors, handleSubmit, control, watch, trigger, setValue } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -101,17 +103,17 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
         <PageContainer>
           <form onSubmit={handleSubmit(transfer)}>
             <FormWrapper>
-              <FormHeader>Wallet Transfer</FormHeader>
-              <Title>FROM</Title>
+              <FormHeader>{t('wallets.transfer.title')}</FormHeader>
+              <Title>{t('transfer.from')}</Title>
               <FormSection>
                 <Controller
                   name="sourceWalletId"
                   control={control}
                   defaultValue=""
-                  rules={{ required: 'Please select a source wallet' }}
+                  rules={{ required: t('transfer.source.required') }}
                   render={({ ref, onChange, value, onBlur }) => (
                     <Select
-                      label="Choose Wallet"
+                      label={t('choose.wallet.label')}
                       ref={ref}
                       onChange={onChange}
                       value={value}
@@ -134,20 +136,19 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
               )}
 
               <Space h={24} />
-              <Title>TO</Title>
+              <Title>{t('transfer.to')}</Title>
               <FormSection>
                 <Controller
                   name="destinationWalletId"
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: 'Please select a destination wallet',
-                    validate: (value) =>
-                      value !== watchFields?.sourceWalletId || 'Destination wallet cannot be the same as source wallet',
+                    required: t('transfer.destination.required'),
+                    validate: (value) => value !== watchFields?.sourceWalletId || t('transfer.destination.invalid'),
                   }}
                   render={({ ref, onChange, value, onBlur }) => (
                     <Select
-                      label="Choose Wallet"
+                      label={t('choose.wallet.label')}
                       ref={ref}
                       onChange={onChange}
                       onBlur={onBlur}
@@ -164,15 +165,15 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                 {errors?.destinationWalletId?.message && <ErrorText>{errors.destinationWalletId.message}</ErrorText>}
                 <TextInput>
                   <AnimatedLabelInput
-                    label="Amount"
+                    label={t('amount')}
                     name="amount"
                     type="number"
                     isLabelAnimated={false}
                     ref={register({
-                      required: 'Amount is required',
+                      required: t('transfer.amount.required'),
                       pattern: {
                         value: /^[0-9]*$/,
-                        message: 'This appears to be an invalid amount.',
+                        message: t('transfer.amount.invalid'),
                       },
                     })}
                   />
@@ -182,9 +183,9 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
               </FormSection>
 
               <ButtonArea>
-                <PrimaryButton title="Distribute" loading={isLoading} />
+                <PrimaryButton title={t('distribute.title')} loading={isLoading} />
                 <SecondaryButton
-                  title="Close"
+                  title={t('close.button.label')}
                   style={{ width: 152, marginLeft: 30 }}
                   onClick={() => setIsVisible(false)}
                 />
@@ -195,10 +196,10 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
       </Screen>
       <SuccessModal
         isVisible={showSuccessModal}
-        title="Transfer successful!"
-        message={'You have successfully transferred\n'}
+        title={t('transfer.success.title')}
+        message={`${t('transfer.success.description')}\n`}
         amount={amount}
-        buttonText="Return To Distribution"
+        buttonText={t('close.button.label')}
         onClose={() => {
           setIsVisible(false);
           setShowSuccessModal(false);
