@@ -1,13 +1,12 @@
 import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
-import { Grid, Menu, LoadingOverlay } from '@mantine/core';
+import { Grid, Menu } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DynamicTable } from '../../components/tables/DynamicTable';
 import { Heading, Title } from '../../components/styled';
 
-import { columnConfig } from './table-config';
+import { getTransactionsTableColumnConfig } from './table-config';
 import { WalletBalanceChart } from '../../components/charts/WalletBalanceChart';
 import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
@@ -79,6 +78,7 @@ export const Wallets = (props): JSX.Element => {
 
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
+
   return (
     <Wrapper>
       <Grid gutter={64}>
@@ -95,7 +95,7 @@ export const Wallets = (props): JSX.Element => {
           <RecentTransactionsArea>
             <Title>{t('recent.internal.transactions.description')}</Title>
             <TransactionsTable<Transaction>
-              columnConfig={columnConfig}
+              columnConfig={getTransactionsTableColumnConfig(t)}
               loading={isLoadingTransactions || isFetching}
               totalPages={data?.totalPages}
               rowData={transactions}

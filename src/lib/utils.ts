@@ -2,7 +2,6 @@ import { TFunction } from 'react-i18next';
 import { TransactionRow } from '../pages/transactions/table-config';
 import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 import { MEMBER_ROUTE } from './constants';
-import i18next from '../i18next/config';
 
 /**
  * Returns a scaling function which will normalize a value within the given values array to between newMax (default 0) and newMin (default 1)
@@ -71,7 +70,11 @@ export const getNavigationItems = (t: TFunction) => {
       text: t('navigation.dashboard'),
       icon: { default: defaultIcons.dashboard, active: activeIcons.dashboard },
     },
-    { to: MEMBER_ROUTE.WALLETS, text: 'Wallets', icon: { default: defaultIcons.wallets, active: activeIcons.wallets } },
+    {
+      to: MEMBER_ROUTE.WALLETS,
+      text: t('wallets.title'),
+      icon: { default: defaultIcons.wallets, active: activeIcons.wallets },
+    },
     {
       to: MEMBER_ROUTE.TRANSACTIONS,
       text: t('navigation.transactions'),
@@ -91,10 +94,10 @@ export const getNavigationItems = (t: TFunction) => {
           to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
           text: t('navigation.currency.management'),
         },
-        {
-          to: '/manage-users',
-          text: 'Users',
-        },
+        // {
+        //   to: '/manage-users',
+        //   text: 'Users',
+        // },
       ],
     },
   ];

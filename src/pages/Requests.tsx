@@ -1,6 +1,8 @@
 import styled, { css, useTheme } from 'styled-components';
 import { Grid, Menu } from '@mantine/core';
 import { DotsVerticalIcon, ArrowRightIcon } from '@modulz/radix-icons';
+import { useTranslation } from 'react-i18next';
+import { useDocumentTitle } from '@mantine/hooks';
 import { Heading, Paragraph, ParagraphBold, Title } from '../components/styled';
 import mint from '../assets/images/icons/mint.svg';
 import mintWhite from '../assets/images/icons/mint-white.svg';
@@ -61,53 +63,49 @@ const ActionText = styled(Heading)`
 export const Requests = (): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
+  const { t } = useTranslation();
+  useDocumentTitle(`DAP: ${t('navigation.requests')}`);
+
   return (
     <Wrapper>
-      <Heading style={{ marginBottom: 32 }}>Requests</Heading>
+      <Heading style={{ marginBottom: 32 }}>{t('navigation.requests')}</Heading>
       <Grid grow gutter={64}>
         <Grid.Col md={12} lg={8}>
           <Header>
-            <Title>Management</Title>
-            <PageDescription>Actions to manage all requests from Institutions accessing the platform</PageDescription>
+            <Title>{t('navigation.manage')}</Title>
+            <PageDescription>{t('request.description')}</PageDescription>
           </Header>
           <RequestOptions>
             <FundingOption style={{ marginRight: 16 }}>
-              <CardTitle>Distribution/Funding</CardTitle>
-              <SmallerCardDescription>Manage distribution requests and funding.</SmallerCardDescription>
+              <CardTitle>
+                {t('distribution.title')}/{t('funding')}
+              </CardTitle>
+              <SmallerCardDescription>{t('request.distribution')}</SmallerCardDescription>
             </FundingOption>
             <RequestOption className="disabled">
-              <CardTitle>Wallet Requests</CardTitle>
-              <SmallerCardDescription>Manage all wallet requests from Institutions</SmallerCardDescription>
+              <CardTitle>{t('request.wallet')}</CardTitle>
+              <SmallerCardDescription>{t('request.wallet.requests')}</SmallerCardDescription>
             </RequestOption>
           </RequestOptions>
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <RightBarHeader>
             <div>
-              <Title>Quick Actions</Title>
-              <PageDescription>Do Something Quickly</PageDescription>
+              <Title>{t('quick.actions.title')}</Title>
+              <PageDescription>{t('quick.actions.description')}</PageDescription>
             </div>
-            <Menu
-              control={
-                <WalletsDropdown style={{ marginBottom: 0 }}>
-                  <DotsVerticalIcon />
-                </WalletsDropdown>
-              }
-            >
-              <Menu.Item>This Year</Menu.Item>
-            </Menu>
           </RightBarHeader>
           <QuickActions>
             <QuickAction>
-              <ActionText>Issue Wallets</ActionText>
+              <ActionText>{t('wallets.issue')}</ActionText>
               <ArrowRightIcon />
             </QuickAction>
             <QuickAction>
-              <ActionText>Distribute</ActionText>
+              <ActionText>{t('distribute.title')}</ActionText>
               <ArrowRightIcon />
             </QuickAction>
             <QuickAction>
-              <ActionText>Convert</ActionText>
+              <ActionText>{t('convert.title')}</ActionText>
               <ArrowRightIcon />
             </QuickAction>
           </QuickActions>
