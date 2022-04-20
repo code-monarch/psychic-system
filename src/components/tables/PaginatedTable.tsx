@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { Cell, Column, HeaderGroup, Row, usePagination, useTable } from 'react-table';
+import { Cell, Column, HeaderGroup, Row, usePagination, useTable, useSortBy } from 'react-table';
 import { LoadingOverlay } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { ChevronDownIcon, ChevronUpIcon } from '@modulz/radix-icons';
 import Table from './Table';
 import searchIcon from '../../assets/images/icons/search.svg';
 import filterIcon from '../../assets/images/icons/filter.svg';
@@ -89,7 +90,20 @@ function TableHeader<R extends object>({
       {headerGroups.map((headerGroup) => (
         <Table.TR {...headerGroup.getHeaderGroupProps()}>
           {headerGroup.headers.map((column) => (
-            <StyledTableHeader {...column.getHeaderProps()}>{column.render('Header')}</StyledTableHeader>
+            <StyledTableHeader {...column.getHeaderProps(column.getSortByToggleProps())}>
+              {column.render('Header')}
+              <span>
+                {column.isSorted ? (
+                  column.isSortedDesc ? (
+                    <ChevronDownIcon alignmentBaseline="hanging" style={{ marginLeft: 5 }} />
+                  ) : (
+                    <ChevronUpIcon alignmentBaseline="hanging" style={{ marginLeft: 5 }} />
+                  )
+                ) : (
+                  ''
+                )}
+              </span>
+            </StyledTableHeader>
           ))}
         </Table.TR>
       ))}
@@ -236,7 +250,9 @@ export const TransactionsTable = <R extends object>({
       pageCount: totalPages,
       setQueryPageIndex,
       setQueryPageSize,
+      defaultCanSort: true,
     },
+    useSortBy,
     usePagination,
   );
 

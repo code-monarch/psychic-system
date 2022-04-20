@@ -58,6 +58,7 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
     Header: t('type'),
     accessor: 'credit',
     Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} translation={t} />,
+    disableSortBy: true,
   },
 
   {
