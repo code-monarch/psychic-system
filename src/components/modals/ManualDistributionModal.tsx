@@ -15,7 +15,7 @@ export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCal
       opened={isVisible}
       centered
       onClose={() => setIsVisible(false)}
-      hideCloseButton
+      withCloseButton={false}
       styles={{
         modal: {
           backgroundColor: 'transparent',
