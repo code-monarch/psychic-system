@@ -300,9 +300,9 @@ export const TransactionsTable = <R extends object>({
             />
 
             <span>
-              Page{' '}
+              {t('pagination.page')}{' '}
               <strong>
-                {pageIndex + 1} of {pageOptions.length}
+                {pageIndex + 1} {t('pagination.of')} {pageOptions.length}
               </strong>{' '}
             </span>
           </div>

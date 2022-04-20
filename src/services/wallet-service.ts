@@ -13,6 +13,19 @@ interface WalletTokenDetailsResponse {
   totalSupply: number;
 }
 
+interface WalletAndTokenDetailsResponse {
+  circulatingSupply: number;
+  notInCirculation: number;
+  clientId: string;
+  tokenId: string;
+  tokenName: string;
+  tokenSymbol: string;
+  totalSupply: number;
+  walletBalance: Wallet[];
+  decimals: number;
+  currencyCode: string;
+}
+
 interface TokenReportSummary {
   tokenId: string;
   tokenSymbol: string;
@@ -41,6 +54,26 @@ export interface TransferTokensRequest {
   amount: number;
   longitude: string;
   latitude: string;
+}
+
+export interface WalletGraphRequest {
+  tokenId: string;
+  walletType: string;
+  distributionWalletId: string;
+  period?: number;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface WalletGraphResponse {
+  credit: number;
+  debit: number;
+  graphDataCredit: {
+    [key: number]: number;
+  };
+  graphDataDebit: {
+    [key: number]: number;
+  };
 }
 
 interface Wallet {
@@ -90,6 +123,23 @@ export class WalletService {
   static async getWalletTokenDetails(): Promise<WalletTokenDetailsResponse> {
     const response = await secureMainApi
       .get(`/token/cb/getTokenDetails`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
+   * Get list of wallet balance and token summary details.
+   GET
+   */
+
+  static async getWalletAndTokenDetails(): Promise<WalletAndTokenDetailsResponse> {
+    const response = await secureMainApi
+      .get(`/wallet/cb/getWalletAndTokenDetails`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -192,7 +242,7 @@ export class WalletService {
   /**
    * @description
    * Get list of wallets for the central banks institutions.
-   */ GET;
+   */
 
   static async getAllInstitutionWallets(): Promise<Wallet[]> {
     const response = await secureMainApi
@@ -244,6 +294,16 @@ export class WalletService {
       latitude,
     });
 
+    return response.data;
+  }
+
+  /**
+   * @description
+   * Get wallet chart data.
+   */
+
+  static async getWalletBalanceChartData(request: WalletGraphRequest): Promise<WalletGraphResponse> {
+    const response = await secureMainApi.post(`/cb/graphData`, request);
     return response.data;
   }
 }

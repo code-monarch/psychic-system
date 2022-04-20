@@ -1,5 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import { NameValue } from '../NameValue';
 
 const StyledLegend = styled.ul`
@@ -84,8 +85,10 @@ export const ReAreaChart = <T extends object>({
   height?: number;
 }) => {
   const theme: any = useTheme();
-  const { grey, green } = theme.colors.primary;
-  const { red, darkgreen } = theme.colors.secondary;
+  const { t } = useTranslation();
+  const { green } = theme.colors.primary;
+  const { red } = theme.colors.secondary;
+
   return (
     <div
       style={{
@@ -113,7 +116,15 @@ export const ReAreaChart = <T extends object>({
           <YAxis tick={<YAxisTick />} axisLine={false} tickLine={false} />
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <Tooltip />
-          <Area type="linear" dataKey="Current" stroke={green} strokeWidth={3} fillOpacity={1} fill="url(#colorUv)" />
+          <Area
+            type="monotone"
+            dataKey={t('credit')}
+            stroke={green}
+            strokeWidth={3}
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+          <Line type="monotone" dataKey={t('debit')} stroke={red} strokeWidth={2} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

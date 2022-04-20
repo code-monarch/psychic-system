@@ -1,9 +1,13 @@
 import styled from 'styled-components';
-import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from '@modulz/radix-icons';
-import { Menu } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
+import { ChevronDownIcon } from '@modulz/radix-icons';
+import { LoadingOverlay, Select } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
+import { useGetWalletAndTokenDetails, useGetWalletGraphData } from '../../hooks/useWallets';
+import { chartSelectStyles } from '../../lib/constants';
+import { formatAmount, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,6 +15,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   padding: 24px;
   margin-top: 42px;
+  position: relative;
 `;
 
 const TopSection = styled.div`
@@ -29,11 +34,10 @@ const RightSection = styled.div`
   align-items: flex-end;
 `;
 
-const WalletsDropdown = styled.div`
-  display: flex;
+const WalletTypeLabel = styled(ParagraphBold)`
   align-items: center;
   margin-bottom: 16px;
-  cursor: pointer;
+  color: ${({ theme }) => theme.colors.primary.green};
 `;
 
 const Amount = styled.p`
@@ -66,126 +70,109 @@ const CreditPercentage = styled(ParagraphBold)`
   color: ${({ theme }) => theme.colors.primary.green};
 `;
 
-const chartData = [
-  {
-    name: 'Feb',
-    Current: 4000,
-    Previous: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Mar',
-    Current: 3000,
-    Previous: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Apr',
-    Current: 2000,
-    Previous: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'May',
-    Current: 2780,
-    Previous: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Jun',
-    Current: 1890,
-    Previous: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Jul',
-    Current: 2390,
-    Previous: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Aug',
-    Current: 3490,
-    Previous: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Sep',
-    Current: 3490,
-    Previous: 4300,
-    amt: 2100,
-  },
-  {
-    name: 'Oct',
-    Current: 2000,
-    Previous: 9800,
-    amt: 2100,
-  },
-  {
-    name: 'Nov',
-    Current: 3000,
-    Previous: 1398,
-    amt: 2100,
-  },
-  {
-    name: 'Dec',
-    Current: 4000,
-    Previous: 2400,
-    amt: 2100,
-  },
-];
-
 export const WalletBalanceChart = (): JSX.Element => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+
+  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState();
+  const [period, setPeriod] = useState('180');
+
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
+
+  const creditChartData = data?.graphDataCredit || {};
+  const debitChartData = data?.graphDataDebit || {};
+  const creditAmount = data?.credit || 0;
+  const debitAmount = data?.debit || 0;
+
+  const getXAxisPoints = (time) => {
+    const locale = i18n.resolvedLanguage;
+    switch (period) {
+      case '7':
+        return getDateMonthFromTimestamp(time, locale);
+      case '14':
+        return getDateMonthFromTimestamp(time, locale);
+      case '30':
+        return getDateMonthFromTimestamp(time, locale);
+      default:
+        return getMonthFromTimestamp(time, locale);
+    }
+  };
+
+  const constructGraphData = () => {
+    const graphData = [];
+    const timeStamps = Object.keys(creditChartData).sort();
+    for (const timeStamp of timeStamps) {
+      graphData.push({
+        name: getXAxisPoints(timeStamp),
+        [t('credit')]: creditChartData[timeStamp],
+        [t('debit')]: debitChartData[timeStamp],
+      });
+    }
+    return graphData;
+  };
+
+  useEffect(() => {
+    fetchData(undefined);
+  }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
+
+  const fetchData = (val?: string) => {
+    getGraphData({
+      distributionWalletId: distributionWallet?.walletId,
+      walletType: 'distribution',
+      tokenId: walletBalanceAndTokenDetails?.tokenId,
+      endDate,
+      period: Number(val || period),
+      startDate,
+    });
+  };
+  const onWalletDurationChange = (val) => {
+    setPeriod(() => val);
+    fetchData(val);
+  };
+
+  const walletDurationOptions = [
+    { label: t('duration.one.week'), value: '7' },
+    { label: t('duration.two.weeks'), value: '14' },
+    { label: t('duration.one.month'), value: '30' },
+    { label: t('duration.three.months'), value: '90' },
+    { label: t('duration.six.months'), value: '180' },
+    { label: t('duration.nine.months'), value: '270' },
+    { label: t('duration.custom'), value: 'custom' },
+  ];
 
   return (
     <Wrapper>
+      <LoadingOverlay visible={isLoadingGraph} />
       <TopSection>
         <LeftSection>
           <Title>{t('wallets.balance')} (BTKB)</Title>
-          <Amount>575,483.00</Amount>
+          <Amount> {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}</Amount>
         </LeftSection>
         <RightSection>
-          <Menu
-            control={
-              <WalletsDropdown>
-                <ParagraphBold>{t('wallet.all')}</ParagraphBold>
-                <ChevronDownIcon />
-              </WalletsDropdown>
-            }
-          >
-            <Menu.Item>{t('wallet.all')}</Menu.Item>
-          </Menu>
+          <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
           <WalletSection style={{ marginBottom: 12 }}>
             <CreditLabel>{t('credit')}</CreditLabel>
-            <ParagraphBold>2.34B BTKB</ParagraphBold>
-            {/* <div style={{ display: 'flex' }}> */}
-            {/*  <CreditPercentage>+5.4%</CreditPercentage> */}
-            {/*  <ArrowUpIcon color="#4AB0A6" /> */}
-            {/* </div> */}
+            <ParagraphBold>{creditAmount} BTKB</ParagraphBold>
           </WalletSection>
           <WalletSection>
             <DebitLabel>{t('debit')}</DebitLabel>
-            <ParagraphBold>500M BTKB</ParagraphBold>
-            {/* <div style={{ display: 'flex' }}> */}
-            {/*  <DebitPercentage>-2.5%</DebitPercentage> */}
-            {/*  <ArrowDownIcon color="#EC3D08" /> */}
-            {/* </div> */}
+            <ParagraphBold>{debitAmount} BTKB</ParagraphBold>
           </WalletSection>
         </RightSection>
       </TopSection>
 
-      <Menu
-        control={
-          <WalletsDropdown style={{ marginBottom: 0 }}>
-            <ParagraphBold>{t('duration.one.week')}</ParagraphBold>
-            <ChevronDownIcon />
-          </WalletsDropdown>
-        }
-      >
-        <Menu.Item>{t('duration.one.week')}</Menu.Item>
-      </Menu>
-      <ReAreaChart data={chartData} />
+      <Select
+        label=""
+        onChange={onWalletDurationChange}
+        value={period}
+        rightSection={<ChevronDownIcon />}
+        styles={chartSelectStyles}
+        data={walletDurationOptions}
+      />
+      <ReAreaChart data={constructGraphData()} />
     </Wrapper>
   );
 };

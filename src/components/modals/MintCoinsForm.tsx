@@ -7,7 +7,7 @@ import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import { useGetUserWallets, useGetWalletTokenDetails, useMintTokens } from '../../hooks/useWallets';
+import { useGetWalletAndTokenDetails, useMintTokens } from '../../hooks/useWallets';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { ErrorText } from '../LoginForm';
@@ -31,8 +31,8 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
-  const { data: wallets = [] } = useGetUserWallets();
-  const { data: walletTokenDetails } = useGetWalletTokenDetails();
+  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
 
@@ -47,13 +47,12 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
       {
         amount: Number(data.amount),
         tokenOwnerMasterWalletId: masterReserveWallet.walletId,
-        tokenId: walletTokenDetails.tokenId,
+        tokenId: walletBalanceAndTokenDetails.tokenId,
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(cacheKey.walletTokenDetails);
+          queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
-          queryClient.invalidateQueries(cacheKey.userWallets);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // setIsVisible(false);

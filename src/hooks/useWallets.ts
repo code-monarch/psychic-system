@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { WalletService } from '../services/wallet-service';
+import { WalletGraphRequest, WalletService } from '../services/wallet-service';
 
 import { cacheKey } from './cacheStateKey';
 
-export const useGetWalletTokenDetails = () => {
+export const useGetWalletAndTokenDetails = () => {
   const result = useQuery({
-    queryKey: cacheKey.walletTokenDetails,
-    queryFn: () => WalletService.getWalletTokenDetails(),
+    queryKey: cacheKey.walletBalanceAndTokenDetails,
+    queryFn: () => WalletService.getWalletAndTokenDetails(),
   });
   return result;
 };
@@ -48,19 +48,16 @@ export const useGetTransactionSummary = () => {
   return result;
 };
 
-export const useGetUserWallets = () => {
-  const result = useQuery({
-    queryKey: cacheKey.userWallets,
-    queryFn: () => WalletService.getAllUserWallets(),
-  });
-  return result;
-};
-
 export const useGetInstitutionWallets = () => {
   const result = useQuery({
     queryKey: cacheKey.institutionWallets,
     queryFn: () => WalletService.getAllInstitutionWallets(),
   });
+  return result;
+};
+
+export const useGetWalletGraphData = () => {
+  const result = useMutation(WalletService.getWalletBalanceChartData);
   return result;
 };
 
@@ -73,9 +70,8 @@ export const useTransferTokens = () => {
   const queryClient = useQueryClient();
   const result = useMutation(WalletService.transferTokens, {
     onSuccess: () => {
-      queryClient.invalidateQueries(cacheKey.walletTokenDetails);
+      queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
       queryClient.invalidateQueries(cacheKey.tokenReportSummary);
-      queryClient.invalidateQueries(cacheKey.userWallets);
       queryClient.invalidateQueries(cacheKey.transactionHistory);
     },
     onError: (error: any) => {

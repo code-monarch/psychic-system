@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Title } from '../styled';
 import { selectStyles } from '../../lib/constants';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import { useGetUserWallets, useGetWalletTokenDetails, useTransferTokens } from '../../hooks/useWallets';
+import { useGetWalletAndTokenDetails, useTransferTokens } from '../../hooks/useWallets';
 import { ErrorText } from '../LoginForm';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
@@ -51,8 +51,8 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     trigger('destinationWalletId');
   }, [trigger, watchFields?.sourceWalletId]);
 
-  const { data: wallets = [] } = useGetUserWallets();
-  const { data: walletTokenDetails } = useGetWalletTokenDetails();
+  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -74,12 +74,12 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     transferTokens(
       {
         amount: Number(data.amount),
-        latitude: String(currentLocation[1]),
-        longitude: String(currentLocation[0]),
+        latitude: String(currentLocation?.[1]),
+        longitude: String(currentLocation?.[0]),
         transactionType: 'Distribution',
         sourceWalletId: data.sourceWalletId,
         destinationWalletId: data.destinationWalletId,
-        tokenId: walletTokenDetails.tokenId,
+        tokenId: walletBalanceAndTokenDetails.tokenId,
       },
       {
         onSuccess: () => {

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Tabs } from '../components/Tabs';
 import { Heading } from '../components/styled';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
-import { transactionsTabItems } from '../lib/constants';
 import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTable';
 import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
 import { useGetTransactionSummary } from '../hooks/useWallets';
@@ -36,7 +35,7 @@ export const Transactions = (): JSX.Element => {
             flex: 1,
           }}
         >
-          <CurrencySummaryCard title="Total Amount" amount={formatAmount(transactionSummary?.totalAmount)} />
+          <CurrencySummaryCard title={t('total.amount')} amount={formatAmount(transactionSummary?.totalAmount)} />
         </div>
         <div
           style={{

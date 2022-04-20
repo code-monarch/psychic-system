@@ -87,6 +87,7 @@
     "react/no-danger": "warn",
     "react/no-unescaped-entities": "warn",
     "react/no-unused-prop-types": "warn",
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "off"
   }
 }

@@ -14,7 +14,7 @@ import { DistributionModal } from '../components/modals/ManualDistributionModal'
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { MintCoinsForm } from '../components/modals/MintCoinsForm';
-import { useGetTokenSummary, useGetWalletTokenDetails } from '../hooks/useWallets';
+import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWallets';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -38,8 +38,8 @@ export const CurrencyManagement = (): JSX.Element => {
   const [distributeModalOpened, setDistributModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
-  const { data: walletTokenDetails } = useGetWalletTokenDetails();
-  const { data: tokenSummary } = useGetTokenSummary(walletTokenDetails?.tokenId);
+  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
+  const { data: tokenSummary } = useGetTokenSummary(walletBalanceAndTokenDetails?.tokenId);
   const { t } = useTranslation();
   useDocumentTitle(`DAP: ${t('navigation.currency.management')}`);
 

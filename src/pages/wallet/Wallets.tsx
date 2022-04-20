@@ -12,7 +12,7 @@ import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
 import { ManualDistributionForm } from '../../components/modals/ManualDistributionForm';
 import { DistributionModal } from '../../components/modals/ManualDistributionModal';
-import { useGetTransactionHistory, useGetUserWallets } from '../../hooks/useWallets';
+import { useGetTransactionHistory, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
 import { Transaction } from '../../services/wallet-service';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 
@@ -57,8 +57,9 @@ export const Wallets = (props): JSX.Element => {
 
   useDocumentTitle(`DAP: ${t('wallets.title')}`);
 
-  const { data: wallets = [] } = useGetUserWallets();
-  const [page, setPage] = useState(0);
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
@@ -96,7 +97,7 @@ export const Wallets = (props): JSX.Element => {
             <Title>{t('recent.internal.transactions.description')}</Title>
             <TransactionsTable<Transaction>
               columnConfig={getTransactionsTableColumnConfig(t)}
-              loading={isLoadingTransactions || isFetching}
+              loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}
               totalPages={data?.totalPages}
               rowData={transactions}
               getColumnProps={columnPropGetter}
@@ -113,9 +114,6 @@ export const Wallets = (props): JSX.Element => {
         <RightSideBar md={12} lg={4}>
           <Header>
             <Heading>{t('wallets.title')}</Heading>
-            <Menu>
-              <Menu.Item>Option 1</Menu.Item>
-            </Menu>
           </Header>
           <WalletInfo />
         </RightSideBar>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { LinkWithIcon } from './LinkWithIcon';
-import { SubNavigationList } from './SubNavigationList';
+import { LanguageNavigationList, SubNavigationList } from './SubNavigationList';
 
 type LinkProps = {
   text: string;
