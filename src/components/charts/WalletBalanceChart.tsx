@@ -1,13 +1,159 @@
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@modulz/radix-icons';
 import { LoadingOverlay, Select } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { DateRangePicker } from '@mantine/dates';
+import moment from 'moment';
 import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
 import { useGetWalletAndTokenDetails, useGetWalletGraphData } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
 import { formatAmount, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
+import { WalletGraphRequest } from '../../services/wallet-service';
+
+export const WalletBalanceChart = (): JSX.Element => {
+  const { t, i18n } = useTranslation();
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+
+  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState();
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false);
+  const [period, setPeriod] = useState('180');
+
+  const [dateFilters, setDateFilters] = useState<[Date | null, Date | null]>([null, null]);
+
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
+
+  const creditChartData = data?.graphDataCredit || {};
+  const debitChartData = data?.graphDataDebit || {};
+  const creditAmount = data?.credit || 0;
+  const debitAmount = data?.debit || 0;
+
+  const getXAxisPoints = (time) => {
+    const locale = i18n.resolvedLanguage;
+
+    if (dateFilters[0] && dateFilters[1]) {
+      return getDateMonthFromTimestamp(time, locale);
+    }
+    switch (period) {
+      case '7':
+        return getDateMonthFromTimestamp(time, locale);
+      case '14':
+        return getDateMonthFromTimestamp(time, locale);
+      case '30':
+        return getDateMonthFromTimestamp(time, locale);
+      default:
+        return getMonthFromTimestamp(time, locale);
+    }
+  };
+
+  const constructGraphData = () => {
+    const graphData = [];
+    const timeStamps = Object.keys(creditChartData).sort();
+    for (const timeStamp of timeStamps) {
+      graphData.push({
+        name: getXAxisPoints(timeStamp),
+        [t('credit')]: creditChartData[timeStamp],
+        [t('debit')]: debitChartData[timeStamp],
+      });
+    }
+    return graphData;
+  };
+
+  useEffect(() => {
+    if ((dateFilters[0] && dateFilters[1]) || period !== 'custom') {
+      fetchData();
+    }
+  }, [dateFilters, period]);
+
+  useEffect(() => {
+    fetchData();
+  }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
+
+  const fetchData = () => {
+    const chartRequest: WalletGraphRequest = {
+      distributionWalletId: distributionWallet?.walletId,
+      walletType: 'distribution',
+      tokenId: walletBalanceAndTokenDetails?.tokenId,
+      period: Number(period),
+    };
+
+    if (dateFilters[0] && dateFilters[1]) {
+      chartRequest.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
+      chartRequest.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
+    }
+    getGraphData(chartRequest);
+  };
+  const onWalletDurationChange = (val) => {
+    setPeriod(() => val);
+    setDateFilters([null, null]);
+
+    if (val === 'custom') {
+      setIsDatePickerVisible(true);
+    } else {
+      setIsDatePickerVisible(false);
+    }
+  };
+
+  const walletDurationOptions = [
+    { label: t('duration.one.week'), value: '7' },
+    { label: t('duration.two.weeks'), value: '14' },
+    { label: t('duration.one.month'), value: '30' },
+    { label: t('duration.three.months'), value: '90' },
+    { label: t('duration.six.months'), value: '180' },
+    { label: t('duration.nine.months'), value: '270' },
+    { label: t('duration.custom'), value: 'custom' },
+  ];
+
+  return (
+    <Wrapper>
+      <LoadingOverlay visible={isLoadingGraph} />
+      <TopSection>
+        <LeftSection>
+          <Title>{t('wallets.balance')} (BTKB)</Title>
+          <Amount> {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}</Amount>
+        </LeftSection>
+        <RightSection>
+          <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
+          <WalletSection style={{ marginBottom: 12 }}>
+            <CreditLabel>{t('credit')}</CreditLabel>
+            <ParagraphBold>{creditAmount} BTKB</ParagraphBold>
+          </WalletSection>
+          <WalletSection>
+            <DebitLabel>{t('debit')}</DebitLabel>
+            <ParagraphBold>{debitAmount} BTKB</ParagraphBold>
+          </WalletSection>
+        </RightSection>
+      </TopSection>
+
+      <DatePickerWrapper>
+        <Select
+          label=""
+          onChange={onWalletDurationChange}
+          value={period}
+          rightSection={<ChevronDownIcon />}
+          styles={chartSelectStyles}
+          data={walletDurationOptions}
+        />
+        {isDatePickerVisible && (
+          <DateRangePicker
+            placeholder="Pick custom date range"
+            value={dateFilters}
+            onChange={setDateFilters}
+            initiallyOpened
+            maxDate={dayjs(new Date()).subtract(1, 'days').toDate()}
+          />
+        )}
+      </DatePickerWrapper>
+
+      <ReAreaChart data={constructGraphData()} />
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   width: 100%;
@@ -16,6 +162,11 @@ const Wrapper = styled.div`
   padding: 24px;
   margin-top: 42px;
   position: relative;
+`;
+
+const DatePickerWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const TopSection = styled.div`
@@ -61,118 +212,3 @@ const CreditLabel = styled(Paragraph)`
 const DebitLabel = styled(Paragraph)`
   color: ${({ theme }) => theme.colors.secondary.red};
 `;
-
-const DebitPercentage = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.secondary.red};
-`;
-
-const CreditPercentage = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.green};
-`;
-
-export const WalletBalanceChart = (): JSX.Element => {
-  const { t, i18n } = useTranslation();
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
-
-  const [endDate, setEndDate] = useState();
-  const [startDate, setStartDate] = useState();
-  const [period, setPeriod] = useState('180');
-
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
-  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
-
-  const creditChartData = data?.graphDataCredit || {};
-  const debitChartData = data?.graphDataDebit || {};
-  const creditAmount = data?.credit || 0;
-  const debitAmount = data?.debit || 0;
-
-  const getXAxisPoints = (time) => {
-    const locale = i18n.resolvedLanguage;
-    switch (period) {
-      case '7':
-        return getDateMonthFromTimestamp(time, locale);
-      case '14':
-        return getDateMonthFromTimestamp(time, locale);
-      case '30':
-        return getDateMonthFromTimestamp(time, locale);
-      default:
-        return getMonthFromTimestamp(time, locale);
-    }
-  };
-
-  const constructGraphData = () => {
-    const graphData = [];
-    const timeStamps = Object.keys(creditChartData).sort();
-    for (const timeStamp of timeStamps) {
-      graphData.push({
-        name: getXAxisPoints(timeStamp),
-        [t('credit')]: creditChartData[timeStamp],
-        [t('debit')]: debitChartData[timeStamp],
-      });
-    }
-    return graphData;
-  };
-
-  useEffect(() => {
-    fetchData(undefined);
-  }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
-
-  const fetchData = (val?: string) => {
-    getGraphData({
-      distributionWalletId: distributionWallet?.walletId,
-      walletType: 'distribution',
-      tokenId: walletBalanceAndTokenDetails?.tokenId,
-      endDate,
-      period: Number(val || period),
-      startDate,
-    });
-  };
-  const onWalletDurationChange = (val) => {
-    setPeriod(() => val);
-    fetchData(val);
-  };
-
-  const walletDurationOptions = [
-    { label: t('duration.one.week'), value: '7' },
-    { label: t('duration.two.weeks'), value: '14' },
-    { label: t('duration.one.month'), value: '30' },
-    { label: t('duration.three.months'), value: '90' },
-    { label: t('duration.six.months'), value: '180' },
-    { label: t('duration.nine.months'), value: '270' },
-    { label: t('duration.custom'), value: 'custom' },
-  ];
-
-  return (
-    <Wrapper>
-      <LoadingOverlay visible={isLoadingGraph} />
-      <TopSection>
-        <LeftSection>
-          <Title>{t('wallets.balance')} (BTKB)</Title>
-          <Amount> {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}</Amount>
-        </LeftSection>
-        <RightSection>
-          <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
-          <WalletSection style={{ marginBottom: 12 }}>
-            <CreditLabel>{t('credit')}</CreditLabel>
-            <ParagraphBold>{creditAmount} BTKB</ParagraphBold>
-          </WalletSection>
-          <WalletSection>
-            <DebitLabel>{t('debit')}</DebitLabel>
-            <ParagraphBold>{debitAmount} BTKB</ParagraphBold>
-          </WalletSection>
-        </RightSection>
-      </TopSection>
-
-      <Select
-        label=""
-        onChange={onWalletDurationChange}
-        value={period}
-        rightSection={<ChevronDownIcon />}
-        styles={chartSelectStyles}
-        data={walletDurationOptions}
-      />
-      <ReAreaChart data={constructGraphData()} />
-    </Wrapper>
-  );
-};

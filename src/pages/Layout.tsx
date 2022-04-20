@@ -56,7 +56,7 @@ export const Layout = (): JSX.Element => {
       fixed
       navbar={
         <Navbar
-          padding="md"
+          p={16}
           position={{ top: 0, left: 0 }}
           hiddenBreakpoint="sm"
           hidden={!isNavOpened}

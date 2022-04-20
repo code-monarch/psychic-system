@@ -83,7 +83,7 @@ export const Wallets = (props): JSX.Element => {
   return (
     <Wrapper>
       <Grid gutter={64}>
-        <Grid.Col grow md={12} lg={8}>
+        <Grid.Col md={12} lg={8}>
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton

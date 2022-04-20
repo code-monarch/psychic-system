@@ -39,7 +39,7 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
   return (
     <Wrapper>
       <Grid gutter={64}>
-        <Grid.Col grow md={12} lg={8}>
+        <Grid.Col md={12} lg={8}>
           <Header>
             <Heading>
               {t('welcome.title')} {displayName}!
