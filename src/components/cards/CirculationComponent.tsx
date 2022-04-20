@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
-import { useGetWalletTokenDetails } from '../../hooks/useWallets';
+import { useGetWalletAndTokenDetails } from '../../hooks/useWallets';
 import { formatAmount } from '../../lib/utils';
 import { AssetCard } from '../AssetCard';
 import { MEMBER_ROUTE } from '../../lib/constants';
@@ -34,7 +34,7 @@ const Divider = styled.hr`
 `;
 
 export const CirculationComponent = () => {
-  const { data: walletTokenDetails } = useGetWalletTokenDetails();
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
   const history = useHistory();
 
   const theme: any = useTheme();
@@ -61,7 +61,9 @@ export const CirculationComponent = () => {
       <TokensHeaderWrapper>
         <Title>{t('tokens.circulation.description')}</Title>
         <Title>
-          {walletTokenDetails?.circulatingSupply ? formatAmount(walletTokenDetails?.circulatingSupply) : '0'}
+          {walletBalanceAndTokenDetails?.circulatingSupply
+            ? formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)
+            : '0'}
         </Title>
       </TokensHeaderWrapper>
 
@@ -89,7 +91,7 @@ export const CirculationComponent = () => {
       <Section>
         <Title>{t('digital.assets')}</Title>
         <StyledNameValue name={`${t('total')} Bitkob`} value="200.1B (BTKB)" />
-        <StyledNameValue name={`${t('total')} USDC Reserves`} value="1.97B (USDC)" />
+        <StyledNameValue name={`${t('total')} USDC ${t('reserves')}`} value="1.97B (USDC)" />
       </Section>
 
       <Divider aria-hidden="true" />
@@ -97,7 +99,7 @@ export const CirculationComponent = () => {
       <Section>
         <Title>Fiat</Title>
         <StyledNameValue name={`${t('total')} Gourdes (HTG)`} value="G231.2B" />
-        <StyledNameValue name={`${t('total')} USD Reserves`} value="$2.37B" />
+        <StyledNameValue name={`${t('total')} USD ${t('reserves')}`} value="$2.37B" />
       </Section>
 
       <DashboardLink>

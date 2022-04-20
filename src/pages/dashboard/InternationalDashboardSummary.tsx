@@ -43,8 +43,15 @@ export const InternationalDashboardSummary = (): JSX.Element => {
     theme.colors.secondary.blue,
   ];
 
+  const countryNames = {
+    EUR: t('country.uk'),
+    USD: t('country.usa'),
+    CAD: 'Canada',
+    DOP: t('country.dominican.republic'),
+  };
+
   const mapMarkers = exchangeCurrencies.map((curr, i) => ({
-    name: CURRENCY_NAMES[curr].country,
+    name: countryNames[curr],
     color: mapColors[i % mapColors.length],
     coordinates: coordinates[curr],
     value: transactions[curr],

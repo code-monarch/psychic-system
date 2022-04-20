@@ -1,16 +1,28 @@
 import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
 import { TFunction } from 'react-i18next';
-import { TransactionType, transactionTypeRenderMappings } from '../../lib/constants';
+import { TransactionType } from '../../lib/constants';
 import { formatDate } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
-import i18next from '../../i18next/config';
+
+type TransactionTypeRenderMappings = { [key in TransactionType]: { color: string; text: string } };
 
 const ColoredSpan = styled.span`
   color: ${({ color }) => color};
 `;
 
-const StyledStatus = ({ status: creditStatus }: { status: TransactionType }): JSX.Element => {
+const StyledStatus = ({
+  status: creditStatus,
+  translation,
+}: {
+  status: TransactionType;
+  translation: TFunction;
+}): JSX.Element => {
+  const transactionTypeRenderMappings: TransactionTypeRenderMappings = {
+    [TransactionType.DEBIT]: { color: '#EC3D08', text: translation('debit') },
+    [TransactionType.CREDIT]: { color: '#4AB0A6', text: translation('credit') },
+  };
+
   const { color, text } = transactionTypeRenderMappings[creditStatus ? TransactionType.CREDIT : TransactionType.DEBIT];
   return <ColoredSpan {...{ color }}>{text}</ColoredSpan>;
 };
@@ -37,19 +49,19 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
     accessor: 'entity',
   },
   {
-    Header: i18next.t('transaction.time'),
+    Header: t('transaction.time'),
     accessor: 'createdAt',
     Cell: (props) => formatDate(new Date(props.value)),
   },
 
   {
-    Header: i18next.t('type'),
+    Header: t('type'),
     accessor: 'credit',
-    Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} />,
+    Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} translation={t} />,
   },
 
   {
-    Header: i18next.t('amount'),
+    Header: t('amount'),
     accessor: 'amount',
     Cell: (props) => props.value || '\u2014',
   },

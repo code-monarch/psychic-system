@@ -1,7 +1,10 @@
-import styled, { useTheme } from 'styled-components';
+import styled, { css, useTheme } from 'styled-components';
 import { useState } from 'react';
 import { ArrowDownIcon, ArrowUpIcon, TriangleDownIcon } from '@modulz/radix-icons';
-import { LinkWithIcon } from './LinkWithIcon';
+import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Icon, LinkWithIcon } from './LinkWithIcon';
+import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 
 type LinkProps = {
   text: string;
@@ -62,8 +65,57 @@ export const SubNavigationList = ({ className, link }: NavigationListProps) => {
       {isListVisible && (
         <List className={className}>
           {link.subNavigationItems.map((item, i) => (
-            <li key={`listitem-${i}`}>
+            <li key={`listitem-${i}`} style={{ margin: 0 }}>
               <LinkWithIcon to={item.to} text={item.text} />
+            </li>
+          ))}
+          <LanguageNavigationList />
+        </List>
+      )}
+    </>
+  );
+};
+
+export const LanguageNavigationList = () => {
+  const [isListVisible, setIsListVisible] = useState<boolean>(false);
+  const toggleNavigation = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsListVisible(!isListVisible);
+  };
+
+  const theme: any = useTheme();
+  const { green } = theme.colors.primary;
+  const { t, i18n } = useTranslation();
+
+  const languageOptions = [
+    { label: t('language.en'), value: 'en' },
+    { label: t('language.fr'), value: 'fr' },
+  ];
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang, (err, t) => {
+      if (err) return console.log('something went wrong loading', err);
+    });
+  };
+  return (
+    <>
+      <LinkWrapper onClick={toggleNavigation}>
+        <StyledLink onClick={toggleNavigation} style={{ margin: 0 }}>
+          {t('language.title')}
+        </StyledLink>
+        <TriangleDownIcon color={green} />
+      </LinkWrapper>
+      {isListVisible && (
+        <List>
+          {languageOptions.map((item, i) => (
+            <li key={`listitem-${i}`} style={{ paddingLeft: 20, margin: 0 }}>
+              <StyledLink
+                onClick={() => changeLanguage(item.value)}
+                className={i18n.resolvedLanguage === item.value ? 'active' : ''}
+              >
+                {item.label}
+              </StyledLink>
             </li>
           ))}
         </List>
@@ -71,3 +123,33 @@ export const SubNavigationList = ({ className, link }: NavigationListProps) => {
     </>
   );
 };
+
+const StyledLink = styled.p<{ $icon?: Icon }>`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.primary.grey};
+  font-size: 12px;
+  font-weight: normal;
+  background-size: 1.5em;
+  padding-left: 2em;
+  cursor: pointer;
+
+  transition: color, background-image 0.2s ease-out;
+
+  ${(props: { $icon?: Icon }) => {
+    if (props?.$icon) {
+      return css`
+        background: transparent url(${props.$icon.default}) no-repeat center left;
+        &.active,
+        &:hover {
+          background-image: url(${props.$icon.active});
+        }
+      `;
+    }
+  }}
+
+  &.active,
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.green};
+    font-weight: 600;
+  }
+`;

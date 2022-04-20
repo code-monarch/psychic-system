@@ -48,7 +48,7 @@ export const CurrencySummaryCard = ({
     <Wrapper>
       <CardTitle className={disabled ? 'disabled' : ''}>{title}</CardTitle>
       <BottomSection>
-        <CardAmount className={disabled ? 'disabled' : ''}>{amount ? formatAmount(Number(amount)) : 0}</CardAmount>
+        <CardAmount className={disabled ? 'disabled' : ''}>{amount}</CardAmount>
         {!hideHistogram && (
           <HistogramContainer>
             <Histogram values={histogramValues} />

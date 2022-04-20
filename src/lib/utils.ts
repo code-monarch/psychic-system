@@ -1,7 +1,9 @@
 import { TFunction } from 'react-i18next';
+import moment from 'moment';
 import { TransactionRow } from '../pages/transactions/table-config';
 import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 import { MEMBER_ROUTE } from './constants';
+import 'moment/locale/fr';
 
 /**
  * Returns a scaling function which will normalize a value within the given values array to between newMax (default 0) and newMin (default 1)
@@ -94,10 +96,6 @@ export const getNavigationItems = (t: TFunction) => {
           to: MEMBER_ROUTE.CURRENCY_MANAGEMENT,
           text: t('navigation.currency.management'),
         },
-        // {
-        //   to: '/manage-users',
-        //   text: 'Users',
-        // },
       ],
     },
   ];
@@ -126,3 +124,16 @@ export const getTransactionTabs = (t: TFunction): { title: string; route: string
     route: 'external',
   },
 ];
+
+export const getMonthFromTimestamp = (time: number, locale: string): string => {
+  moment.locale([locale, 'en']);
+  return moment(Number(time)).format('MMMM');
+};
+
+export const getDateFromTimestamp = (time: number, t: TFunction): string => moment(Number(time)).format('ddd Do');
+
+export const getDateMonthFromTimestamp = (time: number, locale: string): string => {
+  moment.locale([locale, 'en']);
+  return moment(Number(time)).format('Do MMM');
+};
+// return String(date.getDate());

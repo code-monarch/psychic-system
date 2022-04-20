@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
-import { useGetUserWallets, useGetWalletTokenDetails } from '../hooks/useWallets';
+import { useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { WalletTransferModal } from './modals/WalletTransferModal';
 import { formatAmount } from '../lib/utils';
 
@@ -12,28 +12,33 @@ export const WalletInfo = () => {
   const theme: any = useTheme();
   const { t } = useTranslation();
   const { grey } = theme.colors.secondary;
-  const { data: walletTokenDetails, isLoading: isLoadingWalletTokenDetails, refetch } = useGetWalletTokenDetails();
-  const { data: wallets = [], isLoading: isLoadingUserWallets } = useGetUserWallets();
+
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
 
-  // const wallets = data?.wallets || [];
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
-  const nonCirculatingSupply = walletTokenDetails?.totalSupply - walletTokenDetails?.circulatingSupply;
+  const nonCirculatingSupply = walletBalanceAndTokenDetails?.notInCirculation;
   const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const institutionWallet = wallets?.find((wallet) => wallet?.walletType === 'Institution');
+
   return (
     <Wrapper>
       <SupplyWallets>
         <WalletField>
           <Label>{t('total.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
-          {!isLoadingWalletTokenDetails && <WalletValue>{formatAmount(walletTokenDetails?.totalSupply)}</WalletValue>}
+          {!isLoadingWalletTokenDetails && (
+            <WalletValue>{formatAmount(walletBalanceAndTokenDetails?.totalSupply)}</WalletValue>
+          )}
         </WalletField>
         <WalletField>
           <Label>{t('circulating.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{formatAmount(walletTokenDetails?.circulatingSupply)}</WalletValue>
+            <WalletValue>{formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}</WalletValue>
           )}
         </WalletField>
         <WalletField>
@@ -52,12 +57,12 @@ export const WalletInfo = () => {
           <AssetCardLeftSection>
             <AssetIcon>M</AssetIcon>
             <div>
-              <AssetLabel>{t('distribution.title')}</AssetLabel>
+              <AssetLabel>{t('wallets.distribution')}</AssetLabel>
               <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <Skeleton visible={isLoadingUserWallets} width={100}>
+            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
                 {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}
               </AssetLabel>
@@ -66,6 +71,23 @@ export const WalletInfo = () => {
           </div>
         </WalletCard>
 
+        <WalletCard>
+          <AssetCardLeftSection>
+            <AssetIcon>M</AssetIcon>
+            <div>
+              <AssetLabel>{t('wallets.institution')}</AssetLabel>
+              <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
+            </div>
+          </AssetCardLeftSection>
+          <div>
+            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
+              <AssetLabel style={{ textAlign: 'right' }}>
+                {formatAmount(Number(institutionWallet?.balances?.[0]?.balance)) || 0}
+              </AssetLabel>
+            </Skeleton>
+            {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
+          </div>
+        </WalletCard>
         <Divider style={{ marginTop: 32, color: grey }} />
       </AssetsSection>
 
@@ -76,12 +98,12 @@ export const WalletInfo = () => {
           <AssetCardLeftSection>
             <AssetIcon>M</AssetIcon>
             <div>
-              <AssetLabel>{t('master.wallet.title')}</AssetLabel>
+              <AssetLabel>{t('wallets.master')}</AssetLabel>
               <AssetValue>{masterReserveWallet?.balances?.[0]?.symbol}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <Skeleton visible={isLoadingUserWallets} width={100}>
+            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
                 {formatAmount(Number(masterReserveWallet?.balances?.[0]?.balance)) || 0}
               </AssetLabel>

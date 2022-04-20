@@ -1380,3 +1380,26 @@ export const navigationItems = [
     ],
   },
 ];
+
+export const chartSelectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
+  input: {
+    border: 'none',
+    borderRadius: 0,
+    paddingLeft: 0,
+    fontSize: 12,
+    fontWeight: 600,
+    fontFamily: "'ProximaNova', sans-serif;",
+    color: '#1A242D',
+    backgroundColor: 'transparent',
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: "'ProximaNova', sans-serif;",
+    color: '#828282',
+  },
+  rightSection: { pointerEvents: 'none' },
+  root: {
+    marginBottom: 10,
+    width: 140,
+  },
+};

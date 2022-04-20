@@ -8,12 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ParagraphBold, Title } from '../styled';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import {
-  useGetInstitutionWallets,
-  useGetUserWallets,
-  useGetWalletTokenDetails,
-  useTransferTokens,
-} from '../../hooks/useWallets';
+import { useGetInstitutionWallets, useGetWalletAndTokenDetails, useTransferTokens } from '../../hooks/useWallets';
 import { ErrorText } from '../LoginForm';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
@@ -52,8 +47,8 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     },
   });
 
-  const { data: wallets = [] } = useGetUserWallets();
-  const { data: walletTokenDetails } = useGetWalletTokenDetails();
+  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
@@ -80,18 +75,17 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     transferTokens(
       {
         amount: Number(data.amount),
-        latitude: String(currentLocation[1]),
-        longitude: String(currentLocation[0]),
+        latitude: String(currentLocation?.[1]),
+        longitude: String(currentLocation?.[0]),
         transactionType: 'Institution',
         sourceWalletId: distributionWallet.walletId,
         destinationWalletId: data.destinationWalletId,
-        tokenId: walletTokenDetails.tokenId,
+        tokenId: walletBalanceAndTokenDetails.tokenId,
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(cacheKey.walletTokenDetails);
+          queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
-          queryClient.invalidateQueries(cacheKey.userWallets);
           queryClient.invalidateQueries(cacheKey.transactionHistory);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);

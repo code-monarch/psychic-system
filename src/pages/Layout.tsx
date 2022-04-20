@@ -39,20 +39,13 @@ const UserName = styled.p`
 
 export const Layout = (): JSX.Element => {
   const { appUser, userRole, useSignout } = useAuth();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isNavOpened] = useState(false);
   const { mutate: signOut } = useSignout();
 
   const logout = () => {
     signOut(undefined, {
       onSuccess: () => {},
-    });
-  };
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang, (err, t) => {
-      if (err) return console.log('something went wrong loading', err);
-      // t('key'); // -> same as i18next.t
     });
   };
 
@@ -73,10 +66,6 @@ export const Layout = (): JSX.Element => {
             <SideNav>
               <Logo imageWidth={100} leftAlign />
               <NavigationList itemSpacing={20} links={getNavigationItems(t)} />
-              <Menu>
-                <Menu.Item onClick={() => changeLanguage('en')}>EN</Menu.Item>
-                <Menu.Item onClick={() => changeLanguage('fr')}>FR</Menu.Item>
-              </Menu>
             </SideNav>
           </Navbar.Section>
           <Navbar.Section>
@@ -89,7 +78,7 @@ export const Layout = (): JSX.Element => {
               }
             >
               <Menu.Item color="red" onClick={logout}>
-                Logout
+                {t('logout.title')}
               </Menu.Item>
             </Menu>
           </Navbar.Section>

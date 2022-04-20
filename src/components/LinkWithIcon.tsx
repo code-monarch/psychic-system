@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-interface Icon {
+export interface Icon {
   default: string;
   active: string;
 }

@@ -5,12 +5,12 @@
 export const cacheKey = {
   myUser: 'myUser',
   currentUser: 'currentUser',
-  walletTokenDetails: 'walletTokenDetails',
+  walletBalanceAndTokenDetails: 'walletBalanceAndTokenDetails',
   tokenReportSummary: 'tokenReportSummary',
   transactionHistory: 'transactionHistory',
-  userWallets: 'userWallets',
   institutionWallets: 'institutionWallets',
   currentUserRole: 'currentUserRole',
   cbTransactionsHistory: 'cbTransactionsHistory',
   transactionSummary: 'transactionSummary',
+  walletGraphData: 'walletGraphData',
 };
