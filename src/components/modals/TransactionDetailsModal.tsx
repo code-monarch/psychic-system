@@ -55,17 +55,17 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
             </DetailSection>
 
             <DetailSection>
-              <DetailsLabel>Funding Type</DetailsLabel>
+              <DetailsLabel>{t('funding.type')}</DetailsLabel>
               <DetailsValue>{data?.fundingType}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
-              <DetailsLabel>Transfer Amount</DetailsLabel>
+              <DetailsLabel>{t('transfer.amount')}</DetailsLabel>
               <DetailsValue>{formatAmount(data?.amount)} BTKB</DetailsValue>
             </DetailSection>
 
             <DetailSection>
-              <DetailsLabel>Transaction Time</DetailsLabel>
+              <DetailsLabel>{t('transaction.time')}</DetailsLabel>
               <DetailsValue>{moment(data?.createdAt).format('DD-MM-YYYY, h:mm:ss a')}</DetailsValue>
             </DetailSection>
           </DetailsWrapper>
