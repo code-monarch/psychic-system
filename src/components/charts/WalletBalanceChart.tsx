@@ -121,11 +121,11 @@ export const WalletBalanceChart = (): JSX.Element => {
           <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
           <WalletSection style={{ marginBottom: 12 }}>
             <CreditLabel>{t('credit')}</CreditLabel>
-            <ParagraphBold>{creditAmount} BTKB</ParagraphBold>
+            <ParagraphBold>{formatAmount(creditAmount)} BTKB</ParagraphBold>
           </WalletSection>
           <WalletSection>
             <DebitLabel>{t('debit')}</DebitLabel>
-            <ParagraphBold>{debitAmount} BTKB</ParagraphBold>
+            <ParagraphBold>{formatAmount(debitAmount)} BTKB</ParagraphBold>
           </WalletSection>
         </RightSection>
       </TopSection>

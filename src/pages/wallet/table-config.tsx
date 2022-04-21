@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
 import { TFunction } from 'react-i18next';
 import { TransactionType } from '../../lib/constants';
-import { formatDate } from '../../lib/utils';
+import { formatAmount, formatDate } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
+import { ViewTransactionTableCell } from '../../components/tables/ViewTransactionTableCell';
 
 type TransactionTypeRenderMappings = { [key in TransactionType]: { color: string; text: string } };
 
@@ -64,6 +65,10 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
   {
     Header: t('amount'),
     accessor: 'amount',
-    Cell: (props) => props.value || '\u2014',
+    Cell: (props) => formatAmount(props.value) || '\u2014',
+  },
+  {
+    Header: t('view.title'),
+    Cell: (props: { row: { original: Transaction } }) => <ViewTransactionTableCell data={props.row.original} />,
   },
 ];

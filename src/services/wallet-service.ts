@@ -104,6 +104,7 @@ export interface Transaction {
   credit: boolean;
   debit: boolean;
   createdAt: string;
+  fundingType: string;
   timestamp: number;
 }
 

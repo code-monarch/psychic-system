@@ -2,6 +2,7 @@ import styled, { useTheme } from 'styled-components';
 import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import { NameValue } from '../NameValue';
+import { formatAmount } from '../../lib/utils';
 
 const StyledLegend = styled.ul`
   flex: 1;
@@ -56,7 +57,7 @@ function YAxisTick(props) {
         fontSize="12px"
         fontFamily="ProximaNova"
       >
-        {payload.value}
+        {formatAmount(payload.value)}
       </text>
     </g>
   );
