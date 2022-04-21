@@ -1,5 +1,11 @@
 import 'react-i18next';
-import { resources, defaultNS } from '../../src/i18next/config';
+import translation from '../../public/locales/en/translation.json';
+
+export const resources = {
+  en: {
+    translation,
+  },
+} as const;
 
 declare module 'react-i18next' {
   interface CustomTypeOptions {

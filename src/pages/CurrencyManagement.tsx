@@ -15,6 +15,7 @@ import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSet
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { MintCoinsForm } from '../components/modals/MintCoinsForm';
 import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWallets';
+import { formatAmount } from '../lib/utils';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -95,17 +96,17 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.minted')}
-              amount={`${tokenSummary?.totalMinted || 0}`}
+              amount={formatAmount(tokenSummary?.totalMinted)}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.transferred')}
-              amount={`${tokenSummary?.totalTransferred || 0}`}
+              amount={formatAmount(tokenSummary?.totalTransferred)}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.distributed')}
-              amount={`${tokenSummary?.totalDistributed || 0}`}
+              amount={formatAmount(tokenSummary?.totalDistributed)}
             />
             <CurrencySummaryCard hideHistogram title={t('currency.total.burned')} amount="0" disabled />
           </div>

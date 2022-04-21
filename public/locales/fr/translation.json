@@ -75,10 +75,12 @@
   "all.transactions.title": "Toutes transactions",
   "total.transactions.title": "Transactions totales",
   "transaction.Id": "identifiant de transaction",
+  "transaction.title": "Transaction",
   "transaction.type": "Type de transaction",
   "transaction.time": "Temps de transaction",
   "transaction.wallet.destination": "Catégorie de portefeuille de destination",
   "transaction.wallet.source": "Catégorie de portefeuille source",
+  "transaction.details": "Détails de la transaction",
   "total.supply.description": "Approvisionnement total",
   "circulating.supply.description": "Alimentation en circulation",
   "total.not.circulation.description": "Total Non en circulation",
@@ -128,5 +130,7 @@
   "country.uk": "Royaume-Uni",
   "language.title": "Langue",
   "language.en": "Anglais",
-  "language.fr": "Français"
+  "language.fr": "Français",
+  "view.title": "Voir",
+  "success.title": "Succès"
 }
