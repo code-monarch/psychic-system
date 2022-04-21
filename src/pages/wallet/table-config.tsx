@@ -70,5 +70,6 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
   {
     Header: t('view.title'),
     Cell: (props: { row: { original: Transaction } }) => <ViewTransactionTableCell data={props.row.original} />,
+    disableSortBy: true,
   },
 ];
