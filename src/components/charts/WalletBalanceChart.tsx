@@ -145,7 +145,7 @@ export const WalletBalanceChart = (): JSX.Element => {
             value={dateFilters}
             onChange={setDateFilters}
             initiallyOpened
-            maxDate={dayjs(new Date()).subtract(1, 'days').toDate()}
+            maxDate={dayjs(new Date()).toDate()}
           />
         )}
       </DatePickerWrapper>

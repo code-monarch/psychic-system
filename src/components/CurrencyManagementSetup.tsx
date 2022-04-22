@@ -55,7 +55,7 @@ const CardDescription = styled(Paragraph)`
   color: ${({ theme }) => theme.colors.primary.darkgrey};
   font-size: 14px;
   line-height: 21px;
-  max-width: 520px;
+  max-width: 550px;
 `;
 
 const Container = styled.div`
