@@ -90,9 +90,9 @@ export const Requests = (): JSX.Element => {
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <RightBarHeader>
-            <div>
+            <div style={{ marginBottom: 20 }}>
               <Title>{t('quick.actions.title')}</Title>
-              <PageDescription>{t('quick.actions.description')}</PageDescription>
+              {/* <PageDescription>{t('quick.actions.description')}</PageDescription> */}
             </div>
           </RightBarHeader>
           <QuickActions>
