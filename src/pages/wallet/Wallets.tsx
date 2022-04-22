@@ -94,7 +94,7 @@ export const Wallets = (props): JSX.Element => {
           </Header>
           <WalletBalanceChart />
           <RecentTransactionsArea>
-            <Title>{t('recent.internal.transactions.description')}</Title>
+            <Title>{t('recent.external.transactions.description')}</Title>
             <TransactionsTable<Transaction>
               columnConfig={getTransactionsTableColumnConfig(t)}
               loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}
