@@ -1402,4 +1402,7 @@ export const chartSelectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>
     marginBottom: 10,
     width: 140,
   },
+  item: {
+    fontSize: 12,
+  },
 };
