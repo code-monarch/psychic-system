@@ -138,6 +138,7 @@ export const WalletBalanceChart = (): JSX.Element => {
           rightSection={<ChevronDownIcon />}
           styles={chartSelectStyles}
           data={walletDurationOptions}
+          maxDropdownHeight={280}
         />
         {isDatePickerVisible && (
           <DateRangePicker
