@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Cell, Column } from 'react-table';
 import { TFunction } from 'react-i18next';
+import moment from 'moment';
 import { TransactionType } from '../../lib/constants';
-import { formatAmount, formatDate } from '../../lib/utils';
+import { formatAmount, formatDate, formatEntity } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
 import { ViewTransactionTableCell } from '../../components/tables/ViewTransactionTableCell';
 
@@ -48,11 +49,12 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
   {
     Header: t('entity'),
     accessor: 'entity',
+    Cell: (props) => formatEntity(props.value) || '',
   },
   {
     Header: t('transaction.time'),
     accessor: 'createdAt',
-    Cell: (props) => formatDate(new Date(props.value)),
+    Cell: (props) => moment(props?.value).format('DD-MM-YYYY, h:mm:ss a'),
   },
 
   {

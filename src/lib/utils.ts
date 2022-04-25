@@ -60,6 +60,14 @@ export const formatAmount = (amount: number): string => {
   return formatter.format(amount);
 };
 
+export const formatEntity = (entity: string): string => {
+  if (!entity) return '';
+  if (entity === 'haiti-pay-test') return 'HaitiPay';
+  if (entity === 'emtech-cli') return 'BRH';
+
+  return entity;
+};
+
 export const getNavigationItems = (t: TFunction) => {
   const navigationItems = [
     {
