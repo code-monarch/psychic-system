@@ -49,8 +49,8 @@ export const CirculationComponent = () => {
   const { data: institutionWallets = [], isLoading: isLoadingInstitutionWallets } = useGetInstitutionWallets();
 
   const tokensData = [
-    { name: 'Circulating Supply', value: walletBalanceAndTokenDetails?.circulatingSupply || 0 },
-    { name: 'Non circulating Supply', value: walletBalanceAndTokenDetails?.notInCirculation || 0 },
+    { name: t('circulating.supply.description'), value: walletBalanceAndTokenDetails?.circulatingSupply || 0 },
+    { name: t('non.circulating.supply.description'), value: walletBalanceAndTokenDetails?.notInCirculation || 0 },
   ];
 
   const institutionBalance = institutionWallet?.balances?.[0]?.balance;

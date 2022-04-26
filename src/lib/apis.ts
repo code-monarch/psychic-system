@@ -37,6 +37,10 @@ export const secureMainApi = axios.create({
   baseURL: SECURE_MAIN_API,
 });
 
+export const ratesApi = axios.create({
+  baseURL: 'https://openexchangerates.org/api/',
+});
+
 secureMainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const configWithHeaders = await getSecureHeaders(config);
   configWithHeaders.headers.common['Accept-Language'] = i18next.resolvedLanguage;

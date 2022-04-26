@@ -1,10 +1,9 @@
 import styled, { useTheme } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Space } from '@mantine/core';
-import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
-import { formatAmount } from '../../lib/utils';
+import { formatAmount, setWithExpiry, getWithExpiry } from '../../lib/utils';
 import {
   useGetTransactionHistory,
   useGetTransactionSummary,
@@ -19,9 +18,9 @@ import { OverviewCard } from '../../components/OverviewCard';
 import external1Icon from '../../assets/images/icons/overview/external1.svg';
 import external2Icon from '../../assets/images/icons/overview/external2.svg';
 import tokenIcon from '../../assets/images/icons/overview/token.svg';
+import { useGetRates } from '../../hooks/useRates';
 
 const Wrapper = styled.div``;
-
 const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
@@ -46,7 +45,29 @@ export const Overview = (): JSX.Element => {
   const { green, blue, yellow } = theme.colors.primary;
   const { t } = useTranslation();
 
+  const { mutate: getRates, isLoading } = useGetRates();
+
   const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const [currentRate, setCurrentRate] = useState<number | null>(null);
+
+  const fetchRates = () => {
+    getRates(undefined, {
+      onSuccess: (ratesData) => {
+        const rate = ratesData?.rates?.HTG;
+        setWithExpiry('rate', rate, 86400000);
+        setCurrentRate(rate);
+      },
+    });
+  };
+
+  useEffect(() => {
+    const rate = getWithExpiry('rate');
+    if (rate) {
+      setCurrentRate(rate);
+    } else {
+      fetchRates();
+    }
+  }, []);
 
   const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
@@ -81,6 +102,9 @@ export const Overview = (): JSX.Element => {
             title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
             subtitle={t('to.date')}
             color={green}
+            usdAmount={
+              currentRate ? formatAmount(transactionSummary?.totalExternalTransactionAmount / currentRate) : 'N/A'
+            }
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
@@ -95,7 +119,12 @@ export const Overview = (): JSX.Element => {
             title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
             subtitle={t('duration.one.day')}
             color={blue}
-            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
+            usdAmount={
+              currentRate
+                ? formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount / currentRate)
+                : 'N/A'
+            }
+            amount={formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount)}
           />
         </div>
         <div
@@ -108,11 +137,19 @@ export const Overview = (): JSX.Element => {
             title={`${t('tokens.distribution')}`}
             subtitle={t('to.date')}
             color={yellow}
+            usdAmount={
+              currentRate ? formatAmount(walletBalanceAndTokenDetails?.circulatingSupply / currentRate) : 'N/A'
+            }
             amount={formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}
           />
         </div>
       </TransactionCards>
-      <ExchangeRate>{t('usd.exchange.rate')}: $0.91 </ExchangeRate>
+      {currentRate && (
+        <ExchangeRate>
+          {t('usd.exchange.rate')}: ${(1 / currentRate).toFixed(5)}{' '}
+        </ExchangeRate>
+      )}
+
       <Space h={12} />
       <div>
         <TrendedBalanceChart />
