@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 const Chart = styled.div`
   display: flex;
@@ -49,10 +49,11 @@ const Bar = styled.div<{ color: string }>`
 
 const Value = styled.div`
   color: ${({ theme }) => theme.colors.primary.black};
-  font-size: 14px;
+  font-size: 24px;
   line-height: 150%;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 8px;
+  font-family: ProximaNovaBold;
 `;
 
 export interface Option {
@@ -63,6 +64,10 @@ export interface Option {
 
 export default function ComparisonChart({ options }: { options: Option[] }) {
   const total = options.map((option) => option.value).reduce((a, b) => a + b);
+
+  const theme: any = useTheme();
+  const { darkgrey } = theme.colors.primary;
+  const { grey } = theme.colors.secondary;
   return (
     <Chart>
       {options.map((option, i, { length }) => {
@@ -71,7 +76,8 @@ export default function ComparisonChart({ options }: { options: Option[] }) {
           <ChartOption key={`chartoption-${i}`} first={i === 0} last={i + 1 === length} ratio={ratio}>
             <Label>{option.label}</Label>
             <Bar color={option.color} />
-            <Value>{Math.round(ratio * 100) /* TODO: Improve this to ensure it equals 100 */} %</Value>
+            {/* <Value>{Math.round(ratio * 100) /* TODO: Improve this to ensure it equals 100 *!/</Value> */}
+            <Value style={{ color: option.color === grey ? darkgrey : option.color }}>{option.value || 'N/A'}</Value>
           </ChartOption>
         );
       })}

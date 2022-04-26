@@ -203,6 +203,8 @@ export const TransactionsTable = <R extends object>({
   getColumnProps = defaultPropGetter,
   getCellProps = defaultPropGetter,
   rowData,
+  hidePagination = false,
+  hideTotal = false,
   queryPageSize,
   queryPageIndex,
   setQueryPageIndex,
@@ -214,6 +216,8 @@ export const TransactionsTable = <R extends object>({
   hideFilters?: boolean;
   loading?: boolean;
   isPreviousData?: boolean;
+  hidePagination?: boolean;
+  hideTotal?: boolean;
   totalPages: number;
   totalItems?: number;
   queryPageIndex: number;
@@ -273,10 +277,14 @@ export const TransactionsTable = <R extends object>({
   return (
     <TableWrapper>
       <LoadingOverlay visible={loading} />
+
       <Header>
-        <Totals>
-          {totalItems || 0} {t('total.transactions.title')}
-        </Totals>
+        {!hideTotal && (
+          <Totals>
+            {totalItems || 0} {t('total.transactions.title')}
+          </Totals>
+        )}
+
         {!hideFilters && (
           <Controls>
             {/* TODO: Add search and filter capability */}
@@ -296,7 +304,7 @@ export const TransactionsTable = <R extends object>({
         </Table>
       </TableContainer>
 
-      {pageOptions.length && (
+      {pageOptions.length && !hidePagination && (
         <Pagination>
           <div className="pagination">
             <TextButton
