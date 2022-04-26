@@ -24,9 +24,11 @@ interface ICurrencySummaryCardProps {
   color?: string;
   cardImage?: string;
   disabled?: boolean;
-  usdAmount?: string;
+  usdAmount: number | null;
 }
 
+const numberFormatter = (num: number) =>
+  new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
 export const OverviewCard = ({
   title,
   subtitle,
@@ -38,6 +40,8 @@ export const OverviewCard = ({
 }: ICurrencySummaryCardProps): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
+
+  const usd = numberFormatter(usdAmount);
   return (
     <Wrapper>
       <TopSection>
@@ -50,7 +54,7 @@ export const OverviewCard = ({
           <CardAmount style={{ color }}>
             {amount} <span>BTKB</span>
           </CardAmount>
-          {usdAmount !== 'N/A' && <CardAmountUSD style={{ color }}>${`${usdAmount} USD`}</CardAmountUSD>}
+          {usdAmount && <CardAmountUSD style={{ color }}>${`${usd} USD`}</CardAmountUSD>}
         </AmountSection>
       </BottomSection>
     </Wrapper>

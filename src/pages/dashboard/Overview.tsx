@@ -102,9 +102,7 @@ export const Overview = (): JSX.Element => {
             title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
             subtitle={t('to.date')}
             color={green}
-            usdAmount={
-              currentRate ? formatAmount(transactionSummary?.totalExternalTransactionAmount / currentRate) : 'N/A'
-            }
+            usdAmount={currentRate ? transactionSummary?.totalExternalTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
@@ -119,11 +117,7 @@ export const Overview = (): JSX.Element => {
             title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
             subtitle={t('duration.one.day')}
             color={blue}
-            usdAmount={
-              currentRate
-                ? formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount / currentRate)
-                : 'N/A'
-            }
+            usdAmount={currentRate ? transactionSummary?.totalExternalTrendingTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount)}
           />
         </div>
@@ -137,9 +131,7 @@ export const Overview = (): JSX.Element => {
             title={`${t('tokens.distribution')}`}
             subtitle={t('to.date')}
             color={yellow}
-            usdAmount={
-              currentRate ? formatAmount(walletBalanceAndTokenDetails?.circulatingSupply / currentRate) : 'N/A'
-            }
+            usdAmount={currentRate ? walletBalanceAndTokenDetails?.circulatingSupply / currentRate : null}
             amount={formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}
           />
         </div>
