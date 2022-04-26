@@ -2,7 +2,6 @@ import styled, { useTheme } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { ParagraphBold, Title } from '../styled';
-import { SummaryTable } from './SummaryTable';
 import userIcon from '../../assets/images/icons/population/users.svg';
 import walletIcon from '../../assets/images/icons/population/wallet.svg';
 import percentageIcon from '../../assets/images/icons/population/percentage.png';
@@ -13,8 +12,6 @@ export const PopulationTable = (): JSX.Element => {
   const theme: any = useTheme();
 
   const { green, blue, yellow } = theme.colors.primary;
-
-  // TODO: Get config data from API
 
   return (
     <div>
