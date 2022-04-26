@@ -1,15 +1,17 @@
 import styled, { useTheme } from 'styled-components';
 import { ArrowRightIcon } from '@modulz/radix-icons';
-import { Space } from '@mantine/core';
+import { LoadingOverlay, Space } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import React, { useState } from 'react';
 import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
-import { useGetWalletAndTokenDetails } from '../../hooks/useWallets';
-import { formatAmount } from '../../lib/utils';
-import { AssetCard } from '../AssetCard';
+import { useGetInstitutionWallets, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
+import { formatAmount, formatEntity } from '../../lib/utils';
 import { MEMBER_ROUTE } from '../../lib/constants';
+import { CustomPieChart } from '../charts/CustomPieChart';
+import { ManualDistributionForm } from '../modals/ManualDistributionForm';
 
 const StyledNameValue = styled(NameValue)`
   margin: 8px 0;
@@ -26,95 +28,226 @@ const StyledNameValue = styled(NameValue)`
   }
 `;
 
-const Divider = styled.hr`
-  border: 0;
-  height: 1px;
-  background-color: ${({ theme }) => theme.colors.secondary.grey};
-  margin: 18px 0;
-`;
-
 export const CirculationComponent = () => {
   const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+
   const history = useHistory();
+  const [distributeFormModalOpened, setDistributeFormModalOpened] = useState<boolean>(false);
+
+  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const institutionWallet = wallets?.find((wallet) => wallet?.walletType === 'Institution');
+  const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
+  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
 
   const theme: any = useTheme();
-  const { green } = theme.colors.primary;
-  const { darkgreen, blue } = theme.colors.secondary;
+  const { green, yellow, blue: primaryBlue } = theme.colors.primary;
+  const { grey, blue } = theme.colors.secondary;
+
+  const colors = [green, primaryBlue, yellow];
 
   const { t } = useTranslation();
+  const { data: institutionWallets = [], isLoading: isLoadingInstitutionWallets } = useGetInstitutionWallets();
 
-  // TODO: Replace with data from API
-  const options = [
+  const tokensData = [
+    { name: 'Circulating Supply', value: walletBalanceAndTokenDetails?.circulatingSupply || 0 },
+    { name: 'Non circulating Supply', value: walletBalanceAndTokenDetails?.notInCirculation || 0 },
+  ];
+
+  const institutionBalance = institutionWallet?.balances?.[0]?.balance;
+  const masterBalance = masterReserveWallet?.balances?.[0]?.balance;
+  const distributionBalance = distributionWallet?.balances?.[0]?.balance;
+
+  const internalWalletOptions = [
     {
-      label: t('local.tab.title'),
-      color: green,
-      value: 86,
+      label: t('master.title'),
+      color: grey,
+      value: Number(masterBalance),
     },
     {
-      label: t('international.tab.title'),
-      color: darkgreen,
-      value: 14,
+      label: t('distribution.title'),
+      color: green,
+      value: Number(distributionBalance),
     },
   ];
+
+  const internalWalletTotal = internalWalletOptions.map((option) => option.value).reduce((a, b) => a + b);
+  const masterWalletPercentage = (Number(masterBalance) / internalWalletTotal) * 100;
+  const distributionWalletPercentage = (Number(distributionBalance) / internalWalletTotal) * 100;
   return (
     <div>
-      <TokensHeaderWrapper>
-        <Title>{t('tokens.circulation.description')}</Title>
-        <Title>
-          {walletBalanceAndTokenDetails?.circulatingSupply
-            ? formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)
-            : '0'}
-        </Title>
-      </TokensHeaderWrapper>
+      <Card style={{ height: 253 }}>
+        <LoadingOverlay visible={isLoadingWalletTokenDetails} />
+        <TokensHeaderWrapper>
+          <Title>{t('tokens.circulation.description')}</Title>
+          <Title>
+            <TokensAmount>
+              {walletBalanceAndTokenDetails?.totalSupply
+                ? formatAmount(walletBalanceAndTokenDetails?.totalSupply)
+                : '0'}
+            </TokensAmount>
+            BTKB
+          </Title>
+        </TokensHeaderWrapper>
+        <TokensChartWrapper>
+          <CustomPieChart data={tokensData} />
+        </TokensChartWrapper>
+        <LinkContainer>
+          <DashboardLink>
+            <LinkText
+              onClick={() => {
+                history.push(MEMBER_ROUTE.CURRENCY_MANAGEMENT);
+              }}
+            >
+              {t('tokens.manage')}
+            </LinkText>
+            <ArrowRightIcon fontWeight={600} color={green} />
+          </DashboardLink>
+        </LinkContainer>
+      </Card>
 
-      <ComparisonChart options={options} />
-      <Space h={12} />
-      <DashboardLink>
-        <LinkText
-          onClick={() => {
-            history.push(MEMBER_ROUTE.TRANSACTIONS);
-          }}
-        >
-          {t('all.transactions.title')}
-        </LinkText>
-        <ArrowRightIcon fontWeight={600} color={green} />
-      </DashboardLink>
+      <Card>
+        <LoadingOverlay visible={isLoadingWalletTokenDetails || isLoadingInstitutionWallets} />
+        <TokensHeaderWrapper>
+          <Title>{t('wallets.institution')}</Title>
+          <Title>
+            <TokensAmount>{formatAmount(institutionBalance) || 0}</TokensAmount>
+            BTKB
+          </Title>
+        </TokensHeaderWrapper>
+        {institutionWallets.map((wallet, index) => {
+          const walletBalance = wallet?.balances?.[0]?.balance || 0;
+          const percentage = (Number(walletBalance) / Number(institutionBalance)) * 100;
+          return (
+            <WalletWrapper>
+              <WalletLeftSection>
+                <WalletTitle>{formatEntity(wallet?.userId)}</WalletTitle>
+                <div style={{ width: '100%', height: 12, paddingRight: 20 }}>
+                  <WalletProgressBar style={{ width: `${percentage}%`, backgroundColor: colors[index] }} />
+                </div>
+              </WalletLeftSection>
+              <WalletRightSection>
+                <WalletAmount>
+                  {formatAmount(walletBalance)}, <span>{percentage ? percentage.toFixed(2) : 'N/A'}%</span>
+                </WalletAmount>
+              </WalletRightSection>
+            </WalletWrapper>
+          );
+        })}
 
-      <Section style={{ marginBottom: 30, marginTop: 30 }}>
-        <Title>{t('total.assets')}</Title>
-        <CardsWrapper>
-          <AssetCard name="HTG & BTKB" value="431.2B" color={blue} symbol="B" />
-          <AssetCard name="USD & USDC Balance" value="$4.34B" color={green} symbol="$" />
-        </CardsWrapper>
-      </Section>
+        <LinkContainer>
+          <DashboardLink>
+            <LinkText
+              onClick={() => {
+                setDistributeFormModalOpened(true);
+              }}
+            >
+              {t('distribute.title')}
+            </LinkText>
+            <ArrowRightIcon fontWeight={600} color={green} />
+          </DashboardLink>
+        </LinkContainer>
+      </Card>
 
-      <Section>
-        <Title>{t('digital.assets')}</Title>
-        <StyledNameValue name={`${t('total')} Bitkob`} value="200.1B (BTKB)" />
-        <StyledNameValue name={`${t('total')} USDC ${t('reserves')}`} value="1.97B (USDC)" />
-      </Section>
+      <Card>
+        <LoadingOverlay visible={isLoadingWalletTokenDetails} />
+        <TokensHeaderWrapper>
+          <Title>{t('wallets.internal')}</Title>
+          <Title>
+            <TokensAmount>{formatAmount(internalWalletTotal) || 0}</TokensAmount>
+            BTKB
+          </Title>
+        </TokensHeaderWrapper>
 
-      <Divider aria-hidden="true" />
+        <ComparisonChart options={internalWalletOptions} />
+        <Section>
+          <StyledNameValue
+            name={`${t('wallets.master')}`}
+            value={`${masterWalletPercentage ? masterWalletPercentage.toFixed(2) : '0'}%`}
+          />
+          <StyledNameValue
+            name={`${t('wallets.distribution')}`}
+            value={`${distributionWalletPercentage ? distributionWalletPercentage.toFixed(2) : '0'}%`}
+          />
+        </Section>
+        <LinkContainer>
+          <DashboardLink>
+            <LinkText
+              onClick={() => {
+                history.push(MEMBER_ROUTE.WALLETS);
+              }}
+            >
+              {t('wallets.title')}
+            </LinkText>
+            <ArrowRightIcon fontWeight={600} color={green} />
+          </DashboardLink>
+        </LinkContainer>
+      </Card>
 
-      <Section>
-        <Title>Fiat</Title>
-        <StyledNameValue name={`${t('total')} Gourdes (HTG)`} value="G231.2B" />
-        <StyledNameValue name={`${t('total')} USD ${t('reserves')}`} value="$2.37B" />
-      </Section>
-
-      <DashboardLink>
-        <LinkText
-          onClick={() => {
-            history.push(MEMBER_ROUTE.WALLETS);
-          }}
-        >
-          {t('wallets.title')}
-        </LinkText>
-        <ArrowRightIcon fontWeight={600} color={green} />
-      </DashboardLink>
+      <ManualDistributionForm isVisible={distributeFormModalOpened} setIsVisible={setDistributeFormModalOpened} />
     </div>
   );
 };
+
+const WalletProgressBar = styled.div`
+  width: 50%;
+  background-color: ${({ theme }) => theme.colors.primary.green};
+  height: 100%;
+  border-radius: 4px;
+`;
+const WalletTitle = styled(ParagraphBold)`
+  color: ${({ theme }) => theme.colors.primary.black};
+  font-size: 12px;
+  font-family: ProximaNovaExtraBold;
+  margin-bottom: 8px;
+`;
+
+const WalletAmount = styled(ParagraphBold)`
+  color: ${({ theme }) => theme.colors.primary.black};
+  font-size: 14px;
+  font-family: ProximaNovaBold;
+  margin-bottom: 8px;
+  & span {
+    font-size: 12px;
+    font-family: ProximaNova;
+  }
+`;
+
+const WalletLeftSection = styled.div`
+  flex: 1;
+`;
+
+const WalletRightSection = styled.div``;
+
+const WalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.secondary.secondaryGrey};
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  position: relative;
+`;
+
+const TokensChartWrapper = styled.div`
+  flex: 1;
+`;
+
+const TokensAmount = styled.span`
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 5px;
+`;
 
 const TokensHeaderWrapper = styled.div`
   margin-bottom: 16px;
@@ -125,12 +258,14 @@ const TokensHeaderWrapper = styled.div`
 
 const LinkText = styled(ParagraphBold)`
   color: ${({ theme }) => theme.colors.primary.green};
-  font-size: 13px;
-  font-family: ProximaNovaExtraBold;
+  font-size: 14px;
+  font-family: ProximaNovaBold;
   margin-right: 10px;
 `;
 
-const Section = styled.div``;
+const Section = styled.div`
+  margin-bottom: 10px;
+`;
 
 const DashboardLink = styled.div`
   display: flex;

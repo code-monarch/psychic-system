@@ -64,5 +64,5 @@ export const SummarySidePanel = (): JSX.Element => (
 );
 
 const PopulationTableContainer = styled.div`
-  margin-bottom: 80px;
+  margin-bottom: 12px;
 `;

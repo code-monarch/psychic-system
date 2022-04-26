@@ -11,6 +11,9 @@ declare module 'styled-components' {
         grey: string;
         lightgrey: string;
         white: string;
+        blue: string;
+        purple: string;
+        yellow: string;
       };
       secondary: {
         red: string;
@@ -20,6 +23,7 @@ declare module 'styled-components' {
         lightgrey: string;
         grey: string;
         darkgreen: string;
+        secondaryGrey: string;
       };
     };
   }
@@ -34,6 +38,9 @@ export const lightTheme: DefaultTheme = {
       grey: '#828282',
       lightgrey: '#FAFAFA',
       white: '#FFFFFF',
+      blue: '#307AD5',
+      purple: '#6F5CC9',
+      yellow: '#C89720',
     },
     secondary: {
       red: '#EC3D08',
@@ -41,6 +48,7 @@ export const lightTheme: DefaultTheme = {
       lightgreen: '#CAEF45',
       yellow: '#F5C14F',
       lightgrey: '#F5F5F5',
+      secondaryGrey: '#F8F8F8',
       grey: '#E3E2E2',
       darkgreen: '#015E5F',
     },

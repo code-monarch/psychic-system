@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import moment from 'moment';
 import { AppAuthenticated } from './AppAuthenticated';
 import { AppUnauthenticated } from './AppUnauthenticated';
 import { useAuth } from './context/auth-context';
@@ -20,10 +21,19 @@ export const App = (): JSX.Element => {
   }, [userRole, appUser]);
 
   useEffect(() => {
+    if (i18n?.resolvedLanguage) {
+      moment.locale([i18n?.resolvedLanguage, 'en']);
+    }
+
     i18n.on('languageChanged', (lng) => {
       queryClient.invalidateQueries();
+      moment.locale([lng, 'en']);
     });
-  }, []);
+
+    i18n.on('initialized', (lng) => {
+      moment.locale([i18n.resolvedLanguage, 'en']);
+    });
+  }, [i18n?.resolvedLanguage]);
 
   if (appUser) {
     return userReady && userRole ? (

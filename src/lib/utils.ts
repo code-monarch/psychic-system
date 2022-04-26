@@ -55,9 +55,9 @@ const formatter = new Intl.NumberFormat('en-US', {
   // maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
-export const formatAmount = (amount: number): string => {
+export const formatAmount = (amount: number | string): string => {
   if (!amount) return '0';
-  return formatter.format(amount);
+  return formatter.format(Number(amount));
 };
 
 export const formatEntity = (entity: string): string => {
@@ -112,6 +112,10 @@ export const getNavigationItems = (t: TFunction) => {
 };
 
 export const getNavigationTabs = (t: TFunction): { title: string; route: string }[] => [
+  {
+    title: t('overview.title'),
+    route: 'overview',
+  },
   {
     title: t('international.tab.title'),
     route: 'international',
