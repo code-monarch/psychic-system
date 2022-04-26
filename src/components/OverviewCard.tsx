@@ -1,7 +1,5 @@
 import styled, { useTheme } from 'styled-components';
 import { Paragraph, ParagraphBold } from './styled';
-import Histogram from './charts/Histogram';
-import { formatAmount } from '../lib/utils';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -26,6 +24,7 @@ interface ICurrencySummaryCardProps {
   color?: string;
   cardImage?: string;
   disabled?: boolean;
+  usdAmount?: string;
 }
 
 export const OverviewCard = ({
@@ -35,6 +34,7 @@ export const OverviewCard = ({
   disabled,
   color,
   cardImage,
+  usdAmount,
 }: ICurrencySummaryCardProps): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
@@ -50,7 +50,7 @@ export const OverviewCard = ({
           <CardAmount style={{ color }}>
             {amount} <span>BTKB</span>
           </CardAmount>
-          <CardAmountUSD style={{ color }}>$233.76 USD</CardAmountUSD>
+          {usdAmount !== 'N/A' && <CardAmountUSD style={{ color }}>${`${usdAmount} USD`}</CardAmountUSD>}
         </AmountSection>
       </BottomSection>
     </Wrapper>

@@ -112,6 +112,7 @@ interface TransactionSummaryReportResponse {
   totalAmount: number;
   totalInternalTransactionAmount: number;
   totalExternalTransactionAmount: number;
+  totalExternalTrendingTransactionAmount: number;
 }
 
 export class WalletService {

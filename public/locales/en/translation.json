@@ -87,6 +87,7 @@
   "transaction.details": "Transaction Details",
   "total.supply.description": "Total Supply",
   "circulating.supply.description": "Circulating Supply",
+  "non.circulating.supply.description": "Non Circulating Supply",
   "total.not.circulation.description": "Total Not in Circulation",
   "recent.external.transactions.description": "Most Recent External Transactions",
   "mint.transfer.tokens.description": "Mint and transfer tokens (also called coins) internally for circulation. Burn tokens to reduce the number of coins in use. Distribute",
