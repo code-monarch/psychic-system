@@ -54,7 +54,7 @@ export const OverviewCard = ({
           <CardAmount style={{ color }}>
             {amount} <span>BTKB</span>
           </CardAmount>
-          {usdAmount && <CardAmountUSD style={{ color }}>${`${usd} USD`}</CardAmountUSD>}
+          {Boolean(usdAmount) && <CardAmountUSD style={{ color }}>${`${usd} USD`}</CardAmountUSD>}
         </AmountSection>
       </BottomSection>
     </Wrapper>
