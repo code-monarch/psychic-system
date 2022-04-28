@@ -75,7 +75,6 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
                 <FormSection>
                   <Select
                     label={t('choose.wallet.destination')}
-                    rightSection={null}
                     value={masterReserveWallet?.walletId}
                     styles={selectStyles}
                     data={[masterReserveWallet]?.map((item) => ({
@@ -148,7 +147,7 @@ const selectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
     fontFamily: "'ProximaNova', sans-serif;",
     color: '#828282',
   },
-  rightSection: { pointerEvents: 'none' },
+  rightSection: { pointerEvents: 'none', display: 'none' },
   root: {
     marginBottom: 29,
   },
