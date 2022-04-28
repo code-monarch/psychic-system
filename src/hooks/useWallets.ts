@@ -61,6 +61,11 @@ export const useGetWalletGraphData = () => {
   return result;
 };
 
+export const useGetDashboardGraphData = () => {
+  const result = useMutation(WalletService.getDashboardBalanceChartData);
+  return result;
+};
+
 export const useMintTokens = () => {
   const result = useMutation(WalletService.mintTokens);
   return result;

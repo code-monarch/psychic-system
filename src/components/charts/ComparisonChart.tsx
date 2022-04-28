@@ -1,4 +1,5 @@
 import styled, { useTheme } from 'styled-components';
+import { formatAmount } from '../../lib/utils';
 
 const Chart = styled.div`
   display: flex;
@@ -77,7 +78,9 @@ export default function ComparisonChart({ options }: { options: Option[] }) {
             <Label>{option.label}</Label>
             <Bar color={option.color} />
             {/* <Value>{Math.round(ratio * 100) /* TODO: Improve this to ensure it equals 100 *!/</Value> */}
-            <Value style={{ color: option.color === grey ? darkgrey : option.color }}>{option.value || 'N/A'}</Value>
+            <Value style={{ color: option.color === grey ? darkgrey : option.color }}>
+              {formatAmount(option.value) || 'N/A'}
+            </Value>
           </ChartOption>
         );
       })}

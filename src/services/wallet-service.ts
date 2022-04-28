@@ -58,8 +58,15 @@ export interface TransferTokensRequest {
 
 export interface WalletGraphRequest {
   tokenId: string;
-  walletType: string;
   distributionWalletId: string;
+  period?: number;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface DashboardGraphRequest {
+  tokenId: string;
+  transactionType: string;
   period?: number;
   startDate?: string;
   endDate?: string;
@@ -72,6 +79,12 @@ export interface WalletGraphResponse {
     [key: number]: number;
   };
   graphDataDebit: {
+    [key: number]: number;
+  };
+}
+
+export interface DashboardGraphResponse {
+  graphData: {
     [key: number]: number;
   };
 }
@@ -306,6 +319,11 @@ export class WalletService {
 
   static async getWalletBalanceChartData(request: WalletGraphRequest): Promise<WalletGraphResponse> {
     const response = await secureMainApi.post(`/cb/graphData`, request);
+    return response.data;
+  }
+
+  static async getDashboardBalanceChartData(request: DashboardGraphRequest): Promise<DashboardGraphResponse> {
+    const response = await secureMainApi.post(`/cb/dashGraphData`, request);
     return response.data;
   }
 }

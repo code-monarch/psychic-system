@@ -50,27 +50,15 @@ const RobotImage = styled.img`
   right: 107px;
 `;
 
-const CloseIconWrapper = styled.div`
-  cursor: pointer;
-  position: absolute;
-  top: 30px;
-  right: 30px;
-`;
-
-const CardTitle = styled(ParagraphBold)`
+const CardTitle = styled.h2`
   text-transform: none;
   font-size: 24px;
-  line-height: 26px;
+  line-height: 25.2px;
+  margin: 0;
   margin-bottom: 12px;
   color: white;
   width: 230px;
-`;
-
-const CardDescription = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.darkgrey};
-  font-size: 14px;
-  line-height: 21px;
-  max-width: 550px;
+  font-family: 'ProximaNova', sans-serif;
 `;
 
 const Container = styled.div`

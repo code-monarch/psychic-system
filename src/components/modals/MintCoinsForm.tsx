@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import manual_distribution_image from '../../assets/images/manual_distribution.svg';
+import mint_image from '../../assets/images/mint.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
 import { useGetWalletAndTokenDetails, useMintTokens } from '../../hooks/useWallets';
 import { TextInput } from '../Inputs';
@@ -62,12 +62,12 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
     );
   };
   return (
-    <Modal size="800px" opened={isVisible} centered onClose={() => setIsVisible(false)}>
+    <Modal size="900px" opened={isVisible} centered onClose={() => setIsVisible(false)}>
       <Screen fluid>
         <PageContainer>
           <InnerWrapper>
             <ImageWrapper>
-              <LoginPageImage src={manual_distribution_image} alt="Manual Distribution Image" />
+              <PageImage src={mint_image} alt="Manual Distribution Image" />
             </ImageWrapper>
             <form onSubmit={handleSubmit(mint)}>
               <FormWrapper>
@@ -177,11 +177,11 @@ const InnerWrapper = styled(Grid)`
 `;
 
 const ImageWrapper = styled.div`
-  margin-right: 120px;
+  margin-right: 100px;
 `;
 
-const LoginPageImage = styled.img`
-  max-width: 133px;
+const PageImage = styled.img`
+  max-width: 269px;
 `;
 
 const FormWrapper = styled.div`

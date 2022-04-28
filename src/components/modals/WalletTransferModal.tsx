@@ -120,10 +120,12 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       onBlur={onBlur}
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
-                      data={wallets.map((wallet) => ({
-                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
-                        value: wallet?.walletId,
-                      }))}
+                      data={wallets
+                        .filter((wallet) => wallet?.walletType !== 'Institution')
+                        .map((wallet) => ({
+                          label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
+                          value: wallet?.walletId,
+                        }))}
                     />
                   )}
                 />

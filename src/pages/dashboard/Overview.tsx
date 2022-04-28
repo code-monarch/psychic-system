@@ -99,7 +99,7 @@ export const Overview = (): JSX.Element => {
         >
           <OverviewCard
             cardImage={external1Icon}
-            title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
+            title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('to.date')}
             color={green}
             usdAmount={currentRate ? transactionSummary?.totalExternalTransactionAmount / currentRate : null}
@@ -114,7 +114,7 @@ export const Overview = (): JSX.Element => {
         >
           <OverviewCard
             cardImage={external2Icon}
-            title={`${t('navigation.transactions')} ( ${t('external.tab.title')} )`}
+            title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('duration.one.day')}
             color={blue}
             usdAmount={currentRate ? transactionSummary?.totalExternalTrendingTransactionAmount / currentRate : null}

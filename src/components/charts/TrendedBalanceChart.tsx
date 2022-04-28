@@ -6,12 +6,11 @@ import { LoadingOverlay, Select } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { DateRangePicker } from '@mantine/dates';
 import moment from 'moment';
-import { Paragraph, ParagraphBold, Title } from '../styled';
-import { ReAreaChart } from './AreaChart';
-import { useGetWalletAndTokenDetails, useGetWalletGraphData } from '../../hooks/useWallets';
+import { ParagraphBold, Title } from '../styled';
+import { useGetDashboardGraphData, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
-import { formatAmount, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
-import { WalletGraphRequest } from '../../services/wallet-service';
+import { getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
+import { DashboardGraphRequest } from '../../services/wallet-service';
 import { TrendedChart } from './TrendsChart';
 
 export const TrendedBalanceChart = (): JSX.Element => {
@@ -27,12 +26,9 @@ export const TrendedBalanceChart = (): JSX.Element => {
 
   const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
-  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
+  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetDashboardGraphData();
 
-  const creditChartData = data?.graphDataCredit || {};
-  const debitChartData = data?.graphDataDebit || {};
-  const creditAmount = data?.credit || 0;
-  const debitAmount = data?.debit || 0;
+  const creditChartData = data?.graphData || {};
 
   const getXAxisPoints = (time) => {
     const locale = i18n.resolvedLanguage;
@@ -59,7 +55,6 @@ export const TrendedBalanceChart = (): JSX.Element => {
       graphData.push({
         name: getXAxisPoints(timeStamp),
         [t('credit')]: creditChartData[timeStamp],
-        [t('debit')]: debitChartData[timeStamp],
       });
     }
     return graphData;
@@ -76,9 +71,8 @@ export const TrendedBalanceChart = (): JSX.Element => {
   }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
 
   const fetchData = () => {
-    const chartRequest: WalletGraphRequest = {
-      distributionWalletId: distributionWallet?.walletId,
-      walletType: 'distribution',
+    const chartRequest: DashboardGraphRequest = {
+      transactionType: 'External',
       tokenId: walletBalanceAndTokenDetails?.tokenId,
       period: Number(period),
     };
@@ -112,7 +106,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <LoadingOverlay visible={isLoadingGraph} />
+      <LoadingOverlay visible={isLoadingGraph || isLoadingWalletTokenDetails} />
       <TopSection>
         <LeftSection>
           <Title>{t('trended.transactions.title')}</Title>
@@ -204,12 +198,4 @@ const WalletSection = styled.div`
   display: flex;
   width: 150px;
   justify-content: space-between;
-`;
-
-const CreditLabel = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.green};
-`;
-
-const DebitLabel = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.secondary.red};
 `;
