@@ -41,7 +41,12 @@ const TransparentButton = styled.div`
   justify-content: center;
   font-family: 'ProximaNovaBold';
   color: ${({ theme }) => theme.colors.primary.black};
-  border: 1px solid ${({ theme }) => theme.colors.secondary.grey}; ;
+  border: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.green};
+    color: white;
+  }
 `;
 
 const Button2 = styled(Button)`

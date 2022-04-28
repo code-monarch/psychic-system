@@ -77,7 +77,6 @@ export const WalletBalanceChart = (): JSX.Element => {
   const fetchData = () => {
     const chartRequest: WalletGraphRequest = {
       distributionWalletId: distributionWallet?.walletId,
-      walletType: 'distribution',
       tokenId: walletBalanceAndTokenDetails?.tokenId,
       period: Number(period),
     };
