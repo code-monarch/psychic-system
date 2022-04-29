@@ -84,9 +84,6 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
-          queryClient.invalidateQueries(cacheKey.tokenReportSummary);
-          queryClient.invalidateQueries(cacheKey.transactionHistory);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // callback?.();
@@ -96,7 +93,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   };
 
   return (
-    <Modal size="calc(100vw - 87px)" opened={isVisible} centered onClose={() => setIsVisible(false)}>
+    <Modal size="calc(100vw - 87px)" overflow="inside" opened={isVisible} centered onClose={() => setIsVisible(false)}>
       <Screen fluid>
         <PageContainer>
           <InnerWrapper>
