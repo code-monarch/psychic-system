@@ -110,7 +110,7 @@ export const WalletBalanceChart = (): JSX.Element => {
 
   return (
     <Wrapper>
-      <LoadingOverlay visible={isLoadingGraph} />
+      <LoadingOverlay visible={isLoadingGraph} zIndex={5} />
       <TopSection>
         <LeftSection>
           <Title>{t('wallets.balance')} (BTKB)</Title>

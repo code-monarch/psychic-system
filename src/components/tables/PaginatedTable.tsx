@@ -276,7 +276,7 @@ export const TransactionsTable = <R extends object>({
   const { t } = useTranslation();
   return (
     <TableWrapper>
-      <LoadingOverlay visible={loading} />
+      <LoadingOverlay visible={loading} zIndex={5} />
 
       <Header>
         {!hideTotal && (
