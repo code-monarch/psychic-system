@@ -11,6 +11,7 @@ export const cacheKey = {
   transactionHistory: 'transactionHistory',
   institutionWallets: 'institutionWallets',
   currentUserRole: 'currentUserRole',
+  featureFlags: 'featureFlags',
   cbTransactionsHistory: 'cbTransactionsHistory',
   transactionSummary: 'transactionSummary',
   walletGraphData: 'walletGraphData',

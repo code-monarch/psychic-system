@@ -68,9 +68,21 @@ export class AuthenticationService {
       return USER_ROLES.INTEGRATOR;
     }
   }
+
+  static async getFeatureFlags(): Promise<FeatureFlagsResponse[]> {
+    const response = await mainApi.get(`/feature/getAllFeatures`);
+    return response.data;
+  }
 }
 
 export interface IUserSigninData {
   email: string;
   password: string;
+}
+
+export interface FeatureFlagsResponse {
+  feature_name: string;
+  feature_enabled: number;
+  strategy_id: string;
+  strategy_params: string;
 }
