@@ -1,5 +1,5 @@
 import { USER_ROLES } from '../lib/constants';
-import { mainApi } from '../lib/apis';
+import { mainApi, secureMainApi } from '../lib/apis';
 
 /**
  * @description
@@ -70,7 +70,7 @@ export class AuthenticationService {
   }
 
   static async getFeatureFlags(): Promise<FeatureFlagsResponse[]> {
-    const response = await mainApi.get(`/feature/getAllFeatures`);
+    const response = await secureMainApi.get(`/feature/getAllFeatures`);
     return response.data;
   }
 }

@@ -9,6 +9,7 @@ import { PrimaryButton } from '../components/Buttons';
 import { MEMBER_ROUTE } from '../lib/constants';
 import { WalletTransferModal } from '../components/modals/WalletTransferModal';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
+import { useFeatureFlags } from '../context/features-flag-context';
 
 const Screen = styled(Container)`
   min-height: 100vh;
@@ -85,6 +86,7 @@ export const DashboardLandingPage = () => {
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
 
   useDocumentTitle(`DAP: ${t('navigation.home')}`);
+  const { featureFlagsNormalized } = useFeatureFlags();
   return (
     <Screen fluid>
       <PageContainer>
@@ -105,6 +107,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
+                disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 title={t('transfer.title')}
                 onClick={() => {
                   setShowWalletTransferModal(true);
@@ -114,6 +117,7 @@ export const DashboardLandingPage = () => {
             <ButtonContainer>
               <PrimaryButton
                 title={`${t('distribute.title')} BTKB`}
+                disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}

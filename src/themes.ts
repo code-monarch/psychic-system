@@ -6,6 +6,7 @@ declare module 'styled-components' {
     colors: {
       primary: {
         green: string;
+        disabled: string;
         black: string;
         darkgrey: string;
         grey: string;
@@ -19,6 +20,7 @@ declare module 'styled-components' {
         red: string;
         blue: string;
         lightgreen: string;
+        disabled: string;
         yellow: string;
         lightgrey: string;
         grey: string;
@@ -33,6 +35,7 @@ export const lightTheme: DefaultTheme = {
   colors: {
     primary: {
       green: '#4AB0A6',
+      disabled: '#6CC1B9',
       black: '#1A242D',
       darkgrey: '#4F4F4F',
       grey: '#828282',
@@ -45,6 +48,7 @@ export const lightTheme: DefaultTheme = {
     secondary: {
       red: '#EC3D08',
       blue: '#233984',
+      disabled: '#E6E6E6',
       lightgreen: '#CAEF45',
       yellow: '#F5C14F',
       lightgrey: '#F5F5F5',

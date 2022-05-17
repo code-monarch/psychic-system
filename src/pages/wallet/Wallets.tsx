@@ -15,6 +15,7 @@ import { DistributionModal } from '../../components/modals/ManualDistributionMod
 import { useGetTransactionHistory, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
 import { Transaction } from '../../services/wallet-service';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
+import { useFeatureFlags } from '../../context/features-flag-context';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -56,6 +57,7 @@ export const Wallets = (props): JSX.Element => {
   const { t } = useTranslation();
 
   useDocumentTitle(`DAP: ${t('wallets.title')}`);
+  const { featureFlagsNormalized } = useFeatureFlags();
 
   const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
 
@@ -89,6 +91,7 @@ export const Wallets = (props): JSX.Element => {
             <SecondaryButton
               title={`${t('distribute.title')} BTKB`}
               style={{ width: 152 }}
+              disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
               onClick={() => setModalOpened(true)}
             />
           </Header>

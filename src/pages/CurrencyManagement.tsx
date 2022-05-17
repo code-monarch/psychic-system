@@ -16,6 +16,7 @@ import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { MintCoinsForm } from '../components/modals/MintCoinsForm';
 import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { formatAmount } from '../lib/utils';
+import { useFeatureFlags } from '../context/features-flag-context';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -43,6 +44,7 @@ export const CurrencyManagement = (): JSX.Element => {
   const { data: tokenSummary } = useGetTokenSummary(walletBalanceAndTokenDetails?.tokenId);
   const { t } = useTranslation();
   useDocumentTitle(`DAP: ${t('navigation.currency.management')}`);
+  const { featureFlagsNormalized } = useFeatureFlags();
 
   return (
     <Wrapper>
@@ -56,12 +58,17 @@ export const CurrencyManagement = (): JSX.Element => {
           </Header>
           <Grid style={{ marginTop: 16, height: 500 }}>
             <Grid.Col md={6} lg={7} sm={12}>
-              <DistributeOption>
+              <DistributeOption className={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG ? 'disabled' : ''}>
                 <div>
                   <CardTitle>{t('distribute.title')}</CardTitle>
                   <CardDescription>{t('distribute.description')}</CardDescription>
                 </div>
-                <div className="button" onClick={() => setDistributModalOpened(true)}>
+                <div
+                  className="button"
+                  onClick={() => {
+                    featureFlagsNormalized?.TOKEN_TRANSFER_FLAG && setDistributModalOpened(true);
+                  }}
+                >
                   {t('distribute.title')}
                 </div>
               </DistributeOption>
@@ -155,6 +162,9 @@ const baseBoxStyles = css`
   transition: 0.3s ease-in-out;
   div.button {
     ${baseButtonStyles}
+  }
+  &.disabled div.button {
+    cursor: not-allowed;
   }
   &:not(.disabled):hover {
     background-color: ${({ theme }) => theme.colors.primary.green};

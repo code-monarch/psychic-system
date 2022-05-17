@@ -8,6 +8,9 @@ import { useGetDashboardGraphData } from '../hooks/useWallets';
 
 type FeatureFlagsContextProps = {
   featureFlags: FeatureFlagsResponse[];
+  featureFlagsNormalized: {
+    TOKEN_TRANSFER_FLAG: boolean;
+  };
 };
 const FeatureFlagsContext = createContext<Partial<FeatureFlagsContextProps>>({});
 FeatureFlagsContext.displayName = 'FeatureFlagsContext';
@@ -15,6 +18,14 @@ FeatureFlagsContext.displayName = 'FeatureFlagsContext';
 const FeatureFlagsProvider = (props: any) => {
   const [featureFlags, setFeatureFlags] = useState<FeatureFlagsResponse[]>([]);
   const [featureFlagsDataLocal] = useLocalStorage<FeatureFlagsResponse[]>(LOCAL_STORAGE_KEYS.FEATURE_FLAGS, []);
+
+  const TOKEN_TRANSFER_FLAG = Boolean(
+    featureFlags.find((flag) => flag.feature_name === 'TOKEN_TRANSFER_FLAG')?.feature_enabled,
+  );
+
+  const featureFlagsNormalized = {
+    TOKEN_TRANSFER_FLAG,
+  };
 
   const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetDashboardGraphData();
   useEffect(() => {
@@ -35,6 +46,7 @@ const FeatureFlagsProvider = (props: any) => {
 
   const values: FeatureFlagsContextProps = {
     featureFlags,
+    featureFlagsNormalized,
   };
   return <FeatureFlagsContext.Provider value={values} {...props} />;
 };

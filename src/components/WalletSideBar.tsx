@@ -7,6 +7,7 @@ import { PrimaryButton } from './Buttons';
 import { useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { WalletTransferModal } from './modals/WalletTransferModal';
 import { formatAmount } from '../lib/utils';
+import { useFeatureFlags } from '../context/features-flag-context';
 
 export const WalletInfo = () => {
   const theme: any = useTheme();
@@ -23,6 +24,8 @@ export const WalletInfo = () => {
   const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
   const institutionWallet = wallets?.find((wallet) => wallet?.walletType === 'Institution');
+
+  const { featureFlagsNormalized } = useFeatureFlags();
 
   return (
     <Wrapper>
@@ -113,8 +116,13 @@ export const WalletInfo = () => {
         </WalletCard>
       </AssetsSection>
 
-      <ButtonContainer onClick={() => setShowWalletTransferModal(true)}>
-        <PrimaryButton title={t('wallets.transfer.title')} style={{ width: '100%' }} />
+      <ButtonContainer>
+        <PrimaryButton
+          title={t('wallets.transfer.title')}
+          style={{ width: '100%' }}
+          onClick={() => setShowWalletTransferModal(true)}
+          disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
+        />
       </ButtonContainer>
       <WalletTransferModal isVisible={showWalletTransferModal} setIsVisible={setShowWalletTransferModal} />
     </Wrapper>
