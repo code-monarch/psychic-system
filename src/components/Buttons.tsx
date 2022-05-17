@@ -10,7 +10,7 @@ interface IButton {
   onClick?: () => void;
 }
 
-const Button = styled.button`
+const Button = styled.button<{ disabled?: boolean }>`
   background-color: ${({ theme }) => theme.colors.primary.green};
   border: none;
   border-radius: 8px;
@@ -24,9 +24,15 @@ const Button = styled.button`
   height: 40px;
   align-items: center;
   padding: 0 24px;
+  ${(props) =>
+    props?.disabled &&
+    `
+         background-color: ${props.theme.colors.primary.disabled};
+         cursor:not-allowed
+    `}
 `;
 
-const TransparentButton = styled.div`
+const TransparentButton = styled.div<{ disabled?: boolean }>`
   border-radius: 8px;
   font-weight: bold;
   display: flex;
@@ -43,10 +49,22 @@ const TransparentButton = styled.div`
   color: ${({ theme }) => theme.colors.primary.black};
   border: 1px solid ${({ theme }) => theme.colors.secondary.grey};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary.green};
-    color: white;
-  }
+  ${(props) =>
+    !props?.disabled &&
+    `
+         &:hover {
+          background-color: ${props.theme.colors.primary.green};
+          color: ${props.theme.colors.primary.white};
+      }
+    `}
+
+  ${(props) =>
+    props?.disabled &&
+    `
+         background-color: ${props.theme.colors.secondary.disabled};
+         cursor:not-allowed;
+         color: ${props.theme.colors.primary.white}
+    `}
 `;
 
 const Button2 = styled(Button)`
@@ -86,8 +104,9 @@ export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IB
 export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
   <TransparentButton
     style={style}
-    // disabled={disabled}
+    disabled={disabled}
     onClick={(e) => {
+      if (disabled) return;
       e?.preventDefault();
       onClick?.();
     }}
