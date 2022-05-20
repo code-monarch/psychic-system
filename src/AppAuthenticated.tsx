@@ -1,5 +1,6 @@
 import { AuthenticatedRoutes } from './navigation/AuthenticatedRoutes';
 import { USER_ROLES } from './lib/constants';
+import { TokenDetailsProvider } from './context/token-details-context';
 
 interface IProps {
   userId: string;
@@ -8,6 +9,8 @@ interface IProps {
 
 export const AppAuthenticated = ({ userId, userRole }: IProps): JSX.Element => (
   <>
-    <AuthenticatedRoutes userRole={userRole} userId={userId} />
+    <TokenDetailsProvider>
+      <AuthenticatedRoutes userRole={userRole} userId={userId} />
+    </TokenDetailsProvider>
   </>
 );

@@ -3,20 +3,18 @@ import { Container, Modal, Select, Space } from '@mantine/core';
 import { ChevronDownIcon } from '@modulz/radix-icons';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { Title } from '../styled';
 import { selectStyles } from '../../lib/constants';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import { useGetWalletAndTokenDetails, useTransferTokens } from '../../hooks/useWallets';
+import { useTransferTokens } from '../../hooks/useWallets';
 import { ErrorText } from '../LoginForm';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import switchIcon from '../../assets/images/switch_icon.svg';
-import { cacheKey } from '../../hooks/cacheStateKey';
 import { formatAmount } from '../../lib/utils';
+import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,7 +49,8 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     trigger('destinationWalletId');
   }, [trigger, watchFields?.sourceWalletId]);
 
-  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
+  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+
   const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const getLocation = () => {
@@ -123,7 +122,9 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       data={wallets
                         .filter((wallet) => wallet?.walletType !== 'Institution')
                         .map((wallet) => ({
-                          label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
+                          label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} ${
+                            walletBalanceAndTokenDetails?.tokenSymbol
+                          }`,
                           value: wallet?.walletId,
                         }))}
                     />
@@ -158,7 +159,9 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets.map((wallet) => ({
-                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} BTKB`,
+                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} ${
+                          walletBalanceAndTokenDetails?.tokenSymbol
+                        }`,
                         value: wallet?.walletId,
                       }))}
                     />

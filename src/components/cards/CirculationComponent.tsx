@@ -1,17 +1,18 @@
 import styled, { useTheme } from 'styled-components';
 import { ArrowRightIcon } from '@modulz/radix-icons';
-import { LoadingOverlay, Space } from '@mantine/core';
+import { LoadingOverlay } from '@mantine/core';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
-import { useGetInstitutionWallets, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
+import { useGetInstitutionWallets } from '../../hooks/useWallets';
 import { formatAmount, formatEntity } from '../../lib/utils';
 import { MEMBER_ROUTE } from '../../lib/constants';
 import { CustomPieChart } from '../charts/CustomPieChart';
 import { ManualDistributionForm } from '../modals/ManualDistributionForm';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const StyledNameValue = styled(NameValue)`
   margin: 8px 0;
@@ -29,7 +30,7 @@ const StyledNameValue = styled(NameValue)`
 `;
 
 export const CirculationComponent = () => {
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
 
   const history = useHistory();
   const [distributeFormModalOpened, setDistributeFormModalOpened] = useState<boolean>(false);
@@ -41,7 +42,7 @@ export const CirculationComponent = () => {
 
   const theme: any = useTheme();
   const { green, yellow, blue: primaryBlue } = theme.colors.primary;
-  const { grey, blue } = theme.colors.secondary;
+  const { grey } = theme.colors.secondary;
 
   const colors = [green, primaryBlue, yellow];
 
@@ -85,7 +86,7 @@ export const CirculationComponent = () => {
                 ? formatAmount(walletBalanceAndTokenDetails?.totalSupply)
                 : '0'}
             </TokensAmount>
-            BTKB
+            {walletBalanceAndTokenDetails?.tokenSymbol}
           </Title>
         </TokensHeaderWrapper>
         <TokensChartWrapper>
@@ -111,7 +112,7 @@ export const CirculationComponent = () => {
           <Title>{t('wallets.institution')}</Title>
           <Title>
             <TokensAmount>{formatAmount(institutionBalance) || 0}</TokensAmount>
-            BTKB
+            {walletBalanceAndTokenDetails?.tokenSymbol}
           </Title>
         </TokensHeaderWrapper>
         {institutionWallets.map((wallet, index) => {
@@ -154,7 +155,7 @@ export const CirculationComponent = () => {
           <Title>{t('wallets.internal')}</Title>
           <Title>
             <TokensAmount>{formatAmount(internalWalletTotal) || 0}</TokensAmount>
-            BTKB
+            {walletBalanceAndTokenDetails?.tokenSymbol}
           </Title>
         </TokensHeaderWrapper>
 

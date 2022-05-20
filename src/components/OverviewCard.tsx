@@ -23,6 +23,7 @@ interface ICurrencySummaryCardProps {
   amount?: string;
   color?: string;
   cardImage?: string;
+  tokenSymbol?: string;
   disabled?: boolean;
   usdAmount: number | null;
 }
@@ -37,6 +38,7 @@ export const OverviewCard = ({
   color,
   cardImage,
   usdAmount,
+  tokenSymbol,
 }: ICurrencySummaryCardProps): JSX.Element => {
   const theme: any = useTheme();
   const { grey } = theme.colors.primary;
@@ -52,7 +54,7 @@ export const OverviewCard = ({
         <CardImage src={cardImage} />
         <AmountSection>
           <CardAmount style={{ color }}>
-            {amount} <span>BTKB</span>
+            {amount} <span>{tokenSymbol}</span>
           </CardAmount>
           {Boolean(usdAmount) && <CardAmountUSD style={{ color }}>${`${usd} USD`}</CardAmountUSD>}
         </AmountSection>

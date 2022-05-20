@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Space } from '@mantine/core';
 import { formatAmount, setWithExpiry, getWithExpiry } from '../../lib/utils';
-import {
-  useGetTransactionHistory,
-  useGetTransactionSummary,
-  useGetWalletAndTokenDetails,
-} from '../../hooks/useWallets';
+import { useGetTransactionHistory, useGetTransactionSummary } from '../../hooks/useWallets';
 import { Paragraph, Title } from '../../components/styled';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 import { Transaction } from '../../services/wallet-service';
@@ -19,6 +15,7 @@ import external1Icon from '../../assets/images/icons/overview/external1.svg';
 import external2Icon from '../../assets/images/icons/overview/external2.svg';
 import tokenIcon from '../../assets/images/icons/overview/token.svg';
 import { useGetRates } from '../../hooks/useRates';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const Wrapper = styled.div``;
 const columnPropGetter = (col: Column<Transaction>) => {
@@ -45,9 +42,9 @@ export const Overview = (): JSX.Element => {
   const { green, blue, yellow } = theme.colors.primary;
   const { t } = useTranslation();
 
-  const { mutate: getRates, isLoading } = useGetRates();
+  const { mutate: getRates } = useGetRates();
+  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
 
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
   const [currentRate, setCurrentRate] = useState<number | null>(null);
 
   const fetchRates = () => {
@@ -101,6 +98,7 @@ export const Overview = (): JSX.Element => {
             cardImage={external1Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('to.date')}
+            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
             color={green}
             usdAmount={currentRate ? transactionSummary?.totalExternalTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
@@ -116,6 +114,7 @@ export const Overview = (): JSX.Element => {
             cardImage={external2Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('duration.one.day')}
+            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
             color={blue}
             usdAmount={currentRate ? transactionSummary?.totalExternalTrendingTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount)}
@@ -130,6 +129,7 @@ export const Overview = (): JSX.Element => {
             cardImage={tokenIcon}
             title={`${t('tokens.distribution')}`}
             subtitle={t('to.date')}
+            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
             color={yellow}
             usdAmount={currentRate ? walletBalanceAndTokenDetails?.circulatingSupply / currentRate : null}
             amount={formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}

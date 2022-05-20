@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Column } from 'react-table';
-import { Grid, Menu } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,10 +12,11 @@ import { SecondaryButton } from '../../components/Buttons';
 import { WalletInfo } from '../../components/WalletSideBar';
 import { ManualDistributionForm } from '../../components/modals/ManualDistributionForm';
 import { DistributionModal } from '../../components/modals/ManualDistributionModal';
-import { useGetTransactionHistory, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
+import { useGetTransactionHistory } from '../../hooks/useWallets';
 import { Transaction } from '../../services/wallet-service';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 import { useFeatureFlags } from '../../context/features-flag-context';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const Wrapper = styled.div`
   padding: 0 64px;
@@ -59,7 +60,7 @@ export const Wallets = (props): JSX.Element => {
   useDocumentTitle(`DAP: ${t('wallets.title')}`);
   const { featureFlagsNormalized } = useFeatureFlags();
 
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
 
   const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
@@ -89,7 +90,7 @@ export const Wallets = (props): JSX.Element => {
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton
-              title={`${t('distribute.title')} BTKB`}
+              title={`${t('distribute.title')} ${walletBalanceAndTokenDetails?.tokenSymbol}`}
               style={{ width: 152 }}
               disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
               onClick={() => setModalOpened(true)}

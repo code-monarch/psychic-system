@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Paragraph, ParagraphBold } from '../styled';
 import { Transaction } from '../../services/wallet-service';
 import { formatAmount } from '../../lib/utils';
+import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +16,7 @@ interface Iprops {
 
 export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, data }: Iprops) => {
   const { t } = useTranslation();
+  const { tokenDetails } = useTokenDetails();
 
   const theme = useTheme();
   const { green } = theme.colors.primary;
@@ -61,7 +63,9 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
 
             <DetailSection>
               <DetailsLabel>{t('transfer.amount')}</DetailsLabel>
-              <DetailsValue>{formatAmount(data?.amount)} BTKB</DetailsValue>
+              <DetailsValue>
+                {formatAmount(data?.amount)} {tokenDetails?.tokenSymbol}
+              </DetailsValue>
             </DetailSection>
 
             <DetailSection>

@@ -8,17 +8,17 @@ import { DateRangePicker } from '@mantine/dates';
 import moment from 'moment';
 import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
-import { useGetWalletAndTokenDetails, useGetWalletGraphData } from '../../hooks/useWallets';
+import { useGetWalletGraphData } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
 import { formatAmount, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 import { WalletGraphRequest } from '../../services/wallet-service';
+import { useTokenDetails } from '../../context/token-details-context';
 
 export const WalletBalanceChart = (): JSX.Element => {
   const { t, i18n } = useTranslation();
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
 
-  const [endDate, setEndDate] = useState();
-  const [startDate, setStartDate] = useState();
+  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+
   const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false);
   const [period, setPeriod] = useState('180');
 
@@ -113,18 +113,24 @@ export const WalletBalanceChart = (): JSX.Element => {
       <LoadingOverlay visible={isLoadingGraph} zIndex={5} />
       <TopSection>
         <LeftSection>
-          <Title>{t('wallets.balance')} (BTKB)</Title>
+          <Title>
+            {t('wallets.balance')} ({walletBalanceAndTokenDetails?.tokenSymbol})
+          </Title>
           <Amount> {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}</Amount>
         </LeftSection>
         <RightSection>
           <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
           <WalletSection style={{ marginBottom: 12 }}>
             <CreditLabel>{t('credit')}</CreditLabel>
-            <ParagraphBold>{formatAmount(creditAmount)} BTKB</ParagraphBold>
+            <ParagraphBold>
+              {formatAmount(creditAmount)} {walletBalanceAndTokenDetails?.tokenSymbol}
+            </ParagraphBold>
           </WalletSection>
           <WalletSection>
             <DebitLabel>{t('debit')}</DebitLabel>
-            <ParagraphBold>{formatAmount(debitAmount)} BTKB</ParagraphBold>
+            <ParagraphBold>
+              {formatAmount(debitAmount)} {walletBalanceAndTokenDetails?.tokenSymbol}
+            </ParagraphBold>
           </WalletSection>
         </RightSection>
       </TopSection>

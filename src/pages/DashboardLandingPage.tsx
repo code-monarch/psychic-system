@@ -10,6 +10,7 @@ import { MEMBER_ROUTE } from '../lib/constants';
 import { WalletTransferModal } from '../components/modals/WalletTransferModal';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
 import { useFeatureFlags } from '../context/features-flag-context';
+import { useTokenDetails } from '../context/token-details-context';
 
 const Screen = styled(Container)`
   min-height: 100vh;
@@ -32,16 +33,6 @@ const PageContainer = styled.div`
 const InnerWrapper = styled(Grid)`
   justify-content: center;
   display: flex;
-  align-items: center;
-`;
-
-const LogoPanel = styled.div`
-  margin-right: auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 40px;
-  width: 100%;
-  height: 80px;
   align-items: center;
 `;
 
@@ -84,6 +75,7 @@ export const DashboardLandingPage = () => {
   const { t } = useTranslation();
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
+  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
 
   useDocumentTitle(`DAP: ${t('navigation.home')}`);
   const { featureFlagsNormalized } = useFeatureFlags();
@@ -116,7 +108,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <PrimaryButton
-                title={`${t('distribute.title')} BTKB`}
+                title={`${t('distribute.title')} ${walletBalanceAndTokenDetails?.tokenSymbol}`}
                 disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 onClick={() => {
                   setFormModalOpened(true);
