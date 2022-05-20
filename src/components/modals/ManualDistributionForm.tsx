@@ -1,22 +1,21 @@
 import styled, { useTheme } from 'styled-components';
-import { Container, CSSObject, Grid, Modal, Select, Space } from '@mantine/core';
-import { ChevronDownIcon, ArrowRightIcon } from '@modulz/radix-icons';
-import { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
+import { Container, Grid, Modal, Select, Space } from '@mantine/core';
+import { ArrowRightIcon, ChevronDownIcon } from '@modulz/radix-icons';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ParagraphBold, Title } from '../styled';
 import manual_distribution_image from '../../assets/images/manual_distribution.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import { useGetInstitutionWallets, useGetWalletAndTokenDetails, useTransferTokens } from '../../hooks/useWallets';
+import { useGetInstitutionWallets, useTransferTokens } from '../../hooks/useWallets';
 import { ErrorText } from '../LoginForm';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import { WalletTransferModal } from './WalletTransferModal';
 import { selectStyles } from '../../lib/constants';
-import { cacheKey } from '../../hooks/cacheStateKey';
 import { formatAmount } from '../../lib/utils';
+import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,7 +35,6 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | undefined>();
-  const queryClient = useQueryClient();
   const { t } = useTranslation();
 
   const { register, errors, handleSubmit, control } = useForm({
@@ -47,7 +45,8 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     },
   });
 
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+
   const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
 
   const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
@@ -111,7 +110,9 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                     value={distributionWallet?.walletId}
                     styles={selectStyles}
                     data={[distributionWallet]?.map((item) => ({
-                      label: `${item?.walletType} - ${formatAmount(Number(item?.balances?.[0]?.balance))} BTKB`,
+                      label: `${item?.walletType} - ${formatAmount(Number(item?.balances?.[0]?.balance))} ${
+                        walletBalanceAndTokenDetails?.tokenSymbol
+                      }`,
                       value: item?.walletId,
                     }))}
                   />
@@ -141,7 +142,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                         data={institutionWallets.map((wallet) => ({
                           label: `${wallet?.userId} - ${
                             wallet?.balances?.[0]?.balance ? formatAmount(Number(wallet?.balances?.[0]?.balance)) : 0
-                          } BTKB`,
+                          } ${walletBalanceAndTokenDetails?.tokenSymbol}`,
                           value: wallet.walletId,
                           ...wallet,
                         }))}

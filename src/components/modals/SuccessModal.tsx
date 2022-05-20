@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Modal } from '@mantine/core';
 import distribution_success_image from '../../assets/images/distribution_success.svg';
 import { PrimaryButtonWithoutIcon } from '../Buttons';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -47,16 +48,22 @@ interface ISuccessModalProps {
   buttonText?: string;
   amount?: number;
 }
-export const SuccessModal = ({ isVisible, onClose, title, message, amount,buttonText }: ISuccessModalProps) => (
-  <Modal size="400px" opened={isVisible} centered closeOnClickOutside={false} closeOnEscape={false} onClose={onClose}>
-    <ModalWrapper>
-      <SuccessImage src={distribution_success_image} alt="Manual Distribution Image" />
-      <ModalHeader>{title}</ModalHeader>
-      <ModalDescription>
-        {message}
-        <span>{amount} BTKB</span>
-      </ModalDescription>
-      <PrimaryButtonWithoutIcon title={buttonText || "Go to Wallets"} onClick={onClose} />
-    </ModalWrapper>
-  </Modal>
-);
+export const SuccessModal = ({ isVisible, onClose, title, message, amount, buttonText }: ISuccessModalProps) => {
+  const { tokenDetails } = useTokenDetails();
+
+  return (
+    <Modal size="400px" opened={isVisible} centered closeOnClickOutside={false} closeOnEscape={false} onClose={onClose}>
+      <ModalWrapper>
+        <SuccessImage src={distribution_success_image} alt="Manual Distribution Image" />
+        <ModalHeader>{title}</ModalHeader>
+        <ModalDescription>
+          {message}
+          <span>
+            {amount} {tokenDetails?.tokenSymbol}
+          </span>
+        </ModalDescription>
+        <PrimaryButtonWithoutIcon title={buttonText || 'Go to Wallets'} onClick={onClose} />
+      </ModalWrapper>
+    </Modal>
+  );
+};

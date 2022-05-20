@@ -13,7 +13,7 @@ interface WalletTokenDetailsResponse {
   totalSupply: number;
 }
 
-interface WalletAndTokenDetailsResponse {
+export interface WalletAndTokenDetailsResponse {
   circulatingSupply: number;
   notInCirculation: number;
   clientId: string;

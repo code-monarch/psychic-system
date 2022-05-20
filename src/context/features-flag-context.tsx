@@ -1,10 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useLocalStorage } from 'react-use';
 import { cacheKey } from '../hooks/cacheStateKey';
 import { AuthenticationService, FeatureFlagsResponse } from '../services/authentication-service';
-import { LOCAL_STORAGE_KEYS } from '../lib/constants';
-import { useGetDashboardGraphData } from '../hooks/useWallets';
 
 type FeatureFlagsContextProps = {
   featureFlags: FeatureFlagsResponse[];
@@ -17,7 +14,7 @@ FeatureFlagsContext.displayName = 'FeatureFlagsContext';
 
 const FeatureFlagsProvider = (props: any) => {
   const [featureFlags, setFeatureFlags] = useState<FeatureFlagsResponse[]>([]);
-  const [featureFlagsDataLocal] = useLocalStorage<FeatureFlagsResponse[]>(LOCAL_STORAGE_KEYS.FEATURE_FLAGS, []);
+  // const [featureFlagsDataLocal] = useLocalStorage<FeatureFlagsResponse[]>(LOCAL_STORAGE_KEYS.FEATURE_FLAGS, []);
 
   const TOKEN_TRANSFER_FLAG = Boolean(
     featureFlags.find((flag) => flag.feature_name === 'TOKEN_TRANSFER_FLAG')?.feature_enabled,
@@ -26,13 +23,6 @@ const FeatureFlagsProvider = (props: any) => {
   const featureFlagsNormalized = {
     TOKEN_TRANSFER_FLAG,
   };
-
-  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetDashboardGraphData();
-  useEffect(() => {
-    // if (featureFlagsDataLocal) {
-    //   setFeatureFlags(featureFlagsDataLocal);
-    // }
-  }, [featureFlagsDataLocal]);
 
   useQuery({
     queryKey: [cacheKey.featureFlags],

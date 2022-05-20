@@ -9,6 +9,7 @@ import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTa
 import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
 import { useGetTransactionSummary } from '../hooks/useWallets';
 import { formatAmount, getTransactionTabs } from '../lib/utils';
+import { useTokenDetails } from '../context/token-details-context';
 
 export const Transactions = (): JSX.Element => {
   const { t } = useTranslation();
@@ -16,12 +17,13 @@ export const Transactions = (): JSX.Element => {
 
   const tabViews = [<InternalTransactionsTable />, <ExternalTransactionsTable />];
   const [selectedTabView, setSelectedTabView] = useState(tabViews[0]);
+  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
 
   const handleTabSelected = (tabIndex: number) => {
     setSelectedTabView(tabViews[tabIndex]);
   };
 
-  const { data: transactionSummary, isLoading: isLoadingSummary } = useGetTransactionSummary();
+  const { data: transactionSummary } = useGetTransactionSummary();
 
   return (
     <Wrapper>
@@ -44,7 +46,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('internal.transaction.amount')} (BTKB)`}
+            title={`${t('internal.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -54,7 +56,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('external.transaction.amount')} (BTKB)`}
+            title={`${t('external.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>

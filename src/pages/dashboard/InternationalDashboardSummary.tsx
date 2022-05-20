@@ -2,11 +2,11 @@ import { InternationalMap } from 'src/components/charts/InternationalMap';
 import styled, { useTheme } from 'styled-components';
 import { useElementSize } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
-import { RequestCards } from '../../components/cards/RequestCards';
 import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
 import { formatAmount } from '../../lib/utils';
-import { CURRENCY_NAMES, CurrencyCode } from '../../lib/constants';
+import { CurrencyCode } from '../../lib/constants';
 import { useGetTransactionSummary } from '../../hooks/useWallets';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const Wrapper = styled.div`
   margin-top: 24px;
@@ -57,7 +57,8 @@ export const InternationalDashboardSummary = (): JSX.Element => {
     value: transactions[curr],
   }));
 
-  const { data: transactionSummary, isLoading: isLoadingSummary } = useGetTransactionSummary();
+  const { data: transactionSummary } = useGetTransactionSummary();
+  const { tokenDetails } = useTokenDetails();
 
   return (
     <Wrapper>
@@ -69,7 +70,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('internal.transaction.amount')} (BTKB)`}
+            title={`${t('internal.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
         </div>
@@ -79,7 +80,7 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('external.transaction.amount')} (BTKB)`}
+            title={`${t('external.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
         </div>
