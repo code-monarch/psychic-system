@@ -6,7 +6,7 @@ import { useLocalStorage } from 'react-use';
 import { useTranslation } from 'react-i18next';
 import { AnimatedLabelInput } from './AnimatedLabelInput';
 import { AppUser, useAuth } from '../context/auth-context';
-import { isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE } from '../lib/constants';
+import { isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE, device } from '../lib/constants';
 import { PrimaryButton } from './Buttons';
 
 const Form = styled.form`
@@ -21,6 +21,12 @@ export const ErrorText = styled.p`
   color: ${({ theme }) => theme.colors.secondary.red};
 `;
 
+const LoginButton = styled(PrimaryButton)`
+  @media ${device.laptop} {
+    width: 100%;
+  }
+`;
+
 const TextInput = styled.div`
   border: none;
   border-bottom: solid 1px ${({ theme }) => theme.colors.secondary.grey};
@@ -31,6 +37,9 @@ const TextInput = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 40px auto 0 0;
+  @media ${device.laptop} {
+    width: 100%;
+  }
 `;
 
 interface IFormData {
@@ -42,8 +51,8 @@ export const LoginForm = ({ className }: { className?: string }) => {
   const { useSignin, setUserRole, useGetUserRole, setAppUser } = useAuth();
   const { t } = useTranslation();
   const { mutate: getUserRole } = useGetUserRole();
-  const [value, saveToLocalStorage] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
-  const [userToken, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
+  const [, saveToLocalStorage] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
+  const [, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
   const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
   const {
@@ -70,7 +79,6 @@ export const LoginForm = ({ className }: { className?: string }) => {
               saveTokenToLocalStorage(userDataToken.token);
               history.push(MEMBER_ROUTE.GET_STARTED);
               setUserRole(userRole);
-              // userRefetch();
             },
           });
         },
@@ -118,7 +126,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
       {hasSigninError && <ErrorText>{(signinError as any)?.message} </ErrorText>}
 
       <ButtonContainer>
-        <PrimaryButton title={t('login.title')} disabled={disabled} loading={signinRequestInProgress} />
+        <LoginButton title={t('login.title')} disabled={disabled} loading={signinRequestInProgress} />
       </ButtonContainer>
     </Form>
   );

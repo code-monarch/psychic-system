@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Flex, Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButtonWithoutIcon } from './Buttons';
 import robotImg from '../assets/images/robot2.png';
-import { MEMBER_ROUTE } from '../lib/constants';
+import { device, MEMBER_ROUTE } from '../lib/constants';
 
 export const CurrenyManagementSetupAlert = () => {
   const theme: any = useTheme();
@@ -48,6 +48,13 @@ const RobotImage = styled.img`
   position: absolute;
   top: -37px;
   right: 107px;
+
+  @media ${device.tablet} {
+    right: 16px;
+    width: 100px;
+    height: auto;
+    top: 12px;
+  }
 `;
 
 const CardTitle = styled.h2`

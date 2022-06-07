@@ -4,7 +4,7 @@ import { useElementSize } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
 import { formatAmount } from '../../lib/utils';
-import { CurrencyCode } from '../../lib/constants';
+import { CurrencyCode, device } from '../../lib/constants';
 import { useGetTransactionSummary } from '../../hooks/useWallets';
 import { useTokenDetails } from '../../context/token-details-context';
 
@@ -63,27 +63,22 @@ export const InternationalDashboardSummary = (): JSX.Element => {
   return (
     <Wrapper>
       <TransactionCards>
-        <div
+        <CurrencyCardWrapper
           style={{
             marginRight: 20,
-            flex: 1,
           }}
         >
           <CurrencySummaryCard
             title={`${t('internal.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
           />
-        </div>
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
+        </CurrencyCardWrapper>
+        <CurrencyCardWrapper>
           <CurrencySummaryCard
             title={`${t('external.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
-        </div>
+        </CurrencyCardWrapper>
       </TransactionCards>
       <div>
         <MapWrapper ref={ref}>
@@ -98,9 +93,21 @@ const TransactionCards = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+  @media ${device.tablet} {
+    margin-right: 0;
+    flex-direction: column;
+  }
 `;
 
 const MapWrapper = styled.div`
   width: 90%;
   margin: auto;
+`;
+
+const CurrencyCardWrapper = styled.div`
+  flex: 1;
+  @media ${device.tablet} {
+    margin-right: 0 !important;
+    width: 100%;
+  }
 `;

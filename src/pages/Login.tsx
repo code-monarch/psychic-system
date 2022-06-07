@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LoginForm } from '../components/LoginForm';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { Logo } from '../components/Logo';
+import { device } from '../lib/constants';
 
 const Screen = styled(Container)`
   min-height: 100vh;
@@ -13,11 +14,21 @@ const Screen = styled(Container)`
     font-weight: bold;
     color: ${({ theme }) => theme.colors.primary.black};
   }
+  @media ${device.laptop} {
+    padding: 0 8px;
+    min-height: auto;
+  }
 `;
 
 const LoginContainer = styled(Grid)`
   min-height: 100vh;
+  margin: 0;
   margin-top: -80px;
+
+  @media ${device.laptop} {
+    min-height: auto;
+    margin-top: 20px;
+  }
 `;
 
 const LeftPane = styled(Grid.Col)`
@@ -25,6 +36,13 @@ const LeftPane = styled(Grid.Col)`
   justify-content: center;
   display: flex;
   align-items: center;
+  @media ${device.laptop} {
+    max-height: 250px;
+  }
+
+  @media ${device.laptop} {
+    display: none;
+  }
 `;
 
 const RightPane = styled(Grid.Col)`
@@ -41,6 +59,10 @@ const LogoPanel = styled.div`
   width: 100%;
   height: 80px;
   align-items: center;
+
+  @media ${device.laptop} {
+    padding: 0;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -57,6 +79,10 @@ const CallToAction = styled.h2`
   font-size: 28px;
   font-family: 'ProximaNovaBold', sans-serif;
   text-align: center;
+
+  @media ${device.laptop} {
+    font-size: 18px;
+  }
 
   .green {
     font-family: 'ProximaNovaBold', sans-serif;
@@ -81,6 +107,9 @@ const LoginText = styled.h1`
 
 const LoginPageImage = styled.img`
   max-width: 350px;
+  @media ${device.laptop} {
+    max-width: 100px;
+  }
 `;
 
 export const Login = () => {

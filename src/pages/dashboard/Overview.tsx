@@ -16,6 +16,7 @@ import external2Icon from '../../assets/images/icons/overview/external2.svg';
 import tokenIcon from '../../assets/images/icons/overview/token.svg';
 import { useGetRates } from '../../hooks/useRates';
 import { useTokenDetails } from '../../context/token-details-context';
+import { device } from '../../lib/constants';
 
 const Wrapper = styled.div``;
 const columnPropGetter = (col: Column<Transaction>) => {
@@ -88,12 +89,7 @@ export const Overview = (): JSX.Element => {
   return (
     <Wrapper>
       <TransactionCards>
-        <div
-          style={{
-            marginRight: 20,
-            flex: 1,
-          }}
-        >
+        <OverviewCardWrapperWithMargin>
           <OverviewCard
             cardImage={external1Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
@@ -103,13 +99,8 @@ export const Overview = (): JSX.Element => {
             usdAmount={currentRate ? transactionSummary?.totalExternalTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
           />
-        </div>
-        <div
-          style={{
-            marginRight: 20,
-            flex: 1,
-          }}
-        >
+        </OverviewCardWrapperWithMargin>
+        <OverviewCardWrapperWithMargin>
           <OverviewCard
             cardImage={external2Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
@@ -119,12 +110,8 @@ export const Overview = (): JSX.Element => {
             usdAmount={currentRate ? transactionSummary?.totalExternalTrendingTransactionAmount / currentRate : null}
             amount={formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount)}
           />
-        </div>
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
+        </OverviewCardWrapperWithMargin>
+        <OverviewCardWrapper>
           <OverviewCard
             cardImage={tokenIcon}
             title={`${t('tokens.distribution')}`}
@@ -134,7 +121,7 @@ export const Overview = (): JSX.Element => {
             usdAmount={currentRate ? walletBalanceAndTokenDetails?.circulatingSupply / currentRate : null}
             amount={formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}
           />
-        </div>
+        </OverviewCardWrapper>
       </TransactionCards>
       {currentRate && (
         <ExchangeRate>
@@ -177,8 +164,29 @@ const ExchangeRate = styled(Paragraph)`
 const TransactionCards = styled.div`
   display: flex;
   align-items: center;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `;
 
 const RecentTransactionsArea = styled.div`
   margin-top: 14px;
+`;
+
+const OverviewCardWrapper = styled.div`
+  flex: 1;
+  @media ${device.tablet} {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+`;
+
+const OverviewCardWrapperWithMargin = styled(OverviewCardWrapper)`
+  flex: 1;
+  margin-right: 20px;
+  @media ${device.tablet} {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
 `;

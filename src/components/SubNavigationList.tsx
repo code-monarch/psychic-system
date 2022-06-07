@@ -1,10 +1,8 @@
 import styled, { css, useTheme } from 'styled-components';
 import { useState } from 'react';
-import { ArrowDownIcon, ArrowUpIcon, TriangleDownIcon } from '@modulz/radix-icons';
-import { NavLink } from 'react-router-dom';
+import { TriangleDownIcon } from '@modulz/radix-icons';
 import { useTranslation } from 'react-i18next';
 import { Icon, LinkWithIcon } from './LinkWithIcon';
-import { navIconsActive as activeIcons, navIconsDefault as defaultIcons } from '../assets/images/icons/navigation';
 
 type LinkProps = {
   text: string;
@@ -19,6 +17,7 @@ type LinkProps = {
 type NavigationListProps = {
   className?: string;
   link: LinkProps;
+  hideNavigation?: () => void;
 };
 
 const LinkWrapper = styled.div`
@@ -46,7 +45,7 @@ const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
   }
 `;
 
-export const SubNavigationList = ({ className, link }: NavigationListProps) => {
+export const SubNavigationList = ({ className, link, hideNavigation }: NavigationListProps) => {
   const [isListVisible, setIsListVisible] = useState<boolean>(true);
   const toggleNavigation = (event) => {
     event.preventDefault();
@@ -66,7 +65,7 @@ export const SubNavigationList = ({ className, link }: NavigationListProps) => {
         <List className={className}>
           {link.subNavigationItems.map((item, i) => (
             <li key={`listitem-${i}`} style={{ margin: 0 }}>
-              <LinkWithIcon to={item.to} text={item.text} />
+              <LinkWithIcon to={item.to} text={item.text} onClick={hideNavigation} />
             </li>
           ))}
           <LanguageNavigationList />

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import loginImage from '../assets/images/emtech_connection_image.svg';
 import { PrimaryButton } from '../components/Buttons';
-import { MEMBER_ROUTE } from '../lib/constants';
+import { device, MEMBER_ROUTE } from '../lib/constants';
 import { WalletTransferModal } from '../components/modals/WalletTransferModal';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
 import { useFeatureFlags } from '../context/features-flag-context';
@@ -28,16 +28,30 @@ const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media ${device.laptop} {
+    margin-top: 0;
+  }
 `;
 
 const InnerWrapper = styled(Grid)`
   justify-content: center;
   display: flex;
   align-items: center;
+
+  @media ${device.tablet} {
+    padding: 16px;
+    margin: 0;
+    justify-content: flex-start;
+  }
 `;
 
 const ImageWrapper = styled.div`
   margin-right: 120px;
+
+  @media ${device.tablet} {
+    margin-right: 50px;
+  }
 `;
 
 const GetStartedWrapper = styled.div`
@@ -45,6 +59,9 @@ const GetStartedWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   max-width: 400px;
+  @media ${device.tablet} {
+    max-width: none;
+  }
 `;
 
 const GetStartedText = styled.h1`
@@ -64,10 +81,26 @@ const GetStartedDescription = styled.p`
 
 const LoginPageImage = styled.img`
   max-width: 350px;
+  @media ${device.laptop} {
+    max-width: 200px;
+  }
+
+  @media ${device.mobileL} {
+    max-width: 130px;
+  }
 `;
 
 const ButtonContainer = styled.div`
   margin: 12px auto 0 0;
+  @media ${device.mobileL} {
+    width: 100%;
+  }
+`;
+
+const LandingPageButton = styled(PrimaryButton)`
+  @media ${device.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const DashboardLandingPage = () => {
@@ -90,7 +123,7 @@ export const DashboardLandingPage = () => {
             <GetStartedText>{t('home.title')}</GetStartedText>
             <GetStartedDescription>{t('home.description')}</GetStartedDescription>
             <ButtonContainer>
-              <PrimaryButton
+              <LandingPageButton
                 title={t('navigation.dashboard')}
                 onClick={() => {
                   history.push(MEMBER_ROUTE.DASHBOARD);
@@ -98,7 +131,7 @@ export const DashboardLandingPage = () => {
               />
             </ButtonContainer>
             <ButtonContainer>
-              <PrimaryButton
+              <LandingPageButton
                 disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 title={t('transfer.title')}
                 onClick={() => {
@@ -107,7 +140,7 @@ export const DashboardLandingPage = () => {
               />
             </ButtonContainer>
             <ButtonContainer>
-              <PrimaryButton
+              <LandingPageButton
                 title={`${t('distribute.title')} ${walletBalanceAndTokenDetails?.tokenSymbol}`}
                 disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 onClick={() => {

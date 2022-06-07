@@ -17,10 +17,13 @@ import { MintCoinsForm } from '../components/modals/MintCoinsForm';
 import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { formatAmount } from '../lib/utils';
 import { useFeatureFlags } from '../context/features-flag-context';
+import { device } from '../lib/constants';
 
 const Wrapper = styled.div`
-  padding: 0 64px;
-  padding-top: 40px;
+  padding: 40px 64px 0 64px;
+  @media ${device.tablet} {
+    padding: 40px 16px 0 16px;
+  }
 `;
 
 const Header = styled.div`
@@ -32,9 +35,22 @@ const RightBarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media ${device.tablet} {
+    margin-top: 24px;
+  }
 `;
 
 const RightSideBar = styled(Grid.Col)``;
+
+const PageWrapper = styled(Grid)`
+  margin-top: 16px;
+  height: 500px;
+  @media ${device.tablet} {
+    height: auto;
+  }
+`;
+
+const InnerWrapper = styled(Grid)``;
 
 export const CurrencyManagement = (): JSX.Element => {
   const [distributeModalOpened, setDistributModalOpened] = useState<boolean>(false);
@@ -50,13 +66,13 @@ export const CurrencyManagement = (): JSX.Element => {
     <Wrapper>
       {/* <CurrenyManagementSetupAlert /> */}
 
-      <Grid grow gutter={64}>
+      <InnerWrapper grow gutter={64}>
         <Grid.Col md={12} lg={8}>
           <Header>
             <Heading>{t('navigation.currency.management')}</Heading>
             <Title>{t('actions.title')}</Title>
           </Header>
-          <Grid style={{ marginTop: 16, height: 500 }}>
+          <PageWrapper>
             <Grid.Col md={6} lg={7} sm={12}>
               <DistributeOption className={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG ? 'disabled' : ''}>
                 <div>
@@ -93,7 +109,7 @@ export const CurrencyManagement = (): JSX.Element => {
                 </BurnOption>
               </div>
             </Grid.Col>
-          </Grid>
+          </PageWrapper>
         </Grid.Col>
         <RightSideBar md={12} lg={4}>
           <RightBarHeader>
@@ -118,7 +134,7 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard hideHistogram title={t('currency.total.burned')} amount="0" disabled />
           </div>
         </RightSideBar>
-      </Grid>
+      </InnerWrapper>
 
       <DistributionModal
         isVisible={distributeModalOpened}

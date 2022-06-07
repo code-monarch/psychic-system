@@ -5,6 +5,7 @@ import { ParagraphBold, Title } from '../styled';
 import userIcon from '../../assets/images/icons/population/users.svg';
 import walletIcon from '../../assets/images/icons/population/wallet.svg';
 import percentageIcon from '../../assets/images/icons/population/percentage.png';
+import { device } from '../../lib/constants';
 
 export const PopulationTable = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -79,6 +80,9 @@ const Cards = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `;
 
 const PopulationHeader = styled.div`
@@ -97,4 +101,11 @@ const PopulationCard = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  @media ${device.tablet} {
+    width: 100%;
+    height: 72px;
+    margin-bottom: 16px;
+    padding: 16px;
+    margin-right: 0 !important;
+  }
 `;

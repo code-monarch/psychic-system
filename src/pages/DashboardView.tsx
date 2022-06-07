@@ -8,8 +8,9 @@ import { InternationalDashboardSummary, SummarySidePanel, LocalDashboardSummary 
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { getNavigationTabs } from '../lib/utils';
 import { Overview } from './dashboard/Overview';
+import { device } from '../lib/constants';
 
-export const DashboardView = ({ displayName }: { displayName: string }): JSX.Element => {
+export const DashboardView = (): JSX.Element => {
   const { t } = useTranslation();
 
   useDocumentTitle(`DAP: ${t('navigation.dashboard')}`);
@@ -25,13 +26,13 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
   return (
     <Wrapper>
       <Grid gutter={64}>
-        <Grid.Col md={12} lg={8}>
+        <LeftColumn md={12} lg={8}>
           <CurrenyManagementSetupAlert />
           <ContentView>
             <StyledTabs onTabSelected={handleTabSelected} tabItems={getNavigationTabs(t)} currentRoute="dashboard" />
             <TabView>{selectedTabView}</TabView>
           </ContentView>
-        </Grid.Col>
+        </LeftColumn>
         <RightSideBar md={12} lg={4}>
           <SideView>{sideViews[0]}</SideView>
         </RightSideBar>
@@ -40,7 +41,18 @@ export const DashboardView = ({ displayName }: { displayName: string }): JSX.Ele
   );
 };
 
-const RightSideBar = styled(Grid.Col)``;
+const RightSideBar = styled(Grid.Col)`
+  @media ${device.tablet} {
+    padding: 0 16px;
+    margin-top: 24px;
+  }
+`;
+
+const LeftColumn = styled(Grid.Col)`
+  @media ${device.tablet} {
+    padding: 0 16px;
+  }
+`;
 
 const Wrapper = styled.div`
   margin: 0 40px;
