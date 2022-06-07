@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { LinkWithIcon } from './LinkWithIcon';
-import { LanguageNavigationList, SubNavigationList } from './SubNavigationList';
+import { SubNavigationList } from './SubNavigationList';
 
 type LinkProps = {
   text: string;
@@ -16,6 +16,7 @@ type NavigationListProps = {
   className?: string;
   isHorizontal?: boolean;
   itemSpacing?: number;
+  hideNavigation?: () => void;
   links: Array<LinkProps>;
 };
 
@@ -38,21 +39,19 @@ const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
     `}
 `;
 
-function NavigationList({ className, links, isHorizontal, itemSpacing }: NavigationListProps) {
-  return (
-    <List className={className} isHorizontal={isHorizontal || false} itemSpacing={itemSpacing}>
-      {links.map((item, i) => {
-        if (item.subNavigationItems) {
-          return <SubNavigationList link={item} key={i} />;
-        }
-        return (
-          <li key={`listitem-${i}`}>
-            <LinkWithIcon to={item.to} text={item.text} icon={item.icon} />
-          </li>
-        );
-      })}
-    </List>
-  );
-}
+const NavigationList = ({ className, links, isHorizontal, itemSpacing, hideNavigation }: NavigationListProps) => (
+  <List className={className} isHorizontal={isHorizontal || false} itemSpacing={itemSpacing}>
+    {links.map((item, i) => {
+      if (item.subNavigationItems) {
+        return <SubNavigationList link={item} key={i} hideNavigation={hideNavigation} />;
+      }
+      return (
+        <li key={`listitem-${i}`}>
+          <LinkWithIcon to={item.to} text={item.text} icon={item.icon} onClick={hideNavigation} />
+        </li>
+      );
+    })}
+  </List>
+);
 
 export { NavigationList };

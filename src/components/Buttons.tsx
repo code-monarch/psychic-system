@@ -5,6 +5,7 @@ import white_arrow from '../assets/images/icons/white_arrow.svg';
 interface IButton {
   title: string;
   disabled?: boolean;
+  className?: string;
   style?: CSSProperties;
   loading?: boolean;
   onClick?: () => void;
@@ -75,10 +76,11 @@ const Button2 = styled(Button)`
 
 const ButtonText = styled.span``;
 
-export const PrimaryButton = ({ title, disabled, loading, onClick, style }: IButton): JSX.Element => (
+export const PrimaryButton = ({ title, disabled, loading, onClick, style, className }: IButton): JSX.Element => (
   <Button
     type="submit"
     style={style}
+    className={className}
     disabled={disabled}
     onClick={() => {
       onClick?.();
@@ -89,9 +91,10 @@ export const PrimaryButton = ({ title, disabled, loading, onClick, style }: IBut
   </Button>
 );
 
-export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
+export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style, className }: IButton): JSX.Element => (
   <Button2
     style={style}
+    className={className}
     disabled={disabled}
     onClick={() => {
       onClick?.();
@@ -101,9 +104,10 @@ export const PrimaryButtonWithoutIcon = ({ title, disabled, onClick, style }: IB
   </Button2>
 );
 
-export const SecondaryButton = ({ title, disabled, onClick, style }: IButton): JSX.Element => (
+export const SecondaryButton = ({ title, disabled, onClick, style, className }: IButton): JSX.Element => (
   <TransparentButton
     style={style}
+    className={className}
     disabled={disabled}
     onClick={(e) => {
       if (disabled) return;

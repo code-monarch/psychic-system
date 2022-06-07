@@ -10,6 +10,7 @@ import { InternalTransactionsTable } from './transactions/InternalTransactionsTa
 import { useGetTransactionSummary } from '../hooks/useWallets';
 import { formatAmount, getTransactionTabs } from '../lib/utils';
 import { useTokenDetails } from '../context/token-details-context';
+import { device } from '../lib/constants';
 
 export const Transactions = (): JSX.Element => {
   const { t } = useTranslation();
@@ -31,35 +32,35 @@ export const Transactions = (): JSX.Element => {
         <Heading>{t('navigation.transactions')}</Heading>
       </Header>
       <TransactionCards>
-        <div
+        <TransactionCardWrapper
           style={{
             marginRight: 20,
-            flex: 1,
           }}
         >
-          <CurrencySummaryCard title={t('total.amount')} amount={formatAmount(transactionSummary?.totalAmount)} />
-        </div>
-        <div
+          <CurrencySummaryCard
+            title={t('total.amount')}
+            amount={formatAmount(transactionSummary?.totalAmount)}
+            hideHistogram
+          />
+        </TransactionCardWrapper>
+        <TransactionCardWrapper
           style={{
             marginRight: 20,
-            flex: 1,
           }}
         >
           <CurrencySummaryCard
             title={`${t('internal.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
+            hideHistogram
           />
-        </div>
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
+        </TransactionCardWrapper>
+        <TransactionCardWrapper>
           <CurrencySummaryCard
             title={`${t('external.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
             amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
+            hideHistogram
           />
-        </div>
+        </TransactionCardWrapper>
       </TransactionCards>
       <ContentView>
         <StyledTabs onTabSelected={handleTabSelected} tabItems={getTransactionTabs(t)} currentRoute="transactions" />
@@ -74,10 +75,24 @@ const TransactionCards = styled.div`
   align-items: center;
   margin-bottom: 50px;
   max-width: 1000px;
+  @media ${device.laptop} {
+    flex-direction: column;
+  }
+`;
+
+const TransactionCardWrapper = styled.div`
+  flex: 1;
+  @media ${device.laptop} {
+    margin-right: 0 !important;
+    width: 100%;
+  }
 `;
 
 const Wrapper = styled.div`
-  margin: 0 64px;
+  padding: 0 64px;
+  @media ${device.tablet} {
+    padding: 0 16px;
+  }
 `;
 
 const ContentView = styled.div`

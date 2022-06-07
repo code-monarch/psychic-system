@@ -1,16 +1,19 @@
-import styled, { css, useTheme } from 'styled-components';
-import { Grid, Menu } from '@mantine/core';
-import { DotsVerticalIcon, ArrowRightIcon } from '@modulz/radix-icons';
+import styled, { css } from 'styled-components';
+import { Grid } from '@mantine/core';
+import { ArrowRightIcon } from '@modulz/radix-icons';
 import { useTranslation } from 'react-i18next';
 import { useDocumentTitle } from '@mantine/hooks';
-import { Heading, Paragraph, ParagraphBold, Title } from '../components/styled';
+import { Heading, Paragraph, Title } from '../components/styled';
 import mint from '../assets/images/icons/mint.svg';
 import mintWhite from '../assets/images/icons/mint-white.svg';
 import requestDisabled from '../assets/images/icons/requests-disabled.svg';
+import { device } from '../lib/constants';
 
 const Wrapper = styled.div`
-  padding: 0 64px;
-  padding-top: 40px;
+  padding: 40px 64px 0 64px;
+  @media ${device.tablet} {
+    padding: 40px 16px 0 16px;
+  }
 `;
 
 const Header = styled.div``;
@@ -27,6 +30,10 @@ const RequestOptions = styled.div`
   justify-content: space-between;
   border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
   align-items: center;
+
+  @media ${device.mobileL} {
+    flex-direction: column;
+  }
 `;
 
 const QuickActions = styled.div`
@@ -48,8 +55,6 @@ const PageDescription = styled(Paragraph)`
   margin: 10px 0 20px;
 `;
 
-const RightSideBar = styled(Grid.Col)``;
-
 const CardTitle = styled(Heading)`
   font-size: 18px;
   line-height: 27px;
@@ -60,17 +65,28 @@ const ActionText = styled(Heading)`
   line-height: 16px;
 `;
 
+const Section = styled(Grid.Col)`
+  @media ${device.tablet} {
+    padding: 16px;
+    margin: 0;
+  }
+`;
+
+const GridSection = styled(Grid)`
+  @media ${device.tablet} {
+    margin: 0;
+  }
+`;
+
 export const Requests = (): JSX.Element => {
-  const theme: any = useTheme();
-  const { grey } = theme.colors.primary;
   const { t } = useTranslation();
   useDocumentTitle(`DAP: ${t('navigation.requests')}`);
 
   return (
     <Wrapper>
       <Heading style={{ marginBottom: 32 }}>{t('navigation.requests')}</Heading>
-      <Grid grow gutter={64}>
-        <Grid.Col md={12} lg={8}>
+      <GridSection grow gutter={64}>
+        <Section md={12} lg={8}>
           <Header>
             <Title>{t('navigation.manage')}</Title>
             <PageDescription>{t('request.description')}</PageDescription>
@@ -87,8 +103,8 @@ export const Requests = (): JSX.Element => {
               <SmallerCardDescription>{t('request.wallet.requests')}</SmallerCardDescription>
             </RequestOption>
           </RequestOptions>
-        </Grid.Col>
-        <RightSideBar md={12} lg={4}>
+        </Section>
+        <Section md={12} lg={4}>
           <RightBarHeader>
             <div style={{ marginBottom: 20 }}>
               <Title>{t('quick.actions.title')}</Title>
@@ -110,8 +126,8 @@ export const Requests = (): JSX.Element => {
             </QuickAction>
           </QuickActions>
           <div style={{ marginTop: 24 }} />
-        </RightSideBar>
-      </Grid>
+        </Section>
+      </GridSection>
     </Wrapper>
   );
 };
@@ -152,6 +168,10 @@ const FundingOption = styled.div`
   background-image: url(${mint});
   &:hover {
     background-image: url(${mintWhite});
+  }
+  @media ${device.mobileL} {
+    margin-right: 0 !important;
+    margin-bottom: 16px;
   }
 `;
 

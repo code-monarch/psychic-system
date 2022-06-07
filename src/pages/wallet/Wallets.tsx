@@ -17,9 +17,21 @@ import { Transaction } from '../../services/wallet-service';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 import { useFeatureFlags } from '../../context/features-flag-context';
 import { useTokenDetails } from '../../context/token-details-context';
+import { device } from '../../lib/constants';
 
 const Wrapper = styled.div`
   padding: 0 64px;
+  @media ${device.tablet} {
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+const PageGrid = styled(Grid)`
+  @media ${device.tablet} {
+    padding: 0;
+    margin: 0;
+  }
 `;
 
 const Header = styled.div`
@@ -29,8 +41,17 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
+const LeftSection = styled(Grid.Col)`
+  @media ${device.tablet} {
+    padding: 0 16px;
+  }
+`;
+
 const RightSideBar = styled(Grid.Col)`
   background: rgba(251, 251, 251, 0.8);
+  @media ${device.tablet} {
+    padding: 0 16px;
+  }
 `;
 
 const columnPropGetter = (col: Column<Transaction>) => {
@@ -80,13 +101,10 @@ export const Wallets = (props): JSX.Element => {
 
   const transactions = data?.transactions || [];
 
-  const theme: any = useTheme();
-  const { grey } = theme.colors.primary;
-
   return (
     <Wrapper>
-      <Grid gutter={64}>
-        <Grid.Col md={12} lg={8}>
+      <PageGrid gutter={64}>
+        <LeftSection md={12} lg={8}>
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton
@@ -114,14 +132,14 @@ export const Wallets = (props): JSX.Element => {
               isPreviousData={isPreviousData}
             />
           </RecentTransactionsArea>
-        </Grid.Col>
+        </LeftSection>
         <RightSideBar md={12} lg={4}>
           <Header>
             <Heading>{t('wallets.title')}</Heading>
           </Header>
           <WalletInfo />
         </RightSideBar>
-      </Grid>
+      </PageGrid>
 
       <DistributionModal
         isVisible={modalOpened}

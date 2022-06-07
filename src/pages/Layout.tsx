@@ -1,13 +1,14 @@
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { AppShell, Menu, Navbar, useMantineTheme } from '@mantine/core';
+import { AppShell, Menu, Navbar, Header, MediaQuery, Burger } from '@mantine/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@mantine/hooks';
 import { NavigationList } from '../components/NavigationList';
 import { DashboardView } from './DashboardView';
 import { useAuth } from '../context/auth-context';
 
-import { MEMBER_ROUTE } from '../lib/constants';
+import { device, MEMBER_ROUTE } from '../lib/constants';
 import { Requests } from './Requests';
 import { Wallets } from './wallet/Wallets';
 import { Transactions } from './TransactionsPage';
@@ -40,8 +41,14 @@ const UserName = styled.p`
 export const Layout = (): JSX.Element => {
   const { appUser, userRole, useSignout } = useAuth();
   const { t } = useTranslation();
-  const [isNavOpened] = useState(false);
+  const [isNavOpened, setIsNavOpened] = useState(false);
   const { mutate: signOut } = useSignout();
+  const matchesTabletSize = useMediaQuery(device.tablet);
+
+  const hideNavigation = () => setIsNavOpened(false);
+
+  const theme: any = useTheme();
+  const { black } = theme.colors.primary;
 
   const logout = () => {
     signOut(undefined, {
@@ -65,7 +72,7 @@ export const Layout = (): JSX.Element => {
           <Navbar.Section grow>
             <SideNav>
               <Logo imageWidth={100} leftAlign />
-              <NavigationList itemSpacing={20} links={getNavigationItems(t)} />
+              <NavigationList itemSpacing={20} links={getNavigationItems(t)} hideNavigation={hideNavigation} />
             </SideNav>
           </Navbar.Section>
           <Navbar.Section>
@@ -84,12 +91,31 @@ export const Layout = (): JSX.Element => {
           </Navbar.Section>
         </Navbar>
       }
+      header={
+        matchesTabletSize ? (
+          <Header height={50} p="md">
+            <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                <Burger
+                  opened={isNavOpened}
+                  onClick={() => setIsNavOpened((o) => !o)}
+                  size="sm"
+                  color={black}
+                  mr="xl"
+                />
+              </MediaQuery>
+
+              {/* <Text>Application header</Text> */}
+            </div>
+          </Header>
+        ) : null
+      }
     >
       <div>
         <Switch>
           <Route path={MEMBER_ROUTE.GET_STARTED} render={() => <DashboardLandingPage />} />
           <Route path={MEMBER_ROUTE.DASHBOARD} exact>
-            <DashboardView displayName={appUser.given_name} />
+            <DashboardView />
           </Route>
           <Route path={MEMBER_ROUTE.REQUESTS} exact>
             <Requests />
