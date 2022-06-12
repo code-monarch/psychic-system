@@ -14,6 +14,10 @@ interface SignInResponse {
     expiresAt: string;
   };
 }
+enum REALMS {
+  EMTECH = 'EMTECH',
+  BRH = 'BRH',
+}
 export class AuthenticationService {
   /**
    * @description
@@ -32,6 +36,7 @@ export class AuthenticationService {
         {
           headers: {
             'Content-Type': 'application/json',
+            Realm: REALMS.BRH,
           },
         },
       )
