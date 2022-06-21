@@ -128,6 +128,8 @@
   "distribution.success.description": "You have successfully distributed",
   "minting.success.title": "Minting successful!",
   "minting.success.description": "You have successfully minted",
+  "burning.success.title": "Burning successful!",
+  "burning.success.description": "You have successfully burned",
   "logout.title": "Logout",
   "pagination.page": "Page",
   "pagination.of": "of",

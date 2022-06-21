@@ -18,6 +18,7 @@ import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWal
 import { formatAmount } from '../lib/utils';
 import { useFeatureFlags } from '../context/features-flag-context';
 import { device } from '../lib/constants';
+import { BurnCoinsForm } from '../components/modals/BurnCoinsForm';
 
 const Wrapper = styled.div`
   padding: 40px 64px 0 64px;
@@ -55,7 +56,8 @@ const InnerWrapper = styled(Grid)``;
 export const CurrencyManagement = (): JSX.Element => {
   const [distributeModalOpened, setDistributModalOpened] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
-  const [minFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
+  const [mintFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
+  const [burnFormModalOpened, setBurnFormModalOpened] = useState<boolean>(false);
   const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
   const { data: tokenSummary } = useGetTokenSummary(walletBalanceAndTokenDetails?.tokenId);
   const { t } = useTranslation();
@@ -100,12 +102,14 @@ export const CurrencyManagement = (): JSX.Element => {
                     {t('mint.title')}
                   </div>
                 </MintOption>
-                <BurnOption className="disabled">
+                <BurnOption>
                   <div>
                     <Title>{t('burn.coins')}</Title>
                     <SmallerCardDescription>{t('burn.description')}</SmallerCardDescription>
                   </div>
-                  <div className="button">{t('burn.title')}</div>
+                  <div className="button" onClick={() => setBurnFormModalOpened(true)}>
+                    {t('burn.title')}
+                  </div>
                 </BurnOption>
               </div>
             </Grid.Col>
@@ -146,7 +150,8 @@ export const CurrencyManagement = (): JSX.Element => {
 
       <ManualDistributionForm isVisible={formModalOpened} setIsVisible={setFormModalOpened} />
 
-      <MintCoinsForm isVisible={minFormModalOpened} setIsVisible={setMintFormModalOpened} />
+      <MintCoinsForm isVisible={mintFormModalOpened} setIsVisible={setMintFormModalOpened} />
+      <BurnCoinsForm isVisible={burnFormModalOpened} setIsVisible={setBurnFormModalOpened} />
     </Wrapper>
   );
 };

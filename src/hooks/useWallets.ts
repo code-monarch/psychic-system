@@ -71,6 +71,11 @@ export const useMintTokens = () => {
   return result;
 };
 
+export const useBurnTokens = () => {
+  const result = useMutation(WalletService.burnTokens);
+  return result;
+};
+
 export const useTransferTokens = () => {
   const queryClient = useQueryClient();
   const result = useMutation(WalletService.transferTokens, {
