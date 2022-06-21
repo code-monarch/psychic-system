@@ -34,13 +34,13 @@ interface TokenReportSummary {
   totalTransferred: number;
 }
 
-interface MintTokenResponse {
+interface MintOrBurnTokenResponse {
   tokenId: string;
   totalSupply: number;
   timestamp: number;
 }
 
-export interface MintTokenRequest {
+export interface MintOrBurnTokenRequest {
   tokenId: string;
   tokenOwnerMasterWalletId: string;
   amount: number;
@@ -275,7 +275,7 @@ export class WalletService {
    * Mint new tokens.
    */
 
-  static async mintTokens(data: MintTokenRequest): Promise<MintTokenResponse> {
+  static async mintTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
     const { tokenId, tokenOwnerMasterWalletId, amount } = data;
     const response = await secureMainApi
       .post(`/token/cb/mintToken`, {
@@ -293,10 +293,31 @@ export class WalletService {
 
   /**
    * @description
+   * Burn tokens.
+   */
+
+  static async burnTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
+    const { tokenId, tokenOwnerMasterWalletId, amount } = data;
+    const response = await secureMainApi
+      .post(`/token/cb/burnToken`, {
+        tokenId,
+        tokenOwnerMasterWalletId,
+        amount,
+      })
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
    * transfer currency from one wallet to another.
    */
 
-  static async transferTokens(data: TransferTokensRequest): Promise<MintTokenResponse> {
+  static async transferTokens(data: TransferTokensRequest): Promise<MintOrBurnTokenResponse> {
     const { tokenId, destinationWalletId, sourceWalletId, transactionType, amount, longitude, latitude } = data;
 
     const response = await secureMainApi.post(`/transfer`, {

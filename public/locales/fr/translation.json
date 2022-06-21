@@ -127,6 +127,8 @@
   "distribution.success.description": "Vous avez distribué avec succès",
   "minting.success.title": "Frappe réussie!",
   "minting.success.description": "Vous avez frappé avec succès",
+  "burning.success.title": "Gravure réussie!",
+  "burning.success.description": "Vous avez réussi à graver",
   "logout.title": "Se déconnecter",
   "pagination.page": "Page",
   "pagination.of": "sur",
