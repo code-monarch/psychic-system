@@ -32,6 +32,7 @@ interface TokenReportSummary {
   totalDistributed: number;
   totalMinted: number;
   totalTransferred: number;
+  totalBurned: number;
 }
 
 interface MintOrBurnTokenResponse {

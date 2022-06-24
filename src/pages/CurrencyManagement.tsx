@@ -135,7 +135,11 @@ export const CurrencyManagement = (): JSX.Element => {
               title={t('currency.total.distributed')}
               amount={formatAmount(tokenSummary?.totalDistributed)}
             />
-            <CurrencySummaryCard hideHistogram title={t('currency.total.burned')} amount="0" disabled />
+            <CurrencySummaryCard
+              hideHistogram
+              title={t('currency.total.burned')}
+              amount={formatAmount(tokenSummary?.totalBurned)}
+            />
           </div>
         </RightSideBar>
       </InnerWrapper>
