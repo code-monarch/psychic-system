@@ -57,8 +57,8 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
             </DetailSection>
 
             <DetailSection>
-              <DetailsLabel>{t('funding.type')}</DetailsLabel>
-              <DetailsValue>{data?.fundingType}</DetailsValue>
+              <DetailsLabel>{t('funding.type')}?</DetailsLabel>
+              <DetailsValue>{data?.fundingType.present ? 'Yes' : 'No'}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
