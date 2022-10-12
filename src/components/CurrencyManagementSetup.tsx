@@ -1,11 +1,10 @@
 import styled, { useTheme } from 'styled-components';
 import { Transition } from '@mantine/core';
 import { useState } from 'react';
-import { ArrowRightIcon, Cross1Icon } from '@modulz/radix-icons';
+import { ArrowRightIcon } from '@modulz/radix-icons';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Flex, Paragraph, ParagraphBold, Title } from './styled';
-import { PrimaryButtonWithoutIcon } from './Buttons';
+import { ParagraphBold } from './styled';
 import robotImg from '../assets/images/robot2.png';
 import { device, MEMBER_ROUTE } from '../lib/constants';
 

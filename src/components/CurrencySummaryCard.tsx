@@ -1,7 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Paragraph, ParagraphBold } from './styled';
 import Histogram from './charts/Histogram';
-import { formatAmount } from '../lib/utils';
 
 const Wrapper = styled.div`
   height: 92px;

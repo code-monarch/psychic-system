@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { Cell, Column, HeaderGroup, Row, usePagination, useTable, useSortBy } from 'react-table';
+import { Cell, Column, HeaderGroup, Row, usePagination, useSortBy, useTable } from 'react-table';
 import { LoadingOverlay } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { ChevronDownIcon, ChevronUpIcon } from '@modulz/radix-icons';

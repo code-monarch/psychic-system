@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components';
 import { useElementSize } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
-import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { CurrencyCode, device } from '../../lib/constants';
 import { useGetTransactionSummary } from '../../hooks/useWallets';
 import { useTokenDetails } from '../../context/token-details-context';

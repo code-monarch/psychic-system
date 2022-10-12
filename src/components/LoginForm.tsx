@@ -6,7 +6,7 @@ import { useLocalStorage } from 'react-use';
 import { useTranslation } from 'react-i18next';
 import { AnimatedLabelInput } from './AnimatedLabelInput';
 import { AppUser, useAuth } from '../context/auth-context';
-import { isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE, device } from '../lib/constants';
+import { device, isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE } from '../lib/constants';
 import { PrimaryButton } from './Buttons';
 
 const Form = styled.form`

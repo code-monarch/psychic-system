@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
-import { useGetAllTokens, useGetWalletAndTokenDetails, useGetWalletSummary } from '../hooks/useWallets';
-import { Token, WalletAndTokenDetailsResponse, WalletSummaryResponse } from '../services/wallet-service';
+import { useGetAllTokens, useGetWalletSummary } from '../hooks/useWallets';
+import { Token, WalletSummaryResponse } from '../services/wallet-service';
 
 type TokenDetailsContextProps = {
   tokenDetails: Token[];

@@ -1,4 +1,4 @@
-import { Suspense, FunctionComponent, lazy } from 'react';
+import { FunctionComponent, lazy, Suspense } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Loading } from '../components/Loading';

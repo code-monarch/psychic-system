@@ -14,7 +14,7 @@ import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import { WalletTransferModal } from './WalletTransferModal';
 import { selectStyles } from '../../lib/constants';
-import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {

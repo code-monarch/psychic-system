@@ -8,7 +8,7 @@ import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
 import { useGetInstitutionWallets } from '../../hooks/useWallets';
-import { formatAmount, formatAmountWithDecimals, formatEntity } from '../../lib/utils';
+import { formatAmountWithDecimals, formatEntity } from '../../lib/utils';
 import { MEMBER_ROUTE } from '../../lib/constants';
 import { CustomPieChart } from '../charts/CustomPieChart';
 import { ManualDistributionForm } from '../modals/ManualDistributionForm';

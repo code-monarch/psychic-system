@@ -1,4 +1,4 @@
-import { ratesApi, secureMainApi } from '../lib/apis';
+import { ratesApi } from '../lib/apis';
 
 /**
  * @description

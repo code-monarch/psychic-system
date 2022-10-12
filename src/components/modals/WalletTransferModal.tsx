@@ -13,7 +13,7 @@ import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import switchIcon from '../../assets/images/switch_icon.svg';
-import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {

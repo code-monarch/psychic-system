@@ -1,4 +1,4 @@
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { Column } from 'react-table';
 import { Grid } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';

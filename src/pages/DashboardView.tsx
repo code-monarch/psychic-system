@@ -4,7 +4,7 @@ import { Grid } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { Tabs } from '../components/Tabs';
-import { InternationalDashboardSummary, SummarySidePanel, LocalDashboardSummary } from './dashboard';
+import { InternationalDashboardSummary, LocalDashboardSummary, SummarySidePanel } from './dashboard';
 import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSetup';
 import { getNavigationTabs } from '../lib/utils';
 import { Overview } from './dashboard/Overview';

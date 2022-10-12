@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 
 const Chart = styled.div`
   display: flex;

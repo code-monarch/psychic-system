@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { TransactionsMap } from 'src/components/TransactionsMap';
 import { Flex } from '../../components/styled';
 import { PopulationTable } from '../../components/tables/PopulationTable';
 import { CirculationComponent } from '../../components/cards/CirculationComponent';

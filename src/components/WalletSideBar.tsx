@@ -1,12 +1,11 @@
 import styled, { useTheme } from 'styled-components';
-import { Divider, Space, Skeleton } from '@mantine/core';
+import { Divider, Skeleton, Space } from '@mantine/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
-import { useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { WalletTransferModal } from './modals/WalletTransferModal';
-import { formatAmount, formatAmountWithDecimals } from '../lib/utils';
+import { formatAmountWithDecimals } from '../lib/utils';
 import { useTokenDetails } from '../context/token-details-context';
 
 export const WalletInfo = () => {

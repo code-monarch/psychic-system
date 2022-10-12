@@ -1,4 +1,4 @@
-import { mainApi, secureMainApi } from '../lib/apis';
+import { secureMainApi } from '../lib/apis';
 
 /**
  * @description

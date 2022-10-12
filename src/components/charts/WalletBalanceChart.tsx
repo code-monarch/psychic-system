@@ -10,12 +10,7 @@ import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
 import { useGetWalletGraphData } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
-import {
-  formatAmount,
-  formatAmountWithDecimals,
-  getDateMonthFromTimestamp,
-  getMonthFromTimestamp,
-} from '../../lib/utils';
+import { formatAmountWithDecimals, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 import { WalletGraphRequest } from '../../services/wallet-service';
 import { useTokenDetails } from '../../context/token-details-context';
 

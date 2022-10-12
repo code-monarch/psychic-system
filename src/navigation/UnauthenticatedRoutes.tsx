@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Switch, Route, Redirect, RouteProps, useLocation } from 'react-router-dom';
+import { Redirect, Route, RouteProps, Switch, useLocation } from 'react-router-dom';
 import { Login } from '../pages/Login';
 import { PageNotFound } from '../pages/common/PageNotFound';
 import { GUEST_ROUTE } from '../lib/constants';

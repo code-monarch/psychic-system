@@ -1,9 +1,9 @@
 import styled, { useTheme } from 'styled-components';
-import { PieChart, Pie, Sector, ResponsiveContainer, Text } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
 import { useState } from 'react';
 import { NameValue } from '../NameValue';
 import { Paragraph } from '../styled';
-import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 
 const StyledLegendItem = styled.li`
   color: ${(props) => props.color};

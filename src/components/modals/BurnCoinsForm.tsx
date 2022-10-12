@@ -7,7 +7,7 @@ import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import mint_image from '../../assets/images/mint.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
-import { useBurnTokens, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
+import { useBurnTokens } from '../../hooks/useWallets';
 import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { ErrorText } from '../LoginForm';

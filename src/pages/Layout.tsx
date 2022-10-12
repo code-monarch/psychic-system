@@ -1,6 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { AppShell, Menu, Navbar, Header, MediaQuery, Burger } from '@mantine/core';
+import { AppShell, Burger, Header, MediaQuery, Menu, Navbar } from '@mantine/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@mantine/hooks';

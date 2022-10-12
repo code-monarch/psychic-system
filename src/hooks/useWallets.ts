@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { WalletGraphRequest, WalletService } from '../services/wallet-service';
+import { WalletService } from '../services/wallet-service';
 
 import { cacheKey } from './cacheStateKey';
 

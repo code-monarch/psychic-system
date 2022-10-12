@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Cell, Column, Accessor } from 'react-table';
+import { Cell, Column } from 'react-table';
 import { TFunction } from 'react-i18next';
 import moment from 'moment';
 import { TransactionType } from '../../lib/constants';
-import { formatAmount, formatAmountWithDecimals, formatDate, formatEntity } from '../../lib/utils';
+import { formatAmountWithDecimals, formatEntity } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
 import { ViewTransactionTableCell } from '../../components/tables/ViewTransactionTableCell';
 

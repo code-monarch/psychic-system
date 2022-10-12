@@ -7,11 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { DateRangePicker } from '@mantine/dates';
 import moment from 'moment';
 import { ParagraphBold, Title } from '../styled';
-import {
-  useGetDashboardGraphData,
-  useGetFSPDashboardGraphData,
-  useGetWalletAndTokenDetails,
-} from '../../hooks/useWallets';
+import { useGetFSPDashboardGraphData } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
 import { getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 import { DashboardGraphRequest } from '../../services/wallet-service';

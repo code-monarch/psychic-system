@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Space } from '@mantine/core';
-import { formatAmount, setWithExpiry, getWithExpiry, formatAmountWithDecimals } from '../../lib/utils';
+import { formatAmountWithDecimals, getWithExpiry, setWithExpiry } from '../../lib/utils';
 import { useGetTransactionHistory, useGetTransactionSummary } from '../../hooks/useWallets';
 import { Paragraph, Title } from '../../components/styled';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
