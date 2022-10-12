@@ -16,7 +16,7 @@ interface Iprops {
 
 export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, data }: Iprops) => {
   const { t } = useTranslation();
-  const { tokenDetails } = useTokenDetails();
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
 
   const theme = useTheme();
   const { green } = theme.colors.primary;
@@ -36,24 +36,24 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
           <FormHeader>{t('transaction.details')}</FormHeader>
           <DetailSection>
             <DetailsValue style={{ marginRight: 20 }}>
-              {t('transaction.title')} - {data.sourceWalletId}@{data.destinationWalletId}
+              {t('transaction.title')} - {data.sourceWallet.id}@{data.destinationWallet.id}
             </DetailsValue>
             <DetailsValue style={{ color: green }}> • {t('success.title')}</DetailsValue>
           </DetailSection>
           <DetailsWrapper>
             <DetailSection>
               <DetailsLabel>{t('transaction.type')}</DetailsLabel>
-              <DetailsValue>{data?.transactionType}</DetailsValue>
+              <DetailsValue>{data?.type}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
               <DetailsLabel>{t('transaction.Id')}</DetailsLabel>
-              <DetailsValue>{data?.transactionHash}</DetailsValue>
+              <DetailsValue>{data?.hash}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
               <DetailsLabel>{t('transaction.wallet.source')}</DetailsLabel>
-              <DetailsValue style={{ color: green }}>{data?.sourceWalletCategory}</DetailsValue>
+              <DetailsValue style={{ color: green }}>{data?.sourceWallet.category}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
@@ -64,7 +64,7 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
             <DetailSection>
               <DetailsLabel>{t('transfer.amount')}</DetailsLabel>
               <DetailsValue>
-                {formatAmount(data?.amount)} {tokenDetails?.tokenSymbol}
+                {formatAmount(data?.amount)} {walletSummaryDetails?.symbol}
               </DetailsValue>
             </DetailSection>
 

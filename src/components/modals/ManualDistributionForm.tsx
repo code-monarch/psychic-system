@@ -14,7 +14,7 @@ import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import { WalletTransferModal } from './WalletTransferModal';
 import { selectStyles } from '../../lib/constants';
-import { formatAmount } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
@@ -45,11 +45,12 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     },
   });
 
-  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const wallets = walletSummaryDetails?.wallets || [];
 
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const theme = useTheme();
   const { green } = theme.colors.primary;
@@ -77,9 +78,9 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
         latitude: String(currentLocation?.[1]),
         longitude: String(currentLocation?.[0]),
         transactionType: 'Institution',
-        sourceWalletId: distributionWallet.walletId,
+        sourceWalletId: distributionWallet.id,
         destinationWalletId: data.destinationWalletId,
-        tokenId: walletBalanceAndTokenDetails.tokenId,
+        tokenId,
       },
       {
         onSuccess: () => {
@@ -107,13 +108,14 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                   <Select
                     label={t('choose.wallet.source')}
                     rightSection={null}
-                    value={distributionWallet?.walletId}
+                    value={distributionWallet?.id}
                     styles={selectStyles}
                     data={[distributionWallet]?.map((item) => ({
-                      label: `${item?.walletType} - ${formatAmount(Number(item?.balances?.[0]?.balance))} ${
-                        walletBalanceAndTokenDetails?.tokenSymbol
-                      }`,
-                      value: item?.walletId,
+                      label: `${item?.category} - ${formatAmountWithDecimals(
+                        Number(item?.balances?.[0]?.amount),
+                        walletSummaryDetails?.decimals,
+                      )} ${walletSummaryDetails?.symbol}`,
+                      value: item?.id,
                     }))}
                   />
                 </FormSection>
@@ -140,10 +142,15 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                         rightSection={<ChevronDownIcon />}
                         styles={selectStyles}
                         data={institutionWallets.map((wallet) => ({
-                          label: `${wallet?.userId} - ${
-                            wallet?.balances?.[0]?.balance ? formatAmount(Number(wallet?.balances?.[0]?.balance)) : 0
-                          } ${walletBalanceAndTokenDetails?.tokenSymbol}`,
-                          value: wallet.walletId,
+                          label: `${wallet?.owner} - ${
+                            wallet?.balances?.[0]?.amount
+                              ? formatAmountWithDecimals(
+                                  Number(wallet?.balances?.[0]?.amount),
+                                  walletSummaryDetails?.decimals,
+                                )
+                              : 0
+                          } ${walletSummaryDetails?.symbol}`,
+                          value: wallet.id,
                           ...wallet,
                         }))}
                       />

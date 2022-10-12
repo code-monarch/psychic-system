@@ -1,31 +1,30 @@
 import styled, { useTheme } from 'styled-components';
-import { Divider, Space, Skeleton } from '@mantine/core';
+import { Divider, Skeleton, Space } from '@mantine/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from './styled';
 import { PrimaryButton } from './Buttons';
-import { useGetWalletAndTokenDetails } from '../hooks/useWallets';
 import { WalletTransferModal } from './modals/WalletTransferModal';
-import { formatAmount } from '../lib/utils';
-import { useFeatureFlags } from '../context/features-flag-context';
+import { formatAmountWithDecimals } from '../lib/utils';
+import { useTokenDetails } from '../context/token-details-context';
 
 export const WalletInfo = () => {
   const theme: any = useTheme();
   const { t } = useTranslation();
   const { grey } = theme.colors.secondary;
 
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { walletSummaryDetails, isLoadingWalletTokenDetails } = useTokenDetails();
 
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const wallets = walletSummaryDetails?.wallets || [];
 
-  const nonCirculatingSupply = walletBalanceAndTokenDetails?.notInCirculation;
-  const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
-  const institutionWallet = wallets?.find((wallet) => wallet?.walletType === 'Institution');
+  const nonCirculatingSupply = walletSummaryDetails?.notInCirculation;
+  const masterReserveWallet = wallets?.find((wallet) => wallet?.category === 'Master');
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
+  const institutionWallet = wallets?.find((wallet) => wallet?.category === 'Institution');
 
-  const { featureFlagsNormalized } = useFeatureFlags();
+  const { decimals } = walletSummaryDetails;
 
   return (
     <Wrapper>
@@ -34,21 +33,23 @@ export const WalletInfo = () => {
           <Label>{t('total.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{formatAmount(walletBalanceAndTokenDetails?.totalSupply)}</WalletValue>
+            <WalletValue>{formatAmountWithDecimals(walletSummaryDetails?.supply, decimals)}</WalletValue>
           )}
         </WalletField>
         <WalletField>
           <Label>{t('circulating.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}</WalletValue>
+            <WalletValue>{formatAmountWithDecimals(walletSummaryDetails?.inCirculation, decimals)}</WalletValue>
           )}
         </WalletField>
         <WalletField>
           <Label>{t('total.not.circulation.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{nonCirculatingSupply ? formatAmount(nonCirculatingSupply) : '0'}</WalletValue>
+            <WalletValue>
+              {nonCirculatingSupply ? formatAmountWithDecimals(nonCirculatingSupply, decimals) : '0'}
+            </WalletValue>
           )}
         </WalletField>
       </SupplyWallets>
@@ -61,13 +62,13 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.distribution')}</AssetLabel>
-              <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
+              <AssetValue>{walletSummaryDetails?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
             <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}
+                {formatAmountWithDecimals(Number(distributionWallet?.balances?.[0]?.amount), decimals) || 0}
               </AssetLabel>
             </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
@@ -79,13 +80,13 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.institution')}</AssetLabel>
-              <AssetValue>{distributionWallet?.balances?.[0]?.symbol || 'N/A'}</AssetValue>
+              <AssetValue>{walletSummaryDetails?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
             <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmount(Number(institutionWallet?.balances?.[0]?.balance)) || 0}
+                {formatAmountWithDecimals(Number(institutionWallet?.balances?.[0]?.amount), decimals) || 0}
               </AssetLabel>
             </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
@@ -102,13 +103,13 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.master')}</AssetLabel>
-              <AssetValue>{masterReserveWallet?.balances?.[0]?.symbol}</AssetValue>
+              <AssetValue>{walletSummaryDetails?.symbol}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
             <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmount(Number(masterReserveWallet?.balances?.[0]?.balance)) || 0}
+                {formatAmountWithDecimals(Number(masterReserveWallet?.balances?.[0]?.amount), decimals) || 0}
               </AssetLabel>
             </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
@@ -121,7 +122,6 @@ export const WalletInfo = () => {
           title={t('wallets.transfer.title')}
           style={{ width: '100%' }}
           onClick={() => setShowWalletTransferModal(true)}
-          disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
         />
       </ButtonContainer>
       <WalletTransferModal isVisible={showWalletTransferModal} setIsVisible={setShowWalletTransferModal} />

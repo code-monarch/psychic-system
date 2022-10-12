@@ -10,26 +10,27 @@ import { Paragraph, ParagraphBold, Title } from '../styled';
 import { ReAreaChart } from './AreaChart';
 import { useGetWalletGraphData } from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
-import { formatAmount, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
+import { formatAmountWithDecimals, getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 import { WalletGraphRequest } from '../../services/wallet-service';
 import { useTokenDetails } from '../../context/token-details-context';
 
 export const WalletBalanceChart = (): JSX.Element => {
   const { t, i18n } = useTranslation();
 
-  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
 
   const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false);
   const [period, setPeriod] = useState('180');
 
   const [dateFilters, setDateFilters] = useState<[Date | null, Date | null]>([null, null]);
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const wallets = walletSummaryDetails?.wallets || [];
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
   const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
 
-  const creditChartData = data?.graphDataCredit || {};
-  const debitChartData = data?.graphDataDebit || {};
+  const creditChartData = data?.creditData || {};
+  const debitChartData = data?.debitData || {};
   const creditAmount = data?.credit || 0;
   const debitAmount = data?.debit || 0;
 
@@ -72,20 +73,24 @@ export const WalletBalanceChart = (): JSX.Element => {
 
   useEffect(() => {
     fetchData();
-  }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
+  }, [tokenId, distributionWallet?.id]);
 
   const fetchData = () => {
     const chartRequest: WalletGraphRequest = {
-      distributionWalletId: distributionWallet?.walletId,
-      tokenId: walletBalanceAndTokenDetails?.tokenId,
-      period: Number(period),
+      tokenId,
+      data: {
+        distributionWalletId: distributionWallet?.id,
+        period: Number(period),
+      },
     };
 
     if (dateFilters[0] && dateFilters[1]) {
-      chartRequest.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
-      chartRequest.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
+      chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
+      chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
     }
-    getGraphData(chartRequest);
+    if (tokenId) {
+      getGraphData(chartRequest);
+    }
   };
   const onWalletDurationChange = (val) => {
     setPeriod(() => val);
@@ -108,28 +113,29 @@ export const WalletBalanceChart = (): JSX.Element => {
     { label: t('duration.custom'), value: 'custom' },
   ];
 
+  const { decimals } = walletSummaryDetails;
   return (
     <Wrapper>
       <LoadingOverlay visible={isLoadingGraph} zIndex={5} />
       <TopSection>
         <LeftSection>
           <Title>
-            {t('wallets.balance')} ({walletBalanceAndTokenDetails?.tokenSymbol})
+            {t('wallets.balance')} ({walletSummaryDetails?.symbol})
           </Title>
-          <Amount> {formatAmount(Number(distributionWallet?.balances?.[0]?.balance)) || 0}</Amount>
+          <Amount> {formatAmountWithDecimals(Number(distributionWallet?.balances?.[0]?.amount), decimals) || 0}</Amount>
         </LeftSection>
         <RightSection>
           <WalletTypeLabel>{t('distribution.title')}</WalletTypeLabel>
           <WalletSection style={{ marginBottom: 12 }}>
             <CreditLabel>{t('credit')}</CreditLabel>
             <ParagraphBold>
-              {formatAmount(creditAmount)} {walletBalanceAndTokenDetails?.tokenSymbol}
+              {formatAmountWithDecimals(creditAmount, decimals)} {walletSummaryDetails?.symbol}
             </ParagraphBold>
           </WalletSection>
           <WalletSection>
             <DebitLabel>{t('debit')}</DebitLabel>
             <ParagraphBold>
-              {formatAmount(debitAmount)} {walletBalanceAndTokenDetails?.tokenSymbol}
+              {formatAmountWithDecimals(debitAmount, decimals)} {walletSummaryDetails?.symbol}
             </ParagraphBold>
           </WalletSection>
         </RightSection>

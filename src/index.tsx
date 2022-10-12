@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { ThemeProvider } from 'styled-components';
-import { MantineProvider, LoadingOverlay } from '@mantine/core';
+import { LoadingOverlay, MantineProvider } from '@mantine/core';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App';

@@ -3,7 +3,7 @@ import { Cell, Column } from 'react-table';
 import { TFunction } from 'react-i18next';
 import moment from 'moment';
 import { TransactionType } from '../../lib/constants';
-import { formatAmount, formatDate, formatEntity } from '../../lib/utils';
+import { formatAmountWithDecimals, formatEntity } from '../../lib/utils';
 import { Transaction } from '../../services/wallet-service';
 import { ViewTransactionTableCell } from '../../components/tables/ViewTransactionTableCell';
 
@@ -32,19 +32,23 @@ const StyledStatus = ({
 export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transaction>[] => [
   {
     Header: t('transaction.Id'),
-    accessor: 'transactionHash',
+    accessor: 'hash',
   },
   {
     Header: t('transaction.type'),
-    accessor: 'transactionType',
+    accessor: 'type',
   },
   {
     Header: t('transaction.wallet.destination'),
-    accessor: 'destinationWalletCategory',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    /* @ts-ignore */
+    accessor: 'destinationWallet.category',
   },
   {
     Header: t('transaction.wallet.source'),
-    accessor: 'sourceWalletCategory',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    /* @ts-ignore */
+    accessor: 'sourceWallet.category',
   },
   {
     Header: t('entity'),
@@ -67,7 +71,7 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
   {
     Header: t('amount'),
     accessor: 'amount',
-    Cell: (props) => formatAmount(props.value) || '\u2014',
+    Cell: (props) => formatAmountWithDecimals(props.value, 2) || '\u2014', // use 2 as default for decimals
   },
   {
     Header: t('view.title'),

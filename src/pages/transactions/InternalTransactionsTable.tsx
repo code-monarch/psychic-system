@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { LoadingOverlay } from '@mantine/core';
 import { Column } from 'react-table';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { WalletGraphRequest, WalletService } from '../services/wallet-service';
+import { WalletService } from '../services/wallet-service';
 
 import { cacheKey } from './cacheStateKey';
 
@@ -8,6 +8,24 @@ export const useGetWalletAndTokenDetails = () => {
   const result = useQuery({
     queryKey: cacheKey.walletBalanceAndTokenDetails,
     queryFn: () => WalletService.getWalletAndTokenDetails(),
+  });
+  return result;
+};
+
+export const useGetAllTokens = (disableApiCall = false) => {
+  const result = useQuery({
+    queryKey: cacheKey.tokens,
+    queryFn: () => WalletService.getTokens(),
+    enabled: !disableApiCall,
+  });
+  return result;
+};
+
+export const useGetWalletSummary = (tokenId: string) => {
+  const result = useQuery({
+    queryKey: cacheKey.walletSummary,
+    queryFn: () => WalletService.getWalletSummary(tokenId),
+    enabled: Boolean(tokenId),
   });
   return result;
 };
@@ -21,10 +39,10 @@ export const useGetTokenSummary = (tokenId) => {
   return result;
 };
 
-export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6) => {
+export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6, transactionType) => {
   const result = useQuery({
     queryKey: [cacheKey.transactionHistory, page],
-    queryFn: () => WalletService.getTransactionHistory(walletId, page, pageSize),
+    queryFn: () => WalletService.getTransactionHistory(walletId, page, pageSize, transactionType),
     enabled: Boolean(walletId),
     keepPreviousData: true,
   });
@@ -40,10 +58,10 @@ export const useGetCBTransactionHistory = (transactionType, page = 0, pageSize =
   return result;
 };
 
-export const useGetTransactionSummary = () => {
+export const useGetTransactionSummary = (tokenId: string) => {
   const result = useQuery({
     queryKey: cacheKey.transactionSummary,
-    queryFn: () => WalletService.getTransactionSummary(),
+    queryFn: () => WalletService.getTransactionSummary(tokenId),
   });
   return result;
 };
@@ -83,6 +101,9 @@ export const useTransferTokens = () => {
       queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
       queryClient.invalidateQueries(cacheKey.tokenReportSummary);
       queryClient.invalidateQueries(cacheKey.transactionHistory);
+      queryClient.invalidateQueries(cacheKey.tokens);
+      queryClient.invalidateQueries(cacheKey.walletSummary);
+      queryClient.invalidateQueries(cacheKey.institutionWallets);
     },
     onError: (error: any) => {
       if (error?.response?.data?.message) {
@@ -90,5 +111,10 @@ export const useTransferTokens = () => {
       }
     },
   });
+  return result;
+};
+
+export const useGetFSPDashboardGraphData = () => {
+  const result = useMutation(WalletService.getTrendedChartData);
   return result;
 };

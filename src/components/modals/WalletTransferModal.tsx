@@ -13,7 +13,7 @@ import { TextInput } from '../Inputs';
 import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { SuccessModal } from './SuccessModal';
 import switchIcon from '../../assets/images/switch_icon.svg';
-import { formatAmount } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
@@ -49,9 +49,9 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     trigger('destinationWalletId');
   }, [trigger, watchFields?.sourceWalletId]);
 
-  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
-
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
+  const wallets = walletSummaryDetails?.wallets || [];
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -78,7 +78,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
         transactionType: 'Distribution',
         sourceWalletId: data.sourceWalletId,
         destinationWalletId: data.destinationWalletId,
-        tokenId: walletBalanceAndTokenDetails.tokenId,
+        tokenId,
       },
       {
         onSuccess: () => {
@@ -120,12 +120,13 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets
-                        .filter((wallet) => wallet?.walletType !== 'Institution')
+                        .filter((wallet) => wallet?.category !== 'Institution')
                         .map((wallet) => ({
-                          label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} ${
-                            walletBalanceAndTokenDetails?.tokenSymbol
-                          }`,
-                          value: wallet?.walletId,
+                          label: `${wallet?.category} - ${formatAmountWithDecimals(
+                            Number(wallet.balances?.[0]?.amount),
+                            walletSummaryDetails?.decimals,
+                          )} ${walletSummaryDetails?.symbol}`,
+                          value: wallet?.id,
                         }))}
                     />
                   )}
@@ -159,10 +160,11 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets.map((wallet) => ({
-                        label: `${wallet?.walletType} - ${formatAmount(Number(wallet.balances?.[0]?.balance))} ${
-                          walletBalanceAndTokenDetails?.tokenSymbol
-                        }`,
-                        value: wallet?.walletId,
+                        label: `${wallet?.category} - ${formatAmountWithDecimals(
+                          Number(wallet.balances?.[0]?.amount),
+                          walletSummaryDetails?.decimals,
+                        )} ${walletSummaryDetails?.symbol}`,
+                        value: wallet?.id,
                       }))}
                     />
                   )}

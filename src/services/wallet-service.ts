@@ -1,4 +1,4 @@
-import { mainApi, secureMainApi } from '../lib/apis';
+import { secureMainApi } from '../lib/apis';
 
 /**
  * @description
@@ -26,13 +26,36 @@ export interface WalletAndTokenDetailsResponse {
   currencyCode: string;
 }
 
+export interface WalletSummaryResponse {
+  notInCirculation: number;
+  inCirculation: number;
+  id: string;
+  supply: number;
+  name: string;
+  symbol: string;
+  wallets: Wallet[];
+  decimals: number;
+  currencyCode: string;
+}
+
+export interface Token {
+  decimals: number;
+  name: string;
+  symbol: string;
+  id?: string;
+  supply: number;
+}
+
 interface TokenReportSummary {
-  tokenId: string;
-  tokenSymbol: string;
-  totalDistributed: number;
-  totalMinted: number;
-  totalTransferred: number;
-  totalBurned: number;
+  id: string;
+  symbol: string;
+  decimals: number;
+  totals: {
+    minted: number;
+    burned: number;
+    transferred: number;
+    distributed: number;
+  };
 }
 
 interface MintOrBurnTokenResponse {
@@ -59,27 +82,31 @@ export interface TransferTokensRequest {
 
 export interface WalletGraphRequest {
   tokenId: string;
-  distributionWalletId: string;
-  period?: number;
-  startDate?: string;
-  endDate?: string;
+  data: {
+    distributionWalletId: string;
+    period?: number;
+    startDate?: string;
+    endDate?: string;
+  };
 }
 
 export interface DashboardGraphRequest {
   tokenId: string;
-  transactionType: string;
-  period?: number;
-  startDate?: string;
-  endDate?: string;
+  data: {
+    transactionType?: string;
+    period?: number;
+    startDate?: string;
+    endDate?: string;
+  };
 }
 
 export interface WalletGraphResponse {
   credit: number;
   debit: number;
-  graphDataCredit: {
+  creditData: {
     [key: number]: number;
   };
-  graphDataDebit: {
+  debitData: {
     [key: number]: number;
   };
 }
@@ -91,42 +118,50 @@ export interface DashboardGraphResponse {
 }
 
 interface Wallet {
-  walletId: string;
+  id: string;
   clientId: string;
+  owner?: string;
   userId: string;
-  walletType: string;
+  category: string;
   balances: [
     {
-      name: string;
-      symbol: string;
-      balance: string;
+      amount: number;
+      token: Token;
     },
   ];
 }
 
 export interface Transaction {
-  tokenId: string;
+  token: Token;
+  id: string;
   tokenName: string;
-  sourceWalletId: string;
-  sourceWalletCategory: string;
-  destinationWalletId: string;
-  destinationWalletCategory: string;
-  transactionType: string;
+  sourceWallet: {
+    category: string;
+    id: string;
+  };
+  destinationWallet: {
+    category: string;
+    id: string;
+  };
+  type: string;
   entity: string;
-  transactionHash: string;
+  hash: string;
   amount: number;
   credit: boolean;
   debit: boolean;
   createdAt: string;
-  fundingType: string;
+  fundingType: {
+    present: boolean;
+  };
   timestamp: number;
 }
 
 interface TransactionSummaryReportResponse {
-  totalAmount: number;
-  totalInternalTransactionAmount: number;
-  totalExternalTransactionAmount: number;
-  totalExternalTrendingTransactionAmount: number;
+  totals: {
+    amount: number;
+    internalAmount: number;
+    externalAmount: number;
+  };
 }
 
 export class WalletService {
@@ -166,12 +201,48 @@ export class WalletService {
 
   /**
    * @description
+   * Get currency tokens
+   */
+
+  static async getTokens(): Promise<Token[]> {
+    const response = await secureMainApi
+      .get(`/tokens`, {
+        params: {
+          list: 'managed',
+        },
+      })
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
+   * Get wallet summary
+   */
+
+  static async getWalletSummary(tokenId: string): Promise<WalletSummaryResponse> {
+    const response = await secureMainApi
+      .get(`/tokens/${tokenId}/wallets-summary`)
+      .then((res) => res?.data)
+      .catch((err) => {
+        // console.error('Error logging in: ', err.response.data);
+        // throw Error(err.response);
+      });
+    return response;
+  }
+
+  /**
+   * @description
    * Get currency token summary
    */
 
   static async getTokenReportSummary(tokenId): Promise<TokenReportSummary> {
     const response = await secureMainApi
-      .get(`/cb/tokenReport/${tokenId}`)
+      .get(`/tokens/${tokenId}/extended`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -202,13 +273,14 @@ export class WalletService {
    * Get list of wallet transactions
    */
 
-  static async getTransactionHistory(walletId, page, pageSize): Promise<Transaction[]> {
+  static async getTransactionHistory(walletId, page, pageSize, transactionType): Promise<Transaction[]> {
     const response = await secureMainApi
-      .get(`/transactionHistory`, {
+      .get(`/transactions`, {
         params: {
           walletId,
-          pageNo: page,
-          pageSize,
+          type: transactionType,
+          offset: page,
+          limit: pageSize,
         },
       })
       .then((res) => res?.data)
@@ -225,11 +297,11 @@ export class WalletService {
    */
   static async getAllCBTransactionHistory(transactionType, page, pageSize): Promise<Transaction[]> {
     const response = await secureMainApi
-      .get(`/cb/getTransactionHistory`, {
+      .get(`/transactions`, {
         params: {
-          transactionType,
-          pageNo: page,
-          pageSize,
+          type: transactionType,
+          offset: page,
+          limit: pageSize,
         },
       })
       .then((res) => res?.data)
@@ -244,9 +316,9 @@ export class WalletService {
    * @description GET
    * Get transaction summary report
    */
-  static async getTransactionSummary(): Promise<TransactionSummaryReportResponse> {
+  static async getTransactionSummary(tokenId: string): Promise<TransactionSummaryReportResponse> {
     const response = await secureMainApi
-      .get(`/cb/getTransactionSummaryReport`)
+      .get(`/tokens/${tokenId}/transactions-summary`)
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -262,7 +334,11 @@ export class WalletService {
 
   static async getAllInstitutionWallets(): Promise<Wallet[]> {
     const response = await secureMainApi
-      .get(`/wallet/cb/getAllIntegratorWallets`)
+      .get(`/wallets`, {
+        params: {
+          category: 'Reserve',
+        },
+      })
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -321,7 +397,7 @@ export class WalletService {
   static async transferTokens(data: TransferTokensRequest): Promise<MintOrBurnTokenResponse> {
     const { tokenId, destinationWalletId, sourceWalletId, transactionType, amount, longitude, latitude } = data;
 
-    const response = await secureMainApi.post(`/transfer`, {
+    const response = await secureMainApi.post(`/transfers`, {
       tokenId,
       destinationWalletId,
       sourceWalletId,
@@ -340,12 +416,21 @@ export class WalletService {
    */
 
   static async getWalletBalanceChartData(request: WalletGraphRequest): Promise<WalletGraphResponse> {
-    const response = await secureMainApi.post(`/cb/graphData`, request);
+    const response = await secureMainApi.get(`/tokens/${request.tokenId}/transactions-timeseries/`, {
+      params: request.data,
+    });
     return response.data;
   }
 
   static async getDashboardBalanceChartData(request: DashboardGraphRequest): Promise<DashboardGraphResponse> {
     const response = await secureMainApi.post(`/cb/dashGraphData`, request);
+    return response.data;
+  }
+
+  static async getTrendedChartData(request: any): Promise<WalletGraphResponse> {
+    const response = await secureMainApi.get(`/tokens/${request.tokenId}/transactions-timeseries/`, {
+      params: request.data,
+    });
     return response.data;
   }
 }

@@ -8,7 +8,7 @@ import ComparisonChart from '../charts/ComparisonChart';
 import { ParagraphBold, Title } from '../styled';
 import { NameValue } from '../NameValue';
 import { useGetInstitutionWallets } from '../../hooks/useWallets';
-import { formatAmount, formatEntity } from '../../lib/utils';
+import { formatAmountWithDecimals, formatEntity } from '../../lib/utils';
 import { MEMBER_ROUTE } from '../../lib/constants';
 import { CustomPieChart } from '../charts/CustomPieChart';
 import { ManualDistributionForm } from '../modals/ManualDistributionForm';
@@ -30,15 +30,19 @@ const StyledNameValue = styled(NameValue)`
 `;
 
 export const CirculationComponent = () => {
-  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
+  const {
+    tokenDetails: walletBalanceAndTokenDetails,
+    isLoadingWalletTokenDetails,
+    walletSummaryDetails,
+  } = useTokenDetails();
 
   const history = useHistory();
   const [distributeFormModalOpened, setDistributeFormModalOpened] = useState<boolean>(false);
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
-  const institutionWallet = wallets?.find((wallet) => wallet?.walletType === 'Institution');
-  const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const wallets = walletSummaryDetails?.wallets || [];
+  const institutionWallet = wallets?.find((wallet) => wallet?.category === 'Institution');
+  const masterReserveWallet = wallets?.find((wallet) => wallet?.category === 'Master');
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const theme: any = useTheme();
   const { green, yellow, blue: primaryBlue } = theme.colors.primary;
@@ -50,13 +54,13 @@ export const CirculationComponent = () => {
   const { data: institutionWallets = [], isLoading: isLoadingInstitutionWallets } = useGetInstitutionWallets();
 
   const tokensData = [
-    { name: t('circulating.supply.description'), value: walletBalanceAndTokenDetails?.circulatingSupply || 0 },
-    { name: t('non.circulating.supply.description'), value: walletBalanceAndTokenDetails?.notInCirculation || 0 },
+    { name: t('circulating.supply.description'), value: walletSummaryDetails?.inCirculation || 0 },
+    { name: t('non.circulating.supply.description'), value: walletSummaryDetails?.notInCirculation || 0 },
   ];
 
-  const institutionBalance = institutionWallet?.balances?.[0]?.balance;
-  const masterBalance = masterReserveWallet?.balances?.[0]?.balance;
-  const distributionBalance = distributionWallet?.balances?.[0]?.balance;
+  const institutionBalance = institutionWallet?.balances?.[0]?.amount;
+  const masterBalance = masterReserveWallet?.balances?.[0]?.amount;
+  const distributionBalance = distributionWallet?.balances?.[0]?.amount;
 
   const internalWalletOptions = [
     {
@@ -82,11 +86,11 @@ export const CirculationComponent = () => {
           <Title>{t('tokens.circulation.description')}</Title>
           <Title>
             <TokensAmount>
-              {walletBalanceAndTokenDetails?.totalSupply
-                ? formatAmount(walletBalanceAndTokenDetails?.totalSupply)
+              {walletSummaryDetails?.supply
+                ? formatAmountWithDecimals(walletSummaryDetails?.supply, walletSummaryDetails?.decimals)
                 : '0'}
             </TokensAmount>
-            {walletBalanceAndTokenDetails?.tokenSymbol}
+            {walletSummaryDetails?.symbol}
           </Title>
         </TokensHeaderWrapper>
         <TokensChartWrapper>
@@ -111,12 +115,14 @@ export const CirculationComponent = () => {
         <TokensHeaderWrapper>
           <Title>{t('wallets.institution')}</Title>
           <Title>
-            <TokensAmount>{formatAmount(institutionBalance) || 0}</TokensAmount>
-            {walletBalanceAndTokenDetails?.tokenSymbol}
+            <TokensAmount>
+              {formatAmountWithDecimals(institutionBalance, walletSummaryDetails?.decimals) || 0}
+            </TokensAmount>
+            {walletSummaryDetails?.symbol}
           </Title>
         </TokensHeaderWrapper>
         {institutionWallets.map((wallet, index) => {
-          const walletBalance = wallet?.balances?.[0]?.balance || 0;
+          const walletBalance = wallet?.balances?.[0]?.amount || 0;
           const percentage = (Number(walletBalance) / Number(institutionBalance)) * 100;
           return (
             <WalletWrapper>
@@ -128,7 +134,8 @@ export const CirculationComponent = () => {
               </WalletLeftSection>
               <WalletRightSection>
                 <WalletAmount>
-                  {formatAmount(walletBalance)}, <span>{percentage ? percentage.toFixed(2) : 'N/A'}%</span>
+                  {formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)},{' '}
+                  <span>{percentage ? percentage.toFixed(2) : 'N/A'}%</span>
                 </WalletAmount>
               </WalletRightSection>
             </WalletWrapper>
@@ -154,8 +161,10 @@ export const CirculationComponent = () => {
         <TokensHeaderWrapper>
           <Title>{t('wallets.internal')}</Title>
           <Title>
-            <TokensAmount>{formatAmount(internalWalletTotal) || 0}</TokensAmount>
-            {walletBalanceAndTokenDetails?.tokenSymbol}
+            <TokensAmount>
+              {formatAmountWithDecimals(internalWalletTotal, walletSummaryDetails?.decimals) || 0}
+            </TokensAmount>
+            {walletSummaryDetails?.symbol}
           </Title>
         </TokensHeaderWrapper>
 
