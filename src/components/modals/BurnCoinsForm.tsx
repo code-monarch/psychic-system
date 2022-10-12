@@ -48,7 +48,6 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
     burnTokens(
       {
         amount: Number(data.amount),
-        tokenOwnerMasterWalletId: masterReserveWallet.id,
         tokenId,
       },
       {

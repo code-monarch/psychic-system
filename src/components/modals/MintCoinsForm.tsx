@@ -48,7 +48,6 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
     mintTokens(
       {
         amount: Number(data.amount),
-        tokenOwnerMasterWalletId: masterReserveWallet.id,
         tokenId,
       },
       {
