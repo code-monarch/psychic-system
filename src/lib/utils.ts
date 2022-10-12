@@ -148,14 +148,14 @@ export const getTransactionTabs = (t: TFunction): { title: string; route: string
 
 export const getMonthFromTimestamp = (time: number, locale: string): string => {
   moment.locale([locale, 'en']);
-  return moment(Number(time)).format('MMMM');
+  return moment(time).format('Do MMM');
 };
 
 export const getDateFromTimestamp = (time: number, t: TFunction): string => moment(Number(time)).format('ddd Do');
 
 export const getDateMonthFromTimestamp = (time: number, locale: string): string => {
   moment.locale([locale, 'en']);
-  return moment(Number(time)).format('Do MMM');
+  return moment(time).format('Do MMM');
 };
 // return String(date.getDate());
 

@@ -121,7 +121,7 @@ export const CirculationComponent = () => {
             {walletSummaryDetails?.symbol}
           </Title>
         </TokensHeaderWrapper>
-        {institutionWallets.map((wallet, index) => {
+        {institutionWallets.slice(0, 3).map((wallet, index) => {
           const walletBalance = wallet?.balances?.[0]?.amount || 0;
           const percentage = (Number(walletBalance) / Number(institutionBalance)) * 100;
           return (

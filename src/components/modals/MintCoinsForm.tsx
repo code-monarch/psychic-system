@@ -55,6 +55,8 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
         onSuccess: () => {
           queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
+          queryClient.invalidateQueries(cacheKey.tokens);
+          queryClient.invalidateQueries(cacheKey.walletSummary);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // setIsVisible(false);

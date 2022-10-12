@@ -56,10 +56,12 @@ export const WalletBalanceChart = (): JSX.Element => {
     const graphData = [];
     const timeStamps = Object.keys(creditChartData).sort();
     for (const timeStamp of timeStamps) {
+      const creditAmount = Number(creditChartData[timeStamp]) / walletSummaryDetails?.decimals || 0;
+      const debitAmount = Number(debitChartData[timeStamp]) / walletSummaryDetails?.decimals || 0;
       graphData.push({
         name: getXAxisPoints(timeStamp),
-        [t('credit')]: creditChartData[timeStamp],
-        [t('debit')]: debitChartData[timeStamp],
+        [t('credit')]: Number(creditAmount),
+        [t('debit')]: Number(debitAmount),
       });
     }
     return graphData;
@@ -80,7 +82,7 @@ export const WalletBalanceChart = (): JSX.Element => {
       tokenId,
       data: {
         distributionWalletId: distributionWallet?.id,
-        period: Number(period),
+        numDays: Number(period),
       },
     };
 
