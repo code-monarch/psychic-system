@@ -15,7 +15,6 @@ import { DistributionModal } from '../../components/modals/ManualDistributionMod
 import { useGetTransactionHistory } from '../../hooks/useWallets';
 import { Transaction } from '../../services/wallet-service';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
-import { useFeatureFlags } from '../../context/features-flag-context';
 import { useTokenDetails } from '../../context/token-details-context';
 import { device } from '../../lib/constants';
 
@@ -79,13 +78,16 @@ export const Wallets = (props): JSX.Element => {
   const { t } = useTranslation();
 
   useDocumentTitle(`DAP: ${t('wallets.title')}`);
-  const { featureFlagsNormalized } = useFeatureFlags();
 
-  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
+  const {
+    tokenDetails: walletBalanceAndTokenDetails,
+    isLoadingWalletTokenDetails,
+    walletSummaryDetails,
+  } = useTokenDetails();
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const wallets = walletSummaryDetails?.wallets || [];
 
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const [queryPageIndex, setQueryPageIndex] = useState(0);
   const [queryPageSize, setQueryPageSize] = useState(5);
@@ -97,7 +99,7 @@ export const Wallets = (props): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.walletId, queryPageIndex, queryPageSize);
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
 
   const transactions = data?.transactions || [];
 
@@ -108,9 +110,8 @@ export const Wallets = (props): JSX.Element => {
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton
-              title={`${t('distribute.title')} ${walletBalanceAndTokenDetails?.tokenSymbol}`}
+              title={`${t('distribute.title')} ${walletSummaryDetails?.symbol}`}
               style={{ width: 152 }}
-              disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
               onClick={() => setModalOpened(true)}
             />
           </Header>

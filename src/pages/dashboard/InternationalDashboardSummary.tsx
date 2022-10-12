@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components';
 import { useElementSize } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { CurrencySummaryCard } from '../../components/CurrencySummaryCard';
-import { formatAmount } from '../../lib/utils';
+import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
 import { CurrencyCode, device } from '../../lib/constants';
 import { useGetTransactionSummary } from '../../hooks/useWallets';
 import { useTokenDetails } from '../../context/token-details-context';
@@ -57,9 +57,10 @@ export const InternationalDashboardSummary = (): JSX.Element => {
     value: transactions[curr],
   }));
 
-  const { data: transactionSummary } = useGetTransactionSummary();
-  const { tokenDetails } = useTokenDetails();
-
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
+  const { data } = useGetTransactionSummary(tokenId);
+  const transactionSummary = data?.totals;
   return (
     <Wrapper>
       <TransactionCards>
@@ -69,14 +70,14 @@ export const InternationalDashboardSummary = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('internal.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
-            amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
+            title={`${t('internal.transaction.amount')} (${walletSummaryDetails?.symbol})`}
+            amount={formatAmountWithDecimals(transactionSummary?.internalAmount, walletSummaryDetails?.decimals)}
           />
         </CurrencyCardWrapper>
         <CurrencyCardWrapper>
           <CurrencySummaryCard
-            title={`${t('external.transaction.amount')} (${tokenDetails?.tokenSymbol})`}
-            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
+            title={`${t('external.transaction.amount')} (${walletSummaryDetails?.symbol})`}
+            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails?.decimals)}
           />
         </CurrencyCardWrapper>
       </TransactionCards>

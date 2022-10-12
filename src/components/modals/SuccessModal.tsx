@@ -49,7 +49,7 @@ interface ISuccessModalProps {
   amount?: number;
 }
 export const SuccessModal = ({ isVisible, onClose, title, message, amount, buttonText }: ISuccessModalProps) => {
-  const { tokenDetails } = useTokenDetails();
+  const { walletSummaryDetails } = useTokenDetails();
 
   return (
     <Modal size="400px" opened={isVisible} centered closeOnClickOutside={false} closeOnEscape={false} onClose={onClose}>
@@ -59,7 +59,7 @@ export const SuccessModal = ({ isVisible, onClose, title, message, amount, butto
         <ModalDescription>
           {message}
           <span>
-            {amount} {tokenDetails?.tokenSymbol}
+            {amount} {walletSummaryDetails?.symbol}
           </span>
         </ModalDescription>
         <PrimaryButtonWithoutIcon title={buttonText || 'Go to Wallets'} onClick={onClose} />

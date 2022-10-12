@@ -9,7 +9,6 @@ import { PrimaryButton } from '../components/Buttons';
 import { device, MEMBER_ROUTE } from '../lib/constants';
 import { WalletTransferModal } from '../components/modals/WalletTransferModal';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
-import { useFeatureFlags } from '../context/features-flag-context';
 import { useTokenDetails } from '../context/token-details-context';
 
 const Screen = styled(Container)`
@@ -108,10 +107,9 @@ export const DashboardLandingPage = () => {
   const { t } = useTranslation();
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
-  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
+  const { tokenDetails: walletBalanceAndTokenDetails, walletSummaryDetails } = useTokenDetails();
 
   useDocumentTitle(`DAP: ${t('navigation.home')}`);
-  const { featureFlagsNormalized } = useFeatureFlags();
   return (
     <Screen fluid>
       <PageContainer>
@@ -132,7 +130,6 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
                 title={t('transfer.title')}
                 onClick={() => {
                   setShowWalletTransferModal(true);
@@ -141,8 +138,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                title={`${t('distribute.title')} ${walletBalanceAndTokenDetails?.tokenSymbol}`}
-                disabled={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG}
+                title={`${t('distribute.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}

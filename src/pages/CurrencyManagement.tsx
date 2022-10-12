@@ -15,10 +15,10 @@ import { CurrenyManagementSetupAlert } from '../components/CurrencyManagementSet
 import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { MintCoinsForm } from '../components/modals/MintCoinsForm';
 import { useGetTokenSummary, useGetWalletAndTokenDetails } from '../hooks/useWallets';
-import { formatAmount } from '../lib/utils';
-import { useFeatureFlags } from '../context/features-flag-context';
+import { formatAmount, formatAmountWithDecimals } from '../lib/utils';
 import { device } from '../lib/constants';
 import { BurnCoinsForm } from '../components/modals/BurnCoinsForm';
+import { useTokenDetails } from '../context/token-details-context';
 
 const Wrapper = styled.div`
   padding: 40px 64px 0 64px;
@@ -58,11 +58,13 @@ export const CurrencyManagement = (): JSX.Element => {
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [mintFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
   const [burnFormModalOpened, setBurnFormModalOpened] = useState<boolean>(false);
-  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
-  const { data: tokenSummary } = useGetTokenSummary(walletBalanceAndTokenDetails?.tokenId);
+  const { tokenDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
+  const { data } = useGetTokenSummary(tokenId);
   const { t } = useTranslation();
   useDocumentTitle(`DAP: ${t('navigation.currency.management')}`);
-  const { featureFlagsNormalized } = useFeatureFlags();
+
+  const tokenSummary = data?.totals;
 
   return (
     <Wrapper>
@@ -76,7 +78,7 @@ export const CurrencyManagement = (): JSX.Element => {
           </Header>
           <PageWrapper>
             <Grid.Col md={6} lg={7} sm={12}>
-              <DistributeOption className={!featureFlagsNormalized?.TOKEN_TRANSFER_FLAG ? 'disabled' : ''}>
+              <DistributeOption>
                 <div>
                   <CardTitle>{t('distribute.title')}</CardTitle>
                   <CardDescription>{t('distribute.description')}</CardDescription>
@@ -84,7 +86,7 @@ export const CurrencyManagement = (): JSX.Element => {
                 <div
                   className="button"
                   onClick={() => {
-                    featureFlagsNormalized?.TOKEN_TRANSFER_FLAG && setDistributModalOpened(true);
+                    setDistributModalOpened(true);
                   }}
                 >
                   {t('distribute.title')}
@@ -123,22 +125,22 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.minted')}
-              amount={formatAmount(tokenSummary?.totalMinted)}
+              amount={formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.transferred')}
-              amount={formatAmount(tokenSummary?.totalTransferred)}
+              amount={formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.distributed')}
-              amount={formatAmount(tokenSummary?.totalDistributed)}
+              amount={formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.burned')}
-              amount={formatAmount(tokenSummary?.totalBurned)}
+              amount={formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)}
             />
           </div>
         </RightSideBar>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Space } from '@mantine/core';
-import { formatAmount, setWithExpiry, getWithExpiry } from '../../lib/utils';
+import { formatAmount, setWithExpiry, getWithExpiry, formatAmountWithDecimals } from '../../lib/utils';
 import { useGetTransactionHistory, useGetTransactionSummary } from '../../hooks/useWallets';
 import { Paragraph, Title } from '../../components/styled';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
@@ -44,7 +44,9 @@ export const Overview = (): JSX.Element => {
   const { t } = useTranslation();
 
   const { mutate: getRates } = useGetRates();
-  const { tokenDetails: walletBalanceAndTokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
+  const { tokenDetails, isLoadingWalletTokenDetails, walletSummaryDetails } = useTokenDetails();
+
+  const tokenId = tokenDetails?.[0].id;
 
   const [currentRate, setCurrentRate] = useState<number | null>(null);
 
@@ -67,9 +69,9 @@ export const Overview = (): JSX.Element => {
     }
   }, []);
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const wallets = walletSummaryDetails?.wallets || [];
 
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const [queryPageIndex, setQueryPageIndex] = useState(0);
   const [queryPageSize, setQueryPageSize] = useState(4);
@@ -81,9 +83,10 @@ export const Overview = (): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.walletId, queryPageIndex, queryPageSize);
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
 
-  const { data: transactionSummary, isLoading: isLoadingSummary } = useGetTransactionSummary();
+  const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
+  const transactionSummary = summary?.totals;
   const transactions = data?.transactions || [];
 
   return (
@@ -94,10 +97,10 @@ export const Overview = (): JSX.Element => {
             cardImage={external1Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('to.date')}
-            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
+            tokenSymbol={walletSummaryDetails?.symbol}
             color={green}
-            usdAmount={currentRate ? transactionSummary?.totalExternalTransactionAmount / currentRate : null}
-            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
+            usdAmount={currentRate ? transactionSummary?.externalAmount / currentRate : null}
+            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails?.decimals)}
           />
         </OverviewCardWrapperWithMargin>
         <OverviewCardWrapperWithMargin>
@@ -105,10 +108,10 @@ export const Overview = (): JSX.Element => {
             cardImage={external2Icon}
             title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
             subtitle={t('duration.one.day')}
-            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
+            tokenSymbol={walletSummaryDetails?.symbol}
             color={blue}
-            usdAmount={currentRate ? transactionSummary?.totalExternalTrendingTransactionAmount / currentRate : null}
-            amount={formatAmount(transactionSummary?.totalExternalTrendingTransactionAmount)}
+            usdAmount={currentRate ? transactionSummary?.externalAmount / currentRate : null}
+            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails?.decimals)}
           />
         </OverviewCardWrapperWithMargin>
         <OverviewCardWrapper>
@@ -116,10 +119,10 @@ export const Overview = (): JSX.Element => {
             cardImage={tokenIcon}
             title={`${t('tokens.distribution')}`}
             subtitle={t('to.date')}
-            tokenSymbol={walletBalanceAndTokenDetails?.tokenSymbol}
+            tokenSymbol={walletSummaryDetails?.symbol}
             color={yellow}
-            usdAmount={currentRate ? walletBalanceAndTokenDetails?.circulatingSupply / currentRate : null}
-            amount={formatAmount(walletBalanceAndTokenDetails?.circulatingSupply)}
+            usdAmount={currentRate ? walletSummaryDetails?.inCirculation / currentRate : null}
+            amount={formatAmountWithDecimals(walletSummaryDetails?.inCirculation, walletSummaryDetails?.decimals)}
           />
         </OverviewCardWrapper>
       </TransactionCards>

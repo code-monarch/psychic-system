@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Loading } from '../components/Loading';
 import { AuthProvider } from './auth-context';
-import { FeatureFlagsProvider } from './features-flag-context';
 import '../global.css';
 
 export const isDevMode = process.env.NODE_ENV === 'development';
@@ -41,9 +40,7 @@ export const AppProviders: FunctionComponent = ({ children }) => (
     <QueryClientProvider client={queryClient}>
       <div>
         <Router>
-          <FeatureFlagsProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </FeatureFlagsProvider>
+          <AuthProvider>{children}</AuthProvider>
         </Router>
       </div>
       {/* {isDevMode && <ReactQueryDevTools />} */}

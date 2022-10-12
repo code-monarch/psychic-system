@@ -3,7 +3,7 @@ import { PieChart, Pie, Sector, ResponsiveContainer, Text } from 'recharts';
 import { useState } from 'react';
 import { NameValue } from '../NameValue';
 import { Paragraph } from '../styled';
-import { formatAmount } from '../../lib/utils';
+import { formatAmount, formatAmountWithDecimals } from '../../lib/utils';
 
 const StyledLegendItem = styled.li`
   color: ${(props) => props.color};
@@ -60,17 +60,18 @@ const renderActiveShape = (props) => {
       <circle cx={ex} cy={ey} r={2} fill="#4AB0A6" stroke="none" />
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
+        y={ey + 8}
         textAnchor={textAnchor}
         fill="#4AB0A6"
         style={{
           fontSize: 12,
           fontFamily: 'ProximaNovaBold',
         }}
-      >{`${formatAmount(value)}`}</text>
+      >{`${formatAmountWithDecimals(value, 2)}`}</text>
+      {/* Use 2 as default decimal value */}
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
+        y={ey + 5}
         dy={18}
         textAnchor={textAnchor}
         fill="#1A242D"

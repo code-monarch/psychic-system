@@ -13,6 +13,7 @@ import { AnimatedLabelInput } from '../AnimatedLabelInput';
 import { ErrorText } from '../LoginForm';
 import { SuccessModal } from './SuccessModal';
 import { cacheKey } from '../../hooks/cacheStateKey';
+import { useTokenDetails } from '../../context/token-details-context';
 
 const FormSection = styled.div`
   margin-top: 25px;
@@ -31,12 +32,13 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
-  const { data: walletBalanceAndTokenDetails } = useGetWalletAndTokenDetails();
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
+  const { walletSummaryDetails, tokenDetails } = useTokenDetails();
+  const wallets = walletSummaryDetails?.wallets || [];
+  const tokenId = tokenDetails?.[0]?.id;
 
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
 
-  const masterReserveWallet = wallets?.find((wallet) => wallet?.walletType === 'Master');
+  const masterReserveWallet = wallets?.find((wallet) => wallet?.category === 'Master');
 
   interface IFormData {
     amount: string;
@@ -46,8 +48,8 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
     burnTokens(
       {
         amount: Number(data.amount),
-        tokenOwnerMasterWalletId: masterReserveWallet.walletId,
-        tokenId: walletBalanceAndTokenDetails.tokenId,
+        tokenOwnerMasterWalletId: masterReserveWallet.id,
+        tokenId,
       },
       {
         onSuccess: () => {
@@ -75,11 +77,11 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
                 <FormSection>
                   <Select
                     label={t('choose.wallet.destination')}
-                    value={masterReserveWallet?.walletId}
+                    value={masterReserveWallet?.id}
                     styles={selectStyles}
                     data={[masterReserveWallet]?.map((item) => ({
-                      label: `${item?.walletType} Wallet`,
-                      value: item?.walletId,
+                      label: `${item?.category} Wallet`,
+                      value: item?.id,
                     }))}
                   />
                 </FormSection>

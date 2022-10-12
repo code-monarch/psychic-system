@@ -1,20 +1,25 @@
 import { createContext, useContext } from 'react';
-import { useGetWalletAndTokenDetails } from '../hooks/useWallets';
-import { WalletAndTokenDetailsResponse } from '../services/wallet-service';
+import { useGetAllTokens, useGetWalletAndTokenDetails, useGetWalletSummary } from '../hooks/useWallets';
+import { Token, WalletAndTokenDetailsResponse, WalletSummaryResponse } from '../services/wallet-service';
 
 type TokenDetailsContextProps = {
-  tokenDetails: WalletAndTokenDetailsResponse;
+  tokenDetails: Token[];
+  walletSummaryDetails: WalletSummaryResponse;
   isLoadingWalletTokenDetails: boolean;
 };
 const TokenDetailsContext = createContext<Partial<TokenDetailsContextProps>>({});
 TokenDetailsContext.displayName = 'TokenDetailsContext';
 
 const TokenDetailsProvider = (props: any) => {
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { data: tokens, isLoading: isFetchingTokens } = useGetAllTokens();
+
+  const tokenId = tokens?.[0].id;
+  const { data: walletSummary, isLoading: isFetchingSummary } = useGetWalletSummary(tokenId);
 
   const values: TokenDetailsContextProps = {
-    tokenDetails: walletBalanceAndTokenDetails,
-    isLoadingWalletTokenDetails,
+    tokenDetails: tokens,
+    walletSummaryDetails: walletSummary,
+    isLoadingWalletTokenDetails: isFetchingSummary || isFetchingTokens,
   };
   return <TokenDetailsContext.Provider value={values} {...props} />;
 };

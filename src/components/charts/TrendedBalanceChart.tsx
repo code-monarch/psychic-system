@@ -7,15 +7,20 @@ import { useTranslation } from 'react-i18next';
 import { DateRangePicker } from '@mantine/dates';
 import moment from 'moment';
 import { ParagraphBold, Title } from '../styled';
-import { useGetDashboardGraphData, useGetWalletAndTokenDetails } from '../../hooks/useWallets';
+import {
+  useGetDashboardGraphData,
+  useGetFSPDashboardGraphData,
+  useGetWalletAndTokenDetails,
+} from '../../hooks/useWallets';
 import { chartSelectStyles } from '../../lib/constants';
 import { getDateMonthFromTimestamp, getMonthFromTimestamp } from '../../lib/utils';
 import { DashboardGraphRequest } from '../../services/wallet-service';
 import { TrendedChart } from './TrendsChart';
+import { useTokenDetails } from '../../context/token-details-context';
 
 export const TrendedBalanceChart = (): JSX.Element => {
   const { t, i18n } = useTranslation();
-  const { data: walletBalanceAndTokenDetails, isLoading: isLoadingWalletTokenDetails } = useGetWalletAndTokenDetails();
+  const { walletSummaryDetails, tokenDetails, isLoadingWalletTokenDetails } = useTokenDetails();
 
   const [endDate, setEndDate] = useState();
   const [startDate, setStartDate] = useState();
@@ -24,11 +29,11 @@ export const TrendedBalanceChart = (): JSX.Element => {
 
   const [dateFilters, setDateFilters] = useState<[Date | null, Date | null]>([null, null]);
 
-  const wallets = walletBalanceAndTokenDetails?.walletBalance || [];
-  const distributionWallet = wallets?.find((wallet) => wallet?.walletType === 'Distribution');
-  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetDashboardGraphData();
+  const wallets = walletSummaryDetails?.wallets || [];
+  const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
+  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetFSPDashboardGraphData();
 
-  const creditChartData = data?.graphData || {};
+  const creditChartData = data?.creditData || {};
 
   const getXAxisPoints = (time) => {
     const locale = i18n.resolvedLanguage;
@@ -66,20 +71,23 @@ export const TrendedBalanceChart = (): JSX.Element => {
     }
   }, [dateFilters, period]);
 
+  const tokenId = tokenDetails?.[0].id;
   useEffect(() => {
     fetchData();
-  }, [walletBalanceAndTokenDetails, distributionWallet?.walletId]);
+  }, [walletSummaryDetails, distributionWallet?.id, tokenId]);
 
   const fetchData = () => {
     const chartRequest: DashboardGraphRequest = {
-      transactionType: 'External',
-      tokenId: walletBalanceAndTokenDetails?.tokenId,
-      period: Number(period),
+      tokenId,
+      data: {
+        transactionType: 'External',
+        period: Number(period),
+      },
     };
 
     if (dateFilters[0] && dateFilters[1]) {
-      chartRequest.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
-      chartRequest.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
+      chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
+      chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
     }
     getGraphData(chartRequest);
   };

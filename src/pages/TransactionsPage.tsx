@@ -8,7 +8,7 @@ import { CurrencySummaryCard } from '../components/CurrencySummaryCard';
 import { ExternalTransactionsTable } from './transactions/ExternalTransactionsTable';
 import { InternalTransactionsTable } from './transactions/InternalTransactionsTable';
 import { useGetTransactionSummary } from '../hooks/useWallets';
-import { formatAmount, getTransactionTabs } from '../lib/utils';
+import { formatAmountWithDecimals, getTransactionTabs } from '../lib/utils';
 import { useTokenDetails } from '../context/token-details-context';
 import { device } from '../lib/constants';
 
@@ -18,13 +18,14 @@ export const Transactions = (): JSX.Element => {
 
   const tabViews = [<InternalTransactionsTable />, <ExternalTransactionsTable />];
   const [selectedTabView, setSelectedTabView] = useState(tabViews[0]);
-  const { tokenDetails: walletBalanceAndTokenDetails } = useTokenDetails();
-
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
+  const tokenId = tokenDetails?.[0].id;
   const handleTabSelected = (tabIndex: number) => {
     setSelectedTabView(tabViews[tabIndex]);
   };
 
-  const { data: transactionSummary } = useGetTransactionSummary();
+  const { data } = useGetTransactionSummary(tokenId);
+  const transactionSummary = data?.totals;
 
   return (
     <Wrapper>
@@ -39,7 +40,7 @@ export const Transactions = (): JSX.Element => {
         >
           <CurrencySummaryCard
             title={t('total.amount')}
-            amount={formatAmount(transactionSummary?.totalAmount)}
+            amount={formatAmountWithDecimals(transactionSummary?.amount, walletSummaryDetails.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>
@@ -49,15 +50,15 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={`${t('internal.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
-            amount={formatAmount(transactionSummary?.totalInternalTransactionAmount)}
+            title={`${t('internal.transaction.amount')} (${walletSummaryDetails?.symbol})`}
+            amount={formatAmountWithDecimals(transactionSummary?.internalAmount, walletSummaryDetails.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>
         <TransactionCardWrapper>
           <CurrencySummaryCard
-            title={`${t('external.transaction.amount')} (${walletBalanceAndTokenDetails?.tokenSymbol})`}
-            amount={formatAmount(transactionSummary?.totalExternalTransactionAmount)}
+            title={`${t('external.transaction.amount')} (${walletSummaryDetails?.symbol})`}
+            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>

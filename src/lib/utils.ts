@@ -60,6 +60,15 @@ export const formatAmount = (amount: number | string): string => {
   return formatter.format(Number(amount));
 };
 
+export const formatAmountWithDecimals = (amount: number | string | undefined, decimals?: number): string => {
+  if (!amount) return '0';
+  if (!decimals) return formatAmount(amount);
+
+  const divisor = 10 ** decimals;
+  const amountWithDecimals = Number(amount) / divisor;
+  return formatAmount(amountWithDecimals);
+};
+
 export const formatEntity = (entity: string): string => {
   if (!entity) return '';
   if (entity === 'haiti-pay-test') return 'HaitiPay';

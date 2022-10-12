@@ -15,4 +15,6 @@ export const cacheKey = {
   cbTransactionsHistory: 'cbTransactionsHistory',
   transactionSummary: 'transactionSummary',
   walletGraphData: 'walletGraphData',
+  tokens: 'tokens',
+  walletSummary: 'walletSummary',
 };
