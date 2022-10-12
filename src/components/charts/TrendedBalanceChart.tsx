@@ -53,9 +53,11 @@ export const TrendedBalanceChart = (): JSX.Element => {
     const graphData = [];
     const timeStamps = Object.keys(creditChartData).sort();
     for (const timeStamp of timeStamps) {
+      // Divide by decimals (Decimals value of BYDC) to get actual token values
+      const creditAmount = Number(creditChartData[timeStamp]) / walletSummaryDetails?.decimals || 0;
       graphData.push({
         name: getXAxisPoints(timeStamp),
-        [t('credit')]: creditChartData[timeStamp],
+        [t('credit')]: Number(creditAmount),
       });
     }
     return graphData;
@@ -77,7 +79,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
       tokenId,
       data: {
         transactionType: 'External',
-        period: Number(period),
+        numDays: Number(period),
       },
     };
 

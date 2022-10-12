@@ -48,13 +48,14 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
     burnTokens(
       {
         amount: Number(data.amount),
-        tokenOwnerMasterWalletId: masterReserveWallet.id,
         tokenId,
       },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(cacheKey.walletBalanceAndTokenDetails);
           queryClient.invalidateQueries(cacheKey.tokenReportSummary);
+          queryClient.invalidateQueries(cacheKey.tokens);
+          queryClient.invalidateQueries(cacheKey.walletSummary);
           setAmount(() => Number(data.amount));
           setShowSuccessModal(true);
           // setIsVisible(false);

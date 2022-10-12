@@ -66,7 +66,6 @@ interface MintOrBurnTokenResponse {
 
 export interface MintOrBurnTokenRequest {
   tokenId: string;
-  tokenOwnerMasterWalletId: string;
   amount: number;
 }
 
@@ -84,7 +83,7 @@ export interface WalletGraphRequest {
   tokenId: string;
   data: {
     distributionWalletId: string;
-    period?: number;
+    numDays?: number;
     startDate?: string;
     endDate?: string;
   };
@@ -94,7 +93,7 @@ export interface DashboardGraphRequest {
   tokenId: string;
   data: {
     transactionType?: string;
-    period?: number;
+    numDays?: number;
     startDate?: string;
     endDate?: string;
   };
@@ -353,11 +352,9 @@ export class WalletService {
    */
 
   static async mintTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
-    const { tokenId, tokenOwnerMasterWalletId, amount } = data;
+    const { tokenId, amount } = data;
     const response = await secureMainApi
-      .post(`/token/cb/mintToken`, {
-        tokenId,
-        tokenOwnerMasterWalletId,
+      .post(`/tokens/${tokenId}/mint`, {
         amount,
       })
       .then((res) => res?.data)
@@ -374,11 +371,9 @@ export class WalletService {
    */
 
   static async burnTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
-    const { tokenId, tokenOwnerMasterWalletId, amount } = data;
+    const { tokenId, amount } = data;
     const response = await secureMainApi
-      .post(`/token/cb/burnToken`, {
-        tokenId,
-        tokenOwnerMasterWalletId,
+      .post(`/tokens/${tokenId}/burn`, {
         amount,
       })
       .then((res) => res?.data)
