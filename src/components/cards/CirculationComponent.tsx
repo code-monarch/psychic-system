@@ -127,7 +127,7 @@ export const CirculationComponent = () => {
           return (
             <WalletWrapper>
               <WalletLeftSection>
-                <WalletTitle>{formatEntity(wallet?.userId)}</WalletTitle>
+                <WalletTitle>{formatEntity(wallet?.owner)}</WalletTitle>
                 <div style={{ width: '100%', height: 12, paddingRight: 20 }}>
                   <WalletProgressBar style={{ width: `${percentage}%`, backgroundColor: colors[index] }} />
                 </div>
