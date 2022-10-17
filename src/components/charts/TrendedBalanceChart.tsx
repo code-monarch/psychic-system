@@ -87,7 +87,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
       chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
       chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
     }
-    getGraphData(chartRequest);
+    if (tokenId) getGraphData(chartRequest);
   };
   const onWalletDurationChange = (val) => {
     setPeriod(() => val);

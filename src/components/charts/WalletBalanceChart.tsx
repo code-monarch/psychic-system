@@ -81,7 +81,7 @@ export const WalletBalanceChart = (): JSX.Element => {
     const chartRequest: WalletGraphRequest = {
       tokenId,
       data: {
-        distributionWalletId: distributionWallet?.id,
+        walletId: distributionWallet?.id,
         numDays: Number(period),
       },
     };

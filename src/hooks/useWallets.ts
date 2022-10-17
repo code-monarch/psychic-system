@@ -62,6 +62,7 @@ export const useGetTransactionSummary = (tokenId: string) => {
   const result = useQuery({
     queryKey: cacheKey.transactionSummary,
     queryFn: () => WalletService.getTransactionSummary(tokenId),
+    enabled: Boolean(tokenId),
   });
   return result;
 };

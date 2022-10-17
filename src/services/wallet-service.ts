@@ -82,7 +82,7 @@ export interface TransferTokensRequest {
 export interface WalletGraphRequest {
   tokenId: string;
   data: {
-    distributionWalletId: string;
+    walletId: string;
     numDays?: number;
     startDate?: string;
     endDate?: string;
