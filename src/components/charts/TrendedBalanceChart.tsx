@@ -86,6 +86,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
     if (dateFilters[0] && dateFilters[1]) {
       chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
       chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
+      chartRequest.data.numDays = undefined;
     }
     if (tokenId) getGraphData(chartRequest);
   };
