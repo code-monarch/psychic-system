@@ -12,7 +12,7 @@ function XAxisTick(props) {
         y={0}
         dy={16}
         textAnchor="middle"
-        fill="rgba(130, 130, 130, 0.8)"
+        fill="white"
         fontSize="12px"
         fontFamily="ProximaNova"
         className={className}
@@ -28,15 +28,7 @@ function YAxisTick(props) {
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <text
-        x={50}
-        y={0}
-        dy={3}
-        textAnchor="end"
-        fill="rgba(130, 130, 130, 0.8)"
-        fontSize="12px"
-        fontFamily="ProximaNova"
-      >
+      <text x={50} y={0} dy={3} textAnchor="end" fill="white" fontSize="12px" fontFamily="ProximaNova">
         {formatAmount(payload.value)}
       </text>
     </g>
@@ -80,7 +72,7 @@ export const TrendedChart = <T extends object>({
             interval="preserveStartEnd"
           />
           <YAxis tick={<YAxisTick />} axisLine={false} tickLine={false} orientation="right" />
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#687D94" />
           <Tooltip />
           <Area
             type="monotone"

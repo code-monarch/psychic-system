@@ -18,7 +18,7 @@ const Card = styled(Flex.Column)`
 const LogoSubtitle = styled.h4`
   font-size: 7.5px;
   font-family: 'ProximaNovaBold';
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.green};
   margin: 0;
   text-transform: uppercase;
 `;

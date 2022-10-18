@@ -25,6 +25,7 @@ const LinkWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  padding-right: 16px;
 `;
 const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
   padding: 0;

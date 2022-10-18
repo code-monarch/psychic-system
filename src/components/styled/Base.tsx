@@ -6,14 +6,14 @@ const Title = styled.h3`
   text-transform: uppercase;
   margin: 0;
   font-family: 'ProximaNovaBold', sans-serif;
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const Heading = styled.h2`
   font-size: 28px;
   line-height: 42px;
   font-family: 'ProximaNovaBold', sans-serif;
-  color: #1a242d;
+  color: ${({ theme }) => theme.colors.primary.white};
   margin: 0;
 `;
 
@@ -23,7 +23,7 @@ const ParagraphBold = styled.p`
   font-weight: 600;
   margin: 0;
   font-family: 'ProximaNova', sans-serif;
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const Paragraph = styled(ParagraphBold)`

@@ -20,6 +20,7 @@ import { device } from '../../lib/constants';
 
 const Wrapper = styled.div`
   padding: 0 64px;
+  padding-bottom: 40px;
   @media ${device.tablet} {
     padding: 0;
     margin: 0;
@@ -47,7 +48,7 @@ const LeftSection = styled(Grid.Col)`
 `;
 
 const RightSideBar = styled(Grid.Col)`
-  background: rgba(251, 251, 251, 0.8);
+  background: ${({ theme }) => theme.colors.primary.darkText};
   @media ${device.tablet} {
     padding: 0 16px;
   }

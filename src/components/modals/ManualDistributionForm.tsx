@@ -259,6 +259,7 @@ const FormHeader = styled.h1`
   font-size: 24px;
   margin: 0;
   margin-bottom: 56px;
+  color: ${({ theme }) => theme.colors.primary.white};
   font-family: 'ProximaNovaExtraBold', sans-serif;
 `;
 

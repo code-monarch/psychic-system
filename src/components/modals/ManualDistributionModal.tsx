@@ -7,7 +7,7 @@ import { ParagraphBold } from '../styled';
 
 export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCallback }) => {
   const theme: any = useTheme();
-  const { grey } = theme.colors.primary;
+  const { grey, powderBlue } = theme.colors.primary;
   const { t } = useTranslation();
 
   return (
@@ -18,7 +18,7 @@ export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCal
       withCloseButton={false}
       styles={{
         modal: {
-          backgroundColor: 'transparent',
+          backgroundColor: 'transparent !important',
         },
       }}
     >
@@ -35,7 +35,7 @@ export const DistributionModal = ({ isVisible, setIsVisible, manualDistributeCal
         </DistributionOption>
         <DistributionOption>
           <img src={distribution_request} alt="manual_distribution" style={{ mixBlendMode: 'luminosity' }} />
-          <OptionsText style={{ color: grey }}>{t('distribution.request.title')}</OptionsText>
+          <OptionsText style={{ color: powderBlue }}>{t('distribution.request.title')}</OptionsText>
         </DistributionOption>
       </DistributionModalWrapper>
     </Modal>
@@ -48,7 +48,7 @@ const DistributionModalWrapper = styled.div`
 `;
 
 const DistributionOption = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   min-width: 240px;
   height: 240px;

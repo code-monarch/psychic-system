@@ -32,7 +32,7 @@ function XAxisTick(props) {
         y={0}
         dy={16}
         textAnchor="middle"
-        fill="rgba(130, 130, 130, 0.8)"
+        fill="white"
         fontSize="12px"
         fontFamily="ProximaNova"
         className={className}
@@ -48,15 +48,7 @@ function YAxisTick(props) {
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <text
-        x={-10}
-        y={0}
-        dy={3}
-        textAnchor="end"
-        fill="rgba(130, 130, 130, 0.8)"
-        fontSize="12px"
-        fontFamily="ProximaNova"
-      >
+      <text x={-10} y={0} dy={3} textAnchor="end" fill="white" fontSize="12px" fontFamily="ProximaNova">
         {formatAmount(payload.value)}
       </text>
     </g>
@@ -87,7 +79,7 @@ export const ReAreaChart = <T extends object>({
 }) => {
   const theme: any = useTheme();
   const { t } = useTranslation();
-  const { green } = theme.colors.primary;
+  const { green, white } = theme.colors.primary;
   const { red } = theme.colors.secondary;
 
   return (
@@ -115,7 +107,7 @@ export const ReAreaChart = <T extends object>({
           />
           <Legend verticalAlign="top" height={36} align="right" iconSize={12} />
           <YAxis tick={<YAxisTick />} axisLine={false} tickLine={false} />
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#687D94" />
           <Tooltip />
           <Area
             type="monotone"
@@ -125,7 +117,7 @@ export const ReAreaChart = <T extends object>({
             fillOpacity={1}
             fill="url(#colorUv)"
           />
-          <Line type="monotone" dataKey={t('debit')} stroke={red} strokeWidth={2} dot={false} />
+          <Line type="monotone" dataKey={t('debit')} stroke={white} strokeWidth={2} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

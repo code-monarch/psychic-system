@@ -20,11 +20,11 @@ const StyledNameValue = styled(NameValue)`
   line-height: 1.5em;
 
   ${NameValue.Name} {
-    color: ${({ theme }) => theme.colors.primary.grey};
+    color: ${({ theme }) => theme.colors.primary.white};
   }
 
   ${NameValue.Value} {
-    color: ${({ theme }) => theme.colors.primary.black};
+    color: ${({ theme }) => theme.colors.primary.white};
     font-weight: 600;
   }
 `;
@@ -45,7 +45,7 @@ export const CirculationComponent = () => {
   const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const theme: any = useTheme();
-  const { green, yellow, blue: primaryBlue } = theme.colors.primary;
+  const { green, yellow, blue: primaryBlue, darkText, white } = theme.colors.primary;
   const { grey } = theme.colors.secondary;
 
   const colors = [green, primaryBlue, yellow];
@@ -65,7 +65,7 @@ export const CirculationComponent = () => {
   const internalWalletOptions = [
     {
       label: t('master.title'),
-      color: grey,
+      color: white,
       value: Number(masterBalance),
     },
     {
@@ -81,7 +81,7 @@ export const CirculationComponent = () => {
   return (
     <div>
       <Card style={{ height: 253 }}>
-        <LoadingOverlay visible={isLoadingWalletTokenDetails} />
+        <LoadingOverlay visible={isLoadingWalletTokenDetails} overlayColor={darkText} />
         <TokensHeaderWrapper>
           <Title>{t('tokens.circulation.description')}</Title>
           <Title>
@@ -111,7 +111,7 @@ export const CirculationComponent = () => {
       </Card>
 
       <Card>
-        <LoadingOverlay visible={isLoadingWalletTokenDetails || isLoadingInstitutionWallets} />
+        <LoadingOverlay visible={isLoadingWalletTokenDetails || isLoadingInstitutionWallets} overlayColor={darkText} />
         <TokensHeaderWrapper>
           <Title>{t('wallets.institution')}</Title>
           <Title>
@@ -205,14 +205,14 @@ const WalletProgressBar = styled.div`
   border-radius: 4px;
 `;
 const WalletTitle = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   font-size: 12px;
   font-family: ProximaNovaExtraBold;
   margin-bottom: 8px;
 `;
 
 const WalletAmount = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   font-size: 14px;
   font-family: ProximaNovaBold;
   margin-bottom: 8px;
@@ -242,7 +242,7 @@ const LinkContainer = styled.div`
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.secondary.secondaryGrey};
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;

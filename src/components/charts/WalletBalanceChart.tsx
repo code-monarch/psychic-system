@@ -119,7 +119,7 @@ export const WalletBalanceChart = (): JSX.Element => {
   const { decimals } = walletSummaryDetails;
   return (
     <Wrapper>
-      <LoadingOverlay visible={isLoadingGraph} zIndex={5} />
+      <LoadingOverlay visible={isLoadingGraph} zIndex={5} overlayColor="#2E3B4A" />
       <TopSection>
         <LeftSection>
           <Title>
@@ -172,7 +172,7 @@ export const WalletBalanceChart = (): JSX.Element => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: rgba(250, 250, 250, 0.8);
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 24px;
   margin-top: 42px;
@@ -185,7 +185,7 @@ const DatePickerWrapper = styled.div`
 `;
 
 const TopSection = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
   display: flex;
   justify-content: space-between;
   align-items: center;

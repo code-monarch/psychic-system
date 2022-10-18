@@ -29,7 +29,7 @@ const LegendItem = styled.li`
 
 const LegendNameValue = styled(NameValue)`
   ${NameValue.Name} {
-    color: ${(props) => props.theme.colors.primary.grey};
+    color: ${(props) => props.theme.colors.primary.white};
   }
 
   ${NameValue.Value} {
@@ -57,7 +57,7 @@ const TransactionsMap = ({
     theme.colors.secondary.darkgreen,
   ];
 
-  const backgroundGrey = '#CCCCCC'; // TODO: Replace this with an appropriate theme color
+  const backgroundGrey = '#777'; // TODO: Replace this with an appropriate theme color
 
   const country = nationalJson as FeatureCollection;
   const transactionsList = transactions || [];
@@ -118,8 +118,8 @@ const TransactionsMap = ({
             const colors = {
               marker: marker.color,
               markerFill: theme.colors.primary.white,
-              label: theme.colors.primary.grey,
-              value: theme.colors.primary.black,
+              label: theme.colors.primary.white,
+              value: theme.colors.primary.white,
             };
 
             const length = 50;

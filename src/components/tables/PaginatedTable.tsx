@@ -39,10 +39,10 @@ const Control = styled.img`
 `;
 
 const StyledTableHead = styled(Table.Head)`
-  background-color: ${({ theme }) => theme.colors.primary.lightgrey};
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   font-size: 14px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary.darkgrey};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const StyledTableHeader = styled(Table.TH)`
@@ -57,7 +57,7 @@ const StyledTableHeader = styled(Table.TH)`
 const StyledTableBody = styled(Table.Body)`
   font-size: 14px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary.darkgrey};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const StyledCell = styled(Table.TD)`
@@ -276,7 +276,7 @@ export const TransactionsTable = <R extends object>({
   const { t } = useTranslation();
   return (
     <TableWrapper>
-      <LoadingOverlay visible={loading} zIndex={5} />
+      <LoadingOverlay visible={loading} zIndex={5} overlayColor="#2E3B4A" />
 
       <Header>
         {!hideTotal && (

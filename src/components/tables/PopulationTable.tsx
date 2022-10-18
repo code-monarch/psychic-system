@@ -51,7 +51,7 @@ export const PopulationTable = (): JSX.Element => {
 };
 
 const DateText = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const PopulationCardTitle = styled(ParagraphBold)`
@@ -94,7 +94,7 @@ const PopulationHeader = styled.div`
 
 const PopulationCard = styled.div`
   height: 72px;
-  background-color: ${({ theme }) => theme.colors.secondary.secondaryGrey};
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   flex: 1;
   justify-content: center;

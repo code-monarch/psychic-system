@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@modulz/radix-icons';
@@ -111,9 +111,12 @@ export const TrendedBalanceChart = (): JSX.Element => {
     { label: t('duration.custom'), value: 'custom' },
   ];
 
+  const theme: any = useTheme();
+  const { darkText } = theme.colors.primary;
+
   return (
     <Wrapper>
-      <LoadingOverlay visible={isLoadingGraph || isLoadingWalletTokenDetails} />
+      <LoadingOverlay visible={isLoadingGraph || isLoadingWalletTokenDetails} overlayColor={darkText} />
       <TopSection>
         <LeftSection>
           <Title>{t('trended.transactions.title')}</Title>
@@ -161,7 +164,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: rgba(250, 250, 250, 0.8);
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 16px;
   position: relative;

@@ -3,7 +3,7 @@ import { Paragraph, ParagraphBold } from './styled';
 
 const Wrapper = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.colors.primary.lightgrey};
+  background: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 12px 16px;
   display: flex;
@@ -78,7 +78,7 @@ const CardSubtitle = styled(ParagraphBold)`
 `;
 
 const CardTitle = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const CardAmount = styled(Paragraph)`
