@@ -19,7 +19,7 @@ const SuccessImage = styled.img`
 
 const ModalHeader = styled.h1`
   font-size: 18px;
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   margin: 0;
   margin-bottom: 6px;
   line-height: 27px;

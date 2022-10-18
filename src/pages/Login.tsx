@@ -32,7 +32,7 @@ const LoginContainer = styled(Grid)`
 `;
 
 const LeftPane = styled(Grid.Col)`
-  background-color: ${({ theme }) => theme.colors.secondary.lightgrey};
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   justify-content: center;
   display: flex;
   align-items: center;
@@ -49,6 +49,7 @@ const RightPane = styled(Grid.Col)`
   justify-content: center;
   display: flex;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.primary.darkBackground};
 `;
 
 const LogoPanel = styled.div`

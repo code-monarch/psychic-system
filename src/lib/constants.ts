@@ -1330,14 +1330,15 @@ export const selectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
     fontSize: 16,
     fontWeight: 600,
     fontFamily: "'ProximaNova', sans-serif;",
-    color: '#1A242D',
+    color: 'white',
+    backgroundColor: 'transparent',
   },
   label: {
     fontSize: 14,
     fontFamily: "'ProximaNova', sans-serif;",
-    color: '#828282',
+    color: '#687D94',
   },
-  rightSection: { pointerEvents: 'none' },
+  rightSection: { pointerEvents: 'none', color: 'white' },
   root: {
     marginBottom: 10,
   },
@@ -1390,7 +1391,7 @@ export const chartSelectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>
     fontSize: 12,
     fontWeight: 600,
     fontFamily: "'ProximaNova', sans-serif;",
-    color: '#1A242D',
+    color: '#687D94',
     backgroundColor: 'transparent',
   },
   label: {

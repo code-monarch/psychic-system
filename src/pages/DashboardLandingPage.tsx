@@ -75,7 +75,7 @@ const GetStartedDescription = styled.p`
   line-height: 24px;
   margin: 0;
   margin-bottom: 32px;
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const LoginPageImage = styled.img`

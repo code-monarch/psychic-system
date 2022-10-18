@@ -47,8 +47,8 @@ const TransparentButton = styled.div<{ disabled?: boolean }>`
   font-size: 14px;
   justify-content: center;
   font-family: 'ProximaNovaBold';
-  color: ${({ theme }) => theme.colors.primary.black};
-  border: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  color: ${({ theme }) => theme.colors.primary.green};
+  border: 1px solid ${({ theme }) => theme.colors.primary.green};
 
   ${(props) =>
     !props?.disabled &&

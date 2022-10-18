@@ -30,6 +30,11 @@ const List = styled.ul<{ isHorizontal?: boolean; itemSpacing?: number }>`
   margin: 0;
   margin-top: 50px;
   list-style: none;
+  background-color: #2e3844;
+  padding-left: 16px;
+  padding-top: 4px;
+  padding-bottom: 28px;
+  border-radius: 4px;
 
   ${(props) => `
         li {

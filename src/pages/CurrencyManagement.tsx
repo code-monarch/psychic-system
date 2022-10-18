@@ -164,18 +164,18 @@ export const CurrencyManagement = (): JSX.Element => {
 const baseButtonStyles = css`
   width: 100%;
   height: 40px;
-  background: ${({ theme }) => theme.colors.secondary.lightgrey};
   text-align: center;
   line-height: 40px;
   font-family: 'ProximaNovaBold', sans-serif;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.primary.green};
+  border: 1px solid ${({ theme }) => theme.colors.primary.green};
   border-radius: 8px;
   cursor: pointer;
 `;
 
 const baseBoxStyles = css`
-  border: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  border: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
   border-radius: 8px;
   width: 100%;
   padding: 68px 24px 24px;
@@ -186,6 +186,8 @@ const baseBoxStyles = css`
   background-position: 24px 28px;
   background-size: 30px;
   transition: 0.3s ease-in-out;
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
+
   div.button {
     ${baseButtonStyles}
   }
@@ -241,7 +243,7 @@ const CardTitle = styled(Title)`
 `;
 
 const CardDescription = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.darkgrey};
+  color: ${({ theme }) => theme.colors.primary.white};
   font-size: 16px;
   line-height: 24px;
 `;

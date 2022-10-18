@@ -28,7 +28,7 @@ const RequestOptions = styled.div`
   padding-top: 40px;
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  border-top: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
   align-items: center;
 
   @media ${device.mobileL} {
@@ -47,17 +47,18 @@ const QuickAction = styled.div`
   padding: 21px 0;
   align-items: center;
   cursor: pointer;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary.lightgrey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
 `;
 
 const PageDescription = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.white};
   margin: 10px 0 20px;
 `;
 
 const CardTitle = styled(Heading)`
   font-size: 18px;
   line-height: 27px;
+  color: ${({ theme }) => theme.colors.primary.green};
 `;
 
 const ActionText = styled(Heading)`
@@ -133,7 +134,7 @@ export const Requests = (): JSX.Element => {
 };
 
 const baseBoxStyles = css`
-  border: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  border: 1px solid #3f5064;
   border-radius: 8px;
   width: 100%;
   padding: 68px 24px 24px;
@@ -142,6 +143,7 @@ const baseBoxStyles = css`
   justify-content: flex-end;
   background-repeat: no-repeat;
   background-position: 24px 28px;
+  background-color: ${({ theme }) => theme.colors.primary.darkText};
   height: 270px;
   background-size: 30px;
   transition: 0.3s ease-in-out;
@@ -155,9 +157,11 @@ const baseBoxStyles = css`
       color: ${({ theme }) => theme.colors.primary.white};
     }
   }
+  &.disabled {
+    background-color: #273443;
+  }
   &.disabled p,
-  &.disabled .button,
-  &.disabled h2 {
+  &.disabled .button {
     color: ${({ theme }) => theme.colors.secondary.grey};
   }
 `;
@@ -182,7 +186,7 @@ const RequestOption = styled.div`
 `;
 
 const SmallerCardDescription = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.darkgrey};
+  color: ${({ theme }) => theme.colors.primary.grey};
   font-size: 14px;
   line-height: 21px;
   margin-top: 6px;

@@ -112,7 +112,7 @@ const StyledTabs = styled(Tabs)`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  border-bottom: solid 1px #e2e2e2;
+  border-bottom: solid 1px ${({ theme }) => theme.colors.primary.powderBlue};
   margin-bottom: 40px;
 `;
 

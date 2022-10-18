@@ -5,7 +5,7 @@ import Histogram from './charts/Histogram';
 const Wrapper = styled.div`
   height: 92px;
   width: 100%;
-  background: ${({ theme }) => theme.colors.primary.lightgrey};
+  background: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 0 24px;
   display: flex;
@@ -59,7 +59,7 @@ export const CurrencySummaryCard = ({
 };
 
 const CardTitle = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.white};
 
   &.disabled {
     color: ${({ theme }) => theme.colors.secondary.grey};
@@ -67,7 +67,7 @@ const CardTitle = styled(ParagraphBold)`
 `;
 
 const CardAmount = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   font-size: 24px;
   font-family: 'ProximaNovaExtraBold', sans-serif;
 

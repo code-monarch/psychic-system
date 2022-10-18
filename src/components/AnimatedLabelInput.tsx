@@ -13,7 +13,10 @@ const InputText = styled.input`
   font-size: 16px;
   line-height: 24px;
   outline: none;
+  background-color: transparent !important;
   flex: 1;
+  color: ${({ theme }) => theme.colors.primary.white};
+  font-weight: 600;
 `;
 
 const InputLabel = styled.label<{ hasText: boolean }>`

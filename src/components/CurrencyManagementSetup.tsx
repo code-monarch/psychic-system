@@ -72,7 +72,6 @@ const Container = styled.div`
   width: 100%;
   height: 114px;
   background: ${({ theme }) => theme.colors.primary.green};
-  border: 0.5px solid ${({ theme }) => theme.colors.secondary.lightgrey};
   border-radius: 6px;
   padding: 16px 24px;
   display: flex;

@@ -22,7 +22,7 @@ const SideNav = styled.div`
   color: ${({ theme }) => theme.colors.primary.grey};
   font-size: 14px;
   line-height: 24px;
-  padding: 24px 0 0 16px;
+  padding: 24px 0 0 0px;
 `;
 
 const User = styled.div`
@@ -48,7 +48,7 @@ export const Layout = (): JSX.Element => {
   const hideNavigation = () => setIsNavOpened(false);
 
   const theme: any = useTheme();
-  const { black } = theme.colors.primary;
+  const { black, darkBackground } = theme.colors.primary;
 
   const logout = () => {
     signOut(undefined, {
@@ -61,6 +61,9 @@ export const Layout = (): JSX.Element => {
       padding={0}
       navbarOffsetBreakpoint="sm"
       fixed
+      style={{
+        backgroundColor: darkBackground,
+      }}
       navbar={
         <Navbar
           p={16}
@@ -68,10 +71,16 @@ export const Layout = (): JSX.Element => {
           hiddenBreakpoint="sm"
           hidden={!isNavOpened}
           width={{ sm: 180, lg: 210 }}
+          style={{
+            backgroundColor: '#1E252D',
+            border: 'none',
+          }}
         >
           <Navbar.Section grow>
             <SideNav>
-              <Logo imageWidth={100} leftAlign />
+              <div style={{ margin: 0, marginLeft: 16 }}>
+                <Logo imageWidth={100} leftAlign />
+              </div>
               <NavigationList itemSpacing={20} links={getNavigationItems(t)} hideNavigation={hideNavigation} />
             </SideNav>
           </Navbar.Section>

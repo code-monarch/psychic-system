@@ -46,7 +46,7 @@ const BoldItem = styled(BoldItemContent)`
 const Tab = styled(BoldItem)<{ selected: boolean }>`
   font-weight: ${(props) => (props.selected ? '700' : '400')};
   color: ${({ theme }) => theme.colors.secondary.blue};
-  color: ${({ selected }) => (selected ? '#4AB0A6' : '#828282')};
+  color: ${({ selected }) => (selected ? '#4AB0A6' : '#687d94')};
   text-transform: uppercase;
 
   & span {
@@ -57,7 +57,7 @@ const Tab = styled(BoldItem)<{ selected: boolean }>`
 const SelectedIndicator = styled.hr`
   height: 2px;
   border: none;
-  background-color: black;
+  background-color: ${({ theme }) => theme.colors.primary.green};
   width: 32px;
   margin: 0;
   transition: 0.3s ease-in-out;

@@ -74,7 +74,7 @@ const renderActiveShape = (props) => {
         y={ey + 5}
         dy={18}
         textAnchor={textAnchor}
-        fill="#1A242D"
+        fill="white"
         style={{
           fontSize: 12,
           fontFamily: 'ProximaNovaBold',

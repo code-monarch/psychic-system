@@ -96,7 +96,7 @@ const DetailsLabel = styled(Paragraph)`
 `;
 
 const DetailsValue = styled(ParagraphBold)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   font-size: 16px;
   line-height: 24px;
 `;
@@ -107,7 +107,7 @@ const PageContainer = styled.div`
 `;
 
 const DetailsWrapper = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.colors.secondary.lightgrey};
+  border-top: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
   padding-top: 24px;
 `;
 
@@ -120,5 +120,6 @@ const FormHeader = styled.h1`
   font-size: 24px;
   margin: 0;
   margin-bottom: 56px;
+  color: ${({ theme }) => theme.colors.primary.white};
   font-family: 'ProximaNovaExtraBold', sans-serif;
 `;

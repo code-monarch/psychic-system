@@ -84,7 +84,7 @@ export const InternationalMap = ({
 }): JSX.Element => {
   const theme = useTheme();
 
-  const backgroundGrey = '#CCCCCC'; // TODO: Replace this with an appropriate theme color
+  const backgroundGrey = '#777'; // TODO: Replace this with an appropriate theme color
 
   const world = landJson as FeatureCollection;
 
@@ -130,8 +130,8 @@ export const InternationalMap = ({
           const colors = {
             marker: marker.color,
             markerFill: theme.colors.primary.white,
-            label: theme.colors.primary.grey,
-            value: theme.colors.primary.black,
+            label: theme.colors.primary.white,
+            value: theme.colors.primary.white,
           };
 
           // TODO: These are hardcoded for the demo, but we should generalize them.

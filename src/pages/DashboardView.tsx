@@ -57,6 +57,7 @@ const LeftColumn = styled(Grid.Col)`
 const Wrapper = styled.div`
   margin: 0 40px;
   padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 const ContentView = styled.div`
@@ -67,7 +68,7 @@ const StyledTabs = styled(Tabs)`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  border-bottom: solid 1px #e2e2e2;
+  border-bottom: 1px solid #687d94;
   margin-bottom: 16px;
 `;
 

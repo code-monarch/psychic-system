@@ -15,6 +15,10 @@ declare module 'styled-components' {
         blue: string;
         purple: string;
         yellow: string;
+        darkText: string;
+        darkBackground: string;
+        powderBlue: string;
+        greyText: string;
       };
       secondary: {
         red: string;
@@ -38,12 +42,16 @@ export const lightTheme: DefaultTheme = {
       disabled: '#6CC1B9',
       black: '#1A242D',
       darkgrey: '#4F4F4F',
-      grey: '#828282',
+      grey: '#E4e4e4',
       lightgrey: '#FAFAFA',
       white: '#FFFFFF',
       blue: '#307AD5',
       purple: '#6F5CC9',
       yellow: '#C89720',
+      darkBackground: '#25313E',
+      darkText: '#2E3B4A',
+      powderBlue: '#687D94',
+      greyText: '#8499B1',
     },
     secondary: {
       red: '#EC3D08',

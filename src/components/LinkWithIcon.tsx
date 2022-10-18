@@ -8,7 +8,7 @@ export interface Icon {
 
 const StyledNavLink = styled(NavLink)<{ $icon?: Icon }>`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.greyText};
   font-size: 14px;
   font-weight: normal;
   background-size: 1.5em;

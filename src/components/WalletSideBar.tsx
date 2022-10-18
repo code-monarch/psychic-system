@@ -133,7 +133,7 @@ const ButtonContainer = styled.div`
   margin: 150px auto 0 0;
 `;
 const Wrapper = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.colors.secondary.grey};
+  border-top: 1px solid ${({ theme }) => theme.colors.primary.powderBlue};
   margin-top: 16px;
 `;
 
@@ -145,11 +145,11 @@ const WalletField = styled.div`
 `;
 
 const Label = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
 
 const AssetValue = styled(Label)`
-  color: ${({ theme }) => theme.colors.primary.grey};
+  color: #e4e4e4;
 `;
 
 const WalletValue = styled(ParagraphBold)`

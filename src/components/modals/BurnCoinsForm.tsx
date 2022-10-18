@@ -143,7 +143,8 @@ const selectStyles: Partial<Record<BaseSelectStylesNames, CSSObject>> = {
     fontSize: 16,
     fontWeight: 600,
     fontFamily: "'ProximaNova', sans-serif;",
-    color: '#1A242D',
+    color: 'white',
+    backgroundColor: 'transparent',
   },
   label: {
     fontSize: 14,
@@ -204,4 +205,5 @@ const FormHeader = styled.h1`
   margin: 0;
   margin-bottom: 56px;
   font-family: 'ProximaNovaExtraBold', sans-serif;
+  color: ${({ theme }) => theme.colors.primary.white};
 `;
