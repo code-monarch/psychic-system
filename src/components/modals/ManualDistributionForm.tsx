@@ -16,6 +16,7 @@ import { WalletTransferModal } from './WalletTransferModal';
 import { selectStyles } from '../../lib/constants';
 import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
+import { TransferTokensRequest } from '../../services/wallet-service';
 
 interface Iprops {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,9 +36,11 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState<[number, number] | undefined>();
+  const [isTransferInProgress, setIsTransferInProgress] = useState<boolean>(false);
+
   const { t } = useTranslation();
 
-  const { register, errors, handleSubmit, control } = useForm({
+  const { register, errors, handleSubmit, control, formState } = useForm({
     mode: 'all',
     defaultValues: {
       destinationWalletId: '',
@@ -45,6 +48,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
     },
   });
 
+  const { isDirty, isValid, isSubmitting } = formState;
   const { tokenDetails, walletSummaryDetails } = useTokenDetails();
   const tokenId = tokenDetails?.[0].id;
 
@@ -72,24 +76,30 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
   }, []);
 
   const transfer = (data: IFormData) => {
-    transferTokens(
-      {
-        amount: Number(data.amount),
-        latitude: String(currentLocation?.[1]),
-        longitude: String(currentLocation?.[0]),
-        transactionType: 'Institution',
-        sourceWalletId: distributionWallet.id,
-        destinationWalletId: data.destinationWalletId,
-        tokenId,
+    setIsTransferInProgress(true);
+    const requestData: TransferTokensRequest = {
+      amount: Number(data.amount),
+      transactionType: 'Institution',
+      sourceWalletId: distributionWallet.id,
+      destinationWalletId: data.destinationWalletId,
+      tokenId,
+    };
+
+    if (currentLocation?.[1] && currentLocation?.[0]) {
+      requestData.latitude = String(currentLocation?.[1]);
+      requestData.longitude = String(currentLocation?.[0]);
+    }
+
+    transferTokens(requestData, {
+      onSuccess: () => {
+        setAmount(() => Number(data.amount));
+        setShowSuccessModal(true);
+        // callback?.();
       },
-      {
-        onSuccess: () => {
-          setAmount(() => Number(data.amount));
-          setShowSuccessModal(true);
-          // callback?.();
-        },
+      onSettled: () => {
+        setIsTransferInProgress(false);
       },
-    );
+    });
   };
 
   return (
@@ -177,7 +187,11 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                 </FormSection>
 
                 <ButtonArea>
-                  <PrimaryButton title={t('distribute.title')} loading={isLoading} />
+                  <PrimaryButton
+                    title={t('distribute.title')}
+                    loading={isLoading}
+                    disabled={!isDirty || !isValid || isSubmitting || isTransferInProgress}
+                  />
                   <SecondaryButton
                     title={t('close.button.label')}
                     style={{ width: 152 }}
