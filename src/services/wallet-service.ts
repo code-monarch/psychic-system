@@ -75,8 +75,8 @@ export interface TransferTokensRequest {
   destinationWalletId: string;
   transactionType: string;
   amount: number;
-  longitude: string;
-  latitude: string;
+  longitude?: string;
+  latitude?: string;
 }
 
 export interface WalletGraphRequest {
