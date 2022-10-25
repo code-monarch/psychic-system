@@ -50,6 +50,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
 
   useEffect(() => {
     trigger('destinationWalletId');
+    setValue('destinationWalletId', '', { shouldValidate: true });
   }, [trigger, watchFields?.sourceWalletId]);
 
   const { tokenDetails, walletSummaryDetails } = useTokenDetails();
@@ -104,6 +105,25 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
     setValue('destinationWalletId', sourceWalletId, { shouldValidate: true });
   };
 
+  const distributionWalletId = wallets.find((wallet) => wallet.category === 'Distribution')?.id;
+  const masterWalletId = wallets.find((wallet) => wallet.category === 'Master')?.id;
+  const institutionWalletId = wallets.find((wallet) => wallet.category === 'Institution')?.id;
+
+  const walletOptions = wallets.map((wallet) => ({
+    label: `${wallet?.category} - ${formatAmountWithDecimals(
+      Number(wallet.balances?.[0]?.amount),
+      walletSummaryDetails?.decimals,
+    )} ${walletSummaryDetails?.symbol}`,
+    value: wallet?.id,
+  }));
+  let destinationWallets = [];
+  if (watchFields?.sourceWalletId && distributionWalletId === watchFields?.sourceWalletId) {
+    destinationWallets = walletOptions.filter((walletOption) => walletOption.value !== masterWalletId);
+  } else if (watchFields?.sourceWalletId && masterWalletId === watchFields?.sourceWalletId) {
+    destinationWallets = walletOptions.filter((walletOption) => walletOption.value !== institutionWalletId);
+  } else {
+    destinationWallets = walletOptions;
+  }
   return (
     <Modal size="400px" opened={isVisible} centered onClose={() => setIsVisible(false)}>
       <Screen fluid>
@@ -167,13 +187,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       value={value}
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
-                      data={wallets.map((wallet) => ({
-                        label: `${wallet?.category} - ${formatAmountWithDecimals(
-                          Number(wallet.balances?.[0]?.amount),
-                          walletSummaryDetails?.decimals,
-                        )} ${walletSummaryDetails?.symbol}`,
-                        value: wallet?.id,
-                      }))}
+                      data={destinationWallets}
                     />
                   )}
                 />
