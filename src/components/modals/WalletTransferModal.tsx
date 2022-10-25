@@ -107,20 +107,19 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
 
   const distributionWalletId = wallets.find((wallet) => wallet.category === 'Distribution')?.id;
   const masterWalletId = wallets.find((wallet) => wallet.category === 'Master')?.id;
-  const institutionWalletId = wallets.find((wallet) => wallet.category === 'Institution')?.id;
 
-  const walletOptions = wallets.map((wallet) => ({
-    label: `${wallet?.category} - ${formatAmountWithDecimals(
-      Number(wallet.balances?.[0]?.amount),
-      walletSummaryDetails?.decimals,
-    )} ${walletSummaryDetails?.symbol}`,
-    value: wallet?.id,
-  }));
+  const walletOptions = wallets
+    .filter((wallet) => wallet.category !== 'Institution')
+    .map((wallet) => ({
+      label: `${wallet?.category} - ${formatAmountWithDecimals(
+        Number(wallet.balances?.[0]?.amount),
+        walletSummaryDetails?.decimals,
+      )} ${walletSummaryDetails?.symbol}`,
+      value: wallet?.id,
+    }));
   let destinationWallets = [];
   if (watchFields?.sourceWalletId && distributionWalletId === watchFields?.sourceWalletId) {
     destinationWallets = walletOptions.filter((walletOption) => walletOption.value !== masterWalletId);
-  } else if (watchFields?.sourceWalletId && masterWalletId === watchFields?.sourceWalletId) {
-    destinationWallets = walletOptions.filter((walletOption) => walletOption.value !== institutionWalletId);
   } else {
     destinationWallets = walletOptions;
   }
@@ -148,7 +147,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                       rightSection={<ChevronDownIcon />}
                       styles={selectStyles}
                       data={wallets
-                        .filter((wallet) => wallet?.category !== 'Institution')
+                        .filter((wallet) => wallet.category !== 'Distribution' && wallet.category !== 'Institution')
                         .map((wallet) => ({
                           label: `${wallet?.category} - ${formatAmountWithDecimals(
                             Number(wallet.balances?.[0]?.amount),
@@ -161,11 +160,11 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                 />
               </FormSection>
               <Space h={24} />
-              {watchFields?.sourceWalletId && watchFields?.destinationWalletId && (
-                <SwitchToggle onClick={switchFields}>
-                  <SwitchIcon src={switchIcon} />
-                </SwitchToggle>
-              )}
+              {/* {watchFields?.sourceWalletId && watchFields?.destinationWalletId && ( */}
+              {/*  <SwitchToggle onClick={switchFields}> */}
+              {/*    <SwitchIcon src={switchIcon} /> */}
+              {/*  </SwitchToggle> */}
+              {/* )} */}
 
               <Space h={24} />
               <Title>{t('transfer.to')}</Title>
