@@ -353,16 +353,11 @@ export class WalletService {
 
   static async mintTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
     const { tokenId, amount } = data;
-    const response = await secureMainApi
-      .post(`/tokens/${tokenId}/mint`, {
-        amount,
-      })
-      .then((res) => res?.data)
-      .catch((err) => {
-        // console.error('Error logging in: ', err.response.data);
-        // throw Error(err.response);
-      });
-    return response;
+    const response = await secureMainApi.post(`/tokens/${tokenId}/mint`, {
+      amount,
+    });
+
+    return response.data;
   }
 
   /**
@@ -372,16 +367,11 @@ export class WalletService {
 
   static async burnTokens(data: MintOrBurnTokenRequest): Promise<MintOrBurnTokenResponse> {
     const { tokenId, amount } = data;
-    const response = await secureMainApi
-      .post(`/tokens/${tokenId}/burn`, {
-        amount,
-      })
-      .then((res) => res?.data)
-      .catch((err) => {
-        // console.error('Error logging in: ', err.response.data);
-        // throw Error(err.response);
-      });
-    return response;
+    const response = await secureMainApi.post(`/tokens/${tokenId}/burn`, {
+      amount,
+    });
+
+    return response.data;
   }
 
   /**
