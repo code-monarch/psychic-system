@@ -116,7 +116,7 @@ export const WalletBalanceChart = (): JSX.Element => {
     { label: t('duration.custom'), value: 'custom' },
   ];
 
-  const { decimals } = walletSummaryDetails;
+  const decimals = walletSummaryDetails?.decimals;
   return (
     <Wrapper>
       <LoadingOverlay visible={isLoadingGraph} zIndex={5} overlayColor="#2E3B4A" />
