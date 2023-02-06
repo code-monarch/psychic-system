@@ -48,7 +48,7 @@ stages:
               inlineScript: 'az storage blob upload-batch -d "\$web" --account-name "etdapqadapaz" -s "$(Build.ArtifactStagingDirectory)/output-site/"'
 
           - task: AzureCLI@2
-            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+            #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
             displayName: Purge CDN Endpoint
             inputs:
               azureSubscription: 'Microsoft-Azure-Sponsorship'
