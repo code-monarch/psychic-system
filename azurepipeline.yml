@@ -35,14 +35,14 @@ stages:
           - task: AzureCLI@2
             displayName: delete to blob
             inputs:
-              azureSubscription: 'Microsoft-Azure-Sponsorship'
+              azureSubscription: 'Microsoft Azure Sponsorship (c83f83a4-f7a1-4cb7-bab9-36e3b66c26ad)'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: 'az storage blob delete-batch --source "\$web" --account-name "etdapqadapaz"'
           - task: AzureCLI@2
             displayName: Deploy to blob
             inputs:
-              azureSubscription: 'Microsoft-Azure-Sponsorship'
+              azureSubscription: 'Microsoft Azure Sponsorship (c83f83a4-f7a1-4cb7-bab9-36e3b66c26ad)'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: 'az storage blob upload-batch -d "\$web" --account-name "etdapqadapaz" -s "$(Build.ArtifactStagingDirectory)/output-site/"'
