@@ -40,7 +40,7 @@ export const Transactions = (): JSX.Element => {
         >
           <CurrencySummaryCard
             title={t('total.amount')}
-            amount={formatAmountWithDecimals(transactionSummary?.amount, walletSummaryDetails.decimals)}
+            amount={formatAmountWithDecimals(transactionSummary?.amount, walletSummaryDetails?.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>
@@ -51,14 +51,14 @@ export const Transactions = (): JSX.Element => {
         >
           <CurrencySummaryCard
             title={`${t('internal.transaction.amount')} (${walletSummaryDetails?.symbol})`}
-            amount={formatAmountWithDecimals(transactionSummary?.internalAmount, walletSummaryDetails.decimals)}
+            amount={formatAmountWithDecimals(transactionSummary?.internalAmount, walletSummaryDetails?.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>
         <TransactionCardWrapper>
           <CurrencySummaryCard
             title={`${t('external.transaction.amount')} (${walletSummaryDetails?.symbol})`}
-            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails.decimals)}
+            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails?.decimals)}
             hideHistogram
           />
         </TransactionCardWrapper>
