@@ -24,7 +24,7 @@ export const WalletInfo = () => {
   const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
   const institutionWallet = wallets?.find((wallet) => wallet?.category === 'Institution');
 
-  const { decimals } = walletSummaryDetails;
+  const decimals = walletSummaryDetails?.decimals;
 
   return (
     <Wrapper>

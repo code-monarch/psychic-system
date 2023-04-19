@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import mint_image from '../../assets/images/mint.svg';
 import { PrimaryButton, SecondaryButton } from '../Buttons';
 import { useMintTokens } from '../../hooks/useWallets';
@@ -60,6 +62,11 @@ export const MintCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
           setShowSuccessModal(true);
           // setIsVisible(false);
           callback?.();
+        },
+        onError: (error: AxiosError) => {
+          if (error?.response?.data?.message || error?.message) {
+            toast.error(error?.response?.data?.message || error.message);
+          }
         },
       },
     );
