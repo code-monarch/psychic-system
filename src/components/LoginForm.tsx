@@ -114,10 +114,6 @@ export const LoginForm = ({ className }: { className?: string }) => {
           type="password"
           ref={register({
             required: t('login.password.required'),
-            minLength: {
-              value: 6,
-              message: t('login.password.minLength'),
-            },
           })}
         />
       </TextInput>
