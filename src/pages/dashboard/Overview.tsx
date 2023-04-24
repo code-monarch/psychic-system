@@ -3,8 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Space } from '@mantine/core';
+import moment from 'moment/moment';
 import { formatAmountWithDecimals, getWithExpiry, setWithExpiry } from '../../lib/utils';
-import { useGetTransactionHistory, useGetTransactionSummary } from '../../hooks/useWallets';
+import {
+  useGetTransactionHistory,
+  useGetTransactionSummary,
+  useGetTransactionSummaryWithStartDate,
+} from '../../hooks/useWallets';
 import { Paragraph, Title } from '../../components/styled';
 import { TransactionsTable } from '../../components/tables/PaginatedTable';
 import { Transaction } from '../../services/wallet-service';
@@ -86,7 +91,9 @@ export const Overview = (): JSX.Element => {
   } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
 
   const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
+  const { data: summaryLastDay } = useGetTransactionSummaryWithStartDate(tokenId, moment().format('YYYY-MM-DD'));
   const transactionSummary = summary?.totals;
+  const transactionSummaryLastDay = summaryLastDay?.totals;
   const transactions = data?.transactions || [];
 
   return (
@@ -110,8 +117,8 @@ export const Overview = (): JSX.Element => {
             subtitle={t('duration.one.day')}
             tokenSymbol={walletSummaryDetails?.symbol}
             color={blue}
-            usdAmount={currentRate ? transactionSummary?.externalAmount / currentRate : null}
-            amount={formatAmountWithDecimals(transactionSummary?.externalAmount, walletSummaryDetails?.decimals)}
+            usdAmount={currentRate ? transactionSummaryLastDay?.externalAmount / currentRate : null}
+            amount={formatAmountWithDecimals(transactionSummaryLastDay?.externalAmount, walletSummaryDetails?.decimals)}
           />
         </OverviewCardWrapperWithMargin>
         <OverviewCardWrapper>
