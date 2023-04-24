@@ -339,7 +339,7 @@ export class WalletService {
     const response = await secureMainApi
       .get(`/wallets`, {
         params: {
-          category: 'Institution',
+          category: 'Pooled',
         },
       })
       .then((res) => res?.data)
