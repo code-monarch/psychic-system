@@ -315,9 +315,13 @@ export class WalletService {
    * @description GET
    * Get transaction summary report
    */
-  static async getTransactionSummary(tokenId: string): Promise<TransactionSummaryReportResponse> {
+  static async getTransactionSummary(tokenId: string, start?: string): Promise<TransactionSummaryReportResponse> {
     const response = await secureMainApi
-      .get(`/tokens/${tokenId}/transactions-summary`)
+      .get(`/tokens/${tokenId}/transactions-summary`, {
+        params: {
+          start,
+        },
+      })
       .then((res) => res?.data)
       .catch((err) => {
         // console.error('Error logging in: ', err.response.data);
@@ -335,7 +339,7 @@ export class WalletService {
     const response = await secureMainApi
       .get(`/wallets`, {
         params: {
-          category: 'Pooled',
+          category: 'Institution',
         },
       })
       .then((res) => res?.data)

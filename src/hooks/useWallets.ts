@@ -67,6 +67,15 @@ export const useGetTransactionSummary = (tokenId: string) => {
   return result;
 };
 
+export const useGetTransactionSummaryWithStartDate = (tokenId: string, start: string) => {
+  const result = useQuery({
+    queryKey: [cacheKey.transactionSummary, start],
+    queryFn: () => WalletService.getTransactionSummary(tokenId, start),
+    enabled: Boolean(tokenId),
+  });
+  return result;
+};
+
 export const useGetInstitutionWallets = () => {
   const result = useQuery({
     queryKey: cacheKey.institutionWallets,
