@@ -89,7 +89,7 @@
   "circulating.supply.description": "Circulating Supply",
   "non.circulating.supply.description": "Non Circulating Supply",
   "total.not.circulation.description": "Total Not in Circulation",
-  "recent.external.transactions.description": "Most Recent External Transactions",
+  "recent.transactions.description": "Most Recent Transactions",
   "mint.transfer.tokens.description": "Mint and transfer tokens (also called coins) internally for circulation. Burn tokens to reduce the number of coins in use. Distribute",
   "like.never.before": "Like Never Before",
   "login.title": "Login",
@@ -147,5 +147,6 @@
   "overview.title": "Overview",
   "trended.transactions.title": "Trended Transactions",
   "to.date": "to date",
-  "usd.exchange.rate": "USD Exchange Rate"
+  "usd.exchange.rate": "USD Exchange Rate",
+  "transaction.volume": "Transaction Volume"
 }

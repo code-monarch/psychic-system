@@ -33,6 +33,12 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
   {
     Header: t('transaction.Id'),
     accessor: 'hash',
+    Cell: (props) => `${props?.value?.slice(0, 7)}...`,
+  },
+  {
+    Header: 'Wallet ID',
+    accessor: 'walletId',
+    Cell: (props) => `${props?.value}`,
   },
   {
     Header: t('transaction.type'),

@@ -134,6 +134,7 @@ export interface Transaction {
   token: Token;
   id: string;
   tokenName: string;
+  walletId: string;
   sourceWallet: {
     category: string;
     id: string;
@@ -160,6 +161,7 @@ interface TransactionSummaryReportResponse {
     amount: number;
     internalAmount: number;
     externalAmount: number;
+    volume: number;
   };
 }
 

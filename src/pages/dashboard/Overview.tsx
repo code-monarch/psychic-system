@@ -88,7 +88,7 @@ export const Overview = (): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'External');
 
   const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
   const { data: summaryLastDay } = useGetTransactionSummaryWithStartDate(tokenId, moment().format('YYYY-MM-DD'));
@@ -124,12 +124,12 @@ export const Overview = (): JSX.Element => {
         <OverviewCardWrapper>
           <OverviewCard
             cardImage={tokenIcon}
-            title={`${t('tokens.distribution')}`}
-            subtitle={t('to.date')}
+            title={`${t('transaction.volume')}`}
+            subtitle=""
             tokenSymbol={walletSummaryDetails?.symbol}
             color={yellow}
-            usdAmount={currentRate ? walletSummaryDetails?.inCirculation / currentRate : null}
-            amount={formatAmountWithDecimals(walletSummaryDetails?.inCirculation, walletSummaryDetails?.decimals)}
+            usdAmount={currentRate ? transactionSummary?.volume / currentRate : null}
+            amount={formatAmountWithDecimals(transactionSummary?.volume, walletSummaryDetails?.decimals)}
           />
         </OverviewCardWrapper>
       </TransactionCards>
@@ -143,7 +143,7 @@ export const Overview = (): JSX.Element => {
       <div>
         <TrendedBalanceChart />
         <RecentTransactionsArea>
-          <Title>{t('recent.external.transactions.description')}</Title>
+          <Title>{t('recent.transactions.description')}</Title>
           <TransactionsTable<Transaction>
             columnConfig={getTransactionsTableColumnConfig(t)}
             loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}
