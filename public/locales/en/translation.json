@@ -148,5 +148,7 @@
   "trended.transactions.title": "Trended Transactions",
   "to.date": "to date",
   "usd.exchange.rate": "USD Exchange Rate",
-  "transaction.volume": "Transaction Volume"
+  "transaction.volume": "Transaction Volume",
+  "wallet": "Wallet",
+  "status": "Status"
 }

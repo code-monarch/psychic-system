@@ -147,5 +147,7 @@
   "trended.transactions.title": "Transactions tendance",
   "to.date": "à ce jour",
   "usd.exchange.rate": "Taux de change USD",
-  "transaction.volume": "Volume de transactions"
+  "transaction.volume": "Volume de transactions",
+  "wallet": "Portefeuille",
+  "status": "Statut"
 }

@@ -36,7 +36,7 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
           <FormHeader>{t('transaction.details')}</FormHeader>
           <DetailSection>
             <DetailsValue style={{ marginRight: 20 }}>
-              {t('transaction.title')} - {data.sourceWallet.id}@{data.destinationWallet.id}
+              {t('transaction.title')} - {data.wallet}
             </DetailsValue>
             <DetailsValue style={{ color: green }}> • {t('success.title')}</DetailsValue>
           </DetailSection>
@@ -52,13 +52,13 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
             </DetailSection>
 
             <DetailSection>
-              <DetailsLabel>{t('transaction.wallet.source')}</DetailsLabel>
-              <DetailsValue style={{ color: green }}>{data?.sourceWallet.category}</DetailsValue>
+              <DetailsLabel>{t('wallet')}</DetailsLabel>
+              <DetailsValue style={{ color: green }}>{data?.wallet}</DetailsValue>
             </DetailSection>
 
             <DetailSection>
               <DetailsLabel>{t('funding.type')}?</DetailsLabel>
-              <DetailsValue>{data?.fundingType.present ? 'Yes' : 'No'}</DetailsValue>
+              <DetailsValue>{data?.fundingType}</DetailsValue>
             </DetailSection>
 
             <DetailSection>

@@ -133,27 +133,15 @@ interface Wallet {
 export interface Transaction {
   token: Token;
   id: string;
-  tokenName: string;
-  walletId: string;
-  sourceWallet: {
-    category: string;
-    id: string;
-  };
-  destinationWallet: {
-    category: string;
-    id: string;
-  };
+  wallet: string;
   type: string;
   entity: string;
   hash: string;
   amount: number;
-  credit: boolean;
-  debit: boolean;
+  entry: string;
+  status: string;
+  fundingType: string;
   createdAt: string;
-  fundingType: {
-    present: boolean;
-  };
-  timestamp: number;
 }
 
 interface TransactionSummaryReportResponse {

@@ -17,7 +17,7 @@ const StyledStatus = ({
   status: creditStatus,
   translation,
 }: {
-  status: TransactionType;
+  status: string;
   translation: TFunction;
 }): JSX.Element => {
   const transactionTypeRenderMappings: TransactionTypeRenderMappings = {
@@ -25,7 +25,8 @@ const StyledStatus = ({
     [TransactionType.CREDIT]: { color: '#4AB0A6', text: translation('credit') },
   };
 
-  const { color, text } = transactionTypeRenderMappings[creditStatus ? TransactionType.CREDIT : TransactionType.DEBIT];
+  const { color, text } =
+    transactionTypeRenderMappings[creditStatus === 'CREDIT' ? TransactionType.CREDIT : TransactionType.DEBIT];
   return <ColoredSpan {...{ color }}>{text}</ColoredSpan>;
 };
 
@@ -36,8 +37,8 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
     Cell: (props) => `${props?.value?.slice(0, 7)}...`,
   },
   {
-    Header: 'Wallet ID',
-    accessor: 'walletId',
+    Header: t('wallet'),
+    accessor: 'wallet',
     Cell: (props) => `${props?.value}`,
   },
   {
@@ -45,16 +46,10 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
     accessor: 'type',
   },
   {
-    Header: t('transaction.wallet.destination'),
+    Header: t('status'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     /* @ts-ignore */
-    accessor: 'destinationWallet.category',
-  },
-  {
-    Header: t('transaction.wallet.source'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    /* @ts-ignore */
-    accessor: 'sourceWallet.category',
+    accessor: 'status',
   },
   {
     Header: t('entity'),
@@ -69,7 +64,7 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
 
   {
     Header: t('type'),
-    accessor: 'credit',
+    accessor: 'entry',
     Cell: ({ value }: Cell<Transaction>) => <StyledStatus status={value} translation={t} />,
     disableSortBy: true,
   },
