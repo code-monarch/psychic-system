@@ -32,11 +32,6 @@ const StyledStatus = ({
 
 export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transaction>[] => [
   {
-    Header: t('transaction.Id'),
-    accessor: 'hash',
-    Cell: (props) => `${props?.value?.slice(0, 7)}...`,
-  },
-  {
     Header: t('wallet'),
     accessor: 'wallet',
     Cell: (props) => `${props?.value}`,
@@ -79,4 +74,10 @@ export const getTransactionsTableColumnConfig = (t: TFunction): Column<Transacti
     Cell: (props: { row: { original: Transaction } }) => <ViewTransactionTableCell data={props.row.original} />,
     disableSortBy: true,
   },
+  {
+    Header: t('transaction.Id'),
+    accessor: 'hash',
+    // Cell: (props) => `${props?.value?.slice(0, 7)}...`,
+    Cell: (props) => `${props?.value}`,
+  }
 ];

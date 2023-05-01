@@ -135,7 +135,6 @@ export const CirculationComponent = () => {
               <WalletRightSection>
                 <WalletAmount>
                   {formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)},{' '}
-                  <span>{percentage ? percentage.toFixed(2) : 'N/A'}%</span>
                 </WalletAmount>
               </WalletRightSection>
             </WalletWrapper>

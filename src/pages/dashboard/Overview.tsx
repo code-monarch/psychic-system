@@ -28,7 +28,7 @@ const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
-    case 'View':
+    case 'Transaction ID':
       textAlign = 'end';
       break;
     default:
@@ -79,7 +79,7 @@ export const Overview = (): JSX.Element => {
   const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const [queryPageIndex, setQueryPageIndex] = useState(0);
-  const [queryPageSize, setQueryPageSize] = useState(4);
+  const [queryPageSize, setQueryPageSize] = useState(5);
 
   const {
     data = [] as any,

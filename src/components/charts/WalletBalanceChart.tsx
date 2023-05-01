@@ -204,6 +204,8 @@ const WalletTypeLabel = styled(ParagraphBold)`
   align-items: center;
   margin-bottom: 16px;
   color: ${({ theme }) => theme.colors.primary.green};
+  font-size: 17px;
+  font-weight: 600;
 `;
 
 const Amount = styled.p`
