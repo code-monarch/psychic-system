@@ -262,12 +262,11 @@ export class WalletService {
    * Get list of wallet transactions
    */
 
-  static async getTransactionHistory(walletId, page, pageSize, transactionType): Promise<Transaction[]> {
+  static async getTransactionHistory(walletId, page, pageSize): Promise<Transaction[]> {
     const response = await secureMainApi
       .get(`/transactions`, {
         params: {
           walletId,
-          type: transactionType,
           offset: page,
           limit: pageSize,
         },

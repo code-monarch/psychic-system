@@ -39,10 +39,10 @@ export const useGetTokenSummary = (tokenId) => {
   return result;
 };
 
-export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6, transactionType) => {
+export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6) => {
   const result = useQuery({
     queryKey: [cacheKey.transactionHistory, page],
-    queryFn: () => WalletService.getTransactionHistory(walletId, page, pageSize, transactionType),
+    queryFn: () => WalletService.getTransactionHistory(walletId, page, pageSize),
     enabled: Boolean(walletId),
     keepPreviousData: true,
   });

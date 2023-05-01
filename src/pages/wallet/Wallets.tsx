@@ -100,7 +100,7 @@ export const Wallets = (props): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize);
 
   const transactions = data?.transactions || [];
 
