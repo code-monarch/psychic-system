@@ -129,7 +129,7 @@ export const Overview = (): JSX.Element => {
             tokenSymbol=" "
             color={yellow}
             usdAmount={null}
-            amount={transactionSummary?.volume.toString()}
+            amount={transactionSummary?.volume?.toString() || "0"}
           />
         </OverviewCardWrapper>
       </TransactionCards>
