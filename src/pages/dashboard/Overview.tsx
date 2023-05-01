@@ -88,7 +88,7 @@ export const Overview = (): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'External');
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize);
 
   const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
   const { data: summaryLastDay } = useGetTransactionSummaryWithStartDate(tokenId, moment().format('YYYY-MM-DD'));
@@ -126,10 +126,10 @@ export const Overview = (): JSX.Element => {
             cardImage={tokenIcon}
             title={`${t('transaction.volume')}`}
             subtitle=""
-            tokenSymbol={walletSummaryDetails?.symbol}
+            tokenSymbol=" "
             color={yellow}
-            usdAmount={currentRate ? transactionSummary?.volume / currentRate : null}
-            amount={formatAmountWithDecimals(transactionSummary?.volume, walletSummaryDetails?.decimals)}
+            usdAmount={null}
+            amount={transactionSummary?.volume.toString()}
           />
         </OverviewCardWrapper>
       </TransactionCards>
