@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Paragraph, ParagraphBold } from '../styled';
 import { Transaction } from '../../services/wallet-service';
-import { formatAmount } from '../../lib/utils';
+import { formatAmountWithDecimals } from '../../lib/utils';
 import { useTokenDetails } from '../../context/token-details-context';
 
 interface Iprops {
@@ -23,7 +23,7 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
 
   return (
     <Modal
-      size="calc(100vw - 10px)"
+      size="auto"
       opened={isVisible}
       centered
       onClose={() => setIsVisible(false)}
@@ -64,7 +64,7 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
             <DetailSection>
               <DetailsLabel>{t('transfer.amount')}</DetailsLabel>
               <DetailsValue>
-                {formatAmount(data?.amount)} {walletSummaryDetails?.symbol}
+                {formatAmountWithDecimals(data?.amount, 2)} {walletSummaryDetails?.symbol}
               </DetailsValue>
             </DetailSection>
 
@@ -81,7 +81,6 @@ export const TransactionDetailsModal = ({ isVisible, setIsVisible, callback, dat
 
 const Screen = styled(Container)`
   padding: 0;
-  height: calc(100vh - 130px);
   a {
     font-size: 13px;
     font-weight: bold;

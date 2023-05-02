@@ -49,6 +49,15 @@ export const useGetTransactionHistory = (walletId, page = 0, pageSize = 6) => {
   return result;
 };
 
+export const useGetDashboardTransactionHistory = (page = 0, pageSize = 6) => {
+  const result = useQuery({
+    queryKey: [cacheKey.dashboardTransactionHistory, page],
+    queryFn: () => WalletService.getTransactionHistory(undefined, page, pageSize),
+    keepPreviousData: true,
+  });
+  return result;
+};
+
 export const useGetCBTransactionHistory = (transactionType, page = 0, pageSize = 10) => {
   const result = useQuery({
     queryKey: [cacheKey.cbTransactionsHistory, transactionType, page, pageSize],

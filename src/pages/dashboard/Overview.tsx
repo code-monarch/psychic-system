@@ -6,7 +6,7 @@ import { Space } from '@mantine/core';
 import moment from 'moment/moment';
 import { formatAmountWithDecimals, getWithExpiry, setWithExpiry } from '../../lib/utils';
 import {
-  useGetTransactionHistory,
+  useGetDashboardTransactionHistory,
   useGetTransactionSummary,
   useGetTransactionSummaryWithStartDate,
 } from '../../hooks/useWallets';
@@ -88,7 +88,7 @@ export const Overview = (): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize);
+  } = useGetDashboardTransactionHistory(queryPageIndex, queryPageSize);
 
   const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
   const { data: summaryLastDay } = useGetTransactionSummaryWithStartDate(tokenId, moment().format('YYYY-MM-DD'));
@@ -129,7 +129,7 @@ export const Overview = (): JSX.Element => {
             tokenSymbol=" "
             color={yellow}
             usdAmount={null}
-            amount={transactionSummary?.volume?.toString() || "0"}
+            amount={transactionSummary?.volume?.toString() || '0'}
           />
         </OverviewCardWrapper>
       </TransactionCards>
