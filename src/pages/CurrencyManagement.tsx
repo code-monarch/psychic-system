@@ -124,26 +124,30 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.minted')}
-              amount={formatAmountWithDecimals(tokenSummary?.minted, data?.decimals) + walletSummaryDetails?.symbol}
+              amount={`${formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.transferred')}
-              amount={
-                formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals) + walletSummaryDetails?.symbol
-              }
+              amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.distributed')}
-              amount={
-                formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals) + walletSummaryDetails?.symbol
-              }
+              amount={`${formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.burned')}
-              amount={formatAmountWithDecimals(tokenSummary?.burned, data?.decimals) + walletSummaryDetails?.symbol}
+              amount={`${formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
           </div>
         </RightSideBar>
