@@ -8,6 +8,7 @@
   "home.title": "Commencer",
   "home.description": "Gérez les actifs numériques en interne et les portefeuilles numériques pour les institutions financières. Utilisez cette plate-forme pour afficher les soldes du grand livre CBDC, les transactions, distribuer les devises et surveiller l'activité.",
   "wallets.title": "Portefeuilles",
+  "wallets.summary": "Résumé des portefeuilles",
   "wallets.overview": "Présentation des portefeuilles",
   "wallets.active": "Portefeuilles actifs",
   "wallet.type": "Type de portefeuille",
@@ -21,6 +22,7 @@
   "transfer.title": "Transférer",
   "wallets.transfer.title": "Transfert de portefeuille",
   "distribute.title": "Distribuer",
+  "distribute.token": "Distribuer le jeton",
   "distribute.description": "Distribuer ou envoyer des fonds aux institutions gouvernementales, aux institutions financières et aux citoyens.",
   "master.title": "Maître",
   "master.wallet.title": "Maître de réserve",
@@ -88,7 +90,7 @@
   "circulating.supply.description": "Alimentation en circulation",
   "non.circulating.supply.description": "Alimentation non circulante",
   "total.not.circulation.description": "Total Non en circulation",
-  "recent.external.transactions.description": "Transactions externes les plus récentes",
+  "recent.transactions.description": "Transactions les plus récentes",
   "mint.transfer.tokens.description": "Émettre et transférer les jetons (également appelés pièces) en interne pour la circulation. Brûler les jetons pour réduire le nombre de pièces en circulation. Distribuer",
   "like.never.before": "Comme jamais auparavant",
   "login.title": "Connexion",
@@ -146,5 +148,8 @@
   "overview.title": "Présentation",
   "trended.transactions.title": "Transactions tendance",
   "to.date": "à ce jour",
-  "usd.exchange.rate": "Taux de change USD"
+  "usd.exchange.rate": "Taux de change USD",
+  "transaction.volume": "Volume de transactions",
+  "wallet": "Portefeuille",
+  "status": "Statut"
 }

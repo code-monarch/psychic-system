@@ -80,9 +80,9 @@ export const CirculationComponent = () => {
   const distributionWalletPercentage = (Number(distributionBalance) / internalWalletTotal) * 100;
   return (
     <div>
-      <Card style={{ height: 253 }}>
+      <Card style={{ height: 300 }}>
         <LoadingOverlay visible={isLoadingWalletTokenDetails} overlayColor={darkText} />
-        <TokensHeaderWrapper>
+        <TokensHeaderWrapper style={{marginBottom: 0}}>
           <Title>{t('tokens.circulation.description')}</Title>
           <Title>
             <TokensAmount>
@@ -135,7 +135,6 @@ export const CirculationComponent = () => {
               <WalletRightSection>
                 <WalletAmount>
                   {formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)},{' '}
-                  <span>{percentage ? percentage.toFixed(2) : 'N/A'}%</span>
                 </WalletAmount>
               </WalletRightSection>
             </WalletWrapper>

@@ -133,26 +133,15 @@ interface Wallet {
 export interface Transaction {
   token: Token;
   id: string;
-  tokenName: string;
-  sourceWallet: {
-    category: string;
-    id: string;
-  };
-  destinationWallet: {
-    category: string;
-    id: string;
-  };
+  wallet: string;
   type: string;
   entity: string;
   hash: string;
   amount: number;
-  credit: boolean;
-  debit: boolean;
+  entry: string;
+  status: string;
+  fundingType: string;
   createdAt: string;
-  fundingType: {
-    present: boolean;
-  };
-  timestamp: number;
 }
 
 interface TransactionSummaryReportResponse {
@@ -160,6 +149,7 @@ interface TransactionSummaryReportResponse {
     amount: number;
     internalAmount: number;
     externalAmount: number;
+    volume: number;
   };
 }
 
@@ -272,12 +262,11 @@ export class WalletService {
    * Get list of wallet transactions
    */
 
-  static async getTransactionHistory(walletId, page, pageSize, transactionType): Promise<Transaction[]> {
+  static async getTransactionHistory(walletId, page, pageSize): Promise<Transaction[]> {
     const response = await secureMainApi
       .get(`/transactions`, {
         params: {
           walletId,
-          type: transactionType,
           offset: page,
           limit: pageSize,
         },
@@ -339,7 +328,7 @@ export class WalletService {
     const response = await secureMainApi
       .get(`/wallets`, {
         params: {
-          category: 'Pooled',
+          category: 'Institutional',
         },
       })
       .then((res) => res?.data)

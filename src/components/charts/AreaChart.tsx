@@ -79,8 +79,7 @@ export const ReAreaChart = <T extends object>({
 }) => {
   const theme: any = useTheme();
   const { t } = useTranslation();
-  const { green, white } = theme.colors.primary;
-  const { red } = theme.colors.secondary;
+  const { green, white, darkText } = theme.colors.primary;
 
   return (
     <div
@@ -108,7 +107,11 @@ export const ReAreaChart = <T extends object>({
           <Legend verticalAlign="top" height={36} align="right" iconSize={12} />
           <YAxis tick={<YAxisTick />} axisLine={false} tickLine={false} />
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#687D94" />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: darkText,
+            }}
+          />
           <Area
             type="monotone"
             dataKey={t('credit')}

@@ -6,7 +6,7 @@ import { Space } from '@mantine/core';
 import moment from 'moment/moment';
 import { formatAmountWithDecimals, getWithExpiry, setWithExpiry } from '../../lib/utils';
 import {
-  useGetTransactionHistory,
+  useGetDashboardTransactionHistory,
   useGetTransactionSummary,
   useGetTransactionSummaryWithStartDate,
 } from '../../hooks/useWallets';
@@ -28,7 +28,7 @@ const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
-    case 'View':
+    case 'Transaction ID':
       textAlign = 'end';
       break;
     default:
@@ -79,7 +79,7 @@ export const Overview = (): JSX.Element => {
   const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
 
   const [queryPageIndex, setQueryPageIndex] = useState(0);
-  const [queryPageSize, setQueryPageSize] = useState(4);
+  const [queryPageSize, setQueryPageSize] = useState(5);
 
   const {
     data = [] as any,
@@ -88,7 +88,7 @@ export const Overview = (): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
+  } = useGetDashboardTransactionHistory(queryPageIndex, queryPageSize);
 
   const { data: summary, isLoading: isLoadingSummary } = useGetTransactionSummary(tokenId);
   const { data: summaryLastDay } = useGetTransactionSummaryWithStartDate(tokenId, moment().format('YYYY-MM-DD'));
@@ -124,12 +124,12 @@ export const Overview = (): JSX.Element => {
         <OverviewCardWrapper>
           <OverviewCard
             cardImage={tokenIcon}
-            title={`${t('tokens.distribution')}`}
-            subtitle={t('to.date')}
-            tokenSymbol={walletSummaryDetails?.symbol}
+            title={`${t('transaction.volume')}`}
+            subtitle=""
+            tokenSymbol=" "
             color={yellow}
-            usdAmount={currentRate ? walletSummaryDetails?.inCirculation / currentRate : null}
-            amount={formatAmountWithDecimals(walletSummaryDetails?.inCirculation, walletSummaryDetails?.decimals)}
+            usdAmount={null}
+            amount={transactionSummary?.volume?.toString() || '0'}
           />
         </OverviewCardWrapper>
       </TransactionCards>
@@ -143,7 +143,7 @@ export const Overview = (): JSX.Element => {
       <div>
         <TrendedBalanceChart />
         <RecentTransactionsArea>
-          <Title>{t('recent.external.transactions.description')}</Title>
+          <Title>{t('recent.transactions.description')}</Title>
           <TransactionsTable<Transaction>
             columnConfig={getTransactionsTableColumnConfig(t)}
             loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}

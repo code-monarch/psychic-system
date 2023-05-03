@@ -55,9 +55,10 @@ export const WalletBalanceChart = (): JSX.Element => {
   const constructGraphData = () => {
     const graphData = [];
     const timeStamps = Object.keys(creditChartData).sort();
+    const divisor = 10 ** walletSummaryDetails?.decimals;
     for (const timeStamp of timeStamps) {
-      const creditAmount = Number(creditChartData[timeStamp]) / walletSummaryDetails?.decimals || 0;
-      const debitAmount = Number(debitChartData[timeStamp]) / walletSummaryDetails?.decimals || 0;
+      const creditAmount = Number(creditChartData[timeStamp]) / divisor || 0;
+      const debitAmount = Number(debitChartData[timeStamp]) / divisor || 0;
       graphData.push({
         name: getXAxisPoints(timeStamp),
         [t('credit')]: Number(creditAmount),
@@ -204,6 +205,8 @@ const WalletTypeLabel = styled(ParagraphBold)`
   align-items: center;
   margin-bottom: 16px;
   color: ${({ theme }) => theme.colors.primary.green};
+  font-size: 17px;
+  font-weight: 600;
 `;
 
 const Amount = styled.p`

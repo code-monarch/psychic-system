@@ -57,7 +57,7 @@ export const CurrencyManagement = (): JSX.Element => {
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
   const [mintFormModalOpened, setMintFormModalOpened] = useState<boolean>(false);
   const [burnFormModalOpened, setBurnFormModalOpened] = useState<boolean>(false);
-  const { tokenDetails } = useTokenDetails();
+  const { tokenDetails, walletSummaryDetails } = useTokenDetails();
   const tokenId = tokenDetails?.[0].id;
   const { data } = useGetTokenSummary(tokenId);
   const { t } = useTranslation();
@@ -124,22 +124,30 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.minted')}
-              amount={formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)}
+              amount={`${formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.transferred')}
-              amount={formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)}
+              amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.distributed')}
-              amount={formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)}
+              amount={`${formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.burned')}
-              amount={formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)}
+              amount={`${formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)} ${
+                walletSummaryDetails?.symbol
+              }`}
             />
           </div>
         </RightSideBar>

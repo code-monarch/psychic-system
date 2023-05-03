@@ -53,7 +53,7 @@ const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
-    case 'View':
+    case 'Transaction ID':
       textAlign = 'end';
       break;
     default:

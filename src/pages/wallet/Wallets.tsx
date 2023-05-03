@@ -58,7 +58,7 @@ const columnPropGetter = (col: Column<Transaction>) => {
   const { id } = col;
   let textAlign: 'start' | 'end';
   switch (id) {
-    case 'View':
+    case 'Transaction ID':
       textAlign = 'end';
       break;
     default:
@@ -100,7 +100,7 @@ export const Wallets = (props): JSX.Element => {
     error,
     isFetching,
     isPreviousData,
-  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize, 'Internal');
+  } = useGetTransactionHistory(distributionWallet?.id, queryPageIndex, queryPageSize);
 
   const transactions = data?.transactions || [];
 
@@ -111,14 +111,14 @@ export const Wallets = (props): JSX.Element => {
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton
-              title={`${t('distribute.title')} ${walletSummaryDetails?.symbol}`}
+              title={`${t('distribute.token')}`}
               style={{ width: 152 }}
               onClick={() => setModalOpened(true)}
             />
           </Header>
           <WalletBalanceChart />
           <RecentTransactionsArea>
-            <Title>{t('recent.external.transactions.description')}</Title>
+            <Title>{t('recent.transactions.description')}</Title>
             <TransactionsTable<Transaction>
               columnConfig={getTransactionsTableColumnConfig(t)}
               loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}
@@ -137,7 +137,7 @@ export const Wallets = (props): JSX.Element => {
         </LeftSection>
         <RightSideBar md={12} lg={4}>
           <Header>
-            <Heading>{t('wallets.title')}</Heading>
+            <Heading>{t('wallets.summary')}</Heading>
           </Header>
           <WalletInfo />
         </RightSideBar>

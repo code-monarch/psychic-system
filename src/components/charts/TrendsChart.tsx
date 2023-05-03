@@ -38,7 +38,7 @@ function YAxisTick(props) {
 export const TrendedChart = <T extends object>({
   data,
   width = '100%',
-  height = 200,
+  height = 245,
 }: {
   data: T[];
   width?: string;

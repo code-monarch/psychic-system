@@ -8,6 +8,7 @@
   "home.title": "Get Started",
   "home.description": "Manage digital assets internally and digital wallets for Financial Institutions. Use this platform to view CBDC ledger balances, transactions, distribute currency and monitor activity.",
   "wallets.title": "Wallets",
+  "wallets.summary": "Wallets Summary",
   "wallets.overview": "Wallets Overview",
   "wallets.active": "Active Wallets",
   "wallet.type": "Wallet Type",
@@ -21,6 +22,7 @@
   "transfer.title": "Transfer",
   "wallets.transfer.title": "Wallet Transfer",
   "distribute.title": "Distribute",
+  "distribute.token": "Distribute Token",
   "distribute.description": "Distribute or send funding to government institutions, financial institutions and citizens.",
   "master.title": "Master",
   "master.wallet.title": "Master Reserve",
@@ -89,7 +91,7 @@
   "circulating.supply.description": "Circulating Supply",
   "non.circulating.supply.description": "Non Circulating Supply",
   "total.not.circulation.description": "Total Not in Circulation",
-  "recent.external.transactions.description": "Most Recent External Transactions",
+  "recent.transactions.description": "Most Recent Transactions",
   "mint.transfer.tokens.description": "Mint and transfer tokens (also called coins) internally for circulation. Burn tokens to reduce the number of coins in use. Distribute",
   "like.never.before": "Like Never Before",
   "login.title": "Login",
@@ -147,5 +149,8 @@
   "overview.title": "Overview",
   "trended.transactions.title": "Trended Transactions",
   "to.date": "to date",
-  "usd.exchange.rate": "USD Exchange Rate"
+  "usd.exchange.rate": "USD Exchange Rate",
+  "transaction.volume": "Transaction Volume",
+  "wallet": "Wallet",
+  "status": "Status"
 }
