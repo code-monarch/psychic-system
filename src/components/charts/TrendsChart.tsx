@@ -1,7 +1,7 @@
 import { useTheme } from 'styled-components';
 import { Area, CartesianGrid, ComposedChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { formatAmount } from '../../lib/utils';
+import { formatAmountInteger } from '../../lib/utils';
 
 function XAxisTick(props) {
   const { x, y, payload, className } = props;
@@ -29,7 +29,7 @@ function YAxisTick(props) {
   return (
     <g transform={`translate(${x},${y})`}>
       <text x={50} y={0} dy={3} textAnchor="end" fill="white" fontSize="12px" fontFamily="ProximaNova">
-        {formatAmount(payload.value)}
+        {formatAmountInteger(payload.value)}
       </text>
     </g>
   );
