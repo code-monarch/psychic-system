@@ -82,8 +82,8 @@ export const CirculationComponent = () => {
     <div>
       <Card style={{ height: 300 }}>
         <LoadingOverlay visible={isLoadingWalletTokenDetails} overlayColor={darkText} />
-        <TokensHeaderWrapper style={{marginBottom: 0}}>
-          <Title>{t('tokens.circulation.description')}</Title>
+        <TokensHeaderWrapper style={{ marginBottom: 0 }}>
+          <Title>{t('total.supply.description')}</Title>
           <Title>
             <TokensAmount>
               {walletSummaryDetails?.supply
@@ -133,9 +133,7 @@ export const CirculationComponent = () => {
                 </div>
               </WalletLeftSection>
               <WalletRightSection>
-                <WalletAmount>
-                  {formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)},{' '}
-                </WalletAmount>
+                <WalletAmount>{formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)}, </WalletAmount>
               </WalletRightSection>
             </WalletWrapper>
           );

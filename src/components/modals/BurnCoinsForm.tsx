@@ -81,7 +81,7 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
             </ImageWrapper>
             <form onSubmit={handleSubmit(burn)}>
               <FormWrapper>
-                <FormHeader>{t('burn.coins')}</FormHeader>
+                <FormHeader>{t('burn.tokens')}</FormHeader>
                 <FormSection>
                   <Select
                     label={t('choose.wallet.destination')}

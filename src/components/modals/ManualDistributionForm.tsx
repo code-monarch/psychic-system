@@ -112,11 +112,11 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
             </ImageWrapper>
             <form onSubmit={handleSubmit(transfer)}>
               <FormWrapper>
-                <FormHeader>{t('distribution.manual.title')}</FormHeader>
+                <FormHeader>{t('transfer.title')}</FormHeader>
                 <Title>{t('transfer.from')}</Title>
                 <FormSection>
                   <Select
-                    label={t('choose.wallet.source')}
+                    label={t('wallets.distribution')}
                     rightSection={null}
                     value={distributionWallet?.id}
                     styles={selectStyles}
@@ -131,7 +131,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                 </FormSection>
                 <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                   <WalletTransferText onClick={() => setShowWalletTransferModal(true)}>
-                    {t('wallets.transfer.title')}
+                    {t('fund.wallet')}
                   </WalletTransferText>
                   <ArrowRightIcon fontWeight={600} color={green} />
                 </div>
@@ -145,7 +145,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                     rules={{ required: t('transfer.institution.required') }}
                     render={({ ref, onChange, value }) => (
                       <Select
-                        label={t('institution.name.label')}
+                        label={t('Institutional.enduser.wallet')}
                         ref={ref}
                         onChange={onChange}
                         value={value}
@@ -188,7 +188,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
 
                 <ButtonArea>
                   <PrimaryButton
-                    title={t('distribute.title')}
+                    title={t('transfer.title')}
                     loading={isLoading}
                     disabled={!isDirty || !isValid || isSubmitting || isTransferInProgress}
                   />
