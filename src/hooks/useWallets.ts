@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { WalletService } from '../services/wallet-service';
+import { WalletGraphRequest, WalletService } from '../services/wallet-service';
 
 import { cacheKey } from './cacheStateKey';
 
@@ -93,8 +93,12 @@ export const useGetInstitutionWallets = () => {
   return result;
 };
 
-export const useGetWalletGraphData = () => {
-  const result = useMutation(WalletService.getWalletBalanceChartData);
+export const useGetWalletGraphData = (request: WalletGraphRequest, enableChart: boolean) => {
+  const result = useQuery({
+    queryKey: cacheKey.walletGraphData,
+    queryFn: () => WalletService.getWalletBalanceChartData(request),
+    enabled: (Boolean(request.data.walletId) && Boolean(request.tokenId)) || enableChart,
+  });
   return result;
 };
 
@@ -123,6 +127,7 @@ export const useTransferTokens = () => {
       queryClient.invalidateQueries(cacheKey.tokens);
       queryClient.invalidateQueries(cacheKey.walletSummary);
       queryClient.invalidateQueries(cacheKey.institutionWallets);
+      queryClient.invalidateQueries(cacheKey.walletGraphData);
     },
     onError: (error: any) => {
       if (error?.response?.data?.message) {
