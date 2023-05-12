@@ -167,7 +167,7 @@ export const Overview = (): JSX.Element => {
 };
 
 const ExchangeRate = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   margin-top: 7px;
 `;
 
