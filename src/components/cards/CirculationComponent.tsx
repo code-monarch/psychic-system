@@ -133,7 +133,7 @@ export const CirculationComponent = () => {
                 </div>
               </WalletLeftSection>
               <WalletRightSection>
-                <WalletAmount>{formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)}, </WalletAmount>
+                <WalletAmount>{formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)}</WalletAmount>
               </WalletRightSection>
             </WalletWrapper>
           );
