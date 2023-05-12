@@ -133,7 +133,7 @@ export const CirculationComponent = () => {
                 </div>
               </WalletLeftSection>
               <WalletRightSection>
-                <WalletAmount>{formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)}, </WalletAmount>
+                <WalletAmount>{formatAmountWithDecimals(walletBalance, walletSummaryDetails?.decimals)}</WalletAmount>
               </WalletRightSection>
             </WalletWrapper>
           );
@@ -278,11 +278,4 @@ const DashboardLink = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-`;
-
-const CardsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
 `;
