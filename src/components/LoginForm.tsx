@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { useLocalStorage } from 'react-use';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import { AnimatedLabelInput } from './AnimatedLabelInput';
 import { AppUser, useAuth } from '../context/auth-context';
 import { device, isValidEmailRegex, LOCAL_STORAGE_KEYS, MEMBER_ROUTE } from '../lib/constants';
@@ -55,12 +57,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
   const [, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
   const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
-  const {
-    mutate: signin,
-    isLoading: signinRequestInProgress,
-    isError: hasSigninError,
-    error: signinError,
-  } = useSignin();
+  const { mutate: signin, isLoading: signinRequestInProgress } = useSignin();
 
   const handleFormSubmit = (data: IFormData) => {
     signin(
@@ -80,7 +77,13 @@ export const LoginForm = ({ className }: { className?: string }) => {
               history.push(MEMBER_ROUTE.GET_STARTED);
               setUserRole(userRole);
             },
+            onError: (error: AxiosError) => {
+              toast.error(error?.response?.data?.message || error.message);
+            },
           });
+        },
+        onError: (error: AxiosError) => {
+          toast.error(error?.response?.data?.message || error.message);
         },
       },
     );
@@ -119,7 +122,6 @@ export const LoginForm = ({ className }: { className?: string }) => {
       </TextInput>
 
       {errors?.password?.message && <ErrorText>{errors.password.message}</ErrorText>}
-      {hasSigninError && <ErrorText>{(signinError as any)?.message} </ErrorText>}
 
       <ButtonContainer>
         <LoginButton title={t('login.title')} disabled={disabled} loading={signinRequestInProgress} />
