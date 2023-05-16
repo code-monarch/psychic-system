@@ -30,6 +30,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
   const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetFSPDashboardGraphData();
 
   const creditChartData = data?.creditData || {};
+  const debitChartData = data?.debitData || {};
 
   const getXAxisPoints = (time) => {
     const locale = i18n.resolvedLanguage;
@@ -56,9 +57,11 @@ export const TrendedBalanceChart = (): JSX.Element => {
     for (const timeStamp of timeStamps) {
       // Divide by decimals (Decimals value of BYDC) to get actual token values
       const creditAmount = Number(creditChartData[timeStamp]) / divisor || 0;
+      const debitAmount = Number(debitChartData[timeStamp]) / divisor || 0;
       graphData.push({
         name: getXAxisPoints(timeStamp),
         [t('credit')]: Number(creditAmount),
+        [t('debit')]: Number(debitAmount),
       });
     }
     return graphData;
@@ -120,7 +123,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
       <LoadingOverlay visible={isLoadingGraph || isLoadingWalletTokenDetails} overlayColor={darkText} />
       <TopSection>
         <LeftSection>
-          <Title>{t('trended.transactions.title')}</Title>
+          <Title>{t('navigation.transactions')}</Title>
         </LeftSection>
         <RightSection>
           <DatePickerWrapper>

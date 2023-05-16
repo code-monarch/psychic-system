@@ -1,5 +1,5 @@
 import { useTheme } from 'styled-components';
-import { Area, CartesianGrid, ComposedChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import { formatAmountInteger } from '../../lib/utils';
 
@@ -46,7 +46,7 @@ export const TrendedChart = <T extends object>({
 }) => {
   const theme: any = useTheme();
   const { t } = useTranslation();
-  const { green } = theme.colors.primary;
+  const { green, white, darkText } = theme.colors.primary;
 
   return (
     <div
@@ -73,7 +73,11 @@ export const TrendedChart = <T extends object>({
           />
           <YAxis tick={<YAxisTick />} axisLine={false} tickLine={false} orientation="right" />
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#687D94" />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: darkText,
+            }}
+          />
           <Area
             type="monotone"
             dataKey={t('credit')}
@@ -82,6 +86,7 @@ export const TrendedChart = <T extends object>({
             fillOpacity={1}
             fill="url(#colorUv)"
           />
+          <Line type="monotone" dataKey={t('debit')} stroke={white} strokeWidth={2} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

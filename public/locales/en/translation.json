@@ -34,7 +34,7 @@
   "request.wallet": "Wallet Requests",
   "request.wallet.requests": "Manage all wallet requests from Institutions",
   "currency.minted": "Total Minted",
-  "currency.transferred": "Total Transferred",
+  "currency.funded": "Total Funded",
   "currency.total.distributed": "Total Distributed",
   "currency.total.burned": "Total Burned",
   "convert.title": "Convert",

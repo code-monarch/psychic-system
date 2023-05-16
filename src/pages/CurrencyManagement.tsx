@@ -129,7 +129,7 @@ export const CurrencyManagement = (): JSX.Element => {
             />
             <CurrencySummaryCard
               hideHistogram
-              title={t('currency.transferred')}
+              title={t('currency.funded')}
               amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
