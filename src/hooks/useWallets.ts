@@ -97,7 +97,7 @@ export const useGetWalletGraphData = (request: WalletGraphRequest, enableChart: 
   const result = useQuery({
     queryKey: cacheKey.walletGraphData,
     queryFn: () => WalletService.getWalletBalanceChartData(request),
-    enabled: (Boolean(request.data.walletId) && Boolean(request.tokenId)) || enableChart,
+    enabled: enableChart,
   });
   return result;
 };

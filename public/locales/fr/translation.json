@@ -156,5 +156,6 @@
   "issue.tokens": "Émettre des jetons",
   "fund.wallet": "Portefeuille de fonds",
   "Institutional.enduser.wallet": "Portefeuille institutionnel/d'utilisateur final",
-  "fund": "Fonds"
+  "fund": "Fonds",
+  "total.value.transactions": "Valeur totale des transactions"
 }

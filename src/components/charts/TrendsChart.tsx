@@ -1,5 +1,5 @@
 import { useTheme } from 'styled-components';
-import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import { formatAmountInteger } from '../../lib/utils';
 
@@ -63,6 +63,7 @@ export const TrendedChart = <T extends object>({
               <stop offset="95%" stopColor={green} stopOpacity={0} />
             </linearGradient>
           </defs>
+          <Legend verticalAlign="top" height={36} align="left" iconSize={12} />
           <XAxis
             dataKey="name"
             axisLine={false}
