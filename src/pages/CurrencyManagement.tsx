@@ -65,6 +65,7 @@ export const CurrencyManagement = (): JSX.Element => {
 
   const tokenSummary = data?.totals;
 
+  const symbol = walletSummaryDetails?.symbol || '';
   return (
     <Wrapper>
       {/* <CurrenyManagementSetupAlert /> */}
@@ -79,7 +80,7 @@ export const CurrencyManagement = (): JSX.Element => {
             <Grid.Col md={6} lg={7} sm={12}>
               <DistributeOption>
                 <div>
-                  <CardTitle>{t('distribute.title')}</CardTitle>
+                  <CardTitle>{t('transfer.tokens')}</CardTitle>
                   <CardDescription>{t('distribute.description')}</CardDescription>
                 </div>
                 <div
@@ -96,7 +97,7 @@ export const CurrencyManagement = (): JSX.Element => {
               <div style={{ display: 'flex', flexDirection: 'column', height: 500 }}>
                 <MintOption>
                   <div>
-                    <Title>{t('mint.coins')}</Title>
+                    <Title>{t('issue.tokens')}</Title>
                     <SmallerCardDescription>{t('mint.issue')}</SmallerCardDescription>
                   </div>
                   <div className="button" onClick={() => setMintFormModalOpened(true)}>
@@ -105,7 +106,7 @@ export const CurrencyManagement = (): JSX.Element => {
                 </MintOption>
                 <BurnOption>
                   <div>
-                    <Title>{t('burn.coins')}</Title>
+                    <Title>{t('burn.tokens')}</Title>
                     <SmallerCardDescription>{t('burn.description')}</SmallerCardDescription>
                   </div>
                   <div className="button" onClick={() => setBurnFormModalOpened(true)}>
@@ -124,30 +125,22 @@ export const CurrencyManagement = (): JSX.Element => {
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.minted')}
-              amount={`${formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)} ${
-                walletSummaryDetails?.symbol
-              }`}
+              amount={`${formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
               hideHistogram
-              title={t('currency.transferred')}
-              amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${
-                walletSummaryDetails?.symbol
-              }`}
+              title={t('currency.funded')}
+              amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.distributed')}
-              amount={`${formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)} ${
-                walletSummaryDetails?.symbol
-              }`}
+              amount={`${formatAmountWithDecimals(tokenSummary?.distributed, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
               hideHistogram
               title={t('currency.total.burned')}
-              amount={`${formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)} ${
-                walletSummaryDetails?.symbol
-              }`}
+              amount={`${formatAmountWithDecimals(tokenSummary?.burned, data?.decimals)} ${symbol}`}
             />
           </div>
         </RightSideBar>

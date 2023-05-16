@@ -118,7 +118,7 @@ export const DashboardLandingPage = () => {
             <LoginPageImage src={loginImage} alt="Login" />
           </ImageWrapper>
           <GetStartedWrapper>
-            <GetStartedText>{t('home.title')}</GetStartedText>
+            <GetStartedText>{t('quick.actions.title')}</GetStartedText>
             <GetStartedDescription>{t('home.description')}</GetStartedDescription>
             <ButtonContainer>
               <LandingPageButton
@@ -130,7 +130,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                title={t('transfer.title')}
+                title={t('fund')}
                 onClick={() => {
                   setShowWalletTransferModal(true);
                 }}
@@ -138,7 +138,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                title={`${t('distribute.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
+                title={`${t('transfer.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}
