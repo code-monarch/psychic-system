@@ -14,7 +14,7 @@ interface SignInResponse {
     expiresAt: string;
   };
 }
-enum REALMS {
+export enum REALMS {
   EMTECH = 'EMTECH',
   BRH = 'BRH',
 }
