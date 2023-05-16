@@ -157,5 +157,6 @@
   "issue.tokens": "Issue Tokens",
   "fund.wallet": "Fund Wallet",
   "Institutional.enduser.wallet": "Institutional/End user Wallet",
-  "fund": "Fund"
+  "fund": "Fund",
+  "total.value.transactions": "Total Value of Transactions"
 }

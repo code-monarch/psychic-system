@@ -143,6 +143,7 @@ export const TrendedBalanceChart = (): JSX.Element => {
                   ...chartSelectStyles.input,
                   height: 20,
                   minHeight: 20,
+                  lineHeight: '24px',
                 },
               }}
               data={walletDurationOptions}
@@ -183,8 +184,8 @@ const TopSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 15px;
-  margin-bottom: 16px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
 `;
 
 const LeftSection = styled.div``;
