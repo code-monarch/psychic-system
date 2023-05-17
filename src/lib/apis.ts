@@ -1,32 +1,38 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { QueryCache } from 'react-query';
 import { MAIN_API, SECURE_MAIN_API } from './apiConstants';
 import { LOCAL_STORAGE_KEYS } from './constants';
-import i18next from '../i18next/config';
-
-const COMMON_HEADERS = {
-  'Content-Type': 'application/json',
-};
+import { memoizedRefreshToken } from './refreshToken';
 
 const queryCache = new QueryCache();
+export type Tokens = {
+  token: string;
+  refreshToken: string;
+  expiresAt: number;
+  refreshExpiresAt: string;
+};
 
-const getAccessToken = async () => {
+export const getUserEmail = async () => {
   try {
-    const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN));
-    return token;
+    const userData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DATA));
+    return userData.email;
   } catch (e) {}
   return '';
 };
 
-const getSecureHeaders = async (config) => {
-  config.headers.common = COMMON_HEADERS;
-  const accessToken = await getAccessToken();
-  if (accessToken) {
-    config.headers.common.Authorization = `Bearer ${accessToken}`;
-  }
-  return config;
+export const getRefreshToken = async () => {
+  try {
+    const refreshToken = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN));
+    return refreshToken;
+  } catch (e) {}
+  return '';
+};
+
+export const setAuthTokensAtLocal = async (data: Tokens) => {
+  await localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, JSON.stringify(data.refreshToken));
+  await localStorage.setItem(LOCAL_STORAGE_KEYS.TOKEN, JSON.stringify(data.token));
 };
 
 export const mainApi = axios.create({
@@ -41,32 +47,52 @@ export const ratesApi = axios.create({
   baseURL: 'https://openexchangerates.org/api/',
 });
 
-secureMainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
-  const configWithHeaders = await getSecureHeaders(config);
-  configWithHeaders.headers.common['Accept-Language'] = i18next.resolvedLanguage;
-  return configWithHeaders;
-});
+// mainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
+//   config.headers.common['Accept-Language'] = i18next.resolvedLanguage;
+//   return config;
+// });
 
-mainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
-  config.headers.common['Accept-Language'] = i18next.resolvedLanguage;
-  return config;
-});
+export const logUserOutAndClearCache = () => {
+  localStorage.clear();
+  queryCache.clear();
+  window.location.href = '/';
+};
+
+secureMainApi.interceptors.request.use(
+  async (config) => {
+    const token = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN));
+
+    if (token) {
+      config.headers = {
+        ...config.headers,
+        authorization: `Bearer ${token}`,
+      };
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 secureMainApi.interceptors.response.use(
-  (axiosResponse) => axiosResponse,
-  (error) => {
-    if (error?.response?.status === 401) {
-      // TODO: refresh token. Right now we redirect to login
-      localStorage.clear();
-      queryCache.clear();
-      window.location.href = '/';
+  (response) => response,
+  async (error) => {
+    const config = error?.config;
+
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+
+      const result = await memoizedRefreshToken();
+
+      if (result?.token) {
+        config.headers = {
+          ...config.headers,
+          authorization: `Bearer ${result?.token}`,
+        };
+      }
+
+      return axios(config);
     }
     return Promise.reject(error);
   },
 );
-
-// mainApi.interceptors.request.use(async (config: AxiosRequestConfig) => {
-//   config.headers.common = { 'Content-Type': 'application/json', 'X-API-KEY': API_KEY };
-//
-//   return config;
-// });
