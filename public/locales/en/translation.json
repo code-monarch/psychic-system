@@ -23,6 +23,7 @@
   "wallets.transfer.title": "Wallet Transfer",
   "distribute.title": "Distribute",
   "distribute.token": "Distribute Token",
+  "distribute.tokens": "Distribute Tokens",
   "distribute.description": "Distribute or send funding to government institutions, financial institutions and citizens.",
   "master.title": "Master",
   "master.wallet.title": "Master Reserve",
@@ -33,7 +34,7 @@
   "request.distribution": "Manage distribution requests and funding.",
   "request.wallet": "Wallet Requests",
   "request.wallet.requests": "Manage all wallet requests from Institutions",
-  "currency.minted": "Total Minted",
+  "currency.issued": "Total Issued",
   "currency.funded": "Total Funded",
   "currency.total.distributed": "Total Distributed",
   "currency.total.burned": "Total Burned",
@@ -157,5 +158,7 @@
   "issue.tokens": "Issue Tokens",
   "fund.wallet": "Fund Wallet",
   "Institutional.enduser.wallet": "Institutional/End user Wallet",
-  "fund": "Fund"
+  "fund": "Fund",
+  "total.value.transactions": "Total Value of Transactions",
+  "distribution.wallet.transactions": "Distribution Wallet Transactions"
 }

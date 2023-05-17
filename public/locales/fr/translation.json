@@ -23,6 +23,7 @@
   "wallets.transfer.title": "Transfert de portefeuille",
   "distribute.title": "Distribuer",
   "distribute.token": "Distribuer le jeton",
+  "distribute.tokens": "Distribuer des jetons",
   "distribute.description": "Distribuer ou envoyer des fonds aux institutions gouvernementales, aux institutions financières et aux citoyens.",
   "master.title": "Maître",
   "master.wallet.title": "Maître de réserve",
@@ -32,7 +33,7 @@
   "request.distribution": "Gérer les demandes de distribution et de financement.",
   "request.wallet": "Demandes de portefeuille",
   "request.wallet.requests": "Gérer toutes les demandes de portefeuille des institutions.",
-  "currency.minted": "Total émis",
+  "currency.issued": "Total émis",
   "currency.funded": "Financement total",
   "currency.total.distributed": "Total distribué",
   "currency.total.burned": "Total brûlé",
@@ -156,5 +157,7 @@
   "issue.tokens": "Émettre des jetons",
   "fund.wallet": "Portefeuille de fonds",
   "Institutional.enduser.wallet": "Portefeuille institutionnel/d'utilisateur final",
-  "fund": "Fonds"
+  "fund": "Fonds",
+  "total.value.transactions": "Valeur totale des transactions",
+  "distribution.wallet.transactions": "Transactions du portefeuille de distribution"
 }

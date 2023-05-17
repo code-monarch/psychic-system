@@ -25,6 +25,7 @@ export const WalletInfo = () => {
   const institutionWallet = wallets?.find((wallet) => wallet?.category === 'Institution');
 
   const decimals = walletSummaryDetails?.decimals;
+  const symbol = walletSummaryDetails?.symbol || '';
 
   return (
     <Wrapper>
@@ -33,14 +34,18 @@ export const WalletInfo = () => {
           <Label>{t('total.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{formatAmountWithDecimals(walletSummaryDetails?.supply, decimals)}</WalletValue>
+            <WalletValue>
+              {formatAmountWithDecimals(walletSummaryDetails?.supply, decimals)} {symbol}
+            </WalletValue>
           )}
         </WalletField>
         <WalletField>
           <Label>{t('circulating.supply.description')}</Label>
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
-            <WalletValue>{formatAmountWithDecimals(walletSummaryDetails?.inCirculation, decimals)}</WalletValue>
+            <WalletValue>
+              {formatAmountWithDecimals(walletSummaryDetails?.inCirculation, decimals)} {symbol}
+            </WalletValue>
           )}
         </WalletField>
         <WalletField>
@@ -48,7 +53,7 @@ export const WalletInfo = () => {
           {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>
-              {nonCirculatingSupply ? formatAmountWithDecimals(nonCirculatingSupply, decimals) : '0'}
+              {nonCirculatingSupply ? formatAmountWithDecimals(nonCirculatingSupply, decimals) : '0'} {symbol}
             </WalletValue>
           )}
         </WalletField>

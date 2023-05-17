@@ -55,6 +55,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
   const { mutate: getUserRole } = useGetUserRole();
   const [, saveToLocalStorage] = useLocalStorage<AppUser>(LOCAL_STORAGE_KEYS.USER_DATA, null);
   const [, saveTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.TOKEN, null);
+  const [, saveRefreshTokenToLocalStorage] = useLocalStorage<string>(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, null);
   const history = useHistory();
   const { register, errors, handleSubmit, formState } = useForm({ mode: 'all' });
   const { mutate: signin, isLoading: signinRequestInProgress } = useSignin();
@@ -74,16 +75,19 @@ export const LoginForm = ({ className }: { className?: string }) => {
             onSuccess: async (userRole) => {
               saveToLocalStorage(decodedUser);
               saveTokenToLocalStorage(userDataToken.token);
+              saveRefreshTokenToLocalStorage(userDataToken.refreshToken);
               history.push(MEMBER_ROUTE.GET_STARTED);
               setUserRole(userRole);
             },
             onError: (error: AxiosError) => {
-              toast.error(error?.response?.data?.message || error.message);
+              const backendError = error?.response?.data?.error_description;
+              toast.error(backendError || error?.response?.data?.message || error.message);
             },
           });
         },
         onError: (error: AxiosError) => {
-          toast.error(error?.response?.data?.message || error.message);
+          const backendError = error?.response?.data?.error_description;
+          toast.error(backendError || error?.response?.data?.message || error.message);
         },
       },
     );

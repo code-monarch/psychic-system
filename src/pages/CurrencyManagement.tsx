@@ -80,7 +80,7 @@ export const CurrencyManagement = (): JSX.Element => {
             <Grid.Col md={6} lg={7} sm={12}>
               <DistributeOption>
                 <div>
-                  <CardTitle>{t('transfer.tokens')}</CardTitle>
+                  <CardTitle>{t('distribute.tokens')}</CardTitle>
                   <CardDescription>{t('distribute.description')}</CardDescription>
                 </div>
                 <div
@@ -124,7 +124,7 @@ export const CurrencyManagement = (): JSX.Element => {
           <div style={{ marginTop: 24 }}>
             <CurrencySummaryCard
               hideHistogram
-              title={t('currency.minted')}
+              title={t('currency.issued')}
               amount={`${formatAmountWithDecimals(tokenSummary?.minted, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
@@ -237,7 +237,6 @@ const BurnOption = styled.div`
 `;
 
 const CardTitle = styled(Title)`
-  text-transform: none;
   font-size: 18px;
   line-height: 27px;
   margin-bottom: 8px;

@@ -42,7 +42,10 @@ export const WalletBalanceChart = (): JSX.Element => {
     chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
     chartRequest.data.numDays = undefined;
   }
-  const enableChart = Boolean(dateFilters[0] && dateFilters[1]) || period !== 'custom';
+  const enableChart =
+    (Boolean(dateFilters[0] && dateFilters[1]) || period !== 'custom') &&
+    Boolean(tokenId) &&
+    Boolean(distributionWallet?.id);
   const { isLoading: isLoadingGraph, data } = useGetWalletGraphData(chartRequest, enableChart);
 
   const creditChartData = data?.creditData || {};
@@ -164,7 +167,6 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 24px;
-  margin-top: 42px;
   position: relative;
 `;
 

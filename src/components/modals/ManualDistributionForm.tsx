@@ -112,7 +112,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
             </ImageWrapper>
             <form onSubmit={handleSubmit(transfer)}>
               <FormWrapper>
-                <FormHeader>{t('transfer.title')}</FormHeader>
+                <FormHeader>{t('distribute.title')}</FormHeader>
                 <Title>{t('transfer.from')}</Title>
                 <FormSection>
                   <Select
@@ -176,9 +176,10 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                       ref={register({
                         required: t('transfer.amount.required'),
                         pattern: {
-                          value: /^[0-9]*$/,
+                          value: /^[0-9]\d*$/,
                           message: t('transfer.amount.invalid'),
                         },
+                        validate: (value) => Number(value) > 0 || t('transfer.amount.invalid'),
                       })}
                     />
                   </TextInput>

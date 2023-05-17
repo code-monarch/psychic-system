@@ -138,7 +138,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                title={`${t('transfer.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
+                title={`${t('distribute.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}
