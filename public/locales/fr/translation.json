@@ -33,7 +33,7 @@
   "request.wallet": "Demandes de portefeuille",
   "request.wallet.requests": "Gérer toutes les demandes de portefeuille des institutions.",
   "currency.minted": "Total émis",
-  "currency.transferred": "Total transféré",
+  "currency.funded": "Financement total",
   "currency.total.distributed": "Total distribué",
   "currency.total.burned": "Total brûlé",
   "convert.title": "Convertir",
@@ -156,5 +156,6 @@
   "issue.tokens": "Émettre des jetons",
   "fund.wallet": "Portefeuille de fonds",
   "Institutional.enduser.wallet": "Portefeuille institutionnel/d'utilisateur final",
-  "fund": "Fonds"
+  "fund": "Fonds",
+  "total.value.transactions": "Valeur totale des transactions"
 }

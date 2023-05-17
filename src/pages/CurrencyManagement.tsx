@@ -129,7 +129,7 @@ export const CurrencyManagement = (): JSX.Element => {
             />
             <CurrencySummaryCard
               hideHistogram
-              title={t('currency.transferred')}
+              title={t('currency.funded')}
               amount={`${formatAmountWithDecimals(tokenSummary?.transferred, data?.decimals)} ${symbol}`}
             />
             <CurrencySummaryCard
@@ -237,7 +237,6 @@ const BurnOption = styled.div`
 `;
 
 const CardTitle = styled(Title)`
-  text-transform: none;
   font-size: 18px;
   line-height: 27px;
   margin-bottom: 8px;

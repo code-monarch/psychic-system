@@ -176,9 +176,10 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
                       ref={register({
                         required: t('transfer.amount.required'),
                         pattern: {
-                          value: /^[0-9]*$/,
+                          value: /^[0-9]\d*$/,
                           message: t('transfer.amount.invalid'),
                         },
+                        validate: (value) => Number(value) > 0 || t('transfer.amount.invalid'),
                       })}
                     />
                   </TextInput>
