@@ -112,7 +112,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
             </ImageWrapper>
             <form onSubmit={handleSubmit(transfer)}>
               <FormWrapper>
-                <FormHeader>{t('transfer.title')}</FormHeader>
+                <FormHeader>{t('distribute.title')}</FormHeader>
                 <Title>{t('transfer.from')}</Title>
                 <FormSection>
                   <Select
