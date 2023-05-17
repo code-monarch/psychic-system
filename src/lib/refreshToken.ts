@@ -6,6 +6,9 @@ import { REALMS } from '../services/authentication-service';
 
 const refreshTokenFn = async () => {
   const refreshToken = await getRefreshToken();
+  if (!refreshToken) {
+    logUserOutAndClearCache();
+  }
   const email = await getUserEmail();
   try {
     const response = await mainApi.post(
