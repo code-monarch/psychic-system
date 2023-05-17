@@ -116,6 +116,7 @@ export const Wallets = (props): JSX.Element => {
               onClick={() => setModalOpened(true)}
             />
           </Header>
+          <ChartTitle>{t('distribution.wallet.transactions')}</ChartTitle>
           <WalletBalanceChart />
           <RecentTransactionsArea>
             <Title>{t('recent.transactions.description')}</Title>
@@ -161,4 +162,9 @@ export const Wallets = (props): JSX.Element => {
 
 const RecentTransactionsArea = styled.div`
   margin-top: 50px;
+`;
+
+const ChartTitle = styled(Title)`
+  margin-top: 42px;
+  margin-bottom: 20px;
 `;

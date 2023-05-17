@@ -78,12 +78,14 @@ export const LoginForm = ({ className }: { className?: string }) => {
               setUserRole(userRole);
             },
             onError: (error: AxiosError) => {
-              toast.error(error?.response?.data?.message || error.message);
+              const backendError = error?.response?.data?.error_description;
+              toast.error(backendError || error?.response?.data?.message || error.message);
             },
           });
         },
         onError: (error: AxiosError) => {
-          toast.error(error?.response?.data?.message || error.message);
+          const backendError = error?.response?.data?.error_description;
+          toast.error(backendError || error?.response?.data?.message || error.message);
         },
       },
     );

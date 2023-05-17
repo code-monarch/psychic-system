@@ -167,7 +167,6 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 24px;
-  margin-top: 42px;
   position: relative;
 `;
 
