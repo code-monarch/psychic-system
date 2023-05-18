@@ -102,7 +102,7 @@ export const Overview = (): JSX.Element => {
         <OverviewCardWrapperWithMargin>
           <OverviewCard
             cardImage={external1Icon}
-            title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
+            title={`${t('total.value.transactions')}`}
             subtitle={t('to.date')}
             tokenSymbol={walletSummaryDetails?.symbol}
             color={green}
@@ -113,7 +113,7 @@ export const Overview = (): JSX.Element => {
         <OverviewCardWrapperWithMargin>
           <OverviewCard
             cardImage={external2Icon}
-            title={`${t('navigation.transactions')} (${t('external.tab.title')})`}
+            title={`${t('total.value.transactions')}`}
             subtitle={t('duration.one.day')}
             tokenSymbol={walletSummaryDetails?.symbol}
             color={blue}
@@ -167,7 +167,7 @@ export const Overview = (): JSX.Element => {
 };
 
 const ExchangeRate = styled(Paragraph)`
-  color: ${({ theme }) => theme.colors.primary.black};
+  color: ${({ theme }) => theme.colors.primary.white};
   margin-top: 7px;
 `;
 

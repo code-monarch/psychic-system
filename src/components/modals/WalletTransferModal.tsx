@@ -109,7 +109,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
   const masterWalletId = wallets.find((wallet) => wallet.category === 'Master')?.id;
 
   const walletOptions = wallets
-    .filter((wallet) => wallet.category !== 'Institution')
+    .filter((wallet) => wallet.category === 'Distribution')
     .map((wallet) => ({
       label: `${wallet?.category} - ${formatAmountWithDecimals(
         Number(wallet.balances?.[0]?.amount),
@@ -129,7 +129,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
         <PageContainer>
           <form onSubmit={handleSubmit(transfer)}>
             <FormWrapper>
-              <FormHeader>{t('wallets.transfer.title')}</FormHeader>
+              <FormHeader>{t('fund.wallet')}</FormHeader>
               <Title>{t('transfer.from')}</Title>
               <FormSection>
                 <Controller
@@ -139,7 +139,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                   rules={{ required: t('transfer.source.required') }}
                   render={({ ref, onChange, value, onBlur }) => (
                     <Select
-                      label={t('choose.wallet.label')}
+                      label={t('wallets.master')}
                       ref={ref}
                       onChange={onChange}
                       value={value}
@@ -179,7 +179,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                   }}
                   render={({ ref, onChange, value, onBlur }) => (
                     <Select
-                      label={t('choose.wallet.label')}
+                      label={t('wallets.distribution')}
                       ref={ref}
                       onChange={onChange}
                       onBlur={onBlur}
@@ -200,9 +200,10 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
                     ref={register({
                       required: t('transfer.amount.required'),
                       pattern: {
-                        value: /^[0-9]*$/,
+                        value: /^[0-9]\d*$/,
                         message: t('transfer.amount.invalid'),
                       },
+                      validate: (value) => Number(value) > 0 || t('transfer.amount.invalid'),
                     })}
                   />
                 </TextInput>
@@ -212,7 +213,7 @@ export const WalletTransferModal = ({ isVisible, setIsVisible, callback }: Iprop
 
               <ButtonArea>
                 <PrimaryButton
-                  title={t('distribute.title')}
+                  title={t('fund')}
                   loading={isLoading}
                   disabled={!isDirty || !isValid || isSubmitting || isTransferInProgress}
                 />

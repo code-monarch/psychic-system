@@ -81,7 +81,7 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
             </ImageWrapper>
             <form onSubmit={handleSubmit(burn)}>
               <FormWrapper>
-                <FormHeader>{t('burn.coins')}</FormHeader>
+                <FormHeader>{t('burn.tokens')}</FormHeader>
                 <FormSection>
                   <Select
                     label={t('choose.wallet.destination')}
@@ -103,9 +103,10 @@ export const BurnCoinsForm = ({ isVisible, setIsVisible, callback }: Iprops) => 
                       ref={register({
                         required: t('transfer.amount.required'),
                         pattern: {
-                          value: /^[0-9]*$/,
+                          value: /^[0-9]\d*$/,
                           message: t('transfer.amount.invalid'),
                         },
+                        validate: (value) => Number(value) > 0 || t('transfer.amount.invalid'),
                       })}
                     />
                   </TextInput>

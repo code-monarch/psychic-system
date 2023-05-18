@@ -27,7 +27,26 @@ export const WalletBalanceChart = (): JSX.Element => {
 
   const wallets = walletSummaryDetails?.wallets || [];
   const distributionWallet = wallets?.find((wallet) => wallet?.category === 'Distribution');
-  const { mutate: getGraphData, isLoading: isLoadingGraph, data } = useGetWalletGraphData();
+
+  // Chart wallet graph request
+  const chartRequest: WalletGraphRequest = {
+    tokenId,
+    data: {
+      walletId: distributionWallet?.id,
+      numDays: Number(period),
+    },
+  };
+
+  if (dateFilters[0] && dateFilters[1]) {
+    chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
+    chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
+    chartRequest.data.numDays = undefined;
+  }
+  const enableChart =
+    (Boolean(dateFilters[0] && dateFilters[1]) || period !== 'custom') &&
+    Boolean(tokenId) &&
+    Boolean(distributionWallet?.id);
+  const { isLoading: isLoadingGraph, data } = useGetWalletGraphData(chartRequest, enableChart);
 
   const creditChartData = data?.creditData || {};
   const debitChartData = data?.debitData || {};
@@ -68,34 +87,6 @@ export const WalletBalanceChart = (): JSX.Element => {
     return graphData;
   };
 
-  useEffect(() => {
-    if ((dateFilters[0] && dateFilters[1]) || period !== 'custom') {
-      fetchData();
-    }
-  }, [dateFilters, period]);
-
-  useEffect(() => {
-    fetchData();
-  }, [tokenId, distributionWallet?.id]);
-
-  const fetchData = () => {
-    const chartRequest: WalletGraphRequest = {
-      tokenId,
-      data: {
-        walletId: distributionWallet?.id,
-        numDays: Number(period),
-      },
-    };
-
-    if (dateFilters[0] && dateFilters[1]) {
-      chartRequest.data.startDate = moment(dateFilters[0]).format('YYYY-MM-DD');
-      chartRequest.data.endDate = moment(dateFilters[1]).format('YYYY-MM-DD');
-      chartRequest.data.numDays = undefined;
-    }
-    if (tokenId) {
-      getGraphData(chartRequest);
-    }
-  };
   const onWalletDurationChange = (val) => {
     setPeriod(() => val);
     setDateFilters([null, null]);
@@ -176,7 +167,6 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.darkText};
   border-radius: 8px;
   padding: 24px;
-  margin-top: 42px;
   position: relative;
 `;
 

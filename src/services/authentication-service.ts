@@ -14,20 +14,20 @@ interface SignInResponse {
     expiresAt: string;
   };
 }
-enum REALMS {
+export enum REALMS {
   EMTECH = 'EMTECH',
   BRH = 'BRH',
 }
 export class AuthenticationService {
   /**
    * @description
-   * Signs the user in by setting their their user information in the browsers LocalStorage.
+   * Signs the user in by setting their user information in the browsers LocalStorage.
    */
 
   static async signin(data: IUserSigninData): Promise<SignInResponse> {
     const { email, password } = data;
-    const response = await mainApi
-      .post(
+    const response = (
+      await mainApi.post(
         `/signIn`,
         {
           email,
@@ -40,11 +40,7 @@ export class AuthenticationService {
           },
         },
       )
-      .then((res) => res?.data)
-      .catch((err) => {
-        // console.error('Error logging in: ', err.response.data);
-        throw Error(err.response);
-      });
+    ).data;
     return response;
   }
 
@@ -63,7 +59,7 @@ export class AuthenticationService {
 
   /**
    * @desciption
-   * Extracts the role from the user (AWS CognitoUser) that resides in the browsers LocalStorage.
+   * Extracts the role from the user that resides in the browsers LocalStorage.
    */
   static async getUserRole(): Promise<USER_ROLES> {
     try {
