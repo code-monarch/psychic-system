@@ -189,7 +189,7 @@ export const ManualDistributionForm = ({ isVisible, setIsVisible, callback }: Ip
 
                 <ButtonArea>
                   <PrimaryButton
-                    title={t('transfer.title')}
+                    title={t('distribute.title')}
                     loading={isLoading}
                     disabled={!isDirty || !isValid || isSubmitting || isTransferInProgress}
                   />

@@ -9,7 +9,6 @@ import { PrimaryButton } from '../components/Buttons';
 import { device, MEMBER_ROUTE } from '../lib/constants';
 import { WalletTransferModal } from '../components/modals/WalletTransferModal';
 import { ManualDistributionForm } from '../components/modals/ManualDistributionForm';
-import { useTokenDetails } from '../context/token-details-context';
 
 const Screen = styled(Container)`
   min-height: 100vh;
@@ -107,7 +106,6 @@ export const DashboardLandingPage = () => {
   const { t } = useTranslation();
   const [showWalletTransferModal, setShowWalletTransferModal] = useState<boolean>(false);
   const [formModalOpened, setFormModalOpened] = useState<boolean>(false);
-  const { tokenDetails: walletBalanceAndTokenDetails, walletSummaryDetails } = useTokenDetails();
 
   useDocumentTitle(`DAP: ${t('navigation.home')}`);
   return (
@@ -138,7 +136,7 @@ export const DashboardLandingPage = () => {
             </ButtonContainer>
             <ButtonContainer>
               <LandingPageButton
-                title={`${t('distribute.title')} ${walletSummaryDetails?.symbol ? walletSummaryDetails?.symbol : ''}`}
+                title={`${t('distribute.title')}`}
                 onClick={() => {
                   setFormModalOpened(true);
                 }}
