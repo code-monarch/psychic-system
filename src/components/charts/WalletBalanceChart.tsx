@@ -46,7 +46,7 @@ export const WalletBalanceChart = (): JSX.Element => {
     (Boolean(dateFilters[0] && dateFilters[1]) || period !== 'custom') &&
     Boolean(tokenId) &&
     Boolean(distributionWallet?.id);
-  const { isLoading: isLoadingGraph, data } = useGetWalletGraphData(chartRequest, enableChart);
+  const { isLoading: isLoadingGraph, data } = useGetWalletGraphData({...chartRequest}, enableChart);
 
   const creditChartData = data?.creditData || {};
   const debitChartData = data?.debitData || {};
