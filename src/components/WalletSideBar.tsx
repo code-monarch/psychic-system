@@ -1,5 +1,5 @@
 import styled, { useTheme } from 'styled-components';
-import { Divider, Skeleton, Space } from '@mantine/core';
+import { Divider, Space } from '@mantine/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, ParagraphBold, Title } from './styled';
@@ -32,7 +32,6 @@ export const WalletInfo = () => {
       <SupplyWallets>
         <WalletField>
           <Label>{t('total.supply.description')}</Label>
-          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>
               {formatAmountWithDecimals(walletSummaryDetails?.supply, decimals)} {symbol}
@@ -41,7 +40,6 @@ export const WalletInfo = () => {
         </WalletField>
         <WalletField>
           <Label>{t('circulating.supply.description')}</Label>
-          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>
               {formatAmountWithDecimals(walletSummaryDetails?.inCirculation, decimals)} {symbol}
@@ -50,7 +48,6 @@ export const WalletInfo = () => {
         </WalletField>
         <WalletField>
           <Label>{t('total.not.circulation.description')}</Label>
-          {isLoadingWalletTokenDetails && <Skeleton height={8} mt={6} radius="xl" width={100} />}
           {!isLoadingWalletTokenDetails && (
             <WalletValue>
               {nonCirculatingSupply ? formatAmountWithDecimals(nonCirculatingSupply, decimals) : '0'} {symbol}
@@ -67,15 +64,12 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.distribution')}</AssetLabel>
-              <AssetValue>{walletSummaryDetails?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmountWithDecimals(Number(distributionWallet?.balances?.[0]?.amount), decimals) || 0}
+                {formatAmountWithDecimals(Number(distributionWallet?.balances?.[0]?.amount), decimals) || 0} {symbol}
               </AssetLabel>
-            </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
           </div>
         </WalletCard>
@@ -85,15 +79,12 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.institution')}</AssetLabel>
-              <AssetValue>{walletSummaryDetails?.symbol || 'N/A'}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmountWithDecimals(Number(institutionWallet?.balances?.[0]?.amount), decimals) || 0}
+                {formatAmountWithDecimals(Number(institutionWallet?.balances?.[0]?.amount), decimals) || 0} {symbol}
               </AssetLabel>
-            </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
           </div>
         </WalletCard>
@@ -108,15 +99,12 @@ export const WalletInfo = () => {
             <AssetIcon>M</AssetIcon>
             <div>
               <AssetLabel>{t('wallets.master')}</AssetLabel>
-              <AssetValue>{walletSummaryDetails?.symbol}</AssetValue>
             </div>
           </AssetCardLeftSection>
           <div>
-            <Skeleton visible={isLoadingWalletTokenDetails} width={100}>
               <AssetLabel style={{ textAlign: 'right' }}>
-                {formatAmountWithDecimals(Number(masterReserveWallet?.balances?.[0]?.amount), decimals) || 0}
+                {formatAmountWithDecimals(Number(masterReserveWallet?.balances?.[0]?.amount), decimals) || 0} {symbol}
               </AssetLabel>
-            </Skeleton>
             {/* <AssetValue style={{ textAlign: 'right' }}>USD 300</AssetValue> */}
           </div>
         </WalletCard>
@@ -124,7 +112,7 @@ export const WalletInfo = () => {
 
       <ButtonContainer>
         <PrimaryButton
-          title={t('wallets.transfer.title')}
+          title={t('fund.wallet')}
           style={{ width: '100%' }}
           onClick={() => setShowWalletTransferModal(true)}
         />
