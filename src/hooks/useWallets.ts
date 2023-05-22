@@ -95,15 +95,10 @@ export const useGetInstitutionWallets = () => {
 
 export const useGetWalletGraphData = (request: WalletGraphRequest, enableChart: boolean) => {
   const result = useQuery({
-    queryKey: cacheKey.walletGraphData,
+    queryKey: [cacheKey.walletGraphData, ...Object.values(request)],
     queryFn: () => WalletService.getWalletBalanceChartData(request),
     enabled: enableChart,
   });
-  return result;
-};
-
-export const useGetDashboardGraphData = () => {
-  const result = useMutation(WalletService.getDashboardBalanceChartData);
   return result;
 };
 
