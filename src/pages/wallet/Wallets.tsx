@@ -111,15 +111,14 @@ export const Wallets = (props): JSX.Element => {
           <Header>
             <Heading>{t('wallets.overview')}</Heading>
             <SecondaryButton
-              title={`${t('distribute.token')}`}
+              title={`${t('distribute.tokens')}`}
               style={{ width: 152 }}
               onClick={() => setModalOpened(true)}
             />
           </Header>
-          <ChartTitle>{t('distribution.wallet.transactions')}</ChartTitle>
           <WalletBalanceChart />
           <RecentTransactionsArea>
-            <Title>{t('recent.transactions.description')}</Title>
+            <Title>{t('navigation.transactions')}</Title>
             <TransactionsTable<Transaction>
               columnConfig={getTransactionsTableColumnConfig(t)}
               loading={isLoadingTransactions || isFetching || isLoadingWalletTokenDetails}
@@ -164,7 +163,3 @@ const RecentTransactionsArea = styled.div`
   margin-top: 50px;
 `;
 
-const ChartTitle = styled(Title)`
-  margin-top: 42px;
-  margin-bottom: 20px;
-`;

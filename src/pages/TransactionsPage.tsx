@@ -39,7 +39,7 @@ export const Transactions = (): JSX.Element => {
           }}
         >
           <CurrencySummaryCard
-            title={t('total.amount')}
+            title={`${t('total.amount')} (${walletSummaryDetails?.symbol})`}
             amount={formatAmountWithDecimals(transactionSummary?.amount, walletSummaryDetails?.decimals)}
             hideHistogram
           />
