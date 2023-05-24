@@ -34,8 +34,7 @@ const refreshTokenFn = async () => {
 
     return tokens;
   } catch (error) {
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.TOKEN);
+    logUserOutAndClearCache();
   }
 };
 
