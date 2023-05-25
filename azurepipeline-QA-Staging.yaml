@@ -38,7 +38,7 @@ stages:
               versionSpec: '10.x'
             displayName: 'Instal Node.js'
           - script: |
-              sudo rm -rf node_modules/ build/ && sudo yarn install && sudo yarn build
+              sudo rm -rf node_modules/ build/ && sudo yarn install && sudo yarn run ${{variables.deployment}}
             displayName: 'yarn install and build'
   
           - task: CopyFiles@2
