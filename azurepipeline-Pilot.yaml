@@ -4,6 +4,19 @@
 # https://aka.ms/yaml
 pr: none
 trigger: none
+parameters:
+  - name: env
+    displayName: Environment
+    type: string
+    default: pilot
+    values:
+      - pilot
+
+
+variables:
+  - name: deployment
+    ${{ if eq( parameters['env'], 'pilot') }}:
+      value: "pilot"
 
 pool:
   vmImage: 'ubuntu-20.04'
@@ -22,7 +35,7 @@ stages:
               versionSpec: '10.x'
             displayName: 'Instal Node.js'
           - script: |
-              sudo rm -rf node_modules/ build/ && sudo yarn install && sudo yarn build
+              sudo rm -rf node_modules/ build/ && sudo yarn install && sudo yarn run ${{variables.deployment}}
             displayName: 'yarn install and build'
           - task: CopyFiles@2
             inputs:
