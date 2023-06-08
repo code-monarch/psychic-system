@@ -45,7 +45,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "yarn eslint .",
-    "fix": "yarn lint --fix -f summary"
+    "fix": "yarn lint --fix -f summary",
+    "qa": "env-cmd -f envs/.env.qa react-scripts build",
+    "production": "env-cmd -f envs/.env.production react-scripts build",
+    "staging": "env-cmd -f envs/.env.staging react-scripts build",
+    "pilot": "env-cmd -f envs/.env.pilot react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -74,6 +78,7 @@
     "@types/styled-components": "^5.1.18",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
+    "env-cmd": "^10.1.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "^8.3.0",

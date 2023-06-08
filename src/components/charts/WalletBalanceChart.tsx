@@ -46,7 +46,7 @@ export const WalletBalanceChart = (): JSX.Element => {
     (Boolean(dateFilters[0] && dateFilters[1]) || period !== 'custom') &&
     Boolean(tokenId) &&
     Boolean(distributionWallet?.id);
-  const { isLoading: isLoadingGraph, data } = useGetWalletGraphData(chartRequest, enableChart);
+  const { isLoading: isLoadingGraph, data } = useGetWalletGraphData({...chartRequest}, enableChart);
 
   const creditChartData = data?.creditData || {};
   const debitChartData = data?.debitData || {};
@@ -142,7 +142,13 @@ export const WalletBalanceChart = (): JSX.Element => {
           onChange={onWalletDurationChange}
           value={period}
           rightSection={<ChevronDownIcon />}
-          styles={chartSelectStyles}
+          styles={{
+            ...chartSelectStyles,
+            root:{
+              ...chartSelectStyles.root,
+              marginBottom:0
+            }
+          }}
           data={walletDurationOptions}
           maxDropdownHeight={280}
         />
@@ -156,11 +162,16 @@ export const WalletBalanceChart = (): JSX.Element => {
           />
         )}
       </DatePickerWrapper>
-
+      <ChartTitle>{t('distribution.wallet.transactions')}</ChartTitle>
       <ReAreaChart data={constructGraphData()} />
     </Wrapper>
   );
 };
+
+const ChartTitle = styled(Title)`
+  //margin-bottom: 20px;
+  text-align: center;
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -168,6 +179,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   padding: 24px;
   position: relative;
+  margin-top: 42px;
 `;
 
 const DatePickerWrapper = styled.div`
