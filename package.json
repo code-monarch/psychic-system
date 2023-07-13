@@ -41,7 +41,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "yarn eslint .",
@@ -49,7 +48,8 @@
     "qa": "env-cmd -f envs/.env.qa react-scripts build",
     "production": "env-cmd -f envs/.env.production react-scripts build",
     "staging": "env-cmd -f envs/.env.staging react-scripts build",
-    "pilot": "env-cmd -f envs/.env.pilot react-scripts build"
+    "pilot": "env-cmd -f envs/.env.pilot react-scripts build",
+    "dev": "env-cmd -f .env.development react-scripts build"
   },
   "eslintConfig": {
     "extends": [
