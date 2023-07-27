@@ -13,6 +13,7 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "export": "turbo run export",
     "test": "turbo run test",
+    
     "prepare": "husky install"
   },
   "devDependencies": {
