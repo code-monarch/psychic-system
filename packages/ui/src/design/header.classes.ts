@@ -1,4 +1,4 @@
-import { IHeaderClasses } from "types";
+import { IHeaderClasses } from "../components/typography/header";
 
 export default <IHeaderClasses>{
   size: {

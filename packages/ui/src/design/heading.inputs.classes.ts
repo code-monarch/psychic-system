@@ -1,4 +1,4 @@
-import {IHeadingClasses} from "../components/inputs/heading";
+import { IHeadingClasses } from "../components/typography/heading";
 
 export default <IHeadingClasses>{
   alignment: {

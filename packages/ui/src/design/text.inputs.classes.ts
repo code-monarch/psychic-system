@@ -1,4 +1,4 @@
-import {ITextClasses} from "../components/inputs/text";
+import { ITextClasses } from "../components/typography/text";
 
 export default <ITextClasses>{
   base: "m-0 whitespace-normal",

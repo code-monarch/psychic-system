@@ -1,7 +1,7 @@
-import { GoodStrengthBars } from "components/feedback/good-strength-bars";
-import { GreatStrengthBars } from "components/feedback/great-strength-bars";
-import { VeryWeakStrengthBars } from "components/feedback/very-weak-strength-bars";
-import { WeakStrengthBars } from "components/feedback/weak-strength-bars";
+import { GoodStrengthBars } from "./good-strength-bars";
+import { GreatStrengthBars } from "./great-strength-bars";
+import { VeryWeakStrengthBars } from "./very-weak-strength-bars";
+import { WeakStrengthBars } from "./weak-strength-bars";
 
 interface IProps {
   passwordStrength: number;

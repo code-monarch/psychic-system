@@ -32,13 +32,13 @@ export * from "./components/feedback/spinner";
 // inputs
 export * from "./components/inputs/checkbox";
 export * from "./components/inputs/fieldset";
-export * from "./components/inputs/heading";
+export * from "./components/typography/heading";
 export * from "./components/inputs/input";
-export * from "./components/inputs/label";
+export * from "./components/typography/label";
 export * from "./components/inputs/password-input";
 export * from "./components/inputs/radio";
 export * from "./components/inputs/select";
-export * from "./components/inputs/text";
+export * from "./components/typography/text";
 
 // Layout
 export * from "./components/layout/container";

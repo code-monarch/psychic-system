@@ -1,4 +1,4 @@
-import {IpasswordStrengthBars} from "types";
+import {IpasswordStrengthBars} from "../../types";
 
 export const GoodStrengthBars = ({height, width}: IpasswordStrengthBars) => (
   <svg

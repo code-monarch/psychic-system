@@ -1,7 +1,7 @@
 import React from "react";
 import { joinClasses } from "@emtech/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { Text } from "../inputs/text";
+import { Text } from "../typography/text";
 
 interface IPaginationProps {
   page: number;
