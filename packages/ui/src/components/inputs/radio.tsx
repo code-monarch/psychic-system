@@ -1,7 +1,7 @@
 import React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import classes from "../../design/radio.inputs.classes";
-import {joinClasses} from "@emtech/utils";
+import { joinClasses } from "@emtech/utils";
 
 export interface IRadioGroupClasses {
   base: string;
@@ -17,7 +17,7 @@ type RadioGroupPrimitiveProps = React.ComponentProps<
 
 type RadioGroupProps = RadioGroupPrimitiveProps;
 
-const Radio = ({children, className, ...props}: RadioGroupProps) => (
+const Radio = ({ children, className, ...props }: RadioGroupProps) => (
   <RadioGroupPrimitive.Root
     {...props}
     className={joinClasses(classes.base, className)}
@@ -34,7 +34,7 @@ type RadioGroupItemPrimitiveProps = React.ComponentProps<
 
 type RadioGroupItemProps = RadioGroupItemPrimitiveProps;
 
-const RadioItem = ({children, className, ...props}: RadioGroupItemProps) => (
+const RadioItem = ({ children, className, ...props }: RadioGroupItemProps) => (
   <RadioGroupPrimitive.Item
     {...props}
     className={joinClasses(
@@ -67,4 +67,4 @@ const RadioIndicator = ({
   </RadioGroupPrimitive.Indicator>
 );
 
-export {Radio, RadioItem, RadioIndicator};
+export { Radio, RadioItem, RadioIndicator };

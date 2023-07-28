@@ -22,7 +22,6 @@ export * from "./components/data-display/portal";
 
 // Feedback
 export * from "./components/feedback/loader";
-export * from "./components/feedback/password-strength";
 export * from "./components/feedback/toast";
 export * from "./components/feedback/progress";
 

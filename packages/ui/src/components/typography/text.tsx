@@ -1,6 +1,6 @@
 import * as React from "react";
 import classes from "../../design/text.inputs.classes";
-import {joinClasses} from "@emtech/utils";
+import { joinClasses } from "@emtech/utils";
 
 export interface ITextClasses {
   base: string;

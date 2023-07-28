@@ -82,12 +82,12 @@ const DialogueContent = ({
 }: DialogueContentProps) => (
   <Transition.Child
     as={Fragment}
-    enter="ease-out duration-300"
-    enterFrom="opacity-0 scale-95"
-    enterTo="opacity-100 scale-100"
-    leave="ease-in duration-200"
-    leaveFrom="opacity-100 scale-100"
-    leaveTo="opacity-0 scale-95"
+    enter='ease-out duration-300'
+    enterFrom='opacity-0 scale-95'
+    enterTo='opacity-100 scale-100'
+    leave='ease-in duration-200'
+    leaveFrom='opacity-100 scale-100'
+    leaveTo='opacity-0 scale-95'
   >
     <DialogPrimitive.Content
       forceMount
@@ -121,12 +121,12 @@ const DialogueOverlay = ({
   <Transition.Root show={isopen}>
     <Transition.Child
       as={Fragment}
-      enter="ease-out duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="ease-in duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
+      enter='ease-out duration-300'
+      enterFrom='opacity-0'
+      enterTo='opacity-100'
+      leave='ease-in duration-200'
+      leaveFrom='opacity-100'
+      leaveTo='opacity-0'
     >
       <DialogPrimitive.Overlay
         forceMount

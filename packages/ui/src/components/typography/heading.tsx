@@ -1,6 +1,6 @@
 import * as React from "react";
 import classes from "../../design/heading.inputs.classes";
-import {joinClasses} from "@emtech/utils";
+import { joinClasses } from "@emtech/utils";
 
 export interface IHeadingClasses {
   alignment: {

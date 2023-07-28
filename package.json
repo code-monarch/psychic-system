@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build:core": "turbo run build --filter ui && turbo run build --filter icons && turbo run build --filter utils",
     "build": "turbo run build",
     "dev": "turbo run dev --no-cache --parallel --continue",
     "lint": "eslint",
@@ -13,7 +14,6 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "export": "turbo run export",
     "test": "turbo run test",
-    
     "prepare": "husky install"
   },
   "devDependencies": {

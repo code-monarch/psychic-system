@@ -10,12 +10,7 @@ interface IModalRootProps {
   children: React.ReactNode;
 }
 
-const Modal = ({
-  className,
-  children,
-  isOpen,
-  setIsOpen,
-}: IModalRootProps) => {
+const Modal = ({ className, children, isOpen, setIsOpen }: IModalRootProps) => {
   return (
     <Transition appear show={isOpen} as={React.Fragment}>
       {/* Dialogue Root */}

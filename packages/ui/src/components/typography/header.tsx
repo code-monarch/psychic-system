@@ -1,7 +1,6 @@
-import React, {ReactNode} from "react";
+import React, { ReactNode } from "react";
 import classes from "../../design/header.classes";
-import {joinClasses} from "@emtech/utils";
-
+import { joinClasses } from "@emtech/utils";
 
 export interface IHeaderClasses {
   size: {
@@ -32,7 +31,13 @@ interface IHeader
   align?: keyof IHeaderClasses["align"];
   children: ReactNode;
 }
-export const Header = ({children, size, weight, align, className}: IHeader) => {
+export const Header = ({
+  children,
+  size,
+  weight,
+  align,
+  className,
+}: IHeader) => {
   return (
     <header
       className={joinClasses(

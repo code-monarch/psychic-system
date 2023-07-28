@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
+import React, { ReactNode } from "react";
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { joinClasses } from "@emtech/utils";
 
 // Hover Card Root
@@ -14,7 +14,7 @@ interface IHoverCardProps
 }
 
 const HoverCard = ({ children, opendelay, ...props }: IHoverCardProps) => (
-  <HoverCardPrimitive.Root { ...props } openDelay={ opendelay ?? 0 }>
+  <HoverCardPrimitive.Root {...props} openDelay={opendelay ?? 0}>
     {children}
   </HoverCardPrimitive.Root>
 );
@@ -33,24 +33,24 @@ const HoverCardPortal = ({ children }: IHoverCardPortalProps) => (
 interface IHoverContentProps
   extends React.ComponentProps<typeof HoverCardPrimitive.Content> {
   children: ReactNode;
-  align?: 'start' | 'center' | 'end';
+  align?: "start" | "center" | "end";
   sideoffset?: number;
   className?: string;
 }
 
 const HoverContent = ({ children, ...props }: IHoverContentProps) => (
   <HoverCardPrimitive.Content
-    align={ props.align ?? 'center' }
-    sideOffset={ props.sideoffset ?? 4 }
+    align={props.align ?? "center"}
+    sideOffset={props.sideoffset ?? 4}
     // collisionPadding={left: 16, right: 16}
-    className={ joinClasses(
+    className={joinClasses(
       props.className,
-      'radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down',
-      'rounded-[4px] z-[200]',
-      'bg-white !shadow-[0px_12px_25px_rgba(3,_47,_60,_0.07)]',
+      "radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down",
+      "rounded-[4px] z-[200]",
+      "bg-white !shadow-[0px_12px_25px_rgba(3,_47,_60,_0.07)]"
       // "focus:outline-none focus-visible:ring focus-visible:ring-purple-500
       //  focus-visible:ring-opacity-75"
-    ) }
+    )}
   >
     {/* <HoverCardPrimitive.Arrow className='fill-current text-red-500' /> */}
     {children}
@@ -66,13 +66,11 @@ interface IHoverTriggerProps {
 
 const HoverTrigger = ({ children, ...props }: IHoverTriggerProps) => (
   <HoverCardPrimitive.Trigger asChild>
-    <div className={ joinClasses(props.className, 'inline-flex items-center') }>
+    <div className={joinClasses(props.className, "inline-flex items-center")}>
       {children}
     </div>
   </HoverCardPrimitive.Trigger>
 );
 // Hover Trigger End
 
-export {
-  HoverCard, HoverCardPortal, HoverContent, HoverTrigger,
-};
+export { HoverCard, HoverCardPortal, HoverContent, HoverTrigger };

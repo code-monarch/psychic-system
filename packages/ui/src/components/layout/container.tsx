@@ -1,5 +1,5 @@
 import React from "react";
-import {joinClasses} from "@emtech/utils";
+import { joinClasses } from "@emtech/utils";
 import classes from "../../design/container.layout.classes";
 
 export interface IContainerClasses {
@@ -11,6 +11,6 @@ interface IContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const Container = ({children, className}: IContainerProps) => (
+export const Container = ({ children, className }: IContainerProps) => (
   <div className={joinClasses(classes.base, className)}>{children}</div>
 );

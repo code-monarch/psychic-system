@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { joinClasses } from "@emtech/utils";
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 
 // Tab Root
 interface ITabProps {
@@ -12,13 +12,11 @@ interface ITabProps {
   className?: string;
 }
 
-const Tabs = ({
-  defaultValue, className, children, ...props
-}: ITabProps) => (
+const Tabs = ({ defaultValue, className, children, ...props }: ITabProps) => (
   <TabsPrimitive.Root
-    { ...props }
-    defaultValue={ defaultValue }
-    className={ joinClasses(className) }
+    {...props}
+    defaultValue={defaultValue}
+    className={joinClasses(className)}
   >
     {children}
   </TabsPrimitive.Root>
@@ -33,7 +31,7 @@ interface ITabContentProps {
 }
 
 const TabsContent = ({ children, value, className }: ITabContentProps) => (
-  <TabsPrimitive.Content value={ value } className={ joinClasses(className) }>
+  <TabsPrimitive.Content value={value} className={joinClasses(className)}>
     {children}
   </TabsPrimitive.Content>
 );
@@ -47,7 +45,7 @@ interface ITabTriggerProps {
 }
 
 const TabsTrigger = ({ children, value, className }: ITabTriggerProps) => (
-  <TabsPrimitive.Trigger value={ value } className={ joinClasses(className) }>
+  <TabsPrimitive.Trigger value={value} className={joinClasses(className)}>
     {children}
   </TabsPrimitive.Trigger>
 );
@@ -60,14 +58,9 @@ interface ITabListProps {
 }
 
 const TabsList = ({ children, arialabel, className }: ITabListProps) => (
-  <TabsPrimitive.List
-    aria-label={ arialabel }
-    className={ joinClasses(className) }
-  >
+  <TabsPrimitive.List aria-label={arialabel} className={joinClasses(className)}>
     {children}
   </TabsPrimitive.List>
 );
 
-export {
-  Tabs, TabsContent, TabsTrigger, TabsList,
-};
+export { Tabs, TabsContent, TabsTrigger, TabsList };

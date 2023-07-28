@@ -80,9 +80,9 @@ type SelectContentProps = React.ComponentProps<
 const SelectContent = ({ className, children }: SelectContentProps) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
-      align="start"
+      align='start'
       // alignOffset={ -20 }
-      position="popper"
+      position='popper'
       className={joinClasses(
         className,
         "rounded-lg shadow-md",
@@ -185,7 +185,7 @@ type SelectItemIndicatorProps = React.ComponentProps<
 
 const SelectItemIndicator = ({ className }: SelectItemIndicatorProps) => (
   <SelectPrimitive.ItemIndicator className={joinClasses(className)}>
-    <CheckIcon className="text-white" />
+    <CheckIcon className='text-white' />
   </SelectPrimitive.ItemIndicator>
 );
 //   Select Item indicator End

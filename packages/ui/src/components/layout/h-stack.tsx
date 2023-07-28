@@ -1,5 +1,5 @@
-import React, {ReactElement, ReactNode} from "react";
-import {joinClasses} from "@emtech/utils";
+import React, { ReactElement, ReactNode } from "react";
+import { joinClasses } from "@emtech/utils";
 import classes from "../../design/h-stack.layout.classes";
 
 export interface IHstackClasses {
@@ -25,7 +25,7 @@ export interface IHstackProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const Hstack = ({children, gap, ...props}: IHstackProps) => (
+export const Hstack = ({ children, gap, ...props }: IHstackProps) => (
   <div
     {...props}
     className={joinClasses(

@@ -1,5 +1,5 @@
-import React, {ReactElement, ReactNode} from "react";
-import {joinClasses} from "@emtech/utils";
+import React, { ReactElement, ReactNode } from "react";
+import { joinClasses } from "@emtech/utils";
 import classes from "../../design/flex.layout.classes";
 
 export interface IFlexClasses {
@@ -25,7 +25,7 @@ export interface IFlexProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const Flex = ({children, gap, ...props}: IFlexProps) => (
+export const Flex = ({ children, gap, ...props }: IFlexProps) => (
   <div
     {...props}
     className={joinClasses(

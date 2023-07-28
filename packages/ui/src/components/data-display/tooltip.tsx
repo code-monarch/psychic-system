@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { ReactNode } from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { joinClasses } from "@emtech/utils";
 

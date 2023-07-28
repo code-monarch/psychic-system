@@ -35,7 +35,7 @@ type PopoverContentProps = React.ComponentProps<
   className?: string;
   showCloseIcon?: boolean;
   align?: "start" | "center" | "end";
-  sideOffset?: number
+  sideOffset?: number;
 };
 
 const PopOverContent = ({

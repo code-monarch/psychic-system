@@ -1,5 +1,5 @@
 import React from "react";
-import {joinClasses} from "@emtech/utils";
+import { joinClasses } from "@emtech/utils";
 import classes from "../../design/loader.feedback.classes";
 
 export interface ILoaderClasses {
@@ -22,7 +22,7 @@ export interface ILoaderProps extends React.HTMLAttributes<HTMLElement> {
   variant?: keyof ILoaderClasses["variant"];
 }
 
-export const Loader = ({size, variant}: ILoaderProps) => {
+export const Loader = ({ size, variant }: ILoaderProps) => {
   return (
     <span
       className={joinClasses(

@@ -1,5 +1,5 @@
-import React, {ReactElement, ReactNode} from "react";
-import {joinClasses} from "@emtech/utils";
+import React, { ReactElement, ReactNode } from "react";
+import { joinClasses } from "@emtech/utils";
 import classes from "../../design/v-stack.layout.classes";
 
 export interface IVstackClasses {
@@ -25,7 +25,7 @@ export interface IVstackProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const Vstack = ({children, gap, ...props}: IVstackProps) => (
+export const Vstack = ({ children, gap, ...props }: IVstackProps) => (
   <div
     {...props}
     className={joinClasses(

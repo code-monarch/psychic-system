@@ -40,7 +40,7 @@ function __rest(s, e) {
 
 var PlusIcon = function (_a) {
     var width = _a.width, height = _a.height, color = _a.color, props = __rest(_a, ["width", "height", "color"]);
-    return (jsx("svg", __assign({ viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", width: width !== null && width !== void 0 ? width : "20", height: height !== null && height !== void 0 ? height : "20" }, props, { children: jsx("path", { d: "M13 19v-6h6v-2h-6V5h-2v6H5v2h6v6h2z", fill: color !== null && color !== void 0 ? color : "#374151" }) })));
+    return (jsx("svg", __assign({ viewBox: '0 0 24 24', fill: 'none', xmlns: 'http://www.w3.org/2000/svg', width: width !== null && width !== void 0 ? width : "20", height: height !== null && height !== void 0 ? height : "20" }, props, { children: jsx("path", { d: 'M13 19v-6h6v-2h-6V5h-2v6H5v2h6v6h2z', fill: color !== null && color !== void 0 ? color : "#374151" }) })));
 };
 
 var CloseIcon = function (_a) {

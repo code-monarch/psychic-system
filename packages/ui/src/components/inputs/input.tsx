@@ -1,6 +1,6 @@
-import {DetailedHTMLProps, InputHTMLAttributes} from "react";
-import {joinClasses, useToggle} from "@emtech/utils";
-import {EyeClosedIcon, EyeOpenIcon} from "@radix-ui/react-icons";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { joinClasses, useToggle } from "@emtech/utils";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 export interface IInputClasses {
   base: string;
@@ -48,7 +48,7 @@ export const Input = ({
     >
       {/* prefix icon at the left side of the input field */}
       {prefix && (
-        <span className="pl-3 flex justify-center items-center">{prefix}</span>
+        <span className='pl-3 flex justify-center items-center'>{prefix}</span>
       )}
 
       <input
@@ -77,13 +77,13 @@ export const Input = ({
 
       {/* suffix icon at the right side of the input field */}
       {suffix && (
-        <div className="pr-3 flex justify-center items-center">{suffix}</div>
+        <div className='pr-3 flex justify-center items-center'>{suffix}</div>
       )}
       {/* use the visibility button is input type is password */}
       {props.type === "password" && (
         <button
-          type="button"
-          className="absolute right-[17px] z-20 top-0 bottom-0"
+          type='button'
+          className='absolute right-[17px] z-20 top-0 bottom-0'
           onClick={setHidePassword}
         >
           {hidePassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
