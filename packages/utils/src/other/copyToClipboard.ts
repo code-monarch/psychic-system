@@ -10,7 +10,7 @@ export const useCopyToClipboard = (): [CopiedValue, CopyFn] => {
       return false;
     }
 
-    // Try to save to clipboard then save it in the state if worked
+    // Try to save to clipboard. if successful, hold value iin state
     try {
       await navigator.clipboard.writeText(text);
       setCopiedText(text);

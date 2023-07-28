@@ -5,8 +5,9 @@ export const useToggle = (initialState: boolean): [boolean, () => void] => {
   // Initialize the state
   const [state, setState] = useState<boolean>(initialState);
 
-  // Define and memorize toggler function in case we pass down the comopnent,
-  // This function change the boolean value to it's opposite value
+  /**
+   * @description A memorize toggler function which toggles the toggle boolean state
+   */
   const toggle = useCallback((): void => setState(!state), [state]);
 
   return [state, toggle];
