@@ -4,7 +4,7 @@ import { COOKIE_TOKEN } from "../constants";
 import { IGetCookieProps, ISetCookieProps } from "../types";
 
 /**
- * @description This function sets Token cookie
+ * @description sets Token cookie
  * @param value: Session token
  */
 const setTokenCookie = (value: string) => {
@@ -18,14 +18,14 @@ const setTokenCookie = (value: string) => {
 };
 
 /**
- * @description This function gets access Token cookie
+ * @description gets access Token cookie
  */
 const getTokenCookie = () => {
   return Cookies.get(COOKIE_TOKEN);
 };
 
 /**
- * @description This function gets any cookie
+ * @description gets any cookie
  *  @param value: Name of Cookie
  */
 const getCookie = ({ key }: IGetCookieProps) => {
@@ -33,7 +33,7 @@ const getCookie = ({ key }: IGetCookieProps) => {
 };
 
 /**
- * @description This function sets any cookie
+ * @description sets any cookie
  *  @param key: Name of Cookie
  *  @param value: Cookie value
  */

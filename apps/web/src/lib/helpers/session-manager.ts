@@ -9,7 +9,7 @@ interface ISessionProps {
 
 /**
  *
- * Sets Item in local storage
+ * @description Sets Item to local storage
  */
 const setItem = ({ key, value }: ISessionProps) => {
   if (typeof window !== "undefined") {
@@ -19,9 +19,8 @@ const setItem = ({ key, value }: ISessionProps) => {
 
 /**
  *
- * Retrieve Item from Local storage
+ * @description Retrieves Item from Local storage
  */
-// eslint-disable-next-line consistent-return
 const getItem = ({ key }: ISessionProps) => {
   if (typeof window !== "undefined") {
     return localStorage.getItem(key!);
@@ -29,7 +28,7 @@ const getItem = ({ key }: ISessionProps) => {
 };
 
 /**
- * Removes a particular key value from store
+ * @description Removes a particular key value from store
  */
 const removeItem = ({ key }: ISessionProps) => {
   if (typeof window !== "undefined") {
@@ -38,7 +37,7 @@ const removeItem = ({ key }: ISessionProps) => {
 };
 
 /**
- * Clears all Local storage Keys and values
+ * @description Clears all Local storage Keys and values
  */
 const clearStore = () => {
   if (typeof window !== "undefined") {
@@ -54,7 +53,7 @@ const LocalStore = {
 };
 
 /**
- * Function that sets session token after Login in Local Storage
+ * @description session token after Login to Local Storage
  */
 export const setSessionToken = (value: string) => {
   const key = `${process.env.NEXT_PUBLIC_SESSION_TOKEN}`;
