@@ -8,7 +8,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/ui/*": ["./src/ui/*"],
+      "@/pattern/*": ["./src/pattern/*"],
       "@/redux/*": ["./redux/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/public/*": ["./public/*"]
