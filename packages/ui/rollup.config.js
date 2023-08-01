@@ -11,9 +11,9 @@ import postcss from "rollup-plugin-postcss";
 
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import image from "@rollup/plugin-image";
+import dts from "rollup-plugin-dts";
 
 const packageJson = require("./package.json");
-
 
 const external = [
   "module",
@@ -63,5 +63,11 @@ export default defineConfig([
       image(),
     ],
     external, // telling rollup anything that is in this array aren't part of type exports
+  },
+  {
+    // path to your declaration files root
+    input: ["src/index.ts"],
+    output: [{ file: packageJson.types, format: "es" }],
+    plugins: [dts.default()],
   },
 ]);

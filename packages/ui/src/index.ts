@@ -19,6 +19,7 @@ export * from "./components/data-display/scroll-area";
 export * from "./components/data-display/component-visiblity";
 export * from "./components/data-display/modal";
 export * from "./components/data-display/portal";
+export * from "./components/data-display/collapsible";
 
 // Feedback
 export * from "./components/feedback/loader";

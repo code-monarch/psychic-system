@@ -9,8 +9,7 @@ type AlertDialogueProps = React.ComponentProps<
 > & {
   className?: string;
   isopen?: boolean;
-  // eslint-disable-next-line no-unused-vars
-  setisopen?: (value: boolean) => void;
+  setisopen?: () => void;
 };
 
 const AlertDialogue = ({

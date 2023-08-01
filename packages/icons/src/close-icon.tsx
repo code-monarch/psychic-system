@@ -1,4 +1,3 @@
-import React from "react";
 import { IconProps } from "types";
 
 export const CloseIcon = ({ width, height, color, ...props }: IconProps) => {

@@ -4,4 +4,21 @@
 
 [36m
 [1msrc/index.ts[22m → [1mdist/cjs/index.js, dist/esm/index.js[22m...[39m
-[32mcreated [1mdist/cjs/index.js, dist/esm/index.js[22m in [1m6.3s[22m[39m
+[1m[31m[!] [1m(plugin rpt2) RollupError: [96m../../apps/web/src/pattern/atoms/icons/sidebar-nav-icons/currency-management-sidebar-nav-icon.tsx[0m:[93m4[0m:[93m28[0m - [91merror[0m[90m TS2307: [0mCannot find module '@/pattern/types' or its corresponding type declarations.
+
+[7m4[0m import { IIconProps } from "@/pattern/types";
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~[0m
+[22m[1m[39m[22m
+[2m    at error (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup\dist\shared\rollup.js:271:30)
+    at Object.error (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup\dist\shared\rollup.js:24642:20)
+    at RollupContext.error (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\context.ts:35:17)
+    at C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\diagnostics.ts:70:17
+    at Array.forEach (<anonymous>)
+    at printDiagnostics (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\diagnostics.ts:42:14)
+    at typecheckFile (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\index.ts:67:3)
+    at C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\index.ts:348:5
+    at Array.forEach (<anonymous>)
+    at Object.buildEnd (C:\Users\user\Desktop\work\emtech-frontend-new\node_modules\rollup-plugin-typescript2\src\index.ts:340:27)[22m
+
+
+ ELIFECYCLE  Command failed with exit code 1.

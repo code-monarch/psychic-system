@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { saveActiveNav } from "@/redux/features/active-sidebar-nav-slice";
 import { usePathname } from "next/navigation";
-import Text from "@emtech/ui"
 
 export interface ITopbarTitle extends React.HTMLAttributes<HTMLDivElement> {
   href: string;
@@ -62,9 +61,9 @@ const TopbarTitle = ({ href, exact }: ITopbarTitle) => {
   }, [dispatch, isActive, pathname]);
 
   return (
-    <Text>
+    <h4>
       {topbarTitle}
-    </Text>
+    </h4>
   );
 };
 

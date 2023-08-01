@@ -1,7 +1,7 @@
 import { IButtonClasses } from "../components/controls/button";
 
 export default <IButtonClasses>{
-  base: "flex justify-center items-center space-x-[10px] whitespace-nowrap border rounded-[8px] shadow-sm font-[600] tracking-[0.0004em] focus:outline-none focus:ring-none focus:ring-none select-none cursor-pointer motion-safe:transition-colors disabled:cursor-not-allowed firs_demibold",
+  base: "flex justify-center items-center space-x-[10px] whitespace-nowrap border rounded-[4px] shadow-sm font-[600] tracking-[0.0004em] focus:outline-none focus:ring-none focus:ring-none select-none cursor-pointer motion-safe:transition-colors disabled:cursor-not-allowed",
   fullWidth: "w-full",
   size: {
     xs: "py-2 px-4 text-xs",

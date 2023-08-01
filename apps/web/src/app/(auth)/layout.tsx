@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Metadata } from "next";
-import FullWidth from "@emtech/ui";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,10 +9,8 @@ export const metadata: Metadata = {
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className='bg-dashboardBg w-full min-h-screen flex justify-center items-start'>
-      <FullWidth>
-        {children}
-      </FullWidth>
+    <section className='bg-grayBackGround w-screen h-screen min-h-screen flex justify-center items-center'>
+      {children}
     </section>
   );
 };

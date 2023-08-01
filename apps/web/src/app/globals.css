@@ -28,7 +28,10 @@ body {
   min-height: 100vh !important;
   overflow-x: hidden !important;
   position: relative;
-  font-family: --font-Aeonik-Air;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -38,4 +41,50 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px inherit inset !important;
+}
+
+/* Styles for Radix UI Collapsible component */
+@layer utilities {
+  .CollapsibleContent {
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .CollapsibleContent[data-state='open'] {
+    animation: slideDown 300ms ease-out;
+  }
+}
+
+@layer utilities {
+  .CollapsibleContent[data-state='closed'] {
+    animation: slideUp 300ms ease-out;
+  }
+}
+
+@layer keyframes {
+  @keyframes slideDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 }

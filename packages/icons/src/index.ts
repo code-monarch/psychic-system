@@ -1,6 +1,11 @@
 export * from "./plus-icon";
+export * from "./brand-logo";
 export * from "./close-icon";
 export * from "./social-media-icons/facebook";
 export * from "./social-media-icons/instagram";
 export * from "./social-media-icons/twitter";
 export * from "./social-media-icons/youtube";
+
+export * from "./notification-icon";
+export * from "./expand-icon";
+export * from "./collapsible-trigger-icon";

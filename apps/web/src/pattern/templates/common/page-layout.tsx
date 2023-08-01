@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import Topbar from "./topbar";
 import { joinClasses } from "@emtech/utils";
 
+// Layout for pages that are not authentication pages
 const PageLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div

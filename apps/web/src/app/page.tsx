@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import { Button, Header } from "@emtech/ui";
-import AnimatedPhoneInput from "../pattern/molecules/inputs/animatedPhoneInput";
-import AnimatedInput from "@/pattern/molecules/inputs/animatedInput";
+import AnimatedPhoneInput from "../pattern/molecules/inputs/animated-phone-input";
+import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
 import { useForm, FormProvider } from "react-hook-form";
 
 export default function Page() {
-    const methods = useForm();
-    const onSubmit = (data) => console.log(data);
+  const methods = useForm();
+  const onSubmit = (data) => console.log(data);
   return (
     <>
       <Header text='Web' />

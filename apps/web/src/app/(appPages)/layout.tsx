@@ -2,7 +2,6 @@
 import React from "react";
 import { Metadata } from "next";
 import Sidebar from "@/pattern/templates/common/sidebar";
-import FullWidth from "@emtech/ui"
 import PageLayout from "@/pattern/templates/common/page-layout";
 
 export const metadata: Metadata = {
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className='bg-dashboardBg w-full min-h-screen flex justify-center items-start'>
-      <FullWidth>
-        <Sidebar />
-        <PageLayout>{children}</PageLayout>
-      </FullWidth>
+    <section className='bg-surfaceColor w-screen min-h-screen flex justify-center items-start'>
+      <Sidebar />
+      <PageLayout>{children}</PageLayout>
     </section>
   );
 };

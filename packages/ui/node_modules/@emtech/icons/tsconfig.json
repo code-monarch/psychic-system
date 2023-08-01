@@ -13,8 +13,6 @@
     "esModuleInterop": true
   },
   "extends": "@emtech/tsconfig/react-library.json",
-  "include": [
-    ".",
-  ],
+  "include": [".", "../../apps/web/src/pattern/atoms/icons/sidebar-nav-icons"],
   "exclude": ["dist", "build", "node_modules"]
 }

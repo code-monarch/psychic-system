@@ -4,20 +4,16 @@ import { usePathname } from "next/navigation";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
-import NotificationIcon from "@/public/icons/notification-icon.svg";
-import UserIcon from "./user-icon";
+import UserIcon from "../../atoms/icons/user-icon";
 
 import TopbarTitle from "./topbar-page-title";
 
-import { useGetDashboardDataQuery } from "@/redux/services/dashboard/dashboard.api-slice";
+// import { useGetDashboardDataQuery } from "@/redux/services/dashboard/dashboard.api-slice";
 import { useLogout } from "@/lib/hooks/useLogout";
 import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
-import { joinClasses } from "@/lib/utils/join-classes";
-import {
-  PopOver,
-  PopOverContent,
-  PopOverTrigger,
-} from "@/ui/components/data-display/popover";
+import { joinClasses } from "@emtech/utils";
+import { PopOver, PopOverContent, PopOverTrigger } from "@emtech/ui";
+import { NotificationIcon } from "@emtech/icons";
 
 const Topbar = () => {
   const [exact, setExact] = useState<boolean>(false);
@@ -45,7 +41,7 @@ const Topbar = () => {
   return (
     <div
       className={joinClasses(
-        "w-full bg-white fixed flex justify-around pr-[100px] top-0 h-[72px] py-[14px] pl-[40px] shadow-semShadow2 z-[25] transition-all duration-200 ease-in-out",
+        "w-full bg-transparent fixed flex justify-around pr-[100px] top-0 h-[72px] py-[14px] pl-[40px] shadow-semShadow2 z-[25] transition-all duration-200 ease-in-out",
         !isCollapsed && "pl-[80px] pr-[250px]"
       )}
     >
@@ -67,7 +63,7 @@ const Topbar = () => {
               </div>
             </PopOverTrigger>
             <PopOverContent
-              showCloseBtn={false}
+              showCloseIcon={false}
               className='!w-[180px] py-[20px] !px-0 text-white'
               onClick={() => logOut()}
             >

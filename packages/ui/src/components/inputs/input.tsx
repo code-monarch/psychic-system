@@ -5,8 +5,6 @@ import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 export interface IInputClasses {
   base: string;
   passwordInputBase: string;
-  authTokenInputBase: string;
-  authTokenInputClicked: string;
 }
 
 export interface TInputProps

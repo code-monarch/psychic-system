@@ -18,13 +18,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang='en'
-      className={`${inter.variable}`}
-    >
-      <body className='font-sans'>
+    <html lang='en' className={`${inter.variable}`}>
+      <body className='bg-grayBackGround min-h-screen font-sans'>
         <Providers>
-          <div>{children}</div>
+          <div className='w-full h-full'>{children}</div>
         </Providers>
       </body>
     </html>

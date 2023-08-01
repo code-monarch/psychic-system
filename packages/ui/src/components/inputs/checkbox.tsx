@@ -11,7 +11,6 @@ interface ICheckboxProps {
   defaultChecked?: boolean;
   name?: string;
   checked?: boolean; // UseState value from parent component: "true", "false" or "Indeterminate"
-  // eslint-disable-next-line no-unused-vars
   onCheckedChange?: any;
   labelfor: string;
   labeltext: React.ReactNode;
@@ -28,7 +27,7 @@ export const Checkbox = ({
   className,
   ...props
 }: ICheckboxProps) => (
-  <div className="flex items-center space-x-[10px] cursor-pointer">
+  <div className='flex items-center space-x-[10px] cursor-pointer'>
     <CheckboxPrimitive.Root
       {...props}
       id={`${labelfor}`}
@@ -38,13 +37,13 @@ export const Checkbox = ({
       onCheckedChange={onCheckedChange}
       className={joinClasses(
         "bg-transparent w-[21.33px] h-[21.33px] flex items-center justify-center border rounded-[4px]",
-        "radix-state-checked:bg-[#0067FC] radix-state-unchecked:border-[#CECDE0]",
+        "radix-state-checked:bg-transparent border-[#8499B1]",
         "focus:!ring-none focus:outline-none",
         className
       )}
     >
       <CheckboxPrimitive.Indicator>
-        <CheckIcon className={joinClasses("text-white")} />
+        <CheckIcon className={joinClasses("text-black")} />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
     <label
