@@ -1,9 +1,8 @@
-"use client";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { IIconProps } from "@/pattern/types";
+import { IconProps } from "types";
 
-export const CurrencyManagementSidebarNavIcon = ({ ...props }: IIconProps) => {
+export const CurrencyManagementSidebarNavIcon = ({ ...props }: IconProps) => {
   const [color, setColor] = useState<string>("#433A81");
 
   const href = "/currency-management";

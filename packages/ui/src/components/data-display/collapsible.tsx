@@ -66,7 +66,7 @@ const CollapsibleTrigger = ({
       {isOpen ? (
         <CollapsibleTriggerIcon />
       ) : (
-        <CollapsibleTriggerIcon rotate />
+        <CollapsibleTriggerIcon rotate={true} />
       )}
     </button>
   </CollapsiblePrimitive.Trigger>

@@ -1,5 +1,10 @@
+interface IProps {
+  rotate?: boolean;
+}
 
-export const CollapsibleTriggerIcon = (rotate?: boolean) => {
+export const CollapsibleTriggerIcon = ({
+  rotate,
+}: IProps) => {
   return (
     <svg
       width='12'
