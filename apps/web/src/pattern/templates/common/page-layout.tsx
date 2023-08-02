@@ -15,8 +15,8 @@ const PageLayout = ({ children }: { children: ReactNode }) => {
       <Topbar />
       <main
         className={joinClasses(
-          "bg-AppPagesBg !h-fit pr-[40px] pb-[40px] mt-[60px] desktop:mt-[110px]",
-          "ml-[80px]"
+          "bg-AppPagesBg pr-[40px] pb-[40px] mt-[60px]",
+          "mx-[80px]"
         )}
       >
         {children}

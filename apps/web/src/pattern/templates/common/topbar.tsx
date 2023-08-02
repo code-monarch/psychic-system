@@ -33,7 +33,7 @@ const Topbar = () => {
   return (
     <div
       className={joinClasses(
-        "w-full bg-transparent fixed flex justify-around pr-[100px] top-0 h-[72px] py-[14px] pl-[40px] shadow-semShadow2 z-[25] transition-all duration-200 ease-in-out",
+        "bg-surfaceColor fixed top-0 w-full h-[72px] flex justify-around pl-[40px] pr-[100px] py-[14px] shadow-semShadow2 transition-all duration-200 ease-in-out z-[25]",
         !isCollapsed && "pl-[80px] pr-[250px]"
       )}
     >

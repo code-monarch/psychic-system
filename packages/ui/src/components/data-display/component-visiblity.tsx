@@ -2,9 +2,9 @@ import { ReactNode } from "react";
 
 interface IProps {
   children: ReactNode;
-  appear: boolean; // Change this to visible or visibility
+  visible: boolean; // Change this to visible or visibility
 }
 
-export const ComponentVisiblity = ({ children, appear }: IProps) => {
-  return <>{appear ? children : null}</>;
+export const ComponentVisiblity = ({ children, visible }: IProps) => {
+  return <>{visible ? children : null}</>;
 };

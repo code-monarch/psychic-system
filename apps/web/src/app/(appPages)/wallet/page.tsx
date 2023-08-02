@@ -1,10 +1,11 @@
 "use";
+import SandBoxWalletTabs from "@/pattern/templates/wallets/sandbox-wallet-tabs";
 import React from "react";
 
 const Wallet = () => {
   return (
-    <div className='w-full max-w-[1440px] h-full max-h-[900px] flex justify-center items-center'>
-      
+    <div className=''>
+      <SandBoxWalletTabs />
     </div>
   );
 };
