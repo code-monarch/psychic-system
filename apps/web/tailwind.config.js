@@ -3,7 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: "",
   content: [
-    "./**/**/**/**/**/**/*.{ts,tsx}",
+    "./**/**/**/**/**/**/**/**/*.{ts,tsx}",
     "./src/(appPages)/**/**/**/**/**/*.{ts,tsx}",
     "./src/(auth)/**/**/**/**/**/*.{ts,tsx}",
     "./src/pattern/**/**/**/**/**/*.{ts,tsx}",

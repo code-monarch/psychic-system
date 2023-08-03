@@ -11,6 +11,8 @@ import {
 } from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";
+import FundWalletFrom from "../../organisms/fund-wallet/fund-wallet-from";
+import FundWalletTo from "../../organisms/fund-wallet/fund-wallet-to";
 
 const FundDistributionWalletModal = () => {
   const [isOpen, setIsOpen] = useToggle(false);
@@ -31,9 +33,15 @@ const FundDistributionWalletModal = () => {
               title='Fund Distribution Wallet'
               closeModal={() => setIsOpen()}
             >
-              <IconButton size="xl" fullwidth>
-                Send Fund to Distribution Wallet
-              </IconButton>
+              <div className='space-y-[52px]'>
+                <div className='space-y-[32px]'>
+                  <FundWalletFrom />
+                  <FundWalletTo />
+                </div>
+                <IconButton size='xl' fullwidth>
+                  Send Fund to Distribution Wallet
+                </IconButton>
+              </div>
             </ModalCard>
           </AlertDialogueContent>
         </AlertDialogueOverlay>
