@@ -4,10 +4,12 @@ import { usePathname } from "next/navigation";
 
 import TopbarTitle from "./topbar-page-title";
 
-// import { useGetDashboardDataQuery } from "@/redux/services/dashboard/dashboard.api-slice";
 import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
 import { joinClasses } from "@emtech/utils";
 import { NotificationIcon } from "@emtech/icons";
+
+import VisuallyHidden from "@/pattern/atoms/visually-hidden";
+import WalletsummaryDrawer from "@/pattern/templates/drawer/wallet-summary-drawer"
 
 const Topbar = () => {
   const [exact, setExact] = useState<boolean>(false);
@@ -16,19 +18,14 @@ const Topbar = () => {
 
   const pathname = usePathname();
 
+  const isOnWalletRoute = pathname.startsWith('/wallet');
+
   useEffect(() => {
     if (pathname === "/") {
       setExact(true);
     }
   }, [pathname]);
 
-  // const {
-  //   data: dashboardData,
-  //   isLoading,
-  //   isFetching,
-  //   isSuccess,
-  //   isError,
-  // } = useGetDashboardDataQuery();
 
   return (
     <div
@@ -40,13 +37,18 @@ const Topbar = () => {
       <div className='w-full flex justify-between items-center sm:space-x-[80px]'>
         <TopbarTitle href={pathname} exact={exact} />
 
-        {/* Notification and more options */}
+        {/* Wallet Summary, Notification and more options */}
         <div className='flex items-center h-16 w-fit space-x-[35px] text-black'>
-          <div>
+          {/* Wallet Summary */}
+          <VisuallyHidden visible={isOnWalletRoute}>
+            <WalletsummaryDrawer />
+          </VisuallyHidden>
+          {/* Wallet Summary End */}
+          <span>
             <NotificationIcon />
-          </div>
+          </span>
         </div>
-        {/* Notification and more options End */}
+        {/* Wallet Summary, Notification and more options End */}
       </div>
     </div>
   );

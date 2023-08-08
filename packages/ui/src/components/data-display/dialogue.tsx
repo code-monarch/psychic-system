@@ -6,7 +6,10 @@ import { joinClasses } from "@emtech/utils";
 //    Dialogue Root
 type DialogueProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
   className?: string;
+  // Determines whether the Modal is Open or not
   isopen?: boolean;
+
+  // sets the Dialogue disclosure
   // eslint-disable-next-line no-unused-vars
   setisopen?: (value: boolean) => void;
 };
@@ -16,7 +19,6 @@ const Dialogue = ({ isopen, setisopen, children, ...props }: DialogueProps) => (
     {...props}
     open={isopen}
     onOpenChange={setisopen}
-    // className={joinClasses(className)}
   >
     {children}
   </DialogPrimitive.Root>
@@ -67,7 +69,7 @@ const DialogueDescription = ({
 //    Dialogue Description End
 
 //    Dialogue Content
-type DialogueContentProps = React.ComponentProps<
+export type DialogueContentProps = React.ComponentProps<
   typeof DialogPrimitive.Content
 > & {
   className?: string;
@@ -110,7 +112,7 @@ type DialogueOverlayProps = React.ComponentProps<
   className?: string;
   isopen: boolean;
   children?: React.ReactNode;
-  // aschild?: boolean;
+  asChild?: boolean;
 };
 
 const DialogueOverlay = ({
@@ -132,7 +134,7 @@ const DialogueOverlay = ({
         forceMount
         // asChild={aschild}
         className={joinClasses(
-          "fixed inset-0 min-h-screen h-fit z-[2000] bg-[rgba(39, 39, 43, 1)] flex justify-center items-center overflow-auto",
+          "fixed inset-0 min-h-screen h-fit z-[2000] bg-[#1E252D]/30 flex justify-center items-center overflow-auto",
           className
         )}
       >
@@ -151,6 +153,16 @@ const DialoguePortal = ({ children }: DialoguePortalProps) => (
 );
 //  Dialogue Portal End
 
+//  Dialogue Close
+type DialogueCloseProps = React.ComponentProps<typeof DialogPrimitive.Close>;
+
+const DialogueClose = ({ children }: DialogueCloseProps) => (
+  <DialogPrimitive.Close asChild aria-label='Close'>
+    {children}
+  </DialogPrimitive.Close>
+);
+//  Dialogue Close End
+
 export {
   Dialogue,
   DialogueTrigger,
@@ -158,5 +170,6 @@ export {
   DialogueDescription,
   DialogueContent,
   DialoguePortal,
+  DialogueClose,
   DialogueOverlay,
 };

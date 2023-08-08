@@ -11,17 +11,17 @@ import {
 } from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";
-import FundWalletFrom from "../../organisms/fund-wallet/fund-wallet-from";
-import FundWalletTo from "../../organisms/fund-wallet/fund-wallet-to";
+import InsertMintAmount from "../../organisms/insert-mint-amount";
+import MintDestination from "../../organisms/mint-destination";
 
-const FundDistributionWalletModal = () => {
+const IssueTokenModal = () => {
   const [isOpen, setIsOpen] = useToggle(false);
 
   return (
     <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
       <AlertDialogueTrigger>
-        <IconButton lefticon={<PlusIcon />}>
-          Fund Distribution Wallet
+        <IconButton size='sm' lefticon={<PlusIcon />} fullwidth>
+          Issue Token
         </IconButton>
       </AlertDialogueTrigger>
 
@@ -38,8 +38,8 @@ const FundDistributionWalletModal = () => {
             >
               <div className='space-y-[52px]'>
                 <div className='space-y-[32px]'>
-                  <FundWalletFrom />
-                  <FundWalletTo />
+                  <InsertMintAmount />
+                  <MintDestination />
                 </div>
                 <IconButton size='xl' fullwidth>
                   Send Fund to Distribution Wallet
@@ -54,4 +54,4 @@ const FundDistributionWalletModal = () => {
   );
 };
 
-export default FundDistributionWalletModal;
+export default IssueTokenModal;

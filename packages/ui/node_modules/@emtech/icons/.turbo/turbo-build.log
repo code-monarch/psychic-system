@@ -1,7 +1,0 @@
-
-> @emtech/icons@0.0.1 build C:\Users\user\Desktop\work\emtech-frontend-new\packages\icons
-> rollup -c --bundleConfigAsCjs
-
-[36m
-[1msrc/index.ts[22m → [1mdist/cjs/index.js, dist/esm/index.js[22m...[39m
-[32mcreated [1mdist/cjs/index.js, dist/esm/index.js[22m in [1m19s[22m[39m

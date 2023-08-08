@@ -23,7 +23,7 @@ const ModalCard: FC<IModalCardProps> = ({
   return (
     <div
       className={joinClasses(
-        "relative bg-white w-[632px] !h-fit !max-h-fit overflow-y-hidden pt-8 px-8 pb-[74px] space-y-[52px] rounded-lg",
+        "relative bg-white w-[632px] !h-fit !max-h-fit overflow-hidden pt-8 px-8 pb-[74px] space-y-[52px] rounded-lg",
         className
       )}
     >

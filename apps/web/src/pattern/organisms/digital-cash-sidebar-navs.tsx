@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { joinClasses, useToggle } from "@emtech/utils";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger, Text } from "@emtech/ui";

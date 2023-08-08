@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { PlusIcon } from "@radix-ui/react-icons";
 import {
   AlertDialogue,
   AlertDialogueContent,
@@ -14,14 +13,14 @@ import ModalCard from "../../organisms/modal-card";
 import FundWalletFrom from "../../organisms/fund-wallet/fund-wallet-from";
 import FundWalletTo from "../../organisms/fund-wallet/fund-wallet-to";
 
-const FundDistributionWalletModal = () => {
+const BurnTokenModal = () => {
   const [isOpen, setIsOpen] = useToggle(false);
 
   return (
     <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
       <AlertDialogueTrigger>
-        <IconButton lefticon={<PlusIcon />}>
-          Fund Distribution Wallet
+        <IconButton size='sm' fullwidth>
+          Burn Token
         </IconButton>
       </AlertDialogueTrigger>
 
@@ -54,4 +53,4 @@ const FundDistributionWalletModal = () => {
   );
 };
 
-export default FundDistributionWalletModal;
+export default BurnTokenModal;

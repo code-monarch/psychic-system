@@ -180,7 +180,7 @@ const AlertDialogueOverlay = ({
         forceMount
         // asChild={aschild}
         className={joinClasses(
-          "fixed inset-0 min-h-screen h-fit z-[2000] !bg-black/50 flex justify-center items-center overflow-auto",
+          "fixed inset-0 w-screen min-h-screen h-fit z-[2000] !bg-[#1E252D]/30 flex justify-center items-center overflow-auto",
           className
         )}
       >

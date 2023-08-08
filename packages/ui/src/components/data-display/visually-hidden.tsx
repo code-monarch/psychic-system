@@ -5,6 +5,6 @@ interface IProps {
   visible: boolean; // Change this to visible or visibility
 }
 
-export const ComponentVisiblity = ({ children, visible }: IProps) => {
+export const VisuallyHidden = ({ children, visible }: IProps) => {
   return <>{visible ? children : null}</>;
 };

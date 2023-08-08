@@ -89,9 +89,19 @@ module.exports = {
             transform: "translateX(100%)",
           },
         },
+        contentShow: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        contentHide: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         loading: "shimmer 2s infinite",
+        contentShow: "contentShow 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
+        contentHide: "contentHide 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
       },
     },
     backgroundImage: {

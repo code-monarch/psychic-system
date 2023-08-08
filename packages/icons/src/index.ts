@@ -9,3 +9,5 @@ export * from "./social-media-icons/youtube";
 export * from "./notification-icon";
 export * from "./expand-icon";
 export * from "./collapsible-trigger-icon";
+export * from "./info-icon";
+export * from "./credits-arrow-icon";

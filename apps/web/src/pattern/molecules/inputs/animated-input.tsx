@@ -8,7 +8,7 @@ import HiddenEyeIcon from "@/pattern/atoms/icons/hidden-eye";
 import EyeOpenIcon from "@/pattern/atoms/icons/eye-open-icon";
 import FormError from "./form-error";
 import { IInputProps, TInputProps } from "@/pattern/types";
-import ComponentVisiblity from "@/pattern/atoms/component-visibility";
+import VisuallyHidden from "@/pattern/atoms/visually-hidden";
 
 const AnimatedInput = <TFormValues extends FieldValues>({
   name,
@@ -27,7 +27,7 @@ const AnimatedInput = <TFormValues extends FieldValues>({
     formState: { errors },
   } = useFormContext<TFormValues>();
 
-  // toggle hide or show password
+  // Determines whether Password is hidden or visible
   const [hidePassword, setHidePassword] = useToggle(true);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -59,7 +59,7 @@ const AnimatedInput = <TFormValues extends FieldValues>({
         />
 
         {/* animated Input label */}
-        <ComponentVisiblity visible={label ? true : false}>
+        <VisuallyHidden visible={label ? true : false}>
           <label
             className={joinClasses(
               "absolute transition-all -top-[25px] text-sm duration-300 text-inputPlaceholder",
@@ -68,11 +68,11 @@ const AnimatedInput = <TFormValues extends FieldValues>({
           >
             {label}
           </label>
-        </ComponentVisiblity>
+        </VisuallyHidden>
         {/* animated Input label End */}
 
         {/* Show toggle password button when input type is password */}
-        <ComponentVisiblity visible={props.type === "password" ? true : false}>
+        <VisuallyHidden visible={props.type === "password" ? true : false}>
           <button
             type='button'
             className='absolute right-[17px] z-20 top-0 bottom-0'
@@ -80,7 +80,7 @@ const AnimatedInput = <TFormValues extends FieldValues>({
           >
             {!hidePassword ? <HiddenEyeIcon /> : <EyeOpenIcon />}
           </button>
-        </ComponentVisiblity>
+        </VisuallyHidden>
         {/* Show toggle password button when input type is password End */}
       </div>
       <FormError name={name} errors={errors} />

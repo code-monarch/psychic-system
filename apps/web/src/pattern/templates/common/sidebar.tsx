@@ -11,8 +11,8 @@ import CBNLogo from "@/public/cbn-logo.png";
 import { WEBSITE_URL } from "@/lib/constants";
 import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
 
-import DigitalCashNavigation from "@/pattern/organisms/sidebar-nav-collapsible/digital-cash-navigation";
-import { ComponentVisiblity } from "@emtech/ui";
+import DigitalCashNavigation from "@/pattern/organisms/digital-cash-sidebar-navs";
+import { VisuallyHidden } from "@emtech/ui";
 
 const Sidebar = () => {
   const { isCollapsed, collapse } = useCollapseSidebar();
@@ -39,16 +39,16 @@ const Sidebar = () => {
           </a>
 
           {/* Sidebar toggle button */}
-          <ComponentVisiblity visible={isCollapsed ? false : true}>
+          <VisuallyHidden visible={isCollapsed ? false : true}>
             <span
               className='cursor-pointer transition-all delay-700 duration-300 ease-in-out'
               onClick={() => {
                 collapse();
               }}
             >
-              <ExpandIcon rotate={false} />
+              <ExpandIcon />
             </span>
-          </ComponentVisiblity>
+          </VisuallyHidden>
         </div>
       </div>
       {/* Top End */}

@@ -41,6 +41,8 @@ module.exports = {
           100: "#32965D",
         },
         primaryBlue: "#174CFF",
+        semanticGreen: "#3FCC6A",
+        semanticRed: "#FF5A5C",
         semanticBlack: "#27272B",
         disabledBtn: "#D9D8E7",
         navLink: "#DBD8FB",
@@ -54,6 +56,7 @@ module.exports = {
         surfaceColor: "#F8FAFE",
         inputDisabled: "#E6E6ED",
         inputPlaceholder: "#8499B1",
+        borderColor: "#DEE3EB",
       },
       boxShadow: {
         shadow1: "0px 6px 6px rgba(24, 39, 75, 0.12)",
@@ -95,9 +98,19 @@ module.exports = {
             transform: "translateX(100%)",
           },
         },
+        contentShow: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        contentHide: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         loading: "shimmer 2s infinite",
+        contentShow: "contentShow 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
+        contentHide: "contentHide 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
       },
     },
     backgroundImage: {

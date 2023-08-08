@@ -10,8 +10,8 @@ interface IProps {
  * @description 
  * Component that either shows or hide children
  */
-const ComponentVisiblity: FC<IProps> = ({ children, visible }) => {
+const VisuallyHidden: FC<IProps> = ({ children, visible }) => {
   return <>{visible ? children : null}</>;
 };
 
-export default ComponentVisiblity;
+export default VisuallyHidden;

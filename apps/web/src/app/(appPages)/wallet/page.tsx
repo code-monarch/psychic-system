@@ -1,6 +1,6 @@
-"use";
-import SandBoxWalletTabs from "@/pattern/templates/wallets/sandbox-wallet-tabs";
+"use client";
 import React from "react";
+import SandBoxWalletTabs from "@/pattern/templates/wallets/sandbox-wallet-tabs";
 
 const Wallet = () => {
   return (
