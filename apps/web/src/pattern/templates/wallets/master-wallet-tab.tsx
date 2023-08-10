@@ -3,9 +3,9 @@ import React from "react";
 import MasterWalletBarChart from "@/pattern/templates/charts/master-wallet-chart";
 import TotalTokensIssuedCard from "../../organisms/total-tokens-issued-card";
 import TotalTokensBurnedCard from "../../organisms/total-tokens-burned-card";
-import Credits from "../../organisms/wallets/credits";
-import Debits from "../../organisms/wallets/debits";
-import TokensTotalSummary from "../../organisms/wallets/tokens-total-summary";
+import Credits from "../../organisms/master-wallet/credits";
+import Debits from "../../organisms/master-wallet/debits";
+import TokensTotalSummary from "../../organisms/master-wallet/tokens-total-summary";
 
 const MasterWalletTab = () => {
   return (

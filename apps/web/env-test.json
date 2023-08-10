@@ -1,3 +1,4 @@
 {
-  "APP_NAME": "Emtech Frontend (STAGING)"
+  "APP_NAME": "Emtech Frontend (STAGING)",
+  "BASE_API_URL": "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/"
 }

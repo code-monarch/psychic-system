@@ -2,11 +2,17 @@ import React, { FC } from "react";
 import { joinClasses } from "@emtech/utils";
 
 interface IProps {
-  type?: "from" | "to";
-  wallet?: "Master" | "Distribution";
+  // Determines which wallet funds should be traferred from
+  receiverWallet: "Master" | "Distribution";
+
+  // Determines amount to be sent
+  amount: string;
+
+  // Updates amount when input value is changed
+  setAmount: any;
 }
 
-const FundWalletTo: FC<IProps> = ({}) => {
+const FundWalletTo: FC<IProps> = ({ amount, receiverWallet }) => {
   return (
     <div className='w-[568px] h-[127px] flex items-top justify-between p-[18px] border border-[rgba(132, 153, 177, 0.4)] rounded-[8px]'>
       {/* Left */}
@@ -17,10 +23,10 @@ const FundWalletTo: FC<IProps> = ({}) => {
         <div className='bg-surfaceColor h-[56px] flex items-center gap-[8px] p-[8px] rounded-[8px] z-3'>
           {/* abbrv */}
           <div className='outer_circle'>
-            <div className='inner_circle text-primaryText font-[800]'>DW</div>
+            <div className='inner_circle !uppercase text-primaryText font-[800]'>{receiverWallet?.charAt(0)}W</div>
           </div>
           {/* abbrv End */}
-          <p className='text-inputPlaceholder'>Distribution Wallet</p>
+          <p className='text-inputPlaceholder'>{receiverWallet} Wallet</p>
         </div>
       </div>
       {/* Left End */}
@@ -32,7 +38,7 @@ const FundWalletTo: FC<IProps> = ({}) => {
           Insert Fund Amount
         </h3>
         {/* Label End */}
-        
+
         {/* Fund Amount Input */}
         <div className='w-[150px] flex items-center justify-end'>
           <span className='text-primaryText text-[24px] text-right uppercase font-sans font-[800]'>
@@ -41,6 +47,8 @@ const FundWalletTo: FC<IProps> = ({}) => {
           <input
             type='number'
             placeholder='1,023,90|'
+            value={amount}
+            autoFocus
             className={joinClasses(
               "no-increment w-full text-primaryText text-[24px] text-right uppercase font-sans font-[800]",
               "outline-none border-none focus:outline-none focus:ring-none focus:border-none pl-[2px]"

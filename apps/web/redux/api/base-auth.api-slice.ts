@@ -8,7 +8,7 @@ import {REFRESH_TOKEN } from "@/lib/constants/index.constants";
 import { IRefreshResponse } from "../services/auth/refresh-token.api-slice";
 
 export const baseAuthQuery = fetchBaseQuery({
-  baseUrl: process.env.BASE_AUTH_API_URL,
+  baseUrl: process.env.BASE_API_URL,
   // credentials: "include",
   // credentials: "same-origin",
   mode: "cors",

@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@emtech/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger, VisuallyHidden } from "@emtech/ui";
 import { joinClasses } from "@emtech/utils";
-import FundDistributionWalletModal from "../modals/fund-distribution-wallet-modal"
-import WalletTopHeaderDetails from "@/pattern/organisms/wallets/wallet-top-header-details";
 import MasterWalletTab from "./master-wallet-tab";
 import DistributionWalletTab from "./distribution-wallet-tab";
 import InstitutionalWalletTab from "./institutional-wallet-tab";
+import MasterWalletTopSection from "@/pattern/organisms/master-wallet/master-wallet-top-section";
+import DistributionWalletTopSection from "@/pattern/organisms/distribution-wallet/distribution-wallet-top-section";
 
 const tabs = ["Master Wallet", "Distribution Wallet", "Institutional Wallet"];
 
@@ -17,13 +17,27 @@ const SandBoxWalletTabs = () => {
     <div className='bg-white w-full min-h-screen flex flex-col items-center gap-y-[55px] py-[24px] px-[32px] rounded-[4px]'>
       {/* Top section */}
       <div className='w-full flex items-center justify-between'>
-        <WalletTopHeaderDetails
-          walletType='master'
-          id='0.0.3065441'
-          balance='₦140,000,000,000,000.00'
-        />
-        {/* Fund Distribution Wallet Modal */}
-        <FundDistributionWalletModal />
+        {/* Master Wallet Top Section */}
+        <VisuallyHidden visible={activeTab === "Master Wallet" ? true : false}>
+          <MasterWalletTopSection
+            balance='₦1,023,900,000.00'
+            id='0.0.4690590'
+            walletType='master'
+          />
+        </VisuallyHidden>
+        {/* Master Wallet Top Section End */}
+
+        {/* Distribution Wallet Top Section */}
+        <VisuallyHidden
+          visible={activeTab === "Distribution Wallet" ? true : false}
+        >
+          <DistributionWalletTopSection
+            balance='₦1,023,900,000.00'
+            id='0.0.4690590'
+            walletType='Distiribution'
+          />
+        </VisuallyHidden>
+        {/* Distribution Wallet Top Section End */}
       </div>
       {/* Top section End */}
 

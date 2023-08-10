@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { PlusIcon } from "@radix-ui/react-icons";
 import {
   AlertDialogue,
@@ -11,18 +11,21 @@ import {
 } from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";
-import FundWalletFrom from "../../organisms/fund-wallet/fund-wallet-from";
-import FundWalletTo from "../../organisms/fund-wallet/fund-wallet-to";
+import FundWalletFrom from "../../organisms/wallets/fund-wallet-from";
+import FundWalletTo from "../../organisms/wallets/fund-wallet-to";
 
 const FundDistributionWalletModal = () => {
   const [isOpen, setIsOpen] = useToggle(false);
 
+  // Determines transfer amount
+  const [amount, setAmount] = useState<string>("");
+
   return (
     <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
       <AlertDialogueTrigger>
-          <IconButton variant='primary' lefticon={<PlusIcon />}>
-            Fund Distribution Wallet
-          </IconButton>
+        <IconButton variant='primary' lefticon={<PlusIcon />}>
+          Fund Distribution Wallet
+        </IconButton>
       </AlertDialogueTrigger>
 
       {/* Alert Dialogue Portal */}
@@ -38,8 +41,15 @@ const FundDistributionWalletModal = () => {
             >
               <div className='space-y-[52px]'>
                 <div className='space-y-[32px]'>
-                  <FundWalletFrom />
-                  <FundWalletTo />
+                  <FundWalletFrom
+                    transferWallet="Master"
+                    balance='₦140,000,000,000,000'
+                  />
+                  <FundWalletTo
+                    amount={amount}
+                    setAmount={setAmount}
+                    receiverWallet='Distribution'
+                  />
                 </div>
                 <IconButton size='xl' fullwidth>
                   Send Fund to Distribution Wallet

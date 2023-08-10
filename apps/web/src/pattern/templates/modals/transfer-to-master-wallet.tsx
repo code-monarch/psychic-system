@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { PlusIcon } from "@radix-ui/react-icons";
 import {
   AlertDialogue,
   AlertDialogueContent,
@@ -13,16 +14,21 @@ import ModalCard from "../../organisms/modal-card";
 import FundWalletFrom from "../../organisms/wallets/fund-wallet-from";
 import FundWalletTo from "../../organisms/wallets/fund-wallet-to";
 
-const BurnTokenModal = () => {
+const TransferToMasterWalletModal = () => {
   const [isOpen, setIsOpen] = useToggle(false);
+
+  // Determines transfer amount
+  const [amount, setAmount] = useState<string>("");
 
   return (
     <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
+      {/* Trigger */}
       <AlertDialogueTrigger>
-        <IconButton size='sm' fullwidth>
-          Burn Token
+        <IconButton variant='primary' lefticon={<PlusIcon />}>
+          Transfer to Master Wallet
         </IconButton>
       </AlertDialogueTrigger>
+      {/* Trigger End */}
 
       {/* Alert Dialogue Portal */}
       <AlertDialoguePortal>
@@ -32,13 +38,16 @@ const BurnTokenModal = () => {
         >
           <AlertDialogueContent>
             <ModalCard
-              title='Fund Distribution Wallet'
+              title='Transfer to Master Wallet'
               closeModal={() => setIsOpen()}
             >
               <div className='space-y-[52px]'>
                 <div className='space-y-[32px]'>
-                  <FundWalletFrom />
-                  <FundWalletTo />
+                  <FundWalletFrom
+                    balance='₦140,000,000,000,000'
+                    transferWallet='Distribution'
+                  />
+                  <FundWalletTo amount={amount} setAmount={setAmount} receiverWallet="Master" />
                 </div>
                 <IconButton size='xl' fullwidth>
                   Send Fund to Distribution Wallet
@@ -53,4 +62,4 @@ const BurnTokenModal = () => {
   );
 };
 
-export default BurnTokenModal;
+export default TransferToMasterWalletModal;
