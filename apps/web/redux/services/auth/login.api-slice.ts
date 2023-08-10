@@ -1,16 +1,15 @@
 import { baseApiSlice } from "../../api/base.api-slice";
 
 interface ILoginResData {
-  error: boolean;
-  message: string;
-  accessToken: string;
+  token: string;
   refreshToken: string;
-  otp_enabled: boolean;
-  isVerified: boolean;
-  timestamp: string;
+  error: boolean;
+  error_description: boolean;
+  message: string;
+  errorMessage: string;
 }
 
-interface ILoginPayload {
+export interface ILoginPayload {
   email: string;
   password: string;
 }
@@ -21,7 +20,7 @@ export const loginApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResData, ILoginPayload>({
       query: (loginDetails) => ({
-        url: "auth/login",
+        url: "signIn",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

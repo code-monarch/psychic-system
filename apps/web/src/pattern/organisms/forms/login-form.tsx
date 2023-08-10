@@ -1,17 +1,57 @@
 "use client";
 import React, { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
-import { Checkbox } from "@emtech/ui";
-import { LinkButton } from "@emtech/ui";
-import { IconButton } from "@emtech/ui";
+import { LinkButton, IconButton, Checkbox } from "@emtech/ui";
+import { useRouter } from "next/navigation";
+import { ILoginPayload, useLoginMutation } from "@/redux/services/auth/login.api-slice"
+import { toastError, toastSuccess } from "@/pattern/atoms/toast";
+import CookiesManager from "@/lib/helpers/cookies-manager.helpers";
+import { REFRESH_TOKEN } from "@/lib/constants/index.constants";
 
 const LoginForm = () => {
-  // state for remembering user's login credentials for future login
-  const [rememberMe, setRememberMe] = useState<boolean>(true);
+  const { push } = useRouter();
+
+  const [
+    login, // This is the mutation trigger
+    { isLoading }, // This is the destructured mutation result
+  ] = useLoginMutation();
+
+    const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm<ILoginPayload>();
 
   const methods = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<ILoginPayload> = ({ email, password }) => {
+      login({
+        email: email,
+        password: password,
+      })
+        .unwrap()
+        .then(({ token, refreshToken }) => {
+          toastSuccess("Logged In Successfully");
+
+          // Save access Token
+          CookiesManager.setTokenCookie(token);
+          // Save refresh token
+          CookiesManager.setCookie({ key: REFRESH_TOKEN, value: refreshToken });
+
+          if (token) {
+            push("/wallets");
+          }
+        })
+        .catch((err) => {
+          toastError(`${err?.errorMessage}`);
+        });
+    }
+  };
 
   return (
     <div className='bg-grayBackGround w-[50%] h-full flex flex-col justify-center items-center'>
@@ -25,7 +65,7 @@ const LoginForm = () => {
         {/* Form */}
         <FormProvider {...methods}>
           <form
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className='space-y-[40px]'
           >
             {/* Company Email */}
