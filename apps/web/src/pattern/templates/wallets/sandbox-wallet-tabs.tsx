@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@emtech/ui";
 import { joinClasses } from "@emtech/utils";
 import FundDistributionWalletModal from "../modals/fund-distribution-wallet-modal"
-import WalletTopHeaderDetails from "@/pattern/organisms/wallet-top-header-details";
+import WalletTopHeaderDetails from "@/pattern/organisms/wallets/wallet-top-header-details";
 import MasterWalletTab from "./master-wallet-tab";
 import DistributionWalletTab from "./distribution-wallet-tab";
 import InstitutionalWalletTab from "./institutional-wallet-tab";
@@ -27,7 +27,7 @@ const SandBoxWalletTabs = () => {
       </div>
       {/* Top section End */}
 
-      {/* Tabs */}
+      {/* Wallet Tabs */}
       <Tabs
         value={activeTab}
         defaultValue='one'
@@ -76,7 +76,7 @@ const SandBoxWalletTabs = () => {
         {/* Institutional Wallet End */}
         {/* Tab Contents End */}
       </Tabs>
-      {/* Tabs End */}
+      {/* Wallet Tabs End */}
     </div>
   );
 };

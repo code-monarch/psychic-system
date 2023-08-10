@@ -6,6 +6,7 @@ import { CloseIcon } from "@emtech/icons";
 interface IModalCardProps {
   children: ReactElement;
   title: string; // Text title for Modal Header
+  description?: string; // Text Description for Modal Header
   closeModal: () => void; // fuction that closes Modal
   className?: string; // className for Modal Container
   headerClassName?: string; // className for Modal header
@@ -17,6 +18,7 @@ const ModalCard: FC<IModalCardProps> = ({
   className,
   headerClassName,
   title,
+  description,
   closeModal,
   childrenClassName,
 }) => {
@@ -34,11 +36,17 @@ const ModalCard: FC<IModalCardProps> = ({
           headerClassName
         )}
       >
-        {/* Modal Title */}
-        <div className='text-2xl text-semanticBlack font-extrabold'>
-          {title}
+        <div className="space-y-[16px]">
+          {/* Modal Title */}
+          <h3 className='text-2xl text-semanticBlack font-extrabold'>
+            {title}
+          </h3>
+          {/* Modal Title End */}
+
+          {/* Modal Descriptiom */}
+          <p className="text-sm text-primaryText font-sans">{description}</p>
+          {/* Modal Descriptiom End */}
         </div>
-        {/* Modal Title End */}
 
         {/* Close Icon */}
         <span onClick={closeModal} className='absolute top-4 right-4'>

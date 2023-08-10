@@ -21,6 +21,7 @@ export * from "./components/data-display/visually-hidden";
 export * from "./components/data-display/modal";
 export * from "./components/data-display/portal";
 export * from "./components/data-display/collapsible";
+export * from "./components/data-display/transac-type-indicator";
 
 // Feedback
 export * from "./components/feedback/loader";

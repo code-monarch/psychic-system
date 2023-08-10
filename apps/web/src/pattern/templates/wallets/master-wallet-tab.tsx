@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 import MasterWalletBarChart from "@/pattern/templates/charts/master-wallet-chart";
 import TotalTokensIssuedCard from "../../organisms/total-tokens-issued-card";
 import TotalTokensBurnedCard from "../../organisms/total-tokens-burned-card";
-import Credits from "../../organisms/wallets-bottom/credits";
-import Debits from "../../organisms/wallets-bottom/debits";
-import TokensTotalSummary from "../../organisms/wallets-bottom/tokens-total-summary";
+import Credits from "../../organisms/wallets/credits";
+import Debits from "../../organisms/wallets/debits";
+import TokensTotalSummary from "../../organisms/wallets/tokens-total-summary";
 
 const MasterWalletTab = () => {
   return (
@@ -127,7 +127,8 @@ const MasterWalletTab = () => {
           },
         }}
       />
-      <div className='w-full grid grid-cols-4 smLaptops:grid-cols-4 desktop:grid-cols-5 grid-rows-2 desktop:grid-rows-1 gap-y-[40px] gap-x-[25px]'>
+      {/* Bottom */}
+      <div className='w-full grid grid-cols-4 smLaptops:grid-cols-4 desktop:grid-cols-5 grid-rows-2 desktop:grid-rows-1 gap-y-[40px] gap-x-[25px] mt-[72px]'>
         <div className='col-span-2 '>
           <TokensTotalSummary />
         </div>
@@ -142,6 +143,7 @@ const MasterWalletTab = () => {
           <Debits />
         </div>
       </div>
+      {/* Bottom End */}
     </div>
   );
 };

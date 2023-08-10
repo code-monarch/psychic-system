@@ -9,6 +9,7 @@ export interface IButtonClasses {
   variant: {
     primary: string;
     secondary: string;
+    transparent: string;
     disabled: string;
     loading: string;
   };

@@ -1,11 +1,11 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 import MasterWalletBarChart from "@/pattern/templates/charts/master-wallet-chart";
 import TotalTokensIssuedCard from "../../organisms/total-tokens-issued-card";
 import TotalTokensBurnedCard from "../../organisms/total-tokens-burned-card";
-import Credits from "../../organisms/wallets-bottom/credits";
-import Debits from "../../organisms/wallets-bottom/debits";
-import TokensTotalSummary from "../../organisms/wallets-bottom/tokens-total-summary";
+import Credits from "../../organisms/wallets/credits";
+import Debits from "../../organisms/wallets/debits";
+import TokensTotalSummary from "../../organisms/wallets/tokens-total-summary";
 
 const InstitutionalWalletTab = () => {
   return (
@@ -144,6 +144,6 @@ const InstitutionalWalletTab = () => {
       </div>
     </div>
   );
-}
+};
 
-export default InstitutionalWalletTab
+export default InstitutionalWalletTab;

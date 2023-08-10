@@ -26,6 +26,7 @@ export interface IBadgeClasses {
     sm: string;
     md: string;
     lg: string;
+    full: string
   };
 }
 export interface IBadgeProps extends React.HTMLAttributes<HTMLDivElement> {

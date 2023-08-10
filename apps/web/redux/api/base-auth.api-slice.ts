@@ -4,7 +4,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import Cookies from "js-cookie";
-import {REFRESH_TOKEN } from "@/lib/constants";
+import {REFRESH_TOKEN } from "@/lib/constants/index.constants";
 import { IRefreshResponse } from "../services/auth/refresh-token.api-slice";
 
 export const baseAuthQuery = fetchBaseQuery({

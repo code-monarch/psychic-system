@@ -10,7 +10,7 @@ import { TransactionsSidebarNavIcon } from "@/pattern/atoms/icons/sidebar-nav-ic
 import { RequestsSidebarNavIcon } from "@/pattern/atoms/icons/sidebar-nav-icons/requests-sidebar-nav-icon";
 import { CurrencyManagementSidebarNavIcon } from "@/pattern/atoms/icons/sidebar-nav-icons/currency-management-sidebar-nav-icon";
 
-import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
+import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 
 const digitalCashNavLinks = [
   {

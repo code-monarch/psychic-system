@@ -9,10 +9,19 @@ import type {
 import { Mutex } from "async-mutex";
 import Cookies from "js-cookie";
 import { logOut } from "../features/auth-slice";
-import { COOKIE_TOKEN, REFRESH_TOKEN } from "@/lib/constants";
+import { COOKIE_TOKEN, REFRESH_TOKEN } from "@/lib/constants/index.constants";
 import { baseAuthApiSlice } from "./base-auth.api-slice";
-import CookiesManager from "@/lib/helpers/cookies-manager";
+import CookiesManager from "@/lib/helpers/cookies-manager.helpers";
 import { store } from "../store";
+
+interface IRefreshResponse {
+  error: boolean;
+  accessToken: string;
+  refreshToken: string;
+  timestamp: string;
+}
+
+let refreshResponse: IRefreshResponse | any;
 
 // Create a new mutex
 const mutex = new Mutex();
@@ -46,7 +55,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error && result?.error?.status === 401) {
     // checking whether the mutex is locked
-    // async-mutex to prevent multiple requests to /api/auth/refresh endpoint when the first request to refresh the access token fails.
+    // async-mutex to prevent multiple requests to the refresh endpoint endpoint when the first request to refresh the access token fails.
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
@@ -55,7 +64,7 @@ const baseQueryWithReauth: BaseQueryFn<
           baseAuthApiSlice.endpoints.getRefreshToken.initiate()
         );
         if (refreshResponse?.data) {
-          // Delete previous auth cookies
+          // Delete previous auth cookie
           CookiesManager.removeCookie(COOKIE_TOKEN);
           CookiesManager.removeCookie(REFRESH_TOKEN);
 
@@ -96,9 +105,6 @@ const baseQueryWithReauth: BaseQueryFn<
 export const baseApiSlice = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithReauth,
-  // A root tagTypes field in the API slice object,
-  // declaring an array of string tag names for data types such as 'Api_keys'
-  // tagTypes: ["Api_keys"],
   refetchOnReconnect: true,
   endpoints: () => ({}),
 });

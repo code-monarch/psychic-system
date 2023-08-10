@@ -1,4 +1,4 @@
-import { baseApiSlice } from "@/redux/api/base.api-slice";
+import { baseApiSlice } from "../../api/base.api-slice";
 
 interface ILoginResData {
   error: boolean;

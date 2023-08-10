@@ -5,11 +5,11 @@ import {
   useState,
 } from "react";
 // import { useAppSelector } from "@/redux/hooks";
-import { useLazyLogoutQuery } from "@/redux/services/auth/logout.api-slice";
-import LocalStore from "../helpers/session-manager";
+import { useLazyLogoutQuery } from "../../../redux/services/auth/logout.api-slice";
+import LocalStore from "../helpers/session-manager.helpers";
 import { ILogOutOutput } from "../types";
-import CookiesManager from "../helpers/cookies-manager";
-import { COOKIE_TOKEN, REFRESH_TOKEN } from "../constants";
+import CookiesManager from "../helpers/cookies-manager.helpers";
+import { COOKIE_TOKEN, REFRESH_TOKEN } from "../constants/index.constants";
 
 export const useLogout = (): ILogOutOutput => {
   const [logOutStatus, setLogOutStatus] = useState<boolean>(false); // State change when logout is clicked

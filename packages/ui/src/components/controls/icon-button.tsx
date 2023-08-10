@@ -27,7 +27,7 @@ export const IconButton: React.FC<IIconButtonProps> = ({
   onClick,
   children,
   loading,
-  disabled,
+  disabled = false,
   variant,
   type,
   size,

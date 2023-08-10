@@ -3,7 +3,7 @@ import React from "react";
 import { Metadata } from "next";
 import Sidebar from "@/pattern/templates/common/sidebar";
 import PageLayout from "@/pattern/templates/common/page-layout";
-import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
+import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 import { joinClasses } from "@emtech/utils";
 
 export const metadata: Metadata = {

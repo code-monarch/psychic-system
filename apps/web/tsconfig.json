@@ -6,17 +6,19 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
       "@/pattern/*": ["./src/pattern/*"],
-      "@/redux/*": ["./redux/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/public/*": ["./public/*"]
+      "@/public/*": ["./public/*"],
+      "@/redux/*": ["./redux/*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "**/**/**/**/**/**/**/*.{ts,tsx}",
+    "./src/",
+    "./redux/",
     ".next/types/**/*.ts",
     "dist/types/**/*.ts"
   ],

@@ -2,7 +2,7 @@ import React from "react";
 import { PopOver, PopOverContent, PopOverTrigger } from "@emtech/ui";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import UserIcon from "../atoms/icons/user-icon";
-import { useLogout } from "@/lib/hooks/useLogout";
+import { useLogout } from "@/lib/hooks/useLogout.hooks";
 
 const LogoutPopOver = () => {
   const { logOut } = useLogout();

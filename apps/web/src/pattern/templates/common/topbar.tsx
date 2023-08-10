@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 
 import TopbarTitle from "./topbar-page-title";
 
-import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
+import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 import { joinClasses } from "@emtech/utils";
 import { NotificationIcon } from "@emtech/icons";
 

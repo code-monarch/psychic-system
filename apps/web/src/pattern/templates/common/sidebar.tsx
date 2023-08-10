@@ -8,8 +8,8 @@ import {
 
 import CBNLogo from "@/public/cbn-logo.png";
 
-import { WEBSITE_URL } from "@/lib/constants";
-import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar";
+import { WEBSITE_URL } from "@/lib/constants/index.constants";
+import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 
 import DigitalCashNavigation from "@/pattern/organisms/digital-cash-sidebar-navs";
 import { VisuallyHidden } from "@emtech/ui";

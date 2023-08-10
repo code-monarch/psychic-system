@@ -1,7 +1,7 @@
-import { baseApiSlice } from '@/redux/api/base.api-slice';
+import { baseApiSlice } from "../../api/base.api-slice";
 
 interface IPayload {
-  email: string | null | undefined
+  email: string | null | undefined;
 }
 
 export const resendEmailAPISlice = baseApiSlice.injectEndpoints({

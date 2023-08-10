@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { SIDEBAR_STATE } from "@/lib/constants";
-import LocalStore from "@/lib/helpers/session-manager";
+import { SIDEBAR_STATE } from "@/lib/constants/index.constants";
+import LocalStore from "@/lib/helpers/session-manager.helpers";
 
 interface IActiveSidebarNav {
   activeSidebarNav: string;

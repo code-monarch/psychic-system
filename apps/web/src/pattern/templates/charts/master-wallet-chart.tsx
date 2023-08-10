@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
+import RecentTransactionsModal from "@/pattern/templates/modals/recent-transactions"
 
 const Chart = dynamic(() => import("react-apexcharts"));
 
@@ -19,7 +20,6 @@ const MasterWalletBarChart = ({
   colors?: string[];
   loading?: boolean;
 }) => {
-
   const initialOption: ApexOptions = {
     colors: colors,
     chart: {
@@ -104,16 +104,21 @@ const MasterWalletBarChart = ({
   }, [series, loading, xAxis, yAxis]);
 
   return (
-    <div>
-      {typeof window !== "undefined" && (
-        <Chart
-          options={chartOption}
-          series={series}
-          type='bar'
-          width={"100%"}
-          height={325}
-        />
-      )}
+    <div className='relative w-full pb-[50px] mt-[72px] border-b-[1px] border-[#174CFF] border-opacity-20'>
+        {typeof window !== "undefined" && (
+          <Chart
+            options={chartOption}
+            series={series}
+            type='bar'
+            width={"100%"}
+            height={325}
+          />
+        )}
+      {/* See All Transactions Button */}
+      <div className='absolute bottom-[-25px] left-0 bg-white pl-3 pr-10'>
+        <RecentTransactionsModal />
+      </div>
+      {/* See All Transactions Button End */}
     </div>
   );
 };

@@ -3,9 +3,11 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: "",
   content: [
-    "./**/**/**/**/**/**/**/**/*.{ts,tsx}",
-    "./src/(appPages)/**/**/**/**/**/*.{ts,tsx}",
-    "./src/(auth)/**/**/**/**/**/*.{ts,tsx}",
+    "./**/**/**/**/**/**/*{.ts,tsx}",
+    "./redux/provider.tsx",
+    "./src/app/*.{ts,tsx}",
+    "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/app/(auth)/**/**/**/**/**/*.{ts,tsx}",
     "./src/pattern/**/**/**/**/**/*.{ts,tsx}",
   ],
   theme: {

@@ -1,6 +1,6 @@
 "use client";
 import Cookies from "js-cookie";
-import { COOKIE_TOKEN } from "../constants";
+import { COOKIE_TOKEN } from "../constants/index.constants";
 import { IGetCookieProps, ISetCookieProps } from "../types";
 
 /**

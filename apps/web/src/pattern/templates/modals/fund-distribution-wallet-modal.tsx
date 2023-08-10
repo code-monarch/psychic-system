@@ -20,9 +20,9 @@ const FundDistributionWalletModal = () => {
   return (
     <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
       <AlertDialogueTrigger>
-        <IconButton lefticon={<PlusIcon />}>
-          Fund Distribution Wallet
-        </IconButton>
+          <IconButton variant='primary' lefticon={<PlusIcon />}>
+            Fund Distribution Wallet
+          </IconButton>
       </AlertDialogueTrigger>
 
       {/* Alert Dialogue Portal */}
