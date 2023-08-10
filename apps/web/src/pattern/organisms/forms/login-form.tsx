@@ -22,16 +22,10 @@ const LoginForm = () => {
   ] = useLoginMutation();
 
   const {
-    register,
     handleSubmit,
-    control,
-    watch,
-    setError,
-    clearErrors,
-    formState: { errors },
   } = useForm<ILoginPayload>();
 
-  const methods = useForm();
+  const methods = useForm<ILoginPayload>();
 
   const onSubmit: SubmitHandler<ILoginPayload> = ({ email, password }) => {
     login({
