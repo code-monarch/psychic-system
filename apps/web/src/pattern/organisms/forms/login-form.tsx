@@ -4,7 +4,10 @@ import { SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
 import { LinkButton, IconButton, Checkbox } from "@emtech/ui";
 import { useRouter } from "next/navigation";
-import { ILoginPayload, useLoginMutation } from "@/redux/services/auth/login.api-slice"
+import {
+  ILoginPayload,
+  useLoginMutation,
+} from "@/redux/services/auth/login.api-slice";
 import { toastError, toastSuccess } from "@/pattern/atoms/toast";
 import CookiesManager from "@/lib/helpers/cookies-manager.helpers";
 import { REFRESH_TOKEN } from "@/lib/constants/index.constants";
@@ -17,7 +20,7 @@ const LoginForm = () => {
     { isLoading }, // This is the destructured mutation result
   ] = useLoginMutation();
 
-    const {
+  const {
     register,
     handleSubmit,
     control,
@@ -30,29 +33,27 @@ const LoginForm = () => {
   const methods = useForm();
 
   const onSubmit: SubmitHandler<ILoginPayload> = ({ email, password }) => {
-      login({
-        email: email,
-        password: password,
+    login({
+      email: email,
+      password: password,
+    })
+      .unwrap()
+      .then(({ token, refreshToken }) => {
+        toastSuccess("Logged In Successfully");
+
+        // Save access Token
+        CookiesManager.setTokenCookie(token);
+        // Save refresh token
+        CookiesManager.setCookie({ key: REFRESH_TOKEN, value: refreshToken });
+
+        if (token) {
+          push("/wallets");
+        }
       })
-        .unwrap()
-        .then(({ token, refreshToken }) => {
-          toastSuccess("Logged In Successfully");
-
-          // Save access Token
-          CookiesManager.setTokenCookie(token);
-          // Save refresh token
-          CookiesManager.setCookie({ key: REFRESH_TOKEN, value: refreshToken });
-
-          if (token) {
-            push("/wallets");
-          }
-        })
-        .catch((err) => {
-          toastError(`${err?.errorMessage}`);
-        });
-    }
+      .catch((err) => {
+        toastError(`${err?.errorMessage}`);
+      });
   };
-
   return (
     <div className='bg-grayBackGround w-[50%] h-full flex flex-col justify-center items-center'>
       <div className='w-[458px] max-w-[458px] space-y-[64px]'>
@@ -64,10 +65,7 @@ const LoginForm = () => {
 
         {/* Form */}
         <FormProvider {...methods}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='space-y-[40px]'
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className='space-y-[40px]'>
             {/* Company Email */}
             <AnimatedInput name='company-email' label='Company Email' />
             {/* Company Email End */}
@@ -99,7 +97,7 @@ const LoginForm = () => {
             {/* Form Controls */}
             <div className='w-full flex flex-col items-center gap-y-10'>
               {/* Login Button */}
-              <IconButton fullwidth size='md'>
+              <IconButton fullwidth size='md' loading={isLoading}>
                 Login
               </IconButton>
               {/* Login Button End */}
