@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
 import { LinkButton, IconButton, Checkbox } from "@emtech/ui";
@@ -14,6 +14,7 @@ import { REFRESH_TOKEN } from "@/lib/constants/index.constants";
 
 const LoginForm = () => {
   const { push } = useRouter();
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const [
     login, // This is the mutation trigger
