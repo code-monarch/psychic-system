@@ -7,11 +7,16 @@ import DistributionWalletTab from "./distribution-wallet-tab";
 import InstitutionalWalletTab from "./institutional-wallet-tab";
 import MasterWalletTopSection from "@/pattern/organisms/master-wallet/master-wallet-top-section";
 import DistributionWalletTopSection from "@/pattern/organisms/distribution-wallet/distribution-wallet-top-section";
+import { useGetWalletsQuery } from "@/redux/services/wallet/get-wallets.api-slice";
 
 const tabs = ["Master Wallet", "Distribution Wallet", "Institutional Wallet"];
 
 const SandBoxWalletTabs = () => {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+
+  const { data: wallets } = useGetWalletsQuery();
+
+  console.log("WALLETS: ", wallets);
 
   return (
     <div className='bg-white w-full min-h-screen flex flex-col items-center gap-y-[55px] py-[24px] px-[32px] rounded-[4px]'>

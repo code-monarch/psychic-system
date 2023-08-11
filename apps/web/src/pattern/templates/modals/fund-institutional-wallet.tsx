@@ -14,7 +14,7 @@ import {
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";
-import WalletCard from "@/pattern/organisms/wallets/wallet-card";
+import WalletCard from "@/pattern/organisms/cards/wallet-card";
 import InstitutionalWalletsModal from "./institutional-wallets-modal";
 
 const styles = {

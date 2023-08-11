@@ -1,4 +1,4 @@
-"use";
+"use client";
 import React from "react";
 import AuthLeftTemplate from "@/pattern/templates/auth-left-template";
 import LoginForm from "@/pattern/organisms/forms/login-form";

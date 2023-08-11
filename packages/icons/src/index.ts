@@ -17,3 +17,7 @@ export * from "./transactions-icon";
 export * from "./credit-indicator-icon";
 export * from "./debit-indicator-icon";
 
+export * from "./digital-cash-icon";
+export * from "./digital-regulation-icon";
+
+

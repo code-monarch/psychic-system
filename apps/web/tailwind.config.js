@@ -61,7 +61,6 @@ module.exports = {
       },
       boxShadow: {
         shadow1: "0px 6px 6px rgba(24, 39, 75, 0.12)",
-        
       },
       screens: {
         xsm: "1px",
@@ -118,6 +117,7 @@ module.exports = {
     backgroundImage: {
       "skeleton-gradient":
         "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
+      "onboardingHeaderImage": "url('/public/onboarding-modal-header.png')",
     },
   },
   plugins: [

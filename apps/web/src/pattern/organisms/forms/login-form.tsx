@@ -21,10 +21,6 @@ const LoginForm = () => {
     { isLoading }, // This is the destructured mutation result
   ] = useLoginMutation();
 
-  const {
-    handleSubmit,
-  } = useForm<ILoginPayload>();
-
   const methods = useForm<ILoginPayload>();
 
   const onSubmit: SubmitHandler<ILoginPayload> = ({ email, password }) => {
@@ -46,7 +42,8 @@ const LoginForm = () => {
         }
       })
       .catch((err) => {
-        toastError(`${err?.errorMessage}`);
+        toastError(`${err}`);
+        console.log("Errorrr: ", err);
       });
   };
   return (
@@ -60,9 +57,12 @@ const LoginForm = () => {
 
         {/* Form */}
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className='space-y-[40px]'>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className='space-y-[40px]'
+          >
             {/* Company Email */}
-            <AnimatedInput name='company-email' label='Company Email' />
+            <AnimatedInput name='email' label='Company Email' />
             {/* Company Email End */}
 
             {/* Password */}
@@ -92,7 +92,7 @@ const LoginForm = () => {
             {/* Form Controls */}
             <div className='w-full flex flex-col items-center gap-y-10'>
               {/* Login Button */}
-              <IconButton fullwidth size='md' loading={isLoading}>
+              <IconButton type='submit' fullwidth size='md' loading={isLoading}>
                 Login
               </IconButton>
               {/* Login Button End */}

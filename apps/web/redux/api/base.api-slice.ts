@@ -14,20 +14,11 @@ import { baseAuthApiSlice } from "./base-auth.api-slice";
 import CookiesManager from "@/lib/helpers/cookies-manager.helpers";
 import { store } from "../store";
 
-interface IRefreshResponse {
-  error: boolean;
-  accessToken: string;
-  refreshToken: string;
-  timestamp: string;
-}
-
-let refreshResponse: IRefreshResponse | any;
-
 // Create a new mutex
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.BASE_API_URL,
+  baseUrl: "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",
