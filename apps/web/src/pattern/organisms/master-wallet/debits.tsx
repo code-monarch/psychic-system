@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { CreditsArrow } from "@emtech/icons";
-import { Button } from "@emtech/ui";
+import { Button } from "@/ui";
 
 const Debits = () => {
   return (

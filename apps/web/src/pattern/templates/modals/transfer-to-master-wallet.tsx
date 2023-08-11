@@ -8,7 +8,7 @@ import {
   AlertDialoguePortal,
   AlertDialogueTrigger,
   IconButton,
-} from "@emtech/ui";
+} from "@/ui";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";
 import FundWalletFrom from "../../organisms/wallets/fund-wallet-from";

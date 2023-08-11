@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Hstack, Vstack } from "@emtech/ui";
+import { Vstack } from "@/ui";
 import * as Separator from "@radix-ui/react-separator";
 
 interface IProps {
@@ -31,7 +31,7 @@ const WalletTopHeaderDetails: FC<IProps> = ({ walletType, id, balance }) => {
       />
 
       {/* Balance */}
-      <Hstack gap='sm'>
+      <div className='flex flex-col desktop:flex-row gap-y-2 desktop:gap-x-2'>
         <div className='gradient-text uppercase font-[900] text-[14px]'>
           BALANCE:
         </div>
@@ -40,7 +40,7 @@ const WalletTopHeaderDetails: FC<IProps> = ({ walletType, id, balance }) => {
           {balance}
         </div>
         {/* Balance End */}
-      </Hstack>
+      </div>
       {/* Balance End */}
     </div>
   );

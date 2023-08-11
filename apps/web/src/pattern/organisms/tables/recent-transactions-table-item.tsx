@@ -1,6 +1,6 @@
 import React from "react";
 import StatusIndicator from "./table-status-indicator";
-import { TransacTypeIndicator } from "@emtech/ui";
+import { TransacTypeIndicator } from "@/ui";
 import { TransactionsIcon } from "@emtech/icons";
 
 interface IProps {

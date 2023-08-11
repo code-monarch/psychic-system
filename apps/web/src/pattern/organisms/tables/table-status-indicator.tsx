@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
-import { Badge } from "@emtech/ui";
+import { Badge } from "@/ui";
 
 interface IProps {
   status: "Success" | "Pending" | "Failed";

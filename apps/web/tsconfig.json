@@ -12,7 +12,8 @@
       "@/pattern/*": ["./src/pattern/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/public/*": ["./public/*"],
-      "@/redux/*": ["./redux/*"]
+      "@/redux/*": ["./redux/*"],
+      "@/ui": ["./src/ui/src/index.ts"]
     }
   },
   "include": [

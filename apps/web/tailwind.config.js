@@ -3,11 +3,12 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: "",
   content: [
-    "./**/**/**/**/**/**/*{.ts,tsx}",
+    "../../packages/ui/src/**/**/**/**/**/*.{ts,tsx}",
     "./src/app/*.{ts,tsx}",
     "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
     "./src/app/(auth)/**/**/**/**/**/*.{ts,tsx}",
     "./src/pattern/**/**/**/**/**/*.{ts,tsx}",
+    "./src/ui/src/**/**/**/**/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -60,6 +61,7 @@ module.exports = {
       },
       boxShadow: {
         shadow1: "0px 6px 6px rgba(24, 39, 75, 0.12)",
+        
       },
       screens: {
         xsm: "1px",

@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkButton } from "@emtech/ui";
+import { LinkButton } from "@/ui";
 
 const style = {
   linkBtn: `!text-secondaryText !text-base !font-medium`,

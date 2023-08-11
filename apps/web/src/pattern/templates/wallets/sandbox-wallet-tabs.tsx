@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger, VisuallyHidden } from "@emtech/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger, VisuallyHidden } from "@/ui";
 import { joinClasses } from "@emtech/utils";
 import MasterWalletTab from "./master-wallet-tab";
 import DistributionWalletTab from "./distribution-wallet-tab";
