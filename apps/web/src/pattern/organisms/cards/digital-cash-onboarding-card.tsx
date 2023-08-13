@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import { DigitalCashIcon } from "@emtech/icons";
 import { joinClasses } from "@emtech/utils";
-import { Button, VisuallyHidden } from "@/ui";
+import { Button, VisuallyHidden } from "@emtech/ui";
 import { useRouter } from "next/navigation";
 
 interface IProps {

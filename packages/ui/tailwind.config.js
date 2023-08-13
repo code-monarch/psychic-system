@@ -2,10 +2,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: "",
-  content: [
-    ".src/components/**/**/*.{ts,tsx}",
-    ".src/design/**/**/*.{ts,tsx}",
-  ],
+  purge: [".src/components/**/**/*.{ts,tsx}", ".src/design/**/**/*.{ts,tsx}"],
+  content: [".src/components/**/**/*.{ts,tsx}", ".src/design/**/**/*.{ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -14,7 +12,7 @@ module.exports = {
           "sans-serif",
           ...defaultTheme.fontFamily.sans,
         ],
-        serif: ["Montserrat", "sans-serif"]
+        serif: ["Montserrat", "sans-serif"],
       },
       // Semantic Colors
       colors: {

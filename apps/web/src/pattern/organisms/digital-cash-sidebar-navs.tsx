@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { joinClasses, useToggle } from "@emtech/utils";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, Text } from "@/ui";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, Text } from "@emtech/ui";
 
 import NavLink from "@/pattern/atoms/custom-nav-link";
 import { DashboardSidebarNavIcon } from "@/pattern/atoms/icons/sidebar-nav-icons/dashboard-sidebar-nav-icon";

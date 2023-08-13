@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
 import PrivacyStatement from "@/pattern/molecules/privacy-statement";
-import { Checkbox, LinkButton, IconButton } from "@/ui";
+import { Checkbox, LinkButton, IconButton } from "@emtech/ui";
 
 const SignUpForm = () => {
   // state for remembering user's login credentials for future login

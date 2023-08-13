@@ -1,78 +1,73 @@
 import { defineConfig } from "rollup";
-import commonjs from "@rollup/plugin-commonjs";
-import del from "rollup-plugin-delete";
-import svgr from "@svgr/rollup";
-import typescript from "rollup-plugin-typescript2";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import resolve from "@rollup/plugin-node-resolve";
-// import url from "@rollup/plugin-url";
-import postcss from "rollup-plugin-postcss";
-import autoprefixer from "autoprefixer";
-import tailwind from "tailwindcss";
 import { babel } from "@rollup/plugin-babel";
-import { terser } from "rollup-plugin-terser";
-import { DEFAULT_EXTENSIONS } from "@babel/core";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import typescript from "rollup-plugin-typescript2";
+import styles from "rollup-plugin-styles";
+import terser from "@rollup/plugin-terser";
+
+// To handle css files
+import postcss from "rollup-plugin-postcss";
+
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import image from "@rollup/plugin-image";
+import dts from "rollup-plugin-dts";
 
 const packageJson = require("./package.json");
 
-export default defineConfig({
-  input: "src/index.ts",
-  output: [
-    {
-      file: packageJson.main,
-      format: "cjs",
-      // exports: "named",
-      sourcemap: true,
-    },
-    {
-      file: packageJson.module,
-      format: "esm",
-      // exports: "named",
-      sourcemap: true,
-    },
-  ],
-  external: ["react", "react-dom"],
-  plugins: [
-    peerDepsExternal(),
-    resolve(),
-    commonjs(),
-    del({ targets: "./dist/*" }),
-    svgr(),
-    typescript({
-      verbosity: 1,
-      tsconfig: "./tsconfig.rollup.json",
-    }),
-    // url({
-    //   include: [
-    //     "./fonts/**/*.ttf",
-    //     "./fonts/**/*.woff",
-    //     "./fonts/**/*.woff2",
-    //     "./fonts/**/*.svg",
-    //   ],
-    // }),
-    babel({
-      babelHelpers: "bundled",
-      exclude: "node_modules/**",
-      extensions: [...DEFAULT_EXTENSIONS, ".ts", "tsx"],
-    }),
-    postcss({
-      config: {
-        path: "./postcss.config.js",
+const external = [
+  "module",
+  "path",
+  "typescript",
+  "rollup",
+  "react",
+  "react-dom",
+  "prop-types",
+  "prop-types",
+  "/.css$/",
+];
+
+export default defineConfig([
+  {
+    input: ["src/index.ts"],
+    output: [
+      {
+        file: packageJson.main,
+        format: "cjs",
+        // exports: "named",
+        sourcemap: true,
       },
-      plugins: [
-        autoprefixer(),
-        tailwind({
-          config: "./tailwind.config.js",
-        }),
-      ],
-    }),
-    terser({
-      compress: true,
-      mangle: true,
-      output: {
-        preamble: "/* eslint-disable */",
-        comments: false,
+      {
+        file: packageJson.module,
+        format: "esm",
+        // exports: "named",
+        sourcemap: true,
       },
-    }),
-  ],
-});
+    ],
+    plugins: [
+      babel({
+        babelHelpers: "bundled",
+        exclude: "node_modules/**",
+        // presets: ["@babel/preset-react"],
+      }),
+      peerDepsExternal(),
+      resolve({
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
+      }),
+      commonjs(),
+      typescript({ useTsconfigDeclarationDir: true }),
+      postcss(),
+      styles(),
+      terser(),
+
+      image(),
+    ],
+    external, // telling rollup anything that is in this array aren't part of type exports
+  },
+  {
+    // path to your declaration files root
+    input: ["src/index.ts"],
+    output: [{ file: packageJson.types, format: "es" }],
+    plugins: [dts.default()],
+  },
+]);

@@ -11,7 +11,7 @@ import {
   Checkbox,
   VisuallyHidden,
   Button,
-} from "@/ui";
+} from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import { useSelectItems } from "@/lib/hooks/useSelectItems";
 

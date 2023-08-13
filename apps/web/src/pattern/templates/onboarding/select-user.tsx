@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Portal } from "@/ui";
+import { Portal } from "@emtech/ui";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import DigitalRegulationOnboardingCard from "@/pattern/organisms/cards/digital-regulation-onboarding-card";
 import DigitalCashOnboardingCard from "@/pattern/organisms/cards/digital-cash-onboarding-card";

@@ -10,7 +10,7 @@ import {
   Button,
   IconButton,
   VisuallyHidden,
-} from "@/ui";
+} from "@emtech/ui";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { useToggle } from "@emtech/utils";
 import ModalCard from "../../organisms/modal-card";

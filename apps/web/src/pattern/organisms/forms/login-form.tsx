@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm, FormProvider } from "react-hook-form";
 import AnimatedInput from "@/pattern/molecules/inputs/animated-input";
-import { LinkButton, IconButton, Checkbox } from "@/ui";
+import { LinkButton, IconButton, Checkbox } from "@emtech/ui";
 import { useRouter } from "next/navigation";
 import {
   ILoginPayload,

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Vstack } from "@/ui";
+import { Vstack } from "@emtech/ui";
 
 interface IProps {
   walletType: string;

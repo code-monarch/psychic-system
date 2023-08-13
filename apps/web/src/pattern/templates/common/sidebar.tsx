@@ -12,7 +12,7 @@ import { WEBSITE_URL } from "@/lib/constants/index.constants";
 import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 
 import DigitalCashNavigation from "@/pattern/organisms/digital-cash-sidebar-navs";
-import { VisuallyHidden } from "@/ui";
+import { VisuallyHidden } from "@emtech/ui";
 
 const Sidebar = () => {
   const { isCollapsed, collapse } = useCollapseSidebar();

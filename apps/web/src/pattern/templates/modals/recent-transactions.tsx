@@ -8,7 +8,7 @@ import {
   AlertDialogueTrigger,
   IconButton,
   TransacTypeIndicator,
-} from "@/ui";
+} from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import { TransactionsIcon } from "@emtech/icons";
 import ModalCard from "../../organisms/modal-card";

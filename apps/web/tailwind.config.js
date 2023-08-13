@@ -2,6 +2,14 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   darkMode: "",
+  mode: "jit",
+  purge: [
+    "./src/app/*.tsx",
+    "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/app/(auth)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/pattern/**/**/**/**/**/*.{ts,tsx}",
+    "./src/ui/src/**/**/**/**/**/*.{ts,tsx}",
+  ],
   content: [
     "./src/app/*.{ts,tsx}",
     "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
@@ -116,7 +124,7 @@ module.exports = {
     backgroundImage: {
       "skeleton-gradient":
         "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
-      "onboardingHeaderImage": "url('/public/onboarding-modal-header.png')",
+      onboardingHeaderImage: "url('/public/onboarding-modal-header.png')",
     },
   },
   plugins: [

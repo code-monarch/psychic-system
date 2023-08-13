@@ -8,7 +8,7 @@ import {
   IconButton,
   LinkButton,
   Vstack
-} from "@/ui";
+} from "@emtech/ui";
 import { useToggle } from "@emtech/utils";
 import HiddenEyeIcon from "@/pattern/atoms/icons/hidden-eye";
 import EyeOpenIcon from "@/pattern/atoms/icons/eye-open-icon";
