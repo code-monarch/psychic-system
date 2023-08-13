@@ -16,11 +16,13 @@ const DistributionWalletTopSection: FC<IProps> = ({
 }) => {
   return (
     <div className='w-full flex items-center justify-between'>
-      <WalletTopHeaderDetails
-        walletType={walletType ?? "Distribution"}
-        id={id ?? "0.0.3065441"}
-        balance={balance ?? "₦140,000,000,000,000.00"}
-      />
+      <div>
+        <WalletTopHeaderDetails
+          walletType={walletType ?? "Distribution"}
+          id={id ?? "0.0.3065441"}
+          balance={balance ?? "₦000,000,000,000.00"}
+        />
+      </div>
 
       {/* Transfer to master wallet and Fund Institutional Wallet */}
       <div className='flex items-center gap-4'>

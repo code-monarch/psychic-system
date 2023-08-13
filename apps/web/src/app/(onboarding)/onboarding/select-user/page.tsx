@@ -2,7 +2,7 @@
 import React from "react";
 import SelectUser from "@/pattern/templates/onboarding/select-user";
 
-const Onboarding = () => {
+const SelectUserOnboarding = () => {
   return (
     <div>
       <SelectUser />
@@ -10,4 +10,4 @@ const Onboarding = () => {
   );
 };
 
-export default Onboarding;
+export default SelectUserOnboarding;

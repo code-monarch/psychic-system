@@ -8,17 +8,13 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { Mutex } from "async-mutex";
 import Cookies from "js-cookie";
-import { logOut } from "../features/auth-slice";
-import { COOKIE_TOKEN, REFRESH_TOKEN } from "@/lib/constants/index.constants";
-import { baseAuthApiSlice } from "./base-auth.api-slice";
-import CookiesManager from "@/lib/helpers/cookies-manager.helpers";
-import { store } from "../store";
+import { COOKIE_TOKEN } from "@/lib/constants/index.constants";
 
 // Create a new mutex
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/",
+  baseUrl: "https://digitalassets.qa.emtech.com/dcpinternal/v1",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",
@@ -29,7 +25,7 @@ const baseQuery = fetchBaseQuery({
     const token = Cookies.get(COOKIE_TOKEN);
 
     if (token) {
-      headers.set("x-access-token", `Bearer ${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -45,47 +41,7 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result?.error?.status === 401) {
-    // checking whether the mutex is locked
-    // async-mutex to prevent multiple requests to the refresh endpoint endpoint when the first request to refresh the access token fails.
-    if (!mutex.isLocked()) {
-      const release = await mutex.acquire();
-      try {
-        // send refresh token to get new access token
-        const refreshResponse = await store.dispatch(
-          baseAuthApiSlice.endpoints.getRefreshToken.initiate()
-        );
-        if (refreshResponse?.data) {
-          // Delete previous auth cookie
-          CookiesManager.removeCookie(COOKIE_TOKEN);
-          CookiesManager.removeCookie(REFRESH_TOKEN);
-
-          // Save new access token
-          if (refreshResponse?.data?.accessToken) {
-            CookiesManager.setTokenCookie(refreshResponse?.data?.accessToken);
-          }
-
-          // Save new refresh token
-          if (refreshResponse?.data?.refreshToken) {
-            CookiesManager.setCookie({
-              key: REFRESH_TOKEN,
-              value: refreshResponse?.data?.refreshToken,
-            });
-          }
-
-          // retry the original query with new access token
-          result = await baseQuery(args, api, extraOptions);
-        } else {
-          api.dispatch(logOut());
-        }
-      } finally {
-        // release must be called once the mutex should be released again.
-        release();
-      }
-    } else {
-      // wait until the mutex is available without locking it
-      await mutex.waitForUnlock();
-      result = await baseQuery(args, api, extraOptions);
-    }
+    result = await baseQuery(args, api, extraOptions);
   }
   return result;
 };

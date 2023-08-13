@@ -5,19 +5,23 @@ import FundDistributionWalletModal from "@/pattern/templates/modals/fund-distrib
 interface IProps {
   walletType: "master"| "Distiribution" | "Institutional";
   id: string;
-  balance: string;
+  balance: string | number;
 }
 
 const MasterWalletTopSection: FC<IProps> = ({ walletType, id, balance }) => {
   return (
     <div className='w-full flex items-center justify-between'>
-      <WalletTopHeaderDetails
-        walletType={walletType ?? 'master'}
-        id={id ?? '0.0.3065441'}
-        balance={balance ?? '₦140,000,000,000,000.00'}
-      />
+      <div>
+        <WalletTopHeaderDetails
+          walletType={walletType ?? "master"}
+          id={id ?? ("0.0.3065441" as string)}
+          balance={balance ?? "₦000,000,000,000.00"}
+        />
+      </div>
       {/* Fund Distribution Wallet Modal */}
-      <FundDistributionWalletModal />
+      <div>
+        <FundDistributionWalletModal />
+      </div>
     </div>
   );
 };

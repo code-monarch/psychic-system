@@ -38,7 +38,7 @@ const LoginForm = () => {
         CookiesManager.setCookie({ key: REFRESH_TOKEN, value: refreshToken });
 
         if (token) {
-          push("/wallets");
+          push("/wallet");
         }
       })
       .catch((err) => {

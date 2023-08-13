@@ -13,7 +13,7 @@ export const refreshApiSlice = baseAuthApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getRefreshToken: builder.query<IRefreshResponse, void>({
       query: () => ({
-        url: "auth/refresh",
+        url: "/refresh",
         method: "GET",
         headers: {
           "Content-Type": "application/json",

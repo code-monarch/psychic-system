@@ -1,14 +1,11 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 "use client"
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import Cookies from "js-cookie";
 import {REFRESH_TOKEN } from "@/lib/constants/index.constants";
-import { IRefreshResponse } from "../services/auth/refresh-token.api-slice";
 
 export const baseAuthQuery = fetchBaseQuery({
-  baseUrl: process.env.BASE_API_URL,
+  baseUrl: "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1",
   // credentials: "include",
   // credentials: "same-origin",
   mode: "cors",
@@ -19,7 +16,7 @@ export const baseAuthQuery = fetchBaseQuery({
     const refreshToken = Cookies.get(REFRESH_TOKEN);
 
     if (refreshToken) {
-      headers.set("x-refresh-token", `${refreshToken}`);
+      headers.set("Authorization", `${refreshToken}`);
     }
     return headers;
   },
@@ -29,18 +26,8 @@ export const baseAuthQuery = fetchBaseQuery({
 // Keeps our ApiSlices modular.
 
 export const baseAuthApiSlice = createApi({
-  reducerPath: "baseAuthApi",
+  reducerPath: "baseRefreshApi",
   baseQuery: baseAuthQuery,
   refetchOnReconnect: true,
-  endpoints: (builder) => ({
-    getRefreshToken: builder.query<IRefreshResponse, void>({
-      query: () => ({
-        url: "auth/refresh",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    }),
-  }),
+  endpoints: () => ({})
 });

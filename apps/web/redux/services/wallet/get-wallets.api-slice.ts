@@ -2,7 +2,7 @@ import { baseApiSlice } from "../../api/base.api-slice";
 
 interface IWalletsResponse {
   id: string;
-  category: string;
+  category: "Distribution" | "Master" | "Institutional";
   owner: string;
   status: "ACTIVE" | "INACTIVE" | "DELETED";
   level: "UNVERIFIED" | "MINIMUM" | "MEDIUM" | "ENHANCED" | "OTHER";
@@ -23,7 +23,7 @@ interface IWalletsResponse {
 export const WalletsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Get Admin Wallets
-    getWallets: builder.query<IWalletsResponse, void>({
+    getWallets: builder.query<IWalletsResponse[], void>({
       query: () => ({
         url: "wallets",
         method: "GET",

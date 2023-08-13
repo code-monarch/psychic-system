@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { baseApiSlice } from "./api/base.api-slice";
-// import { baseAuthApiSlice } from "./api/base-auth.api-slice";
+import { baseAuthApiSlice } from "./api/base-auth.api-slice";
 
 // Import Setup Listener
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -14,13 +14,16 @@ import userDetailsSliceReducer from "./features/user-slice";
 export const store = configureStore({
   reducer: {
     [baseApiSlice.reducerPath]: baseApiSlice.reducer,
-    // [baseAuthApiSlice.reducerPath]: baseAuthApiSlice.reducer,
+    [baseAuthApiSlice.reducerPath]: baseAuthApiSlice.reducer,
     auth: authReducer,
     activeSidebarNav: activeSidebarNavReducer,
     userDetails: userDetailsSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat(baseApiSlice.middleware),
+    getDefaultMiddleware({}).concat(
+      baseApiSlice.middleware,
+      baseAuthApiSlice.middleware
+    ),
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   devTools: process.env.NODE_ENV !== "production",
 });
