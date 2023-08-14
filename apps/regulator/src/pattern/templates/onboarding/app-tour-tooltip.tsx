@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import dynamic from "next/dynamic";
-import { Step, Props, Styles, CallBackProps } from "react-joyride";
+import { Step, Props, Styles, CallBackProps  } from "react-joyride";
 import { useDispatch } from "react-redux";
 import { setAppTourId } from "@/redux/features/global-state";
 const DynamicJoyride = dynamic(() => import("react-joyride"), { ssr: false });
@@ -42,13 +42,14 @@ const defaultStyles: Styles = {
   },
   buttonNext: {
     backgroundColor: "transparent",
+    color: "#fff",
     outline: "none",
     padding: "0",
     marginLeft: "0.5rem",
   },
   buttonBack: {
-    backgroundColor: "transparent",
-    color: "white",
+    backgroundColor: "#174CFF",
+    color: "#000",
     padding: "0",
   },
   buttonSkip: {
@@ -77,6 +78,7 @@ const AppTourTooltip: React.FC<TooltipProps> = ({
     <DynamicJoyride
       run={runTour}
       steps={steps}
+      hideBackButton
       continuous
       showSkipButton
       hideCloseButton
@@ -84,6 +86,7 @@ const AppTourTooltip: React.FC<TooltipProps> = ({
       disableOverlayClose
       disableScrolling
       spotlightPadding={10}
+      // tooltipComponent={}
       floaterProps={{
         styles: {
           arrow: {
@@ -99,7 +102,7 @@ const AppTourTooltip: React.FC<TooltipProps> = ({
       locale={{
         back: "Back",
         close: "Close",
-        last: "Ok. got it",
+        last: "Done",
         next: "Next",
         open: "Open the dialog",
         skip: <button onClick={() => setRunTour(true)}>✕</button>,

@@ -1,5 +1,26 @@
 # Turborepo starter
 
+## How to run the apps after cloning?
+
+This is a guide on how to run the regulator and FSP apps after cloning
+
+### Install pnpm and turborepo globally
+
+```
+npm install -g pnpm
+pnpm install turbo --global
+```
+### build packages
+
+```
+turbo run build --filter ui
+```
+### run regulator app dev server
+
+```
+turbo run dev --filter regulator
+```
+
 This is an official starter Turborepo.
 
 ## Using this example
