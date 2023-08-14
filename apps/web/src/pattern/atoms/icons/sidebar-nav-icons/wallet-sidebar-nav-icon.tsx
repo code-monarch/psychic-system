@@ -3,25 +3,35 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { IIconProps } from "@/pattern/types";
 
-export const WalletSidebarNavIcon = ({ ...props }: IIconProps) => {
-  const [color, setColor] = useState<string>("#433A81");
+export const WalletSidebarNavIcon = ({
+  color: iconColor,
+  width,
+  height,
+  ...props
+}: IIconProps) => {
+  const [color, setColor] = useState<string>("#8499B1");
 
   const href = "/wallet";
   const pathname = usePathname();
-  // const isActive = pathname.startsWith(href);
 
   useEffect(() => {
-    if (pathname.startsWith(href)) {
+    if (pathname.startsWith(href) && !iconColor) {
       setColor("#C0933E");
-    } else {
+    } else if (!pathname.startsWith(href) && !iconColor) {
       setColor("#8499B1");
     }
-  }, [pathname]);
+  }, [iconColor, pathname]);
+
+  useEffect(() => {
+    if (iconColor) {
+      setColor(iconColor);
+    }
+  }, [iconColor, pathname]);
 
   return (
     <svg
-      width='25'
-      height='24'
+      width={width ?? '24'}
+      height={height ?? '24'}
       viewBox='0 0 25 24'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'

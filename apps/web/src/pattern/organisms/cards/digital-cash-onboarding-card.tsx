@@ -2,11 +2,15 @@
 import React, { FC } from "react";
 import { DigitalCashIcon } from "@emtech/icons";
 import { joinClasses } from "@emtech/utils";
-import { Button, VisuallyHidden } from "@emtech/ui";
-import { useRouter } from "next/navigation";
+import { VisuallyHidden } from "@emtech/ui";
+import { useAppDispatch } from "@/redux/hooks";
+import { startTour } from "@/redux/features/global-state";
 
 interface IProps {
+  // Card Title
   title: string;
+
+  // Label "for" prop
   htmlFor: string;
 
   // Color of Card SVG as it changes
@@ -17,6 +21,9 @@ interface IProps {
 
   // Determines whether card is selected
   isSelected: boolean;
+
+  // Closes Select App User Modal
+  closeSelectAppUserModal: () => void;
 }
 
 const DigitalCashOnboardingCard: FC<IProps> = ({
@@ -25,14 +32,31 @@ const DigitalCashOnboardingCard: FC<IProps> = ({
   color,
   textClass,
   isSelected,
+  closeSelectAppUserModal,
 }) => {
-  const { push } = useRouter();
+  const dispatch = useAppDispatch();
+
+  /**
+   * @description
+   * method that Begins app tour by
+   * Closes Select App User Modal then
+   * sets tour state to true
+   */
+  const startAppTour = () => {
+    closeSelectAppUserModal();
+    dispatch(startTour());
+  };
   return (
     <label
       htmlFor={`${htmlFor}`}
       className='w-[272px] h-fit flex flex-col justify-start gap-y-[28px] cursor-pointer'
     >
-      <div className='bg-white w-full h-[201px] flex items-center justify-center rounded-[5px] shadow-md'>
+      <div
+        className={joinClasses(
+          isSelected && "border border-secondaryText",
+          "bg-white w-full h-[201px] flex items-center justify-center rounded-[5px] shadow-md"
+        )}
+      >
         <DigitalCashIcon color={color} />
       </div>
 
@@ -50,13 +74,9 @@ const DigitalCashOnboardingCard: FC<IProps> = ({
 
         {/* Go to Tour Button */}
         <VisuallyHidden visible={isSelected}>
-          <Button
-            size='xs'
-            className='!w-[104] !h-[37px]'
-            onClick={() => push("onboarding/tour")}
-          >
+          <span className='seeTourBtn' onClick={() => startAppTour()}>
             See tour
-          </Button>
+          </span>
         </VisuallyHidden>
         {/* Go to Tour Button End */}
       </div>

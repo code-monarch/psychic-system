@@ -117,6 +117,21 @@ input:-webkit-autofill:active {
   }
 }
 
+@layer components {
+  .seeTourBtn {
+    background-color: #174cff;
+    font-size: 14px;
+    color: white;
+    font-weight: 800;
+    white-space: nowrap;
+    width: 104px;
+    height: 37px;
+    padding: 8px 24px 8px 24px;
+    border-radius: 4px;
+    gap: 8px;
+  }
+}
+
 .gradient-text {
   /* Fallback: Set a background color. */
   background-color: #3fcc6a;
@@ -188,6 +203,6 @@ input:-webkit-autofill:active {
   top: 0;
   bottom: 0;
   transform: translateX(-100%);
-  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   display: grid;
 }

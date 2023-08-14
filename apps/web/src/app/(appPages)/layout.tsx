@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import Sidebar from "@/pattern/templates/common/sidebar";
-import PageLayout from "@/pattern/templates/common/page-layout";
+import PageWrapper from "@/pattern/templates/common/page-wrapper";
 import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 import { joinClasses } from "@emtech/utils";
 
@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       )}
     >
       <Sidebar />
-      <PageLayout>{children}</PageLayout>
+      <PageWrapper>{children}</PageWrapper>
     </section>
   );
 };

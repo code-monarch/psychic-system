@@ -9,6 +9,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from "./features/auth-slice";
 import activeSidebarNavReducer from "./features/active-sidebar-nav-slice";
 import userDetailsSliceReducer from "./features/user-slice";
+import globalStateReducers from "./features/global-state";
 
 // Create Redux Store with our base apiSlice
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     auth: authReducer,
     activeSidebarNav: activeSidebarNavReducer,
     userDetails: userDetailsSliceReducer,
+    globalState: globalStateReducers,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat(
