@@ -117,7 +117,7 @@ const DigitalCashNavigation = () => {
                 {/* Navigation Link */}
                 <NavLink
                   href={`${href}`}
-                  exact={link === "Dashboard"}
+                  // exact={link === "Dashboard"}
                   isOnSpotlight={isOnSpotlight(tourId)}
                 >
                   <span>
