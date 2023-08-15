@@ -1,6 +1,6 @@
 import React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import classes from "../../design/radio.inputs.classes";
+import classes from "../../styles/radio.inputs.classes";
 import { joinClasses } from "@emtech/utils";
 
 export interface IRadioGroupClasses {

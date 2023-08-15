@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import classes from "../../design/header.classes";
+import classes from "../../styles/header.classes";
 import { joinClasses } from "@emtech/utils";
 
 export interface IHeaderClasses {

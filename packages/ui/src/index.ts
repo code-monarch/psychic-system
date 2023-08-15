@@ -1,3 +1,5 @@
+// import "./styles/tailwind.css";
+
 // Controls
 export * from "./components/controls/button";
 export * from "./components/controls/link-button";
@@ -53,17 +55,17 @@ export * from "./components/layout/h-stack";
 export * from "./components/typography/header";
 
 // Classes
-export { default as accordionClasses } from "./design/accordion.data-display.classes";
-export { default as buttonClasses } from "./design/button.inputs.classes";
-export { default as cardClasses } from "./design/card.data-display.classes";
-export { default as chipsClasses } from "./design/badge.data-display.classes";
-export { default as containerClasses } from "./design/container.layout.classes";
-export { default as flexClasses } from "./design/flex.layout.classes";
-export { default as fullWidthClasses } from "./design/full-width.layout.classes";
-export { default as headingClasses } from "./design/heading.inputs.classes";
-export { default as inputsClasses } from "./design/inputs.classes";
-export { default as loaderClasses } from "./design/loader.feedback.classes";
-export { default as radioClasses } from "./design/radio.inputs.classes";
-export { default as spinnerClasses } from "./design/spinner.icons.classes";
-export { default as textInputClasses } from "./design/text.inputs.classes";
-export { default as headerClasses } from "./design/header.classes";
+export { default as accordionClasses } from "./styles/accordion.data-display.classes";
+export { default as buttonClasses } from "./styles/button.inputs.classes";
+export { default as cardClasses } from "./styles/card.data-display.classes";
+export { default as chipsClasses } from "./styles/badge.data-display.classes";
+export { default as containerClasses } from "./styles/container.layout.classes";
+export { default as flexClasses } from "./styles/flex.layout.classes";
+export { default as fullWidthClasses } from "./styles/full-width.layout.classes";
+export { default as headingClasses } from "./styles/heading.inputs.classes";
+export { default as inputsClasses } from "./styles/inputs.classes";
+export { default as loaderClasses } from "./styles/loader.feedback.classes";
+export { default as radioClasses } from "./styles/radio.inputs.classes";
+export { default as spinnerClasses } from "./styles/spinner.icons.classes";
+export { default as textInputClasses } from "./styles/text.inputs.classes";
+export { default as headerClasses } from "./styles/header.classes";

@@ -1,7 +1,7 @@
 import React from "react";
 import { joinClasses } from "@emtech/utils";
 import { ILoaderClasses } from "./loader";
-import classes from "../../design/spinner.icons.classes";
+import classes from "../../styles/spinner.icons.classes";
 
 export interface ISpinnerIconClasses {
   size: {

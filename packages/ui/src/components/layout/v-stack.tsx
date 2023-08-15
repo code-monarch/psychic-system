@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/v-stack.layout.classes";
+import classes from "../../styles/v-stack.layout.classes";
 
 export interface IVstackClasses {
   base: string;

@@ -31,7 +31,6 @@
     "@radix-ui/react-switch": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.5",
-    "@rollup/plugin-url": "^8.0.1",
     "@svgr/rollup": "^8.0.1",
     "@tailwindcss/jit": "^0.1.18",
     "eslint-config-custom": "workspace:*",
@@ -42,6 +41,7 @@
     "react-hook-form": "^7.43.6",
     "react-phone-input-2": "^2.15.1",
     "react-toastify": "^9.1.1",
+    "rollup-plugin-import-css": "^3.3.1",
     "rollup-plugin-terser": "^7.0.2",
     "tailwindcss-radix": "^2.8.0"
   },

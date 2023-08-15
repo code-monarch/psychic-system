@@ -1,6 +1,6 @@
 import * as React from "react";
-import classes from "../../design/button.inputs.classes";
-import {joinClasses} from "@emtech/utils";
+import classes from "../../styles/button.inputs.classes";
+import { joinClasses } from "@emtech/utils";
 
 export interface ILinkButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -28,7 +28,7 @@ export const LinkButton: React.FC<ILinkButtonProps> = ({
   return (
     <button
       {...props}
-      type="button"
+      type='button'
       disabled={disabled}
       onClick={handleClick}
       className={joinClasses(

@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/h-stack.layout.classes";
+import classes from "../../styles/h-stack.layout.classes";
 
 export interface IHstackClasses {
   base: string;

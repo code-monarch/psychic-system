@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
-  darkMode: "",
   content: [".src/**/**/**/**/**/**/*.tsx"],
   theme: {
     extend: {
@@ -16,25 +15,6 @@ module.exports = {
       },
       // Semantic Colors
       colors: {
-        primary: {
-          100: "#F2F7FF",
-          150: "#D9E8FF",
-          900: "#D9E8FF",
-          700: "#0067FC",
-          600: "#1F79FC",
-          500: "#0067fc3d",
-        },
-        gray: {
-          40: "#F5F4F8",
-          50: "#F5F4F8",
-          60: "#8E8DA1",
-          100: "#6C6B7A",
-          200: "#E6E6F0",
-        },
-        success: {
-          50: "#E0EFE7",
-          100: "#32965D",
-        },
         primaryBlue: "#174CFF",
         semanticBlack: "#27272B",
         disabledBtn: "#D9D8E7",

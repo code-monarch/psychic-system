@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import classes from "../../design/card.data-display.classes";
+import classes from "../../styles/card.data-display.classes";
 import { joinClasses } from "@emtech/utils";
 import { IFullWidthProps, FullWidth } from "../layout/full-width";
 import { IHeadingProps, Heading } from "../typography/heading";

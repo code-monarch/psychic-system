@@ -1,5 +1,5 @@
 import * as React from "react";
-import classes from "../../design/badge.data-display.classes";
+import classes from "../../styles/badge.data-display.classes";
 import { joinClasses } from "@emtech/utils";
 
 export interface IBadgeClasses {
@@ -26,7 +26,7 @@ export interface IBadgeClasses {
     sm: string;
     md: string;
     lg: string;
-    full: string
+    full: string;
   };
 }
 export interface IBadgeProps extends React.HTMLAttributes<HTMLDivElement> {

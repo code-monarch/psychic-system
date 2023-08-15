@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/flex.layout.classes";
+import classes from "../../styles/flex.layout.classes";
 
 export interface IFlexClasses {
   base: string;

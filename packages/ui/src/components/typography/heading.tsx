@@ -1,5 +1,5 @@
 import * as React from "react";
-import classes from "../../design/heading.inputs.classes";
+import classes from "../../styles/heading.inputs.classes";
 import { joinClasses } from "@emtech/utils";
 
 export interface IHeadingClasses {

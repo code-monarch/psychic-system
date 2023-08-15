@@ -25,34 +25,3 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
   width?: string;
   className?: string;
 }
-export interface IPricing {
-  tierOne: string;
-  tierTwo: string;
-  tierThree: string;
-}
-export interface ISignupFormInput {
-  firstName: string;
-  lastName: string;
-  email: string;
-  businessName: string;
-  password: string;
-}
-export interface ILoginFormInput {
-  email: string;
-  password: string;
-}
-
-export interface IResetPasswordFormInputs {
-  password: string;
-  confirmPassword?: string;
-}
-
-export interface IResetPasswordFormInput {
-  email: string;
-}
-export interface IFundWalletModalInput {
-  amount: string;
-  name: string;
-  email: string;
-  remark: string;
-}

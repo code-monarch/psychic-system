@@ -1,8 +1,8 @@
 import * as React from "react";
-import classes from "../../design/button.inputs.classes";
-import {joinClasses} from "@emtech/utils";
-import {IButtonProps} from "./button";
-import {Spinner} from "../feedback/spinner";
+import classes from "../../styles/button.inputs.classes";
+import { joinClasses } from "@emtech/utils";
+import { IButtonProps } from "./button";
+import { Spinner } from "../feedback/spinner";
 
 export interface IIconButtonProps extends IButtonProps {
   loadingtext?: string; // Button label when loading is true

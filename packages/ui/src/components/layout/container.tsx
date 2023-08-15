@@ -1,6 +1,6 @@
 import React from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/container.layout.classes";
+import classes from "../../styles/container.layout.classes";
 
 export interface IContainerClasses {
   base: string;

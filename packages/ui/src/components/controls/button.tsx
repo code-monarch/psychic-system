@@ -1,7 +1,7 @@
 import * as React from "react";
-import classes from "../../design/button.inputs.classes";
-import {joinClasses} from "@emtech/utils";
-import {ButtonType} from "../../types";
+import classes from "../../styles/button.inputs.classes";
+import { joinClasses } from "@emtech/utils";
+import { ButtonType } from "../../types";
 
 export interface IButtonClasses {
   base: string;

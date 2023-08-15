@@ -2,7 +2,7 @@ import * as React from "react";
 import { joinClasses } from "@emtech/utils";
 import { useToggle } from "@emtech/utils";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import classes from "../../design/inputs.classes";
+import classes from "../../styles/inputs.classes";
 
 export interface IPasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -1,6 +1,6 @@
 import React from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/loader.feedback.classes";
+import classes from "../../styles/loader.feedback.classes";
 
 export interface ILoaderClasses {
   variant: {

@@ -23,17 +23,17 @@ const styles = {
 };
 
 const FundInstitutionalWalletModal = () => {
-  // Determines whether modal is open
+  // Determines whether modal is fund-institution-wallet modal visible
   const [isOpen, setIsOpen] = useToggle(false);
 
-  // Determines which wallet is chosen
+  // Determines which institutional wallet is chosen
   const [wallet, setWallet] = useState<string>("");
 
   return (
     <>
       <AlertDialogue isopen={isOpen} setisopen={setIsOpen}>
         <AlertDialogueTrigger>
-          <IconButton variant='transparent' lefticon={<PlusIcon />}>
+          <IconButton variant='primary' lefticon={<PlusIcon />}>
             Fund Distribution Wallet
           </IconButton>
         </AlertDialogueTrigger>

@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import { joinClasses } from "@emtech/utils";
-import classes from "../../design/full-width.layout.classes";
+import classes from "../../styles/full-width.layout.classes";
 
 export interface IFullWidthClasses {
   base: string;

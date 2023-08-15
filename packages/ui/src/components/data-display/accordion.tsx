@@ -1,6 +1,6 @@
 import React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import classes from "../../design/accordion.data-display.classes";
+import classes from "../../styles/accordion.data-display.classes";
 import { joinClasses } from "@emtech/utils";
 
 export interface IAccordionClasses {
@@ -22,7 +22,7 @@ type AccordionPrimitiveProps = React.ComponentProps<
 
 type AccordionProps = AccordionPrimitiveProps;
 
-const Accordion = ({children, className, type}: AccordionProps) => (
+const Accordion = ({ children, className, type }: AccordionProps) => (
   <AccordionPrimitive.Root
     type={type}
     className={joinClasses(classes.base, className)}
@@ -41,7 +41,11 @@ type AccordionItemPrimitiveProps = React.ComponentProps<
 
 type AccordionItemProps = AccordionItemPrimitiveProps;
 
-const AccordionItem = ({children, className, ...props}: AccordionItemProps) => (
+const AccordionItem = ({
+  children,
+  className,
+  ...props
+}: AccordionItemProps) => (
   <AccordionPrimitive.Item
     {...props}
     className={joinClasses(classes.accordionItem, className)}

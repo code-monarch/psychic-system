@@ -13,14 +13,14 @@ export default <IButtonClasses>{
   },
   variant: {
     primary:
-      "bg-[#174CFF] text-white hover:bg-[#174CFF] hover:opacity-[30%] disabled:bg-[#D9D8E7] focus:ring-none border-none",
+      "!bg-[#174CFF] !text-white hover:!bg-[#174CFF] hover:!opacity-[30%] disabled:!ring-none !border-none",
     secondary:
-      "bg-[#F2F7FF] text-[#0067fc] disabled:bg-[#D9D8E7] focus:ring-none disabled:bg-[#D9D8E7] disabled:text-white border-none",
+      "!bg-[#F2F7FF] !text-[#0067fc] disabled:!bg-[#D9D8E7] focus:!ring-none disabled:!bg-[#D9D8E7] disabled:!text-white border-none",
     transparent:
-      "bg-transparent text-[#174CFF] disabled:bg-[#D9D8E7] focus:ring-none disabled:bg-[#D9D8E7] disabled:text-white border border-[#174CFF]",
+      "!bg-transparent !text-[#174CFF] disabled:!bg-[#D9D8E7] focus:!ring-none disabled:!bg-[#D9D8E7] disabled:!text-white !border !border-[#174CFF]",
     disabled:
-      "bg-[#D9D8E7] text-[#F5F4F8] hover:bg-[#D9D8E7] focus:ring-none disabled:bg-[#D9D8E7] border-none",
+      "!bg-[#D9D8E7] !text-[#F5F4F8] hover:!bg-[#D9D8E7] focus:!ring-none disabled:!bg-[#D9D8E7] !border-none",
     loading:
-      "bg-[#0067FC] opacity-[30%] text-[#F5F4F8] focus:ring-none disabled:bg-[#D9D8E7] border-none cursor-disabled",
+      "!bg-[#0067FC] !opacity-[30%] !text-[#F5F4F8] focus:!ring-none disabled:!bg-[#D9D8E7] !border-none !cursor-disabled",
   },
 };

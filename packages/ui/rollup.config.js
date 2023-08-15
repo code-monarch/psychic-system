@@ -8,6 +8,9 @@ import terser from "@rollup/plugin-terser";
 
 // To handle css files
 import postcss from "rollup-plugin-postcss";
+import autoprefixer from "autoprefixer";
+import tailwind from "tailwindcss";
+import css from "rollup-plugin-import-css";
 
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import image from "@rollup/plugin-image";
@@ -24,7 +27,7 @@ const external = [
   "react-dom",
   "prop-types",
   "prop-types",
-  "/.css$/",
+  // "/.css$/",
 ];
 
 export default defineConfig([
@@ -48,21 +51,33 @@ export default defineConfig([
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules/**",
-        // presets: ["@babel/preset-react"],
+        presets: ["@babel/preset-react"],
       }),
       peerDepsExternal(),
       resolve({
         extensions: [".ts", ".tsx", ".js", ".jsx"],
-      }),
+      }), // tells Rollup how to find external deps in node_modules
       commonjs(),
       typescript({ useTsconfigDeclarationDir: true }),
-      postcss(),
+      postcss({
+        config: {
+          path: "./postcss.config.js",
+        },
+        extensions: [".css"],
+        plugins: [
+          autoprefixer(),
+          tailwind({
+            config: "./tailwind.config.js",
+          }),
+        ],
+      }),
       styles(),
+      css(),
       terser(),
 
       image(),
     ],
-    external, // telling rollup anything that is in this array aren't part of type exports
+    external, // telling rollup that anything in this array aren't part of type exports
   },
   {
     // path to your declaration files root
