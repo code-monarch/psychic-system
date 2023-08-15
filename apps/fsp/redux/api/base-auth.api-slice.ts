@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import Cookies from "js-cookie";
-import {REFRESH_TOKEN } from "@/lib/constants/index.constants";
+import { REFRESH_TOKEN } from "@/lib/constants/index.constants";
 
 export const baseAuthQuery = fetchBaseQuery({
   // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -29,5 +29,5 @@ export const baseAuthApiSlice = createApi({
   reducerPath: "baseRefreshApi",
   baseQuery: baseAuthQuery,
   refetchOnReconnect: true,
-  endpoints: () => ({})
+  endpoints: () => ({}),
 });

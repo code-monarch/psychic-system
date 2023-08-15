@@ -1,7 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
-  content: [".src/**/**/**/**/**/**/*.tsx"],
+  content: [
+    "./src/app/*.{ts,tsx}",
+    "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/app/(auth)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/pattern/**/**/**/**/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -11,11 +16,12 @@ module.exports = {
           ...defaultTheme.fontFamily.sans,
         ],
         serif: ["Montserrat", "sans-serif"],
-        ttfirs: ["TTFirs-regular", "sans-serif"],
       },
       // Semantic Colors
       colors: {
         primaryBlue: "#174CFF",
+        semanticGreen: "#3FCC6A",
+        semanticRed: "#FF5A5C",
         semanticBlack: "#27272B",
         disabledBtn: "#D9D8E7",
         navLink: "#DBD8FB",
@@ -26,8 +32,10 @@ module.exports = {
         grayBackGround: "#F9F8FB",
         darkBackground: "#1E252D",
         inputBorder: "#8499B1",
+        surfaceColor: "#F8FAFE",
         inputDisabled: "#E6E6ED",
         inputPlaceholder: "#8499B1",
+        borderColor: "#DEE3EB",
       },
       boxShadow: {
         shadow1: "0px 6px 6px rgba(24, 39, 75, 0.12)",
@@ -87,6 +95,7 @@ module.exports = {
     backgroundImage: {
       "skeleton-gradient":
         "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
+      onboardingHeaderImage: "url('/public/onboarding-modal-header.png')",
     },
   },
   plugins: [

@@ -1,7 +1,7 @@
 "use-client";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { saveActiveNav } from "@/redux/features/active-sidebar-nav-slice";
+import { saveActiveNav } from "@/redux/features/active-sidebar";
 import { usePathname } from "next/navigation";
 
 export interface ITopbarTitle extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,7 +14,7 @@ const TopbarTitle = ({ href, exact }: ITopbarTitle) => {
   const dispatch = useDispatch();
 
   const pathname = usePathname();
-  
+
   const isActive = exact ? pathname === href : pathname.startsWith(pathname);
 
   useEffect(() => {
@@ -60,11 +60,7 @@ const TopbarTitle = ({ href, exact }: ITopbarTitle) => {
     }
   }, [dispatch, isActive, pathname]);
 
-  return (
-    <h4>
-      {topbarTitle}
-    </h4>
-  );
+  return <h4>{topbarTitle}</h4>;
 };
 
 export default TopbarTitle;

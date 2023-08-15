@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   collapseSidebar,
   expandSidebar,
-} from "@/redux/features/active-sidebar-nav-slice";
+} from "@/redux/features/active-sidebar";
 
 export const useCollapseSidebar = (): ICollapseSidebarOutput => {
   const dispatch = useDispatch();

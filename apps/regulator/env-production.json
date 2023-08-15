@@ -1,4 +1,4 @@
 {
-  "APP_NAME": "Emtech Frontend (PRODUCTION)",
+  "APP_NAME": "Emtech Regulator Frontend (PRODUCTION)",
   "BASE_API_URL": "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/"
 }

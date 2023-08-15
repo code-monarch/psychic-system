@@ -40,7 +40,7 @@ export const activeSidebarNavSlice = createSlice({
 export const { saveActiveNav, expandSidebar, collapseSidebar } =
   activeSidebarNavSlice.actions;
 
-// This will help us get the current state of our main layout Visibility
+// This will help us get the current Visibility state of our main layout
 export const activeSidebarNav = (state: RootState) => {
   state.activeSidebarNav;
 };

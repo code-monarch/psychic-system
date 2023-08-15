@@ -1,6 +1,6 @@
 import { baseAuthApiSlice } from "@/redux/api/base-auth.api-slice";
 
-interface ILoginResData {
+interface ILoginResponse {
   token: string;
   refreshToken: string;
   error: boolean;
@@ -14,11 +14,11 @@ export interface ILoginPayload {
   password: string;
 }
 
-// Since we've already created a base apiSlice for our application with our base URl,
-//  we will simply be injecting other apiSlices, loginApiSlice for example, into our apiSlice
+// Since we've already created a base auth apiSlice for our application with the base URl for authentication,
+//  we will simply be injecting other apiSlices, loginApiSlice for example, into our auth apiSlice
 export const loginApiSlice = baseAuthApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<ILoginResData, ILoginPayload>({
+    login: builder.mutation<ILoginResponse, ILoginPayload>({
       query: (loginDetails) => ({
         url: "signIn",
         method: "POST",
