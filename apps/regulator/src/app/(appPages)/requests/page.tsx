@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import SandBoxWalletTabs from "@/pattern/templates/wallets/sandbox-wallet-tabs";
+import SurveyCreatorWidget from "@/pattern/templates/requests";
 
 const Requests = () => {
   return (
     <div className=''>
-      <SandBoxWalletTabs />
+      <SurveyCreatorWidget />
     </div>
   );
 };

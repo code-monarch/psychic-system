@@ -1,0 +1,26 @@
+.sd-container-modern {
+  margin-bottom: 4px;
+}
+.optionsForm {
+  padding: 0px 8px 6px 8px;
+}
+.creator_height {
+  height: 100vh;
+}
+
+body #creatorElement {
+  /* SurveyJS Creator V1 */
+  --primary-color: #174cff;
+  --secondary-color: #f8fafe;
+  --primary-text-color: #1e252d;
+  --secondary-text-color: #687d94;
+  --inverted-text-color: #ffffff;
+  --primary-hover-color: #6fe06f;
+  --selection-border-color: #1ab394;
+  --primary-icon-color: #3d4d5d;
+  --primary-bg-color: #f8fafe;
+  --secondary-bg-color: #f8fafe;
+  --primary-border-color: #174cff;
+  --secondary-border-color: #1e252d;
+  --error-color: #ed5565;
+}

@@ -1,4 +1,5 @@
-import "./globals.css";
+import "@/styles/globals.css";
+import "@/styles/survey.css";
 import "react-toastify/dist/ReactToastify.css"; // Toast styles
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
   description: "Emtech Frontend",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang='en' className={`${inter.variable}`}>
       <body className='bg-grayBackGround min-h-screen font-sans'>
