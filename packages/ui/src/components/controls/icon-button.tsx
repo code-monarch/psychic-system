@@ -53,6 +53,7 @@ export const IconButton: React.FC<IIconButtonProps> = ({
         fullwidth && classes.fullWidth
       )}
     >
+      {/* Show Prefix Icon when not loading or disabled */}
       {lefticon && !loading && !disabled && <span>{lefticon}</span>}
 
       {loading && <Spinner />}

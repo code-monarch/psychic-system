@@ -1,22 +1,18 @@
-"use client"
 import React from "react";
-import Sidebar from "@/pattern/templates/common/sidebar";
-import PageWrapper from "@/pattern/templates/common/page-wrapper";
-import { useCollapseSidebar } from "@/lib/hooks/useCollapseSideBar.hooks";
 import { joinClasses } from "@emtech/utils";
+import Sidebar from "@/pattern/common/organisms/sidebar";
+import PageWrapper from "@/pattern/common/templates/page-wrapper";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const { isCollapsed } = useCollapseSidebar();
   return (
-    <section
+    <div
       className={joinClasses(
-        "bg-surfaceColor w-screen min-h-screen flex justify-center items-start",
-        !isCollapsed && "ml-[80px]"
+        "bg-surfaceColor w-screen min-h-screen flex justify-center items-start"
       )}
     >
       <Sidebar />
       <PageWrapper>{children}</PageWrapper>
-    </section>
+    </div>
   );
 };
 

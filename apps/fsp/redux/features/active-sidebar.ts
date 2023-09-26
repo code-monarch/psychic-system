@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { SIDEBAR_STATE } from "@/lib/constants/index.constants";
-import LocalStore from "@/lib/helpers/session-manager.helpers";
+import LocalStore from "@/lib/helpers/session-manager";
 
 interface IActiveSidebarNav {
   activeSidebarNav: string;
@@ -40,7 +40,7 @@ export const activeSidebarNavSlice = createSlice({
 export const { saveActiveNav, expandSidebar, collapseSidebar } =
   activeSidebarNavSlice.actions;
 
-// This will help us get the current Visibility state of our main layout
+// This will help us get the current Visibility state of our main layout Visibility
 export const activeSidebarNav = (state: RootState) => {
   state.activeSidebarNav;
 };

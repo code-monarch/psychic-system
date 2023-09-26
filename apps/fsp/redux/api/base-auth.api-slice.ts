@@ -17,7 +17,7 @@ export const baseAuthQuery = fetchBaseQuery({
     const refreshToken = Cookies.get(REFRESH_TOKEN);
 
     if (refreshToken) {
-      headers.set("Authorization", `${refreshToken}`);
+      headers.set("Authorization", `Bearer ${refreshToken}`);
     }
     return headers;
   },

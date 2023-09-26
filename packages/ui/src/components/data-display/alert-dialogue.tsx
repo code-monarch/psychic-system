@@ -34,13 +34,19 @@ type AlertDialogueTriggerProps = React.ComponentProps<
   typeof AlertDialogPrimitive.Trigger
 > & {
   className?: string;
+  innerRef?: any;
 };
 
 const AlertDialogueTrigger = ({
   className,
   children,
+  innerRef,
 }: AlertDialogueTriggerProps) => (
-  <AlertDialogPrimitive.Trigger asChild className={joinClasses(className)}>
+  <AlertDialogPrimitive.Trigger
+    asChild
+    className={joinClasses(className)}
+    ref={innerRef}
+  >
     {children}
   </AlertDialogPrimitive.Trigger>
 );
@@ -121,31 +127,34 @@ type AlertDialogueContentProps = React.ComponentProps<
   className?: string;
   aschild?: boolean;
   children: React.ReactNode;
+  innerRef?: any;
 };
 
 const AlertDialogueContent = ({
-  aschild,
+  // aschild,
   children,
   className,
+  innerRef,
 }: AlertDialogueContentProps) => (
   <Transition.Child
     as={Fragment}
-    enter="ease-out duration-300"
-    enterFrom="opacity-0 scale-95"
-    enterTo="opacity-100 scale-100"
-    leave="ease-in duration-200"
-    leaveFrom="opacity-100 scale-100"
-    leaveTo="opacity-0 scale-95"
+    enter='ease-out duration-300'
+    enterFrom='opacity-0 scale-95'
+    enterTo='opacity-100 scale-100'
+    leave='ease-in duration-200'
+    leaveFrom='opacity-100 scale-100'
+    leaveTo='opacity-0 scale-95'
   >
     <AlertDialogPrimitive.Content
       forceMount
-      asChild={aschild}
+      ref={innerRef}
+      // asChild={aschild}
       className={joinClasses(
         "h-fit rounded-[8px] py-[40px] px-[32px]",
         className
       )}
     >
-      {children}
+      <div className="w-full min-h-full h-fit flex justify-center items-center overflow-auto">{children}</div>
     </AlertDialogPrimitive.Content>
   </Transition.Child>
 );
@@ -158,13 +167,14 @@ type AlertDialogueOverlayProps = React.ComponentProps<
   className?: string;
   isopen: boolean;
   children?: React.ReactNode;
-  // aschild?: boolean;
+  innerRef?: any;
 };
 
 const AlertDialogueOverlay = ({
   className,
   children,
   isopen,
+  innerRef,
 }: AlertDialogueOverlayProps) => (
   <Transition.Root show={isopen}>
     <Transition.Child
@@ -178,9 +188,9 @@ const AlertDialogueOverlay = ({
     >
       <AlertDialogPrimitive.Overlay
         forceMount
-        // asChild={aschild}
+        ref={innerRef}
         className={joinClasses(
-          "fixed inset-0 w-screen min-h-screen h-fit z-[2000] !bg-[#1E252D]/30 flex justify-center items-center overflow-auto",
+          "fixed inset-0 min-w-screen w-full min-h-screen h-full !bg-[#1E252D]/30 overflow-auto z-[2000] ",
           className
         )}
       >

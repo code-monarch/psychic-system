@@ -40,27 +40,27 @@ export const CreditsArrow = ({ rotate, color }: IArrowIconProps) => (
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
   >
-    <g clip-path='url(#clip0_600_49441)'>
+    <g clipPath='url(#clip0_600_49441)'>
       <path
         d='M12 19.5L12 5.5'
         stroke={color === "green" ? '#3FCC6A' : '#FF5A5C'}
-        stroke-width='2.25'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='2.25'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M18 11.5L12 5.5'
         stroke={color === "green" ? '#3FCC6A' : '#FF5A5C'}
-        stroke-width='2.25'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='2.25'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M6 11.5L12 5.5'
         stroke={color === "green" ? '#3FCC6A' : '#FF5A5C'}
-        stroke-width='2.25'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='2.25'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </g>
     <defs>

@@ -10,6 +10,7 @@ type CollapsiblePrimitiveProps = React.ComponentProps<
   className?: string;
   isOpen: boolean;
   setIsOpen: () => void;
+  innerRef?: any;
 };
 
 type CollapsibleProps = CollapsiblePrimitiveProps;
@@ -27,10 +28,12 @@ const Collapsible = ({
   className,
   isOpen,
   setIsOpen,
+  innerRef,
   ...props
 }: CollapsibleProps) => (
   <CollapsiblePrimitive.Root
     {...props}
+    ref={innerRef}
     open={isOpen}
     onOpenChange={setIsOpen}
     className={joinClasses(className)}

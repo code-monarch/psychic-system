@@ -25,11 +25,11 @@ export interface IFormatToBritishNumberProps {
 }
 
 export interface IFormatTimeProps {
-  x: number;
+  time: number;
 }
 
 export interface IFormatDateProps {
-  x: number | string;
+  date: string | number | Date;
 }
 
 export interface IUseBooleanOutputProps<T> {
@@ -84,3 +84,9 @@ export interface IUseIsActiveProps {
 export type CopiedValue = string | null;
 
 export type CopyFn = (text: string) => Promise<boolean>; // Return success
+
+export interface IFormatCurrencyProps {
+  amount: number | string;
+  currencySymbol: string;
+  totalLength?: number;
+}

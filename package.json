@@ -17,13 +17,13 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.15",
     "eslint-config-custom": "workspace:*",
-    "autoprefixer": "^10.4.14",
-    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "postcss": "^8.4.21",
+    "lint-staged": "^13.3.0",
+    "postcss": "^8.4.29",
     "prettier": "2.8.8",
     "turbo": "latest"
   },

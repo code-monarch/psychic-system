@@ -9,3 +9,7 @@ export interface IconProps extends React.SVGAttributes<SVGElement> {
 export interface IFilledIcon extends IconProps {
   filledIcon?: boolean;
 }
+
+export interface ITranslateIcon extends IconProps {
+  translateX?: boolean;
+}

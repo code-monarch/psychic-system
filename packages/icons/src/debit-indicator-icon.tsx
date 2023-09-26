@@ -12,27 +12,27 @@ export const DebitIndicatorIcon = ({ ...props }: IconProps) => {
         {...props}
       >
         <rect width='28' height='28' rx='14' fill='#FFEFEF' />
-        <g clip-path='url(#clip0_359_32056)'>
+        <g clipPath='url(#clip0_359_32056)'>
           <path
             d='M14 17.5L14 10.5'
             stroke='#FF5A5C'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
           <path
             d='M17 13.5L14 10.5'
             stroke='#FF5A5C'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
           <path
             d='M11 13.5L14 10.5'
             stroke='#FF5A5C'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
         </g>
         <defs>

@@ -6,6 +6,7 @@ import { baseAuthApiSlice } from "./api/base-auth.api-slice";
 // Import Setup Listener
 import { setupListeners } from "@reduxjs/toolkit/query";
 
+import authReducer from "./features/auth";
 import activeSidebarNavReducer from "./features/active-sidebar";
 import userDetailsSliceReducer from "./features/user";
 import globalStateReducers from "./features/global-state";
@@ -13,6 +14,7 @@ import globalStateReducers from "./features/global-state";
 // Create Redux Store with our base apiSlice
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     [baseApiSlice.reducerPath]: baseApiSlice.reducer,
     [baseAuthApiSlice.reducerPath]: baseAuthApiSlice.reducer,
     activeSidebarNav: activeSidebarNavReducer,

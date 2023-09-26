@@ -10,6 +10,7 @@ type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   dir?: "ltr" | "rtl";
   className?: string;
   children: React.ReactNode;
+  innerRef?: any;
 };
 
 const ScrollArea = ({
@@ -19,12 +20,14 @@ const ScrollArea = ({
   type,
   scrollHideDelay,
   dir,
+  innerRef,
 }: ScrollAreaProps) => (
   <ScrollAreaPrimitive.Root
     asChild={asChild ?? false}
     type={type ?? "hover"}
     scrollHideDelay={scrollHideDelay ?? 600}
     dir={dir}
+    ref={innerRef}
     className={className}
   >
     {children}
@@ -39,16 +42,19 @@ type ScrollAreaViewportProps = React.ComponentProps<
   asChild?: boolean;
   className?: string;
   children: React.ReactNode;
+  innerRef?: any;
 };
 
 const ScrollAreaViewport = ({
   className,
   asChild,
   children,
+  innerRef,
 }: ScrollAreaViewportProps) => (
   <ScrollAreaPrimitive.Viewport
     asChild={asChild ?? false}
     className={joinClasses(className)}
+    ref={innerRef}
   >
     {children}
   </ScrollAreaPrimitive.Viewport>
@@ -63,18 +69,21 @@ type ScrollAreaScrollbarProps = React.ComponentProps<
   orientation: "horizontal" | "vertical";
   asChild?: boolean;
   forceMount?: boolean;
+  innerRef?: any;
 };
 
 const ScrollAreaScrollbar = ({
   className,
   orientation,
   asChild,
+  innerRef,
 }: ScrollAreaScrollbarProps) => (
   <ScrollAreaPrimitive.Scrollbar
     orientation={orientation ?? "vertical"}
     asChild={asChild ?? false}
+    ref={innerRef}
     className={joinClasses(
-      "flex ScrollArea-none touch-none p-0.5 bg-[#F5F4F8] transition-colors duration-[160ms] ease-out hover:bg-[#ecebf0] radix-orientation-vertical:w-2.5 radix-orientation-horizontal:flex-col radix-orientation-horizontal:h-2.5",
+      "flex ScrollArea-none touch-none p-0.5 bg-[#F5F4F8] transition-colors duration-[160ms] ease-out hover:bg-[#ecebf0] radix-orientation-vertical:w-2.5 radix-orientation-horizontal:flex-col radix-orientation-horizontal:h-2",
       className
     )}
   >

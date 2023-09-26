@@ -7,10 +7,30 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { Mutex } from "async-mutex";
 import Cookies from "js-cookie";
-import { COOKIE_TOKEN } from "@/lib/constants/index.constants";
+import { COOKIE_TOKEN, REFRESH_TOKEN } from "@/lib/constants/index.constants";
+import CookiesManager from "@/lib/helpers/cookies-manager";
+import { ILoginResponse } from "../services/auth/login.api-slice";
 
 // Create a new mutex
 const mutex = new Mutex();
+
+// Get auth Token
+const token = Cookies.get(COOKIE_TOKEN);
+
+// Define the URL you want to fetch data from
+// eslint-disable-next-line turbo/no-undeclared-env-vars
+const refreshApiUrl = `${process.env.BASE_AUTH_API_URL}/refreshToken`;
+
+// Define custom headers
+const headers = new Headers();
+// Add a Content-Type header
+headers.append("Content-Type", "application/json; charset=UTF-8");
+
+// Create fetch options with headers
+const fetchOptions = {
+  method: "GET", // You can change the HTTP method here (e.g., 'POST', 'PUT', etc.)
+  headers: headers,
+};
 
 const baseQuery = fetchBaseQuery({
   // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -22,10 +42,8 @@ const baseQuery = fetchBaseQuery({
     headers.set("Accept", "application/json");
     headers.set("Content-Type", "application/json; charset=UTF-8");
 
-    const token = Cookies.get(COOKIE_TOKEN);
-
     if (token) {
-      headers.set("Authorization", `${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -34,23 +52,55 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
-  FetchBaseQueryError
+  FetchBaseQueryError,
+  { shout?: boolean | undefined }
 > = async (args, api, extraOptions) => {
-  // // wait until the mutex is available without locking it
+  // Wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result?.error?.status === 401) {
-    result = await baseQuery(args, api, extraOptions);
+    // Checking whether the mutex is locked
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire();
+
+      fetch(refreshApiUrl, fetchOptions)
+        .then((response) => {
+          // Parse the response as JSON
+          return response.json() as Promise<ILoginResponse>;
+        })
+        .then((refreshResponse) => {
+          const accessToken = refreshResponse?.token;
+          const refreshToken = refreshResponse?.refreshToken;
+
+          // Save the new token
+          CookiesManager.setTokenCookie(accessToken as string);
+          // Save refresh token
+          CookiesManager.setCookie({
+            key: REFRESH_TOKEN,
+            value: refreshToken,
+          });
+
+          release();
+        })
+        .catch((error) => {
+          // Handle any errors that occurred during the fetch
+          console.error("Fetch error:", error);
+        });
+    } else {
+      // wait until the mutex is available without locking it
+      await mutex.waitForUnlock();
+      result = await baseQuery(args, api, extraOptions);
+    }
   }
   return result;
 };
 
-// All we've done so far is good, but creating a base apiSlice for our entire app is even better.
-// Keeps our ApiSlices modular.
-
+// All we've done so far is good, Now we will create a base apiSlice for our entire app.
+// This will keep our ApiSlices modular.
 export const baseApiSlice = createApi({
   reducerPath: "baseApi",
+  tagTypes: ["MINT-TOKEN-TABLE", "BURN-TOKEN-TABLE", "DISTRIBUTE-TOKEN-TABLE"],
   baseQuery: baseQueryWithReauth,
   refetchOnReconnect: true,
   endpoints: () => ({}),

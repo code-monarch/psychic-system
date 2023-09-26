@@ -37,6 +37,7 @@ type AccordionItemPrimitiveProps = React.ComponentProps<
   typeof AccordionPrimitive.Item
 > & {
   className?: string;
+  innerRef?: any;
 };
 
 type AccordionItemProps = AccordionItemPrimitiveProps;
@@ -44,9 +45,11 @@ type AccordionItemProps = AccordionItemPrimitiveProps;
 const AccordionItem = ({
   children,
   className,
+  innerRef,
   ...props
 }: AccordionItemProps) => (
   <AccordionPrimitive.Item
+    ref={innerRef}
     {...props}
     className={joinClasses(classes.accordionItem, className)}
   >
@@ -83,6 +86,7 @@ type AccordionTriggerPrimitiveProps = React.ComponentProps<
   typeof AccordionPrimitive.Trigger
 > & {
   className?: string;
+  innerRef?: any;
 };
 
 type AccordionTriggerProps = AccordionTriggerPrimitiveProps;
@@ -90,10 +94,12 @@ type AccordionTriggerProps = AccordionTriggerPrimitiveProps;
 const AccordionTrigger = ({
   children,
   className,
+  innerRef,
   ...props
 }: AccordionTriggerProps) => (
   <AccordionPrimitive.Trigger
     {...props}
+    ref={innerRef}
     className={joinClasses(classes.accordionTrigger, className)}
   >
     {children}
@@ -106,6 +112,7 @@ type AccordionContentPrimitiveProps = React.ComponentProps<
   typeof AccordionPrimitive.Content
 > & {
   className?: string;
+  innerRef?: any;
 };
 
 type AccordionContentProps = AccordionContentPrimitiveProps;
@@ -113,10 +120,12 @@ type AccordionContentProps = AccordionContentPrimitiveProps;
 const AccordionContent = ({
   children,
   className,
+  innerRef,
   ...props
 }: AccordionContentProps) => (
   <AccordionPrimitive.Content
     {...props}
+    ref={innerRef}
     className={joinClasses(classes.accordionContent, className)}
   >
     {children}

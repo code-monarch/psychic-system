@@ -1,7 +1,7 @@
 "use";
 import React from "react";
-import SignUpForm from "@/pattern/organisms/forms/signup-form";
-import AuthLeftTemplate from "@/pattern/templates/auth-left-template";
+import SignUpForm from "@/pattern/auth/organisms/signup-form";
+import AuthLeftTemplate from "@/pattern/auth/templates/left-Auth-temp";
 
 const Signup = () => {
   return (

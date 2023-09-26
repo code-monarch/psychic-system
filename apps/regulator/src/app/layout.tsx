@@ -1,15 +1,11 @@
+"use client";
+import React from "react";
 import "@/styles/globals.css";
 import "@/styles/survey.css";
 import "react-toastify/dist/ReactToastify.css"; // Toast styles
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Providers } from "@/redux/provider";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-  variable: "--font-inter",
-});
+import { avenirFont, inter } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Emtech Frontend",
@@ -22,8 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={`${inter.variable}`}>
-      <body className='bg-grayBackGround min-h-screen font-sans'>
+    <html
+      lang='en'
+      className={`${inter.variable} ${avenirFont.variable} font-sans`}
+    >
+      <body className={`${avenirFont.variable} bg-grayBackGround`}>
         <Providers>
           <div className='w-full h-full'>{children}</div>
         </Providers>

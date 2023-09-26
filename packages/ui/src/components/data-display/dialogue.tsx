@@ -15,11 +15,7 @@ type DialogueProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
 };
 
 const Dialogue = ({ isopen, setisopen, children, ...props }: DialogueProps) => (
-  <DialogPrimitive.Root
-    {...props}
-    open={isopen}
-    onOpenChange={setisopen}
-  >
+  <DialogPrimitive.Root {...props} open={isopen} onOpenChange={setisopen}>
     {children}
   </DialogPrimitive.Root>
 );
@@ -30,10 +26,19 @@ type DialogueTriggerProps = React.ComponentProps<
   typeof DialogPrimitive.Trigger
 > & {
   className?: string;
+  innerRef?: any;
 };
 
-const DialogueTrigger = ({ className, children }: DialogueTriggerProps) => (
-  <DialogPrimitive.Trigger asChild className={joinClasses(className)}>
+const DialogueTrigger = ({
+  className,
+  children,
+  innerRef,
+}: DialogueTriggerProps) => (
+  <DialogPrimitive.Trigger
+    asChild
+    className={joinClasses(className)}
+    ref={innerRef}
+  >
     {children}
   </DialogPrimitive.Trigger>
 );
@@ -75,12 +80,14 @@ export type DialogueContentProps = React.ComponentProps<
   className?: string;
   aschild?: boolean;
   children: React.ReactNode;
+  innerRef?: any;
 };
 
 const DialogueContent = ({
   aschild,
   children,
   className,
+  innerRef,
 }: DialogueContentProps) => (
   <Transition.Child
     as={Fragment}
@@ -94,12 +101,15 @@ const DialogueContent = ({
     <DialogPrimitive.Content
       forceMount
       asChild={aschild}
+      ref={innerRef}
       className={joinClasses(
         "h-fit rounded-[8px] py-[40px] px-[32px]",
         className
       )}
     >
-      {children}
+      <div className='w-full min-h-full h-fit flex justify-center items-center overflow-auto'>
+        {children}
+      </div>
     </DialogPrimitive.Content>
   </Transition.Child>
 );
@@ -113,12 +123,14 @@ type DialogueOverlayProps = React.ComponentProps<
   isopen: boolean;
   children?: React.ReactNode;
   asChild?: boolean;
+  innerRef?: any;
 };
 
 const DialogueOverlay = ({
   className,
   children,
   isopen,
+  innerRef,
 }: DialogueOverlayProps) => (
   <Transition.Root show={isopen}>
     <Transition.Child
@@ -131,10 +143,11 @@ const DialogueOverlay = ({
       leaveTo='opacity-0'
     >
       <DialogPrimitive.Overlay
+        ref={innerRef}
         forceMount
         // asChild={aschild}
         className={joinClasses(
-          "fixed inset-0 min-h-screen h-fit z-[2000] bg-[#1E252D]/30 flex justify-center items-center overflow-auto",
+          "fixed inset-0 min-w-screen w-full min-h-screen h-full !bg-[#1E252D]/30 overflow-auto z-[2000] ",
           className
         )}
       >

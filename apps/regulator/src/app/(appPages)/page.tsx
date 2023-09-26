@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
-import AppTourTemplate from "@/pattern/templates/onboarding/app-tour-template";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  return (
-    <>
-      <AppTourTemplate />
-    </>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/dashboard");
+  }, [router]);
+  return <></>;
 }

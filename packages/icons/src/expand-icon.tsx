@@ -1,5 +1,7 @@
+import { FC } from "react";
+import { ITranslateIcon } from "types";
 
-export const ExpandIcon = (rotate?: boolean) => {
+export const ExpandIcon: FC<ITranslateIcon> = ({ translateX = false }) => {
   return (
     <svg
       width='24'
@@ -7,15 +9,15 @@ export const ExpandIcon = (rotate?: boolean) => {
       viewBox='0 0 24 24'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      className={`${rotate ? "rotate-180" : ""}`}
+      className={`${translateX ? "rotate-180" : ""}`}
     >
-      <g clip-path='url(#clip0_354_8527)'>
+      <g clipPath='url(#clip0_354_8527)'>
         <circle
           cx='12'
           cy='12'
           r='12'
           fill='url(#paint0_linear_354_8527)'
-          fill-opacity='0.08'
+          fillOpacity='0.08'
         />
         <circle cx='12' cy='12' r='12' fill='url(#paint1_linear_354_8527)' />
         <circle
@@ -23,8 +25,8 @@ export const ExpandIcon = (rotate?: boolean) => {
           cy='12'
           r='11.8229'
           stroke='url(#paint2_linear_354_8527)'
-          stroke-opacity='0.08'
-          stroke-width='0.354167'
+          strokeOpacity='0.08'
+          strokeWidth='0.354167'
         />
         <mask
           id='mask0_354_8527'
@@ -59,8 +61,8 @@ export const ExpandIcon = (rotate?: boolean) => {
           y2='14.342'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#0D2A8C' />
-          <stop offset='1' stop-color='#E8EDFF' />
+          <stop stopColor='#0D2A8C' />
+          <stop offset='1' stopColor='#E8EDFF' />
         </linearGradient>
         <linearGradient
           id='paint1_linear_354_8527'
@@ -70,8 +72,8 @@ export const ExpandIcon = (rotate?: boolean) => {
           y2='10.2937'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#0D2A8C' />
-          <stop offset='0.909375' stop-color='#2376FA' />
+          <stop stopColor='#0D2A8C' />
+          <stop offset='0.909375' stopColor='#2376FA' />
         </linearGradient>
         <linearGradient
           id='paint2_linear_354_8527'
@@ -81,8 +83,8 @@ export const ExpandIcon = (rotate?: boolean) => {
           y2='23.3333'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stop-color='#2054AE' />
-          <stop offset='1' stop-color='#264170' stop-opacity='0' />
+          <stop stopColor='#2054AE' />
+          <stop offset='1' stopColor='#264170' stopOpacity='0' />
         </linearGradient>
         <clipPath id='clip0_354_8527'>
           <rect width='24' height='24' fill='white' />
