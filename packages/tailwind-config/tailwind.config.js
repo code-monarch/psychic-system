@@ -2,20 +2,21 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
-    "./src/app/*.{ts,tsx}",
+    "./src/app/*.tsx",
     "./src/app/(appPages)/**/**/**/**/**/*.{ts,tsx}",
     "./src/app/(auth)/**/**/**/**/**/*.{ts,tsx}",
+    "./src/app/(onboarding)/**/**/**/**/**/*.{ts,tsx}",
     "./src/pattern/**/**/**/**/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
         sans: [
-          "var(--font-inter)",
+          "var(--font-avenir)",
           "sans-serif",
           ...defaultTheme.fontFamily.sans,
         ],
-        serif: ["Montserrat", "sans-serif"],
+        serif: ["var(--font-inter)", "sans-serif"],
       },
       // Semantic Colors
       colors: {
@@ -27,6 +28,7 @@ module.exports = {
         navLink: "#DBD8FB",
         primaryGradient: "linear-gradient(180deg,_#6F61ED_0%,_#473D9D_100%);",
         secondaryGradient: "linear-gradient(180deg,_#F4E6DE_0%,_#DAC6BC_100%)",
+        primaryBlack: "#2E3B4A",
         primaryText: "#1E252D",
         secondaryText: "#C0933E",
         grayBackGround: "#F9F8FB",
@@ -91,12 +93,17 @@ module.exports = {
         contentShow: "contentShow 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
         contentHide: "contentHide 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
       },
+      backgroundImage: {
+        "skeleton-gradient":
+          "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
+        onboardingHeaderImage: "url('/public/onboarding-modal-header.png')",
+      },
     },
-    backgroundImage: {
-      "skeleton-gradient":
-        "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
-      onboardingHeaderImage: "url('/public/onboarding-modal-header.png')",
-    },
+    // backgroundImage: {
+    //   "skeleton-gradient":
+    //     "linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0)",
+    //   onboardingHeaderImage: "url('/public/onboarding-modal-header.png')",
+    // },
   },
   plugins: [
     // Initialize with default values (see options below)

@@ -1,5 +1,5 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
-import LocalStore from "@/lib/helpers/session-manager.helpers";
+import LocalStore from "@/lib/helpers/session-manager";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IUserSlice {

@@ -10,6 +10,8 @@ export interface IButtonClasses {
     primary: string;
     secondary: string;
     transparent: string;
+    red_outline: string;
+    blue_outline: string;
     disabled: string;
     loading: string;
   };

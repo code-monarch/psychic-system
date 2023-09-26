@@ -4,8 +4,11 @@
 export * from "./components/controls/button";
 export * from "./components/controls/link-button";
 export * from "./components/controls/icon-button";
+export * from "./components/controls/plus-icon-button";
 export * from "./components/controls/pagination";
 export * from "./components/controls/switch";
+export * from "./components/controls/scroll-to-start";
+export * from "./components/controls/scroll-to-end";
 
 // Data-display
 export * from "./components/data-display/accordion";

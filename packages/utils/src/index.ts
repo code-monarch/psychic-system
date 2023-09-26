@@ -14,4 +14,6 @@ export * from "./other/joinClasses";
 export * from "./other/dates";
 export * from "./other/copyToClipboard";
 export * from "./other/truncate-word";
-export * from "./other/format-amount";
+export * from "./other/format-currency-to-an-average";
+export * from "./other/format-currency";
+export * from "./other/currency-code";

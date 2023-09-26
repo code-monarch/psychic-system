@@ -18,16 +18,16 @@ export const TransactionsIcon = ({
       <path
         d='M0.75 4.56818H11.25L6.87032 0.75'
         stroke={color ?? "#174CFF"}
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M11.25 7.43182L0.750003 7.43182L5.12968 11.25'
         stroke={color ?? "#174CFF"}
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );

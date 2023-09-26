@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
 export const COOKIE_TOKEN = "cookieToken";
 export const REFRESH_TOKEN = "refreshToken";
+export const WALLET_ID = "walletId";
+export const TOKEN_ID = "tokenId";
+export const MASTER_WALLET_ID = "masterWalletId";
+export const DISTRIBUTION_WALLET_ID = "distributionWalletId";
+export const INSTITUTIONAL_WALLET_ID = "institutionalWalletId";
+export const TOKEN_SYMBOL = "tokenSymbol";
+export const CURRENCY_DECIMALS = "currencyDecimals";
 export const WEBSITE_URL = "";
 export const APP_URL = "";
 export const SIDEBAR_STATE = "sidebar_state";

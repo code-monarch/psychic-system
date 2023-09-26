@@ -185,7 +185,7 @@ type SelectItemIndicatorProps = React.ComponentProps<
 
 const SelectItemIndicator = ({ className }: SelectItemIndicatorProps) => (
   <SelectPrimitive.ItemIndicator className={joinClasses(className)}>
-    <CheckIcon className='text-white' />
+    <CheckIcon className='text-black' />
   </SelectPrimitive.ItemIndicator>
 );
 //   Select Item indicator End

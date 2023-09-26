@@ -13,25 +13,26 @@ export interface IPasswordInputProps
   className?: string;
 }
 
-const PasswordInput = React.forwardRef<
-  React.ElementRef<"input">,
-  IPasswordInputProps
->((props, ref) => {
+const PasswordInput: React.FC<IPasswordInputProps> = ({
+  name,
+  placeholder,
+  value,
+  width,
+  className,
+}) => {
   // This utility hook helps us  toggle the show and Hide password icon
   const [hidePassword, setHidePassword] = useToggle(true);
   return (
     <div className='relative w-full'>
       <input
-        {...props}
-        ref={ref}
-        name={props.name}
-        placeholder={props.placeholder}
-        value={props.value}
+        name={name}
+        placeholder={placeholder}
+        value={value}
         type={hidePassword ? "password" : "text"}
         className={joinClasses(
           classes.passwordInputBase,
-          props.width,
-          props.className
+          width,
+          className
         )}
       />
       <button
@@ -43,7 +44,6 @@ const PasswordInput = React.forwardRef<
       </button>
     </div>
   );
-});
+};
 
-PasswordInput.displayName = "PasswordInput";
 export default PasswordInput;

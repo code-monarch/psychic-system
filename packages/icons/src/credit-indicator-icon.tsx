@@ -1,5 +1,6 @@
 import { IconProps } from "types";
 
+// Different from "./credit-icon" because this is just the upward pointing arrow
 export const CreditIndicatorIcon = ({ ...props }: IconProps) => {
   return (
     <>
@@ -12,27 +13,27 @@ export const CreditIndicatorIcon = ({ ...props }: IconProps) => {
         {...props}
       >
         <rect width='28' height='28' rx='14' fill='#ECFAF0' />
-        <g clip-path='url(#clip0_359_32262)'>
+        <g clipPath='url(#clip0_359_32262)'>
           <path
             d='M14 10.5V17.5'
             stroke='#3FCC6A'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
           <path
             d='M11 14.5L14 17.5'
             stroke='#3FCC6A'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
           <path
             d='M17 14.5L14 17.5'
             stroke='#3FCC6A'
-            stroke-width='1.125'
-            stroke-linecap='round'
-            stroke-linejoin='round'
+            strokeWidth='1.125'
+            strokeLinecap='round'
+            strokeLinejoin='round'
           />
         </g>
         <defs>

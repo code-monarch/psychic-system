@@ -1,6 +1,4 @@
-import { IFormatToBritishNumberProps } from "../types";
-
-export const formatTime = ({ x }: IFormatToBritishNumberProps) => {
-  let date = new Date(x);
-  return date.toLocaleTimeString("en-US");
+export const formatTime = (time: string | number) => {
+  let timeToFormat = new Date(time);
+  return timeToFormat.toLocaleTimeString("en-US");
 };

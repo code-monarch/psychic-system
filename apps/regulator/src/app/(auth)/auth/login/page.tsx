@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import AuthLeftTemplate from "@/pattern/templates/auth-left-template";
-import LoginForm from "@/pattern/organisms/forms/login-form";
+import AuthLeftTemplate from "@/pattern/auth/templates/left-Auth-temp";
+import LoginForm from "@/pattern/auth/organisms/login-form";
 
 const Login = () => {
   return (

@@ -14,13 +14,13 @@ export const CollapsibleTriggerIcon = ({
       xmlns='http://www.w3.org/2000/svg'
       className={`${rotate ? "rotate-180" : ""}`}
     >
-      <g clip-path='url(#clip0_369_23518)'>
+      <g clipPath='url(#clip0_369_23518)'>
         <path
           d='M9 7.5L6 4.5L3 7.5L9 7.5Z'
           fill='#FCFCFC'
           stroke='#FCFCFC'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeLinecap='round'
+          strokeLinejoin='round'
         />
       </g>
       <defs>

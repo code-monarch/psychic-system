@@ -1,4 +1,5 @@
 {
   "APP_NAME": "Emtech Regulator Frontend (STAGING)",
-  "BASE_API_URL": "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/"
+  "BASE_API_URL": "https://et-app-cap-qa-az.azurewebsites.net/dap/api/v1/",
+  "BASE_AUTH_API_URL": "http://20.102.77.57:5500/dap/api/v1"
 }
