@@ -1,0 +1,26 @@
+{
+  "extends": "@emtech/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/pattern/*": ["./src/pattern/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/public/*": ["./public/*"],
+      "@/redux/*": ["./redux/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "./src/",
+    "./redux/",
+    ".next/types/**/*.ts",
+    "dist/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
