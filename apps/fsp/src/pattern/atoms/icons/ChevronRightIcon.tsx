@@ -12,20 +12,20 @@ const ChevronRightIcon = ({color, width, height, ...props}: IIconProps) => {
         xmlns="http://www.w3.org/2000/svg"
         {...props}
       >
-        <g clip-path="url(#clip0_777_10829)">
+        <g clipPath="url(#clip0_777_10829)">
           <path
             d="M6.68994 13.5L11.1899 9"
             stroke={color ?? "#fff"}
-            stroke-width="1.4625"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.4625"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M6.68994 4.5L11.1899 9"
             stroke={color ?? "#fff"}
-            stroke-width="1.4625"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.4625"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
         <defs>

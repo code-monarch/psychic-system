@@ -11,20 +11,20 @@ const PlusIcon = ({width, height, color, ...props}: IIconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_967_1200)">
+      <g clipPath="url(#clip0_967_1200)">
         <path
           d="M9 4.25V14.75"
           stroke={color ?? "#F3F5F7"}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M3.75 9.5H14.25"
           stroke={color ?? "#F3F5F7"}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>

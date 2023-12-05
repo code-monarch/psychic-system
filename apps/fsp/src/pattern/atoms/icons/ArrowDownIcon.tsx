@@ -12,27 +12,27 @@ const ArrowDownIcon = ({ color, width, height, ...props }: IIconProps) => {
         xmlns="http://www.w3.org/2000/svg"
         {...props}
       >
-        <g clip-path="url(#clip0_1333_19929)">
+        <g clipPath="url(#clip0_1333_19929)">
           <path
             d="M6 2.5L6 9.5"
             stroke={color ?? "#3FCC6A"}
-            stroke-width="1.125"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.125"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M3 6.5L6 9.5"
             stroke={color ?? "#3FCC6A"}
-            stroke-width="1.125"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.125"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M9 6.5L6 9.5"
             stroke={color ?? "#3FCC6A"}
-            stroke-width="1.125"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.125"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
         <defs>

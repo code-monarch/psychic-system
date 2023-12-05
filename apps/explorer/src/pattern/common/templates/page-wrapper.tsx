@@ -8,11 +8,11 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={joinClasses(
-        "relative flex flex-col bg-AppPagesBg w-[90%] max-w-[90%] h-full ml-[80px] transition-all duration-200 ease-in-out"
+        "relative flex flex-col items-center bg-AppPagesBg w-full min-h-[100vh] h-full transition-all duration-200 ease-in-out"
       )}
     >
       <Topbar />
-      <main className='bg-AppPagesBg w-full flex justify-center mt-[88px]'>
+      <main className='bg-white w-[95%] min-h-[100vh] flex justify-center my-[120px] pt-[34px] px-[48px] rounded-md'>
         {children}
       </main>
     </div>

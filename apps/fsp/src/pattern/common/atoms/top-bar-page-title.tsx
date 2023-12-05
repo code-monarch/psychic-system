@@ -20,6 +20,7 @@ const TopbarPageTitle = ({ href, exact }: ITopbarTitle) => {
   // Determines current route the User is on
   const isActive = exact ? pathname === href : pathname.startsWith(pathname);
 
+  // Set Topbar title depending on what route the user is currently on
   useEffect(() => {
     switch (pathname) {
       case "/dashboard":

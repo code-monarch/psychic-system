@@ -10,20 +10,20 @@ const ChevronDownIcon = () => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_826_4348)">
+        <g clipPath="url(#clip0_826_4348)">
           <path
             d="M13.5 7.18945L9 11.6895"
             stroke="#8499B1"
-            stroke-width="1.4625"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.4625"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M4.5 7.18945L9 11.6895"
             stroke="#8499B1"
-            stroke-width="1.4625"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.4625"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
         <defs>

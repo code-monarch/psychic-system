@@ -4,7 +4,7 @@ import TransactionsTemplate from "@/pattern/transactions/templates/transactions-
 
 const TokensPage = () => {
   return (
-    <div>
+    <div className="w-full">
       <TransactionsTemplate />
     </div>
   );
