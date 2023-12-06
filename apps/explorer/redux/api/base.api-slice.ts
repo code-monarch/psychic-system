@@ -1,10 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { Mutex } from "async-mutex";
-
-// Create a new mutex
-const mutex = new Mutex();
-
 // Define custom headers
 const headers = new Headers();
 // Add a Content-Type header
@@ -12,8 +7,7 @@ headers.append("Content-Type", "application/json; charset=UTF-8");
 
 
 const baseQuery = fetchBaseQuery({
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  baseUrl: process.env.BASE_API_URL,
+  baseUrl: "https://mainnet-public.mirrornode.hedera.com/api/v1/",
   // credentials: "same-origin",
   // credentials: "include",
   mode: "cors",

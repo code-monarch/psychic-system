@@ -11,6 +11,7 @@ import {
   SelectViewport,
   VisuallyHidden,
 } from "@emtech/ui";
+import { joinClasses } from "@emtech/utils";
 
 type List = {
   name: string;
@@ -32,32 +33,31 @@ const SelectDropDown: FC<IProps> = ({
   trigger,
   hideSelectValue = false,
 }) => {
+  console.log("SELECT VALUE: ", value);
   return (
     <Select value={value} onValueChange={setValue}>
       {/* Trigger */}
-      <SelectTrigger className='!bg-transparent !min-w-[146px] !w-fit !h-[37px] !flex !items-center !justify-between !p-[8px] !rounded-[5px]'>
+      <SelectTrigger className='!bg-transparent !w-[175px] !h-[37px] !flex !items-center !justify-between !whitespace-nowrap !p-[8px] !border-[1px] border-inputBorder !rounded-[5px]'>
         <VisuallyHidden visible={hideSelectValue ? false : true}>
-          <SelectValue
-            value={value}
-            className='!font-sans !font-[300] text-sm text-primaryBlack'
-          >
-            {value ?? "Request"}
-          </SelectValue>
+          <SelectValue className='!font-sans !font-[300] !text-sm !text-primaryBlack !whitespace-nowrap' />
         </VisuallyHidden>
         {trigger}
       </SelectTrigger>
       {/* Trigger End */}
 
-      <SelectContent className='!bg-surfaceColor !min-w-[188px] !w-fit !max-h-[141px] !overflow-y-auto'>
+      <SelectContent className='!bg-white w-[175px] !max-h-[401px] !overflow-y-auto'>
         <SelectViewport>
-          {list?.map((wallet, idx) => (
+          {list?.map((item, idx) => (
             <SelectItem
-              value={wallet.value}
+              value={item.value}
               key={idx}
-              className='flex items-center justify-between !whitespace-nowrap !pl-[16px] !pr-[29px] border-b-[1px] border-b-[#C6D0DB]/30'
+              className={joinClasses(
+                "flex items-center justify-between !whitespace-nowrap !pl-[16px] !pr-[29px] border-b-[1px] border-b-[#C6D0DB]/30",
+                "radix-state-checked:!bg-transparent radix-state-checked:!text-[#0067FC]"
+              )}
             >
-              <SelectItemText>{wallet?.name}</SelectItemText>
-              <SelectItemIndicator />
+              <SelectItemText>{item?.name}</SelectItemText>
+              <SelectItemIndicator className='!text-[#0067FC]' />
             </SelectItem>
           ))}
         </SelectViewport>

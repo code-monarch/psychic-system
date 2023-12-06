@@ -50,6 +50,9 @@ importers:
       '@material-tailwind/react':
         specifier: ^2.1.2
         version: 2.1.2(react-dom@18.2.0)(react@18.2.0)
+      moment:
+        specifier: ^2.29.4
+        version: 2.29.4
       next:
         specifier: 14.0.3
         version: 14.0.3(react-dom@18.2.0)(react@18.2.0)

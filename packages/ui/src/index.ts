@@ -32,6 +32,7 @@ export * from "./components/data-display/transac-type-indicator";
 export * from "./components/feedback/loader";
 export * from "./components/feedback/toast";
 export * from "./components/feedback/progress";
+export * from "./components/feedback/table-status-indicator";
 
 // Icons
 export * from "./components/feedback/spinner";

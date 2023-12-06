@@ -10,7 +10,7 @@ const ExitExplorerBtn = () => {
       className='h-full w-fit flex items-center space-x-[8px]'
       onClick={handleExitExplorer}
     >
-      <div className='text-base text-secondaryText font-[500] font-sans'>
+      <div className='text-base text-secondaryText font-[500] font-sans underline'>
         Exit Explorer
       </div>
       <span>

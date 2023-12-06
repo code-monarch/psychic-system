@@ -1,12 +1,31 @@
 import React, { useState } from "react";
 import PageTitle from "@/pattern/common/atoms/page-title";
 import SelectDropDown from "@/pattern/common/organisms/select-dropdown";
-import { TRANSACTION_TYPE } from "@/lib/constants";
-import { SelectIcon, VisuallyHidden } from "@emtech/ui";
+import { TRANSACTION_TYPE, TransactionTypeEnum } from "@/lib/constants";
+import {
+  SelectIcon,
+  VisuallyHidden,
+  ScrollArea,
+  ScrollAreaScrollCorner,
+  ScrollAreaScrollbar,
+  ScrollAreaViewport,
+  Pagination,
+} from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
+import { useGetAllTransactionsQuery } from "@/redux/services/transactions/get-transactions";
+import Thead from "../organisms/t-head";
+import TransactionsTableItem from "../organisms/transactions-table-item";
+import DataFallback from "../atoms/data-fallback";
 
 const TransactionsTemplate = () => {
-  const [transacType, setTransacType] = useState<string>("all");
+  const [transactionType, setTransactionType] = useState<string>("");
+
+  const [page, setPage] = useState<number>(0);
+
+  // API query for all Transactions
+  const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery({
+    transactiontype: TransactionTypeEnum[transactionType],
+  });
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
@@ -15,67 +34,62 @@ const TransactionsTemplate = () => {
         <SelectDropDown
           trigger={<SelectIcon />}
           list={TRANSACTION_TYPE}
-          value={transacType}
-          setValue={setTransacType}
+          value={transactionType}
+          setValue={setTransactionType}
         />
       </div>
       {/* Top Section End */}
 
-      <div className='w-full overflow-x-auto custom_scollbar space-y-[52px]'>
+      <div className='w-full overflow-x-auto space-y-[52px]'>
         {/* Show Loading Icon when isLoading */}
         <VisuallyHidden visible={isLoading && !isError && !isSuccess}>
           <Loading />
         </VisuallyHidden>
 
-        {/* Show Table when isSuccess and query is not empty */}
+        {/* Show Table data when available */}
         <VisuallyHidden
-          visible={isSuccess && requestTable?.requestTable?.length !== 0}
+          visible={isSuccess && data?.transactions?.length !== 0}
         >
-          <table className='w-full'>
-            {/* Table Head */}
-            <thead className='bg-inherit'>
-              <Thead />
-            </thead>
-            {/* Table Head End */}
+          <ScrollArea className='!w-full pb-[28px]'>
+            <ScrollAreaViewport className='w-full'>
+              <table className='w-full'>
+                {/* Table Head */}
+                <thead className='bg-inherit'>
+                  <Thead />
+                </thead>
+                {/* Table Head End */}
 
-            {/* Table Body */}
-            <tbody className='bg-inherit'>
-              {requestTable?.requestTable?.map((item, idx) => (
-                <InstitutionalWalletRequestTableItem
-                  key={idx}
-                  id={item?.id}
-                  requestType={item?.requestType}
-                  entity={item?.entity}
-                  status={item?.status}
-                  timestamp={item?.timestamp}
-                />
-              ))}
-            </tbody>
-            {/* Table Body End */}
-          </table>
+                {/* Table Body */}
+                <tbody className='bg-inherit'>
+                  {data?.transactions?.map((transaction, idx) => (
+                    <TransactionsTableItem
+                      transactionId={transaction?.transaction_id}
+                      transactionType={transaction?.name}
+                      status={transaction?.result}
+                      timestamp={transaction?.consensus_timestamp}
+                    />
+                  ))}
+                </tbody>
+                {/* Table Body End */}
+              </table>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar orientation='horizontal' />
+            <ScrollAreaScrollCorner />
+          </ScrollArea>
           {/* Pagination */}
           <div className='w-full pb-6'>
-            <Pagination
-              totalPages={requestTable?.totalPages}
-              page={page}
-              setPage={setPage}
-            />
+            <Pagination totalPages={12} page={page} setPage={setPage} />
           </div>
         </VisuallyHidden>
 
-        {/* Show Placeholder when table is empty */}
+        {/* Show Placeholder when table data is empty */}
         <VisuallyHidden
           visible={
-            isError || (requestTable?.requestTable?.length === 0 && !isLoading)
+            isError ||
+            (data?.transactions?.length === 0 && !isLoading)
           }
         >
-          <div className='w-full h-[400px] flex justify-center items-center text-primaryText text-3xl font-bold'>
-            <CreateRequestFormWidget
-              description={`No requests for ${requestType} Wallets yet. Create a Request form for interested Institutions to get started,`}
-              icon={<WalletRequestIcon />}
-              actionText='Create an Institutional Request Form'
-            />
-          </div>
+          <DataFallback />
         </VisuallyHidden>
       </div>
     </div>

@@ -55,15 +55,10 @@ const SelectTrigger = ({ className, children }: SelectTriggerProps) => (
 //   Select Trigger End
 
 //   Select Value
-type SelectValueProps = React.ComponentProps<typeof SelectPrimitive.Value> & {
-  className?: string;
-  value: string;
-  placeholder?: string;
-};
+type SelectValueProps = React.ComponentProps<typeof SelectPrimitive.Value>
 
-const SelectValue = ({ className, value, placeholder }: SelectValueProps) => (
+const SelectValue = ({ className, placeholder }: SelectValueProps) => (
   <SelectPrimitive.Value
-    aria-label={value}
     placeholder={placeholder ?? "Select"}
     className={joinClasses("radix-placeholder:text-[#8E8DA1]", className)}
   />
@@ -152,7 +147,7 @@ const SelectItem = ({ children, className, value }: SelectItemProps) => (
       className,
       "flex items-center justify-start space-x-[8px] cursor-pointer outline-none py-[8px] px-4",
       "text-black hover:bg-semSecondary",
-      "radix-state-checked:bg-semSecondary radix-state-checked:text-white radix-state-checked:bg-[#0067FC]",
+      "radix-state-checked:text-white radix-state-checked:bg-[#0067FC]",
       "radix-highlighted:bg-[#F2F7FF] radix-highlighted:text-black"
     )}
     value={value}
@@ -185,7 +180,7 @@ type SelectItemIndicatorProps = React.ComponentProps<
 
 const SelectItemIndicator = ({ className }: SelectItemIndicatorProps) => (
   <SelectPrimitive.ItemIndicator className={joinClasses(className)}>
-    <CheckIcon className='text-black' />
+    <CheckIcon className={joinClasses("text-black", className)} />
   </SelectPrimitive.ItemIndicator>
 );
 //   Select Item indicator End

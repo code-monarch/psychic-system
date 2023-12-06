@@ -5,46 +5,64 @@ export enum Status {
   DENIED,
 }
 
-export enum TransactionType {
-  DEBIT,
-  CREDIT,
+export enum TransactionTypeEnum {
+  ALL = "",
+  TOKENGRANTKYC = "TOKENGRANTKYC",
+  TOKENREVOKEKYC = "TOKENREVOKEKYC",
+  TOKENMINT = "TOKENMINT",
+  TOKENBURN = "TOKENBURN",
+  TOKENDELETION = "TOKENDELETION",
+  TOKENWIPE = "TOKENWIPE",
+  FREEZE = "FREEZE",
+  TOKENUNFREEZE = "TOKENUNFREEZE",
 }
+export enum TransactionNameEnum {
+  ALL = "All Types",
+  TOKENGRANTKYC = "Token KYC Grant",
+  TOKENREVOKEKYC = "Token KYC Revoke",
+  TOKENMINT = "Token Mint",
+  TOKENBURN = "Token Burn",
+  TOKENDELETION = "Token Delete",
+  TOKENWIPE = "Token Wipe",
+  FREEZE = "Token Freeze",
+  TOKENUNFREEZE = "Token Unfreeze",
+};
 
 export const TRANSACTION_TYPE = [
   {
-    name: "All Types",
-    value: "all"
+    name: TransactionNameEnum.ALL,
+    value: TransactionTypeEnum.ALL,
   },
   {
-    name: "Token KYC Grant",
-    value: "kyc-grant",
+    name: TransactionNameEnum.TOKENGRANTKYC,
+    value: TransactionTypeEnum.TOKENGRANTKYC,
   },
   {
-    name: "Token KYC Revoke",
-    value: "kyc-revoke",
+    name: TransactionNameEnum.TOKENREVOKEKYC,
+    value: TransactionTypeEnum.TOKENREVOKEKYC,
   },
   {
-    name: "Token Mint",
-    value: "mint",
+    name: TransactionNameEnum.TOKENMINT,
+    value: TransactionTypeEnum.TOKENMINT,
   },
   {
-    name: "Token Burn",
-    value: "burn",
+    name: TransactionNameEnum.TOKENBURN,
+    value: TransactionTypeEnum.TOKENBURN,
   },
   {
-    name: "Token Delete",
-    value: "delete",
+    name: TransactionNameEnum.TOKENDELETION,
+    value: TransactionTypeEnum.TOKENDELETION,
   },
   {
-    name: "Token Wipe",
-    value: "wipe",
+    name: TransactionNameEnum.TOKENWIPE,
+    value: TransactionTypeEnum.TOKENWIPE,
   },
   {
-    name: "Token Freeze",
-    value: "wipe",
+    name: TransactionNameEnum.FREEZE,
+    value: TransactionTypeEnum.FREEZE,
   },
   {
-    name: "Token Unfreeze",
-    value: "wipe",
+    name: TransactionNameEnum.TOKENUNFREEZE,
+    value: TransactionTypeEnum.TOKENUNFREEZE,
   },
-]
+];
