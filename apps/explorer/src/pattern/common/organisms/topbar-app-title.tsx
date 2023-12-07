@@ -2,7 +2,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import LogoAndSearchBarWidget from "../molecules/logo-and-searchbar-widget";
-import TopbarGoBackIcon from "../atoms/topbar-goBack-icon";
 import TopbarGoBackBtn from "../molecules/topbar-goBack-btn";
 
 const TopbarAppTitle = () => {

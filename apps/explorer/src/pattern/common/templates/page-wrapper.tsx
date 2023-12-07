@@ -12,7 +12,7 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
       )}
     >
       <Topbar />
-      <main className='bg-white w-[95%] min-h-[100vh] flex justify-center my-[120px] pt-[34px] px-[48px] rounded-md'>
+      <main className='bg-white w-[95%] min-h-[100vh] flex justify-center my-[120px] py-[34px] px-[48px] rounded-md'>
         {children}
       </main>
     </div>

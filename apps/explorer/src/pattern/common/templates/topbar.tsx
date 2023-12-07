@@ -26,7 +26,9 @@ const Topbar = () => {
     >
       <div className='w-full flex justify-between items-center'>
         {/* Top bar title */}
-        <TopbarAppTitle />
+        <div className='flex-grow'>
+          <TopbarAppTitle />
+        </div>
         {/* Top bar title End */}
 
         {/* Top Nav links */}

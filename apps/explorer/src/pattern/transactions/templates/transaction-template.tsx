@@ -5,6 +5,7 @@ import { useGetSingleTransactionQuery } from "@/redux/services/transactions/get-
 import { StatusIndicator, VisuallyHidden } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
 import DataFallback from "../atoms/data-fallback";
+import HbarTransfersWidget from "../organisms/hbar-transfers-widget";
 
 interface IProps {
   timeStamp: string;
@@ -40,19 +41,23 @@ const TransactionTemplate: FC<IProps> = ({ timeStamp }) => {
       {/* Show data When available */}
       <VisuallyHidden visible={isSuccess && data?.transactions?.length !== 0}>
         {data?.transactions?.map((transaction, idx) => (
-          <TransactionInfoWidget
-            key={idx}
-            transactionType={transaction?.name}
-            consensusAt={transaction?.consensus_timestamp}
-            transactionHash={transaction?.transaction_hash}
-            block={transaction?.nonce}
-            nodeSubmittedTo={transaction?.node}
-            tokenId={transaction?.entity_id}
-            payerAccount={transaction?.transfers?.[3]?.account}
-            chargedFee={transaction?.charged_tx_fee}
-            maxFee={transaction?.max_fee}
-            validDuration={transaction?.valid_duration_seconds}
-          />
+          <div key={idx} className='w-full space-y-[32px]'>
+            <TransactionInfoWidget
+              transactionType={transaction?.name}
+              consensusAt={transaction?.consensus_timestamp}
+              transactionHash={transaction?.transaction_hash}
+              block={transaction?.nonce}
+              nodeSubmittedTo={transaction?.node}
+              tokenId={transaction?.entity_id}
+              payerAccount={transaction?.transfers?.[3]?.account}
+              chargedFee={transaction?.charged_tx_fee}
+              maxFee={transaction?.max_fee}
+              validDuration={transaction?.valid_duration_seconds}
+            />
+
+            {/* Hbar transfers display widget */}
+            <HbarTransfersWidget transfers={transaction?.transfers} />
+          </div>
         ))}
       </VisuallyHidden>
 
