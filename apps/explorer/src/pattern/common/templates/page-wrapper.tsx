@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import Topbar from "../organisms/topbar";
+import Topbar from "./topbar";
 import { joinClasses } from "@emtech/utils";
 
 // Wrapper for pages that are not authentication pages

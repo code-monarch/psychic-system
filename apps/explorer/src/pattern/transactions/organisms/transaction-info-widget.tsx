@@ -28,7 +28,7 @@ const TransactionInfoWidget: FC<IProps> = ({
   maxFee,
   validDuration,
 }) => {
-  const duration = moment(Number(validDuration)).minutes();
+  const duration = moment.duration(validDuration, "seconds").humanize();
   return (
     <div className='bg-surfaceColor w-full min-h-[352px] h-fit grid grid-cols-2 gap-14 p-[24px] border-[1px] border-[rgba(35, 118, 250, 0.20)] rounded-[8px]'>
       {/* Left Side */}

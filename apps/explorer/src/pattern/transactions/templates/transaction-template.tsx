@@ -39,8 +39,9 @@ const TransactionTemplate: FC<IProps> = ({ timeStamp }) => {
 
       {/* Show data When available */}
       <VisuallyHidden visible={isSuccess && data?.transactions?.length !== 0}>
-        {data?.transactions?.map((transaction) => (
+        {data?.transactions?.map((transaction, idx) => (
           <TransactionInfoWidget
+            key={idx}
             transactionType={transaction?.name}
             consensusAt={transaction?.consensus_timestamp}
             transactionHash={transaction?.transaction_hash}

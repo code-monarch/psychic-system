@@ -47,9 +47,7 @@ const TransactionsTemplate = () => {
         </VisuallyHidden>
 
         {/* Show Table data when available */}
-        <VisuallyHidden
-          visible={isSuccess && data?.transactions?.length !== 0}
-        >
+        <VisuallyHidden visible={isSuccess && data?.transactions?.length !== 0}>
           <ScrollArea className='!w-full pb-[28px]'>
             <ScrollAreaViewport className='w-full'>
               <table className='w-full'>
@@ -63,6 +61,7 @@ const TransactionsTemplate = () => {
                 <tbody className='bg-inherit'>
                   {data?.transactions?.map((transaction, idx) => (
                     <TransactionsTableItem
+                      key={idx}
                       transactionId={transaction?.transaction_id}
                       transactionType={transaction?.name}
                       status={transaction?.result}
@@ -84,10 +83,7 @@ const TransactionsTemplate = () => {
 
         {/* Show Placeholder when table data is empty */}
         <VisuallyHidden
-          visible={
-            isError ||
-            (data?.transactions?.length === 0 && !isLoading)
-          }
+          visible={isError || (data?.transactions?.length === 0 && !isLoading)}
         >
           <DataFallback />
         </VisuallyHidden>

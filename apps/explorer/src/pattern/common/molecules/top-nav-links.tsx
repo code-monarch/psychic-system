@@ -19,8 +19,8 @@ const navLinks = [
 const TopNavLinks = () => {
   return (
     <div className='h-full flex items-center space-x-[40px]'>
-      {navLinks?.map((navLink) => (
-        <NavLink href={`${navLink.href}`}>{`${navLink.link}`}</NavLink>
+      {navLinks?.map((navLink, idx) => (
+        <NavLink key={idx} href={`${navLink.href}`}>{`${navLink.link}`}</NavLink>
       ))}
     </div>
   );

@@ -2,11 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import * as Separator from "@radix-ui/react-separator";
-
 import { joinClasses } from "@emtech/utils";
-import { NotificationIcon, SearchIcon } from "@emtech/icons";
-import TopbarAppTitle from "../molecules/topbar-app-title";
-import SearchInput from "../molecules/search-input";
+import TopbarAppTitle from "../organisms/topbar-app-title";
 import TopNavLinks from "../molecules/top-nav-links";
 import ExitExplorerBtn from "../molecules/exit-explorer-btn";
 
@@ -28,19 +25,9 @@ const Topbar = () => {
       )}
     >
       <div className='w-full flex justify-between items-center'>
-        {/* Brand Logo and search Bar */}
-        <div className='h-[34px] flex items-center space-x-[24px]'>
-          <TopbarAppTitle />
-          {/* Separator */}
-          <Separator.Root
-            className='bg-white data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px'
-            decorative
-            orientation='vertical'
-          />
-          {/* Separator End */}
-          <SearchInput />
-        </div>
-        {/* Brand Logo and search Bar End */}
+        {/* Top bar title */}
+        <TopbarAppTitle />
+        {/* Top bar title End */}
 
         {/* Top Nav links */}
         <div className='flex items-center h-[22px] w-fit space-x-[40px]'>
