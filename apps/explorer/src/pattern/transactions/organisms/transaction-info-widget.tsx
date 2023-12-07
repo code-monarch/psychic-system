@@ -36,22 +36,22 @@ const TransactionInfoWidget: FC<IProps> = ({
         {/* Type */}
         <TransactionDetailField
           label='TYPE'
-          value={<TransactionType transactionType={transactionType} />}
+          value={<TransactionType transactionType={transactionType ?? "None"} />}
         />
         {/* Consensus At */}
-        <TransactionDetailField label='Consensus at' value={consensusAt} />
+        <TransactionDetailField label='Consensus at' value={consensusAt ?? "None"} />
         {/* Transaction Hash */}
         <TransactionDetailField
           label='Transaction Hash'
-          value={transactionHash}
+          value={transactionHash ?? "None"}
         />
         {/* Block */}
-        <TransactionDetailField label='Block' value={block} />
+        <TransactionDetailField label='Block' value={block ?? "None"} />
 
         {/* Node submitted To */}
         <TransactionDetailField
           label='Node Submitted To'
-          value={nodeSubmittedTo}
+          value={nodeSubmittedTo ?? "None"}
         />
       </div>
       {/* Left Side End */}
@@ -59,15 +59,15 @@ const TransactionInfoWidget: FC<IProps> = ({
       {/* Right Side */}
       <div className='col-span-2 md:col-span-1 flex flex-col divide-y divide-[rgba(35,118,250,0.20)]'>
         {/* Token ID */}
-        <TransactionDetailField label='Token ID' value={tokenId} />
+        <TransactionDetailField label='Token ID' value={tokenId ?? "None"} />
         {/* Payer Account */}
-        <TransactionDetailField label='Payer Account' value={payerAccount} />
+        <TransactionDetailField label='Payer Account' value={payerAccount ?? "None"} />
         {/* Charged Fee */}
-        <TransactionDetailField label='Charged Fee' value={chargedFee} />
+        <TransactionDetailField label='Charged Fee' value={chargedFee ?? "None"} />
         {/* Max Fee */}
-        <TransactionDetailField label='Max Fee' value={maxFee} />
+        <TransactionDetailField label='Max Fee' value={maxFee ?? "None"} />
         {/* Valid Duration */}
-        <TransactionDetailField label='Valid Duration' value={duration} />
+        <TransactionDetailField label='Valid Duration' value={duration ?? "None"} />
       </div>
       {/* Right Side End */}
     </div>

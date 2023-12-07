@@ -15,7 +15,7 @@ interface INavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const style = {
-  active: `!text-secondaryText`,
+  active: `!text-white !font-[800]`,
 };
 
 function NavLink({
@@ -39,7 +39,7 @@ function NavLink({
         href={href}
         className={joinClasses(
           "placeholder:flex items-center justify-center",
-          "text-base text-white font-sans font-medium",
+          "text-base text-white font-sans font-[350]",
           linkClassName
         )}
         ref={innerRef}

@@ -8,7 +8,10 @@ export interface IResponse {
     balance: {
       balance: number;
       timestamp: string;
-      tokens: [];
+      tokens: {
+        token_id: string;
+        balance: number;
+      }[];
     };
     created_timestamp: string;
     decline_reward: boolean;
@@ -33,10 +36,10 @@ export interface IResponse {
   };
 }
 
-export const getAllFungibleTokensApiSlice = baseApiSlice.injectEndpoints({
+export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // Gets all tokens
-    getAllFungibleTokens: builder.query<IResponse, void>({
+    // Gets all accounts
+    getAllAccounts: builder.query<IResponse, void>({
       query: () => ({
         url: `accounts?limit=15&order=desc`,
         method: "GET",
@@ -49,8 +52,6 @@ export const getAllFungibleTokensApiSlice = baseApiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useLazyGetAllFungibleTokensQuery,
-  useGetAllFungibleTokensQuery,
-} = getAllFungibleTokensApiSlice;
+export const { useLazyGetAllAccountsQuery, useGetAllAccountsQuery } =
+  getAllAccountsApiSlice;
 

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import PageTitle from "@/pattern/common/atoms/page-title";
-import SelectDropDown from "@/pattern/common/organisms/select-dropdown";
-import { TRANSACTION_TYPE, TransactionTypeEnum } from "@/lib/constants";
 import {
-  SelectIcon,
   VisuallyHidden,
   ScrollArea,
   ScrollAreaScrollCorner,
@@ -12,31 +9,24 @@ import {
   Pagination,
 } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
-import { useGetAllTransactionsQuery } from "@/redux/services/transactions/get-transactions";
 import Thead from "../organisms/t-head";
-import TransactionsTableItem from "../organisms/transactions-table-item";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
+import AccountsTableItem from "../organisms/accounts-table-item";
+import { useGetAllAccountsQuery } from "@/redux/services/accounts/get-all-accounts";
+import moment from "moment";
 
-const TransactionsTemplate = () => {
+const AccountsTemplate = () => {
   const [transactionType, setTransactionType] = useState<string>("");
 
   const [page, setPage] = useState<number>(0);
 
   // API query for all Transactions
-  const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery({
-    transactiontype: TransactionTypeEnum[transactionType],
-  });
+  const { data, isLoading, isSuccess, isError } = useGetAllAccountsQuery();
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
       <div className='w-full flex items-center justify-between'>
-        <PageTitle title='Transactions' />
-        <SelectDropDown
-          trigger={<SelectIcon />}
-          list={TRANSACTION_TYPE}
-          value={transactionType}
-          setValue={setTransactionType}
-        />
+        <PageTitle title='Accounts' />
       </div>
       {/* Top Section End */}
 
@@ -47,7 +37,7 @@ const TransactionsTemplate = () => {
         </VisuallyHidden>
 
         {/* Show Table data when available */}
-        <VisuallyHidden visible={isSuccess && data?.transactions?.length !== 0}>
+        <VisuallyHidden visible={isSuccess && data?.accounts?.length !== 0}>
           <ScrollArea className='!w-full pb-[28px]'>
             <ScrollAreaViewport className='w-full'>
               <table className='w-full'>
@@ -59,13 +49,13 @@ const TransactionsTemplate = () => {
 
                 {/* Table Body */}
                 <tbody className='bg-inherit'>
-                  {data?.transactions?.map((transaction, idx) => (
-                    <TransactionsTableItem
+                  {data?.accounts?.map((account, idx) => (
+                    <AccountsTableItem
                       key={idx}
-                      transactionId={transaction?.transaction_id}
-                      transactionType={transaction?.name}
-                      status={transaction?.result}
-                      timestamp={transaction?.consensus_timestamp}
+                      account={account?.account}
+                      expiry={account?.expiry_timestamp}
+                      tokens={account?.balance?.tokens?.[0]?.balance}
+                      balance={account?.balance?.balance}
                     />
                   ))}
                 </tbody>
@@ -77,13 +67,13 @@ const TransactionsTemplate = () => {
           </ScrollArea>
           {/* Pagination */}
           <div className='w-full pb-6'>
-            <Pagination totalPages={12} page={page} setPage={setPage} />
+            {/* <Pagination totalPages={12} page={page} setPage={setPage} /> */}
           </div>
         </VisuallyHidden>
 
         {/* Show Placeholder when table data is empty */}
         <VisuallyHidden
-          visible={isError || (data?.transactions?.length === 0 && !isLoading)}
+          visible={isError || (data?.accounts?.length === 0 && !isLoading)}
         >
           <DataFallback />
         </VisuallyHidden>
@@ -92,4 +82,4 @@ const TransactionsTemplate = () => {
   );
 };
 
-export default TransactionsTemplate;
+export default AccountsTemplate;

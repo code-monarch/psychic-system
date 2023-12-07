@@ -8,7 +8,7 @@ export interface ITransactionsResponse {
   };
 }
 
-interface IPayload {
+export interface ITransactionsPayload {
   transactiontype?:
     | "TOKENGRANTKYC"
     | "TOKENREVOKEKYC"
@@ -23,7 +23,7 @@ interface IPayload {
 export const getAllTransactionsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Gets all transactions
-    getAllTransactions: builder.query<ITransactionsResponse, Partial<IPayload>>(
+    getAllTransactions: builder.query<ITransactionsResponse, Partial<ITransactionsPayload>>(
       {
         query: ({ transactiontype }) => ({
           url: `transactions?limit=10&order=desc${

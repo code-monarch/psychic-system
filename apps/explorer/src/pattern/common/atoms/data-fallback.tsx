@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const DataFallback = () => {
   return (
@@ -6,6 +6,6 @@ const DataFallback = () => {
       No Records Found
     </div>
   );
-}
+};
 
-export default DataFallback
+export default DataFallback;

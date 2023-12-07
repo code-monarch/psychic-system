@@ -4,8 +4,8 @@ import PageTitle from "@/pattern/common/atoms/page-title";
 import { useGetSingleTransactionQuery } from "@/redux/services/transactions/get-single-transaction";
 import { StatusIndicator, VisuallyHidden } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
-import DataFallback from "../atoms/data-fallback";
 import HbarTransfersWidget from "../organisms/hbar-transfers-widget";
+import DataFallback from "@/pattern/common/atoms/data-fallback";
 
 interface IProps {
   timeStamp: string;
