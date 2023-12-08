@@ -23,9 +23,15 @@ const TransactionsTemplate = () => {
   const [page, setPage] = useState<number>(0);
 
   // API query for all Transactions
-  const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery({
-    transactiontype: TransactionTypeEnum[transactionType],
-  });
+  const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery(
+    {
+      transactiontype: TransactionTypeEnum[transactionType],
+    },
+    {
+      pollingInterval: 3000,
+      refetchOnReconnect: true,
+    }
+  );
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
@@ -76,9 +82,9 @@ const TransactionsTemplate = () => {
             <ScrollAreaScrollCorner />
           </ScrollArea>
           {/* Pagination */}
-          <div className='w-full pb-6'>
+          {/* <div className='w-full pb-6'>
             <Pagination totalPages={12} page={page} setPage={setPage} />
-          </div>
+          </div> */}
         </VisuallyHidden>
 
         {/* Show Placeholder when table data is empty */}

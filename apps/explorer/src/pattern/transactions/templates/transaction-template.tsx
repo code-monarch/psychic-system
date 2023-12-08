@@ -13,9 +13,15 @@ interface IProps {
 
 const TransactionTemplate: FC<IProps> = ({ timeStamp }) => {
   // API query for single Transaction
-  const { data, isLoading, isSuccess, isError } = useGetSingleTransactionQuery({
-    timestamp: timeStamp,
-  });
+  const { data, isLoading, isSuccess, isError } = useGetSingleTransactionQuery(
+    {
+      timestamp: timeStamp,
+    },
+    {
+      pollingInterval: 3000,
+      refetchOnReconnect: true,
+    }
+  );
 
   const status = data?.transactions?.map((transaction) => {
     return transaction?.result;

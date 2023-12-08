@@ -59,7 +59,7 @@ export interface IResponse {
   token_id: string;
   total_supply: string;
   treasury_account_id: string;
-  type: "NON_FUNGIBLE_UNIQUE";
+  type: "FUNGIBLE_COMMON";
   wipe_key: {
     _type: string;
     key: string;

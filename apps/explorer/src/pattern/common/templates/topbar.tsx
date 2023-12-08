@@ -26,13 +26,13 @@ const Topbar = () => {
     >
       <div className='w-full flex justify-between items-center'>
         {/* Top bar title */}
-        <div className='flex-grow'>
+        <div className='flex-grow max-w-[300px]'>
           <TopbarAppTitle />
         </div>
         {/* Top bar title End */}
 
         {/* Top Nav links */}
-        <div className='flex items-center h-[22px] w-fit space-x-[40px]'>
+        <div className='flex items-center h-[22px] w-fit min-w-[500px] space-x-[40px]'>
           <TopNavLinks />
           {/* Separator */}
           <Separator.Root

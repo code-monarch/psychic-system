@@ -31,9 +31,12 @@ const AccountTemplate: FC<IProps> = ({ accountId }) => {
   >(null);
 
   // API query for single Transaction
-  const { data, isLoading, isSuccess, isError } = useGetSingleAccountQuery({
-    account_id: accountId,
-  });
+  const { data, isLoading, isSuccess, isError } = useGetSingleAccountQuery(
+    {
+      account_id: accountId,
+    },
+    { pollingInterval: 3000, refetchOnReconnect: true }
+  );
 
   // API query for transactions of a particular account
   const {

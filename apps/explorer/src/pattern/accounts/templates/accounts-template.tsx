@@ -13,7 +13,7 @@ import Thead from "../organisms/t-head";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
 import AccountsTableItem from "../organisms/accounts-table-item";
 import { useGetAllAccountsQuery } from "@/redux/services/accounts/get-all-accounts";
-import moment from "moment";
+// import moment from "moment";
 
 const AccountsTemplate = () => {
   const [transactionType, setTransactionType] = useState<string>("");
@@ -21,7 +21,10 @@ const AccountsTemplate = () => {
   const [page, setPage] = useState<number>(0);
 
   // API query for all Transactions
-  const { data, isLoading, isSuccess, isError } = useGetAllAccountsQuery();
+  const { data, isLoading, isSuccess, isError } = useGetAllAccountsQuery(null, {
+    pollingInterval: 3000,
+    refetchOnReconnect: true,
+  });
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
