@@ -18,6 +18,7 @@ export interface ITransactionsPayload {
     | "TOKENWIPE"
     | "FREEZE"
     | "TOKENUNFREEZE";
+  timestamp?: string;
 }
 
 export const getAllTransactionsApiSlice = baseApiSlice.injectEndpoints({
@@ -27,16 +28,16 @@ export const getAllTransactionsApiSlice = baseApiSlice.injectEndpoints({
       ITransactionsResponse,
       Partial<ITransactionsPayload>
     >({
-      query: ({ transactiontype }) => ({
+      query: ({ transactiontype, timestamp }) => ({
         url: `transactions?limit=10&order=desc${
-          transactiontype ? `&transactiontype=${transactiontype}` : ""
-        }`,
+          timestamp ? `&timestamp=lt:${timestamp}` : ""
+        }&${transactiontype ? `&transactiontype=${transactiontype}` : ""}`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       }),
-      transformResponse: (response: ITransactionsResponse, meta, arg) => {
+      transformResponse: (response: ITransactionsResponse) => {
         // Use map to iterate through the response
         if (response?.transactions?.length !== 0) {
           response?.transactions?.map((transaction) => {

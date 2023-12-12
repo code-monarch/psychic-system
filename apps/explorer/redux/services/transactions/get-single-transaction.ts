@@ -45,9 +45,7 @@ export const getSingleTransactionApiSlice = baseApiSlice.injectEndpoints({
         },
       }),
       transformResponse: (
-        response: Record<"transactions", ITransactionResponse[]>,
-        meta,
-        arg
+        response: Record<"transactions", ITransactionResponse[]>
       ) => {
         // Use map to iterate through the response
         if (response?.transactions?.length !== 0) {

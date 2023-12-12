@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageTitle from "@/pattern/common/atoms/page-title";
 import SelectDropDown from "@/pattern/common/organisms/select-dropdown";
 import { TRANSACTION_TYPE, TransactionTypeEnum } from "@/lib/constants";
@@ -15,23 +15,47 @@ import { useGetAllTransactionsQuery } from "@/redux/services/transactions/get-tr
 import Thead from "../organisms/t-head";
 import TransactionsTableItem from "../organisms/transactions-table-item";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
+import { useSelector, useDispatch } from "react-redux";
 import { Pagination } from "@/lib/hooks/usePagination";
+import { GlobalState, setPaginationClicked } from "@/redux/features/global-state";
 
 const TransactionsTemplate = () => {
-  const [transactionType, setTransactionType] = useState<string>("");
-
+  const dispatch = useDispatch();
   const [page, setPage] = useState<number>(1);
+
+  const [lastTransactionId, setLastTransactionId] = useState<string | null>(
+    null
+  );
+
+  // Get Store State from redux store
+  const { isPaginationClicked } = useSelector(GlobalState);
+
+  const [transactionType, setTransactionType] = useState<string>("");
 
   // API query for all Transactions
   const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery(
     {
       transactiontype: TransactionTypeEnum[transactionType],
+      timestamp: lastTransactionId,
     },
     {
       pollingInterval: 3000,
       refetchOnReconnect: true,
     }
   );
+
+  // Get the last transaction Id from the API response when pagination is changed
+  useEffect(() => {
+    if (isPaginationClicked) {
+      setLastTransactionId(
+        data?.transactions?.[data?.transactions.length - 1]
+          ?.valid_start_timestamp
+      );
+    }
+    return () => {
+      dispatch(setPaginationClicked(false));
+    };
+  }, [data?.transactions, dispatch, isPaginationClicked]);
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
@@ -81,11 +105,11 @@ const TransactionsTemplate = () => {
             <ScrollAreaScrollbar orientation='horizontal' />
             <ScrollAreaScrollCorner />
           </ScrollArea>
+        </VisuallyHidden>
           {/* Pagination */}
           <div className='w-full pb-6'>
             <Pagination page={page} setPage={setPage} />
           </div>
-        </VisuallyHidden>
 
         {/* Show Placeholder when table data is empty */}
         <VisuallyHidden

@@ -16,7 +16,7 @@ export const Pagination: FC<IProps> = ({ page, setPage }) => {
 
   // Function to show the next set of pagination
   const showNext = () => {
-    if (page + 5 > totalPages) {
+    if (page > 4 && page + 5 > totalPages) {
       setTotalPages(totalPages + 1);
       setPage(page + 1);
       dispatch(setPaginationClicked(true));
@@ -28,20 +28,28 @@ export const Pagination: FC<IProps> = ({ page, setPage }) => {
 
   // Function to show the previous set of pagination
   const showPrevious = () => {
-    if (page > 1) {
+    if (page >= 1 && page < 5) {
       setPage(page - 1);
+      setTotalPages(5);
       dispatch(setPaginationClicked(true));
+    } else if (page > 1 && page > 5) {
+      setPage(page - 1);
+      setTotalPages(page);
     }
   };
 
-  const handleButtonClick = (index) => {
-    if (index + 5 > totalPages) {
+  const handleButtonClick = (page) => {
+    if (page > 4 && page + 1 > totalPages) {
       setTotalPages(totalPages + 1);
-      setPage(index);
+      setPage(page);
+      dispatch(setPaginationClicked(true));
+    } else if (page >= 1 && page < 5) {
+      setTotalPages(5);
+      setPage(page);
       dispatch(setPaginationClicked(true));
     } else {
       setTotalPages(totalPages - 1);
-      setPage(index);
+      setPage(page);
       dispatch(setPaginationClicked(true));
     }
   };
@@ -52,6 +60,7 @@ export const Pagination: FC<IProps> = ({ page, setPage }) => {
       variant: page === index ? "outlined" : "text",
       color: page === index ? "blue" : "black",
       size: "sm",
+      className: "outline-none",
       onClick: () => handleButtonClick(index),
     } as any);
 
