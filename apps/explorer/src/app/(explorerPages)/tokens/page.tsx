@@ -4,7 +4,7 @@ import TokensTemplate from "@/pattern/tokens/templates/tokens-template";
 
 const TokensPage = () => {
   return (
-    <div>
+    <div className="w-full">
       <TokensTemplate />
     </div>
   );

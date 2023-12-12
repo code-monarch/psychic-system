@@ -9,18 +9,18 @@ import {
   ScrollAreaScrollCorner,
   ScrollAreaScrollbar,
   ScrollAreaViewport,
-  Pagination,
 } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
 import { useGetAllTransactionsQuery } from "@/redux/services/transactions/get-transactions";
 import Thead from "../organisms/t-head";
 import TransactionsTableItem from "../organisms/transactions-table-item";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
+import { Pagination } from "@/lib/hooks/usePagination";
 
 const TransactionsTemplate = () => {
   const [transactionType, setTransactionType] = useState<string>("");
 
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
   // API query for all Transactions
   const { data, isLoading, isSuccess, isError } = useGetAllTransactionsQuery(
@@ -82,9 +82,9 @@ const TransactionsTemplate = () => {
             <ScrollAreaScrollCorner />
           </ScrollArea>
           {/* Pagination */}
-          {/* <div className='w-full pb-6'>
-            <Pagination totalPages={12} page={page} setPage={setPage} />
-          </div> */}
+          <div className='w-full pb-6'>
+            <Pagination page={page} setPage={setPage} />
+          </div>
         </VisuallyHidden>
 
         {/* Show Placeholder when table data is empty */}

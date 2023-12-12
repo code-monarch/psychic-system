@@ -15,12 +15,21 @@ export interface IAllFungibleTokensResponse {
   };
 }
 
+interface IAllFungibleTokensPayload{
+  lastTokenId?: string
+}
+
 export const getAllFungibleTokensApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Gets all tokens
-    getAllFungibleTokens: builder.query<IAllFungibleTokensResponse, void>({
-      query: () => ({
-        url: `tokens?limit=10&order=desc&type=FUNGIBLE_COMMON`,
+    getAllFungibleTokens: builder.query<
+      IAllFungibleTokensResponse,
+      IAllFungibleTokensPayload
+    >({
+      query: ({ lastTokenId }) => ({
+        url: `tokens?limit=10${
+          lastTokenId ? `&token.id=lt:${lastTokenId}` : ""
+        }&order=desc&type=FUNGIBLE_COMMON`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",

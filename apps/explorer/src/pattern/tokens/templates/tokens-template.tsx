@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTitle from "@/pattern/common/atoms/page-title";
 import {
   VisuallyHidden,
@@ -6,30 +6,54 @@ import {
   ScrollAreaScrollCorner,
   ScrollAreaScrollbar,
   ScrollAreaViewport,
-  Pagination,
 } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
 import Thead from "../organisms/t-head";
 import TokensTableItem from "../organisms/tokens-table-item";
 import { useGetAllFungibleTokensQuery } from "@/redux/services/tokens/get-all-fungible-tokens";
+import { Pagination } from "@/lib/hooks/usePagination";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  GlobalState,
+  setPaginationClicked,
+} from "@/redux/features/global-state";
 
 const TokensTemplate = () => {
-  const [page, setPage] = useState<number>(0);
+  const dispatch = useDispatch();
+  const [page, setPage] = useState<number>(1);
+
+  const [lastTokenId, setLastTokenId] = useState<string | null>(null);
+
+  // Get Store State from redux store
+  const { isPaginationClicked } = useSelector(GlobalState);
+  console.log("IS PAGINATION CLICKED: ", isPaginationClicked);
 
   // API query for all Fungible tokens
   const { data, isLoading, isSuccess, isError } = useGetAllFungibleTokensQuery(
-    null,
+    { lastTokenId: lastTokenId },
     {
       pollingInterval: 3000,
       refetchOnReconnect: true,
     }
   );
 
+  // Get the last token Id from the API response when pagination is changed
+  useEffect(() => {
+    if (isPaginationClicked) {
+      setLastTokenId(data?.tokens[data?.tokens.length - 1]?.token_id);
+    }
+    return () => {
+      dispatch(setPaginationClicked(false));
+    };
+  }, [data?.tokens, dispatch, isPaginationClicked]);
+
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
-      <PageTitle title='Fungible Tokens' />
+      <div className='w-full flex items-center justify-start'>
+        <PageTitle title='Fungible Tokens' />
+      </div>
       {/* Top Section End */}
 
       <div className='w-full overflow-x-auto space-y-[52px]'>
@@ -44,13 +68,13 @@ const TokensTemplate = () => {
             <ScrollAreaViewport className='w-full'>
               <table className='w-full'>
                 {/* Table Head */}
-                <thead className='bg-inherit'>
+                <thead className='w-full bg-inherit'>
                   <Thead />
                 </thead>
                 {/* Table Head End */}
 
                 {/* Table Body */}
-                <tbody className='bg-inherit'>
+                <tbody className='w-full bg-inherit'>
                   {data?.tokens?.map((token, idx) => (
                     <TokensTableItem
                       key={idx}
@@ -65,12 +89,11 @@ const TokensTemplate = () => {
             <ScrollAreaScrollbar orientation='horizontal' />
             <ScrollAreaScrollCorner />
           </ScrollArea>
-
-          {/* Pagination */}
-          {/* <div className='w-full pb-6'>
-            <Pagination totalPages={12} page={page} setPage={setPage} />
-          </div> */}
         </VisuallyHidden>
+        {/* Pagination */}
+        <div className='w-full pb-6'>
+          <Pagination page={page} setPage={setPage} />
+        </div>
 
         {/* Show Placeholder when table data is empty */}
         <VisuallyHidden

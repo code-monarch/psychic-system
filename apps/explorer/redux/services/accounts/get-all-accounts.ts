@@ -36,12 +36,18 @@ export interface IResponse {
   };
 }
 
+interface IPayload {
+  lastAccountId?: string;
+}
+
 export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Gets all accounts
-    getAllAccounts: builder.query<IResponse, void>({
-      query: () => ({
-        url: `accounts?limit=15&order=desc`,
+    getAllAccounts: builder.query<IResponse, IPayload>({
+      query: ({ lastAccountId }) => ({
+        url: `accounts?limit=15&order=desc${
+          lastAccountId ? `&account.id=lt:${lastAccountId}` : ""
+        }`,
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,4 +60,3 @@ export const getAllAccountsApiSlice = baseApiSlice.injectEndpoints({
 
 export const { useLazyGetAllAccountsQuery, useGetAllAccountsQuery } =
   getAllAccountsApiSlice;
-

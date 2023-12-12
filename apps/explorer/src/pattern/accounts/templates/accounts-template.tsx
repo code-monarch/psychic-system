@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageTitle from "@/pattern/common/atoms/page-title";
 import {
   VisuallyHidden,
@@ -6,25 +6,46 @@ import {
   ScrollAreaScrollCorner,
   ScrollAreaScrollbar,
   ScrollAreaViewport,
-  Pagination,
 } from "@emtech/ui";
 import Loading from "@/app/(explorerPages)/transactions/loading";
 import Thead from "../organisms/t-head";
 import DataFallback from "@/pattern/common/atoms/data-fallback";
 import AccountsTableItem from "../organisms/accounts-table-item";
 import { useGetAllAccountsQuery } from "@/redux/services/accounts/get-all-accounts";
-// import moment from "moment";
+import { useSelector, useDispatch } from "react-redux";
+import { Pagination } from "@/lib/hooks/usePagination";
+import {
+  GlobalState,
+  setPaginationClicked,
+} from "@/redux/features/global-state";
 
 const AccountsTemplate = () => {
-  const [transactionType, setTransactionType] = useState<string>("");
+  const dispatch = useDispatch();
+  const [page, setPage] = useState<number>(1);
 
-  const [page, setPage] = useState<number>(0);
+  const [lastAccountId, setLastAccountId] = useState<string | null>(null);
+
+  // Get Store State from redux store
+  const { isPaginationClicked } = useSelector(GlobalState);
 
   // API query for all Transactions
-  const { data, isLoading, isSuccess, isError } = useGetAllAccountsQuery(null, {
-    pollingInterval: 3000,
-    refetchOnReconnect: true,
-  });
+  const { data, isLoading, isSuccess, isError } = useGetAllAccountsQuery(
+    { lastAccountId: lastAccountId },
+    {
+      pollingInterval: 3000,
+      refetchOnReconnect: true,
+    }
+  );
+
+  // Get the last account Id from the API response when pagination is changed
+  useEffect(() => {
+    if (isPaginationClicked) {
+      setLastAccountId(data?.accounts?.[data?.accounts.length - 1]?.account);
+    }
+    return () => {
+      dispatch(setPaginationClicked(false));
+    };
+  }, [data?.accounts, dispatch, isPaginationClicked]);
   return (
     <div className='w-full flex flex-col space-y-[42px]'>
       {/* Top Section */}
@@ -68,11 +89,11 @@ const AccountsTemplate = () => {
             <ScrollAreaScrollbar orientation='horizontal' />
             <ScrollAreaScrollCorner />
           </ScrollArea>
-          {/* Pagination */}
-          <div className='w-full pb-6'>
-            {/* <Pagination totalPages={12} page={page} setPage={setPage} /> */}
-          </div>
         </VisuallyHidden>
+        {/* Pagination */}
+        <div className='w-full pb-6'>
+          <Pagination page={page} setPage={setPage} />
+        </div>
 
         {/* Show Placeholder when table data is empty */}
         <VisuallyHidden
