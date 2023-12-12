@@ -11,7 +11,7 @@ export interface ITransactionResponse {
   node: string;
   nonce: number;
   parent_consensus_timestamp: string | number | null;
-  result: "SUCCESS" | "FAILED" | "ONGOING";
+  result: "SUCCESS" | "TOKEN_NOT_ASSOCIATED_TO_ACCOUNT" | "FAILED";
   scheduled: false;
   staking_reward_transfers: [];
   token_transfers: [];
@@ -44,7 +44,23 @@ export const getSingleTransactionApiSlice = baseApiSlice.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
-      //   providesTags: ["REQUEST-DETAILS"],
+      transformResponse: (
+        response: Record<"transactions", ITransactionResponse[]>,
+        meta,
+        arg
+      ) => {
+        // Use map to iterate through the response
+        if (response?.transactions?.length !== 0) {
+          response?.transactions?.map((transaction) => {
+            // Check if the 'result' field does not match "SUCCESS"
+            if (transaction?.result?.toLowerCase() !== "success") {
+              // If it does not match, we will assign the 'result' field to "FAILED"
+              transaction.result = "FAILED";
+            }
+          });
+        }
+        return response;
+      },
     }),
   }),
 });

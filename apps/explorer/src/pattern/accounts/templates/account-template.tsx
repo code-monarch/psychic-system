@@ -35,7 +35,7 @@ const AccountTemplate: FC<IProps> = ({ accountId }) => {
     {
       account_id: accountId,
     },
-    { pollingInterval: 3000, refetchOnReconnect: true }
+    { refetchOnReconnect: true }
   );
 
   // API query for transactions of a particular account

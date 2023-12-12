@@ -23,20 +23,33 @@ export interface ITransactionsPayload {
 export const getAllTransactionsApiSlice = baseApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Gets all transactions
-    getAllTransactions: builder.query<ITransactionsResponse, Partial<ITransactionsPayload>>(
-      {
-        query: ({ transactiontype }) => ({
-          url: `transactions?limit=10&order=desc${
-            transactiontype ? `&transactiontype=${transactiontype}` : ""
-          }`,
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }),
-        //   providesTags: ["REQUEST-DETAILS"],
-      }
-    ),
+    getAllTransactions: builder.query<
+      ITransactionsResponse,
+      Partial<ITransactionsPayload>
+    >({
+      query: ({ transactiontype }) => ({
+        url: `transactions?limit=10&order=desc${
+          transactiontype ? `&transactiontype=${transactiontype}` : ""
+        }`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      transformResponse: (response: ITransactionsResponse, meta, arg) => {
+        // Use map to iterate through the response
+        if (response?.transactions?.length !== 0) {
+          response?.transactions?.map((transaction) => {
+            // Check if the 'result' field does not match "SUCCESS"
+            if (transaction?.result?.toLowerCase() !== "success") {
+              // If it does not match, we will assign the 'result' field to "FAILED"
+              transaction.result = "FAILED";
+            }
+          });
+        }
+        return response;
+      },
+    }),
   }),
 });
 

@@ -18,7 +18,6 @@ const TransactionTemplate: FC<IProps> = ({ timeStamp }) => {
       timestamp: timeStamp,
     },
     {
-      pollingInterval: 3000,
       refetchOnReconnect: true,
     }
   );
@@ -34,7 +33,7 @@ const TransactionTemplate: FC<IProps> = ({ timeStamp }) => {
           <div className='flex items-center divide-x divide-inputBorder'>
             <span className='text-black text-[1.5rem] pr-6'>{timeStamp}</span>
             <span className='pl-6'>
-              <StatusIndicator status={status?.[0] ?? "Pending"} />
+              {status?.[0] ? <StatusIndicator status={status?.[0]} /> : null}
             </span>
           </div>
         }

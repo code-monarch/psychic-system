@@ -6,7 +6,7 @@ import WidgetHeader from "../molecules/widget-header";
 import { VisuallyHidden } from "@emtech/ui";
 
 const styles = {
-  fallback: `w-full flex justify-center items-center pt-[120px] text-black text-lg`,
+  fallback: `w-full flex justify-center items-center text-black text-lg pt-[120px] pb-[30px]`,
 };
 
 interface IProps {
@@ -29,7 +29,7 @@ const TokenBalancesWidget: FC<IProps> = ({ tokenId }) => {
     <div className='flex flex-col space-y-[50px]'>
       <WidgetHeader header='Balances' />
 
-      <div className='bg-surfaceColor w-full min-h-[433px] h-fit p-[24px] space-y-[39px] border-[1px] border-[rgba(35, 118, 250, 0.20)] rounded-[8px]'>
+      <div className='bg-surfaceColor w-full h-fit p-[24px] space-y-[39px] border-[1px] border-[rgba(35, 118, 250, 0.20)] rounded-[8px]'>
         <table className='w-full'>
           {/* Table Head */}
           <thead className='bg-inherit'>
@@ -43,7 +43,7 @@ const TokenBalancesWidget: FC<IProps> = ({ tokenId }) => {
               {data?.balances?.map((balance, idx) => (
                 <TokensBalancesTableItem
                   key={idx}
-                  accountId={balance?.account_id}
+                  accountId={balance?.account}
                   balance={balance?.balance}
                 />
               ))}

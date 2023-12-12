@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const router = useRouter();
+  const {push} = useRouter();
 
   useEffect(() => {
-    router.push("/dashboard");
-  }, [router]);
+    push("/dashboard");
+  }, [push]);
   return <></>;
 }

@@ -33,7 +33,6 @@ const SelectDropDown: FC<IProps> = ({
   trigger,
   hideSelectValue = false,
 }) => {
-  console.log("SELECT VALUE: ", value);
   return (
     <Select value={value} onValueChange={setValue}>
       {/* Trigger */}

@@ -56,7 +56,7 @@ const TransactionsTemplate = () => {
         <VisuallyHidden visible={isSuccess && data?.transactions?.length !== 0}>
           <ScrollArea className='!w-full pb-[28px]'>
             <ScrollAreaViewport className='w-full'>
-              <table className='w-full'>
+              <table className='w-full h-full'>
                 {/* Table Head */}
                 <thead className='bg-inherit'>
                   <Thead />

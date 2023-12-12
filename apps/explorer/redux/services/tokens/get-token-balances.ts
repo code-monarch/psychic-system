@@ -3,7 +3,7 @@ import { baseApiSlice } from "../../api/base.api-slice";
 export interface ITokenBalancesResponse {
   timestamp: string | number;
   balances: {
-    account_id: string;
+    account: string;
     balance: string;
   }[];
   links: {

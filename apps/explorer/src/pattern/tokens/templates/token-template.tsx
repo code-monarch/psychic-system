@@ -21,7 +21,6 @@ const TokenTemplate: FC<IProps> = ({ tokenId }) => {
         token_id: tokenId,
       },
       {
-        pollingInterval: 3000,
         refetchOnReconnect: true,
       }
     );
